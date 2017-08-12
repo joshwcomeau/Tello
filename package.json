@@ -31,6 +31,7 @@
     "postcss-flexbugs-fixes": "3.2.0",
     "postcss-loader": "2.0.6",
     "promise": "8.0.1",
+    "prop-types": "next",
     "react": "next",
     "react-dev-utils": "^3.1.0",
     "react-dom": "next",
@@ -46,7 +47,8 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js --env=jsdom"
+    "test": "node scripts/test.js --env=jsdom",
+    "flow": "flow"
   },
   "jest": {
     "collectCoverageFrom": [
