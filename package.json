@@ -3,8 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1",
+    "emotion": "^7.0.13",
+    "react": "next",
+    "react-dom": "next",
     "react-scripts": "1.0.11"
   },
   "scripts": {
