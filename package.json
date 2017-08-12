@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "emotion": "^7.0.13",
+    "emotion": "5.2",
     "react": "next",
     "react-dom": "next",
     "react-scripts": "1.0.11"
