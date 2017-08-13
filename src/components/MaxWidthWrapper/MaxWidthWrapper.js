@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'emotion/react';
 
 import { BREAKPOINTS, UNITS_IN_PX, MAX_WIDTH } from '../../constants';

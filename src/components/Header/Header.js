@@ -7,18 +7,6 @@ import Logo from '../Logo';
 import MaxWidthWrapper from '../MaxWidthWrapper';
 
 
-const HeaderElem = styled.header`
-  position: relative;
-  height: ${UNITS_IN_PX[8]};
-  background: linear-gradient(${COLORS.pink.primary}, ${COLORS.purple.primary});
-`;
-
-const LogoWrapper = styled.div`
-  position: absolute;
-  left: ${UNITS_IN_PX[2]};
-  bottom: 0;
-`
-
 const Header = () => {
   return (
     <HeaderElem>
@@ -30,5 +18,17 @@ const Header = () => {
     </HeaderElem>
   );
 };
+
+const HeaderElem = styled.header`
+  position: relative;
+  height: ${UNITS_IN_PX[8]};
+  background: linear-gradient(${COLORS.pink.primary}, ${COLORS.purple.primary});
+`;
+
+const LogoWrapper = styled.div`
+  position: absolute;
+  left: ${UNITS_IN_PX[2]};
+  bottom: 0;
+`;
 
 export default Header;

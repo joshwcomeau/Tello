@@ -3,12 +3,6 @@
   box-shadow: 1px 0px 3px rgba(0,0,0,0.9); }
 .css-Row-4f7v5a { display: -webkit-box; display: -moz-box; display: -ms-flexbox; display: -webkit-flex; display: flex;
   height: var(--css-Row-4f7v5a-0); }
-.css-ShowImage-jr387y { display: block;
-  width: var(--css-ShowImage-jr387y-0);
-  height: var(--css-ShowImage-jr387y-1);
-  border: 2px solid var(--css-ShowImage-jr387y-2);
-  object-fit: cover;
-  object-position: top center; }
 .css-ShowDetails-snzwkc { display: block;
   padding: var(--css-ShowDetails-snzwkc-0);
   width: var(--css-ShowDetails-snzwkc-1);
@@ -17,11 +11,6 @@
   font-weight: bold;
   margin-top: -5px;
   margin-bottom: 3px; }
-.css-TypeTag-ovjmh4 { display: inline-block;
-  font-size: 10px;
-  color: var(--css-TypeTag-ovjmh4-0);
-  background: var(--css-TypeTag-ovjmh4-1);
-  padding: 4px 6px; }
 .css-EpisodeWrapper-d20ufr { position: relative;
   -webkit-flex: 1;
   -ms-flex: 1;
@@ -31,13 +20,25 @@
   overflow: hidden;
   white-space: nowrap;
   padding-left: var(--css-EpisodeWrapper-d20ufr-2); }
-.css-EpisodeGradient-1prrlh5 { position: absolute;
+.css-EpisodeGradient-n19iq1 { position: absolute;
   z-index: 10;
   top: 0;
   right: 0;
   bottom: 0;
   width: 50px;
   pointer-events: none;
-  background: -webkit-linear-gradient(left, rgba(255,255,255,0), rgba(255,255,255,0.8));
-  background: -moz-linear-gradient(left, rgba(255,255,255,0), rgba(255,255,255,0.8));
-  background: linear-gradient(left, rgba(255,255,255,0), rgba(255,255,255,0.8)); }
+  background: -webkit-linear-gradient(
+    to right,
+    rgba(255,255,255,0),
+    rgba(255,255,255,0.8)
+  );
+  background: -moz-linear-gradient(
+    to right,
+    rgba(255,255,255,0),
+    rgba(255,255,255,0.8)
+  );
+  background: linear-gradient(
+    to right,
+    rgba(255,255,255,0),
+    rgba(255,255,255,0.8)
+  ); }

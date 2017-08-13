@@ -1,9 +1,35 @@
-import React, { Component } from "react";
+import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'emotion/react';
-import format from 'date-fns/format';
 
 import { COLORS, HALF_UNIT_PX, UNITS_IN_PX } from '../../constants';
+
+import { formatDate, getEpisodeNumString } from './Episode.utils';
+
+
+const propTypes = {
+  height: PropTypes.number.isRequired,
+  season: PropTypes.number.isRequired,
+  number: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+  airDate: PropTypes.string.isRequired,
+};
+
+const Episode = ({ height, season, number, name, airDate }) => (
+  <EpisodeElem height={height}>
+    <EpisodeHeader>
+      <EpisodeAirDate>
+        {formatDate(airDate)}
+      </EpisodeAirDate>
+
+      <EpisodeNum>
+        {getEpisodeNumString(season, number)}
+      </EpisodeNum>
+    </EpisodeHeader>
+
+    <EpisodeName>{name}</EpisodeName>
+  </EpisodeElem>
+);
 
 const EpisodeElem = styled.div`
   display: inline-flex;
@@ -40,26 +66,6 @@ const EpisodeName = styled.h3`
   margin-bottom: -3px;
 `;
 
-
-const getEpisodeNumString = (season, episode) => (
-  `S${String(season).padStart(2, '0')}E${String(episode).padStart(2, '0')}`
-);
-
-const formatDate = date => format(console.log(date) || date, 'MMM Do, YYYY');
-
-const Episode = ({ height, season, number, name, airDate }) => (
-  <EpisodeElem height={height}>
-    <EpisodeHeader>
-      <EpisodeAirDate>
-        {formatDate(airDate)}
-      </EpisodeAirDate>
-
-      <EpisodeNum>
-        {getEpisodeNumString(season, number)}
-      </EpisodeNum>
-    </EpisodeHeader>
-    <EpisodeName>{name}</EpisodeName>
-  </EpisodeElem>
-);
+Episode.propTypes = propTypes;
 
 export default Episode;

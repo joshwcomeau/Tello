@@ -13,6 +13,8 @@ import {
 } from '../../constants';
 
 import Episode from '../Episode';
+import Tag from '../Tag';
+import { getTagBackgroundColor } from './BacklogRow.utils';
 
 
 const propTypes = {
@@ -30,6 +32,40 @@ const propTypes = {
   }),
 };
 
+class BacklogRow extends Component {
+  static propTypes = propTypes
+
+  render() {
+    const { show: { type, name, episodes } } = this.props;
+
+    return (
+      <Wrapper>
+        <Row>
+          <ShowDetails>
+            <ShowName>{name}</ShowName>
+            <Tag color={getTagBackgroundColor(type)}>
+              {type}
+            </Tag>
+          </ShowDetails>
+
+          <EpisodeWrapper>
+            <EpisodeGradient />
+            {episodes.slice(0, 4).map(episode => (
+              <Episode
+                height={ROW_HEIGHT - UNIT}
+                season={episode.season}
+                number={episode.number}
+                name={episode.name}
+                airDate={episode.airdate}
+              />
+            ))}
+          </EpisodeWrapper>
+        </Row>
+      </Wrapper>
+    );
+  }
+}
+
 const Wrapper = styled.div`
   color: ${COLORS.black};
   background: ${COLORS.white};
@@ -39,15 +75,6 @@ const Wrapper = styled.div`
 const Row = styled.div`
   display: flex;
   height: ${ROW_HEIGHT_PX};
-`;
-
-const ShowImage = styled.img`
-  display: block;
-  width: ${ROW_HEIGHT_PX};
-  height: ${ROW_HEIGHT_PX};
-  border: 2px solid ${COLORS.white};
-  object-fit: cover;
-  object-position: top center;
 `;
 
 const ShowDetails = styled.div`
@@ -62,21 +89,6 @@ const ShowName = styled.h4`
   font-weight: bold;
   margin-top: -5px;
   margin-bottom: 3px;
-`;
-
-const getTagBackgroundColor = tag => {
-  switch (tag) {
-    case 'Reality': return COLORS.blue.dark;
-    default: return COLORS.gray.dark;
-  }
-}
-
-const TypeTag = styled.span`
-  display: inline-block;
-  font-size: 10px;
-  color: ${COLORS.white};
-  background: ${props => getTagBackgroundColor(props.children)};
-  padding: 4px 6px;
 `;
 
 const EpisodeWrapper = styled.div`
@@ -97,39 +109,11 @@ const EpisodeGradient = styled.div`
   bottom: 0;
   width: 50px;
   pointer-events: none;
-  background: linear-gradient(left, rgba(255,255,255,0), rgba(255,255,255,0.8));
+  background: linear-gradient(
+    to right,
+    rgba(255,255,255,0),
+    rgba(255,255,255,0.8)
+  );
 `;
-
-class BacklogRow extends Component {
-  static propTypes = propTypes
-
-  render() {
-    const { show: { image, name, episodes } } = this.props;
-
-    return (
-      <Wrapper>
-        <Row>
-          <ShowDetails>
-            <ShowName>{name}</ShowName>
-            <TypeTag>Reality</TypeTag>
-          </ShowDetails>
-
-          <EpisodeWrapper>
-            <EpisodeGradient />
-            {episodes.slice(0, 4).map(episode => (
-              <Episode
-                height={ROW_HEIGHT - UNIT}
-                season={episode.season}
-                number={episode.number}
-                name={episode.name}
-                airDate={episode.airdate}
-              />
-            ))}
-          </EpisodeWrapper>
-        </Row>
-      </Wrapper>
-    );
-  }
-}
 
 export default BacklogRow;

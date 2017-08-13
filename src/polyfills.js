@@ -1,3 +1,5 @@
+/* eslint-disable no-extend-native */
+
 if (!String.prototype.padStart) {
   String.prototype.padStart = function padStart(targetLength,padString) {
     targetLength = targetLength>>0;

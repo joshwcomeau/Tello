@@ -1,4 +1,3 @@
-import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'emotion/react';
 
@@ -8,7 +7,7 @@ const propTypes = {
 };
 
 const defaultProps = {
-  size: 2,
+  size: 45,
 };
 
 const Spacer = styled.div`

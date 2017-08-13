@@ -1,6 +1,5 @@
-import styled, { css, fontFace, keyframes, injectGlobal } from 'emotion/react';
+import { fontFace, injectGlobal } from 'emotion/react';
 
-import { colors } from './constants';
 
 injectGlobal`
   html, body {

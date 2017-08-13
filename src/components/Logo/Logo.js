@@ -3,6 +3,17 @@ import styled from 'emotion/react';
 
 import { ROW_HEIGHT_PX, UNITS_IN_PX, COLORS } from '../../constants';
 
+
+const Logo = () => {
+  return (
+    <LogoContainer>
+      <LogoElem>
+        Aviato
+      </LogoElem>
+    </LogoContainer>
+  );
+};
+
 /*
   NOTE: hardcoding these colours, so that it mimics the gradient it sits
   in front of. Because the text isn't 100% of the height, we can't simply
@@ -26,16 +37,6 @@ const LogoElem = styled.h1`
 const LogoContainer = styled.div`
   display: inline-block;
   background: ${COLORS.gray.veryDark};
-`
-
-const Logo = () => {
-  return (
-    <LogoContainer>
-      <LogoElem>
-        Aviato
-      </LogoElem>
-    </LogoContainer>
-  );
-};
+`;
 
 export default Logo;
