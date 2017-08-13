@@ -6,4 +6,8 @@ export const colors = {
     primary: '#D500F9',
     dark: '#AA00FF',
   },
+  gray: {
+    dark: '#1F1D1D',
+  },
+  white: '#FFFFFF',
 };

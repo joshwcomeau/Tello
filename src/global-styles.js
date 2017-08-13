@@ -1,5 +1,7 @@
 import styled, { css, fontFace, keyframes, injectGlobal } from 'emotion/react';
 
+import { colors } from './constants';
+
 injectGlobal`
   html, body {
     font-family:
@@ -19,7 +21,7 @@ injectGlobal`
       "Segoe UI Emoji",
       "Segoe UI Symbol";
     color: #FFF;
-    background: #333;
+    background: #1f1d1d;
     width: 100%;
     height: 100%;
     padding: 0;
@@ -47,17 +49,8 @@ injectGlobal`
 `
 
 fontFace`
-  font-family: 'Montserrat';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Montserrat Regular'), local('Montserrat-Regular'), url(https://fonts.gstatic.com/s/montserrat/v10/zhcz-_WihjSQC0oHJ9TCYAzyDMXhdD8sAj6OAJTFsBI.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
-`;
-
-fontFace`
-  font-family: 'Montserrat';
+  font-family: 'Raleway';
   font-style: normal;
   font-weight: 700;
-  src: local('Montserrat Bold'), local('Montserrat-Bold'), url(https://fonts.gstatic.com/s/montserrat/v10/IQHow_FEYlDC4Gzy_m8fcmaVI6zN22yiurzcBKxPjFE.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
-`;
+  src: local('Raleway Bold'), local('Raleway-Bold'), url(https://fonts.gstatic.com/s/raleway/v11/JbtMzqLaYbbbCL9X6EvaIwzyDMXhdD8sAj6OAJTFsBI.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;`;
