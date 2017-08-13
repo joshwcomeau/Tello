@@ -11,6 +11,7 @@ export const COLORS = {
     dark: '#2962FF',
   },
   gray: {
+    light: '#EEEEEE',
     dark: '#424242',
     veryDark: '#1F1D1D',
   },
@@ -46,6 +47,9 @@ export const UNITS_IN_PX = [
   UNIT * 7 + 'px',
   UNIT * 8 + 'px',
 ];
+
+export const HALF_UNIT_PX = Math.round(UNIT / 2) + 'px';
+
 
 
 export const MAX_WIDTH = {

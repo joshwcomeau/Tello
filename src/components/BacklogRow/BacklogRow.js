@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
 import styled from 'emotion/react';
 
-import { COLORS, UNIT, UNITS_IN_PX } from '../../constants';
+import { COLORS, HALF_UNIT_PX, UNITS_IN_PX } from '../../constants';
+
+import Episode from '../Episode';
 
 
-const ROW_HEIGHT = 60;
-const INNER_ROW_HEIGHT = ROW_HEIGHT - (UNIT * 2);
+const ROW_HEIGHT = 75;
 
 const propTypes = {
   show: PropTypes.shape({
@@ -64,17 +64,24 @@ const getTagBackgroundColor = tag => {
 const TypeTag = styled.span`
   display: inline-block;
   border-radius: 20px;
-  font-size: 12px;
+  font-size: 10px;
   color: ${COLORS.white};
   background: ${props => getTagBackgroundColor(props.children)};
   padding: 2px 6px;
+`;
+
+const EpisodeWrapper = styled.div`
+  flex: 1;
+  padding: ${HALF_UNIT_PX};
+  overflow: hidden;
+  white-space: nowrap;
 `
 
 class BacklogRow extends Component {
   static propTypes = propTypes
 
   render() {
-    const { show: { image, name } } = this.props;
+    const { show: { image, name, episodes } } = this.props;
 
     return (
       <Wrapper>
@@ -83,6 +90,17 @@ class BacklogRow extends Component {
             <ShowName>{name}</ShowName>
             <TypeTag>Reality</TypeTag>
           </ShowDetails>
+
+          <EpisodeWrapper>
+            {episodes.slice(0, 4).map(episode => (
+              <Episode
+                height={ROW_HEIGHT}
+                season={episode.season}
+                number={episode.number}
+                name={episode.name}
+              />
+            ))}
+          </EpisodeWrapper>
         </Row>
       </Wrapper>
     );
