@@ -1,2 +1,21 @@
-.css-Wrapper-11ku87l { background: var(--css-Wrapper-11ku87l-0);
+.css-Wrapper-y2a67w { color: var(--css-Wrapper-y2a67w-0);
+  background: var(--css-Wrapper-y2a67w-1);
   box-shadow: 1px 0px 3px rgba(0,0,0,0.9); }
+.css-Row-ov1ktg { display: -webkit-box; display: -moz-box; display: -ms-flexbox; display: -webkit-flex; display: flex; }
+.css-ShowImage-jr387y { display: block;
+  width: var(--css-ShowImage-jr387y-0);
+  height: var(--css-ShowImage-jr387y-1);
+  border: 2px solid var(--css-ShowImage-jr387y-2);
+  object-fit: cover;
+  object-position: top center; }
+.css-ShowDetails-1sqt56j { display: block;
+  padding: var(--css-ShowDetails-1sqt56j-0);
+  width: 250px; }
+.css-ShowName-1j25l4g { font-size: 22px;
+  font-weight: bold; }
+.css-TypeTag-uxfdo3 { display: inline-block;
+  border-radius: 20px;
+  font-size: 12px;
+  color: var(--css-TypeTag-uxfdo3-0);
+  background: var(--css-TypeTag-uxfdo3-1);
+  padding: 2px 6px; }

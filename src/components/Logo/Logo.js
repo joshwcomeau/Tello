@@ -22,7 +22,7 @@ const LogoElem = styled.h1`
 
 const LogoContainer = styled.div`
   display: inline-block;
-  background: ${COLORS.gray.dark};
+  background: ${COLORS.gray.veryDark};
   padding: 12px;
 `
 

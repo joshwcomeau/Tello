@@ -6,10 +6,16 @@ export const COLORS = {
     primary: '#D500F9',
     dark: '#AA00FF',
   },
+  blue: {
+    primary: '#2979FF',
+    dark: '#2962FF',
+  },
   gray: {
-    dark: '#1F1D1D',
+    dark: '#424242',
+    veryDark: '#1F1D1D',
   },
   white: '#FFFFFF',
+  black: '#000000',
 };
 
 // Media queries
@@ -39,7 +45,7 @@ export const UNITS_IN_PX = [
   UNIT * 6 + 'px',
   UNIT * 7 + 'px',
   UNIT * 8 + 'px',
-]
+];
 
 
 export const MAX_WIDTH = {
