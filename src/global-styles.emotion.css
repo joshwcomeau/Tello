@@ -39,6 +39,14 @@ html, body, div, span,
   	font-size: 100%;
   	vertical-align: baseline;
   }
+::-moz-selection { /* Code for Firefox */
+    color: #FFF;
+    background: #AA00FF;
+  }
+::selection {
+    color: #FFF;
+    background: #AA00FF;
+  }
 @font-face {font-family: 'Raleway';
   font-style: normal;
   font-weight: 700;

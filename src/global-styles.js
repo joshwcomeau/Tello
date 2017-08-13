@@ -46,6 +46,16 @@ injectGlobal`
   	font-size: 100%;
   	vertical-align: baseline;
   }
+
+  ::-moz-selection { /* Code for Firefox */
+    color: #FFF;
+    background: #AA00FF;
+  }
+
+  ::selection {
+    color: #FFF;
+    background: #AA00FF;
+  }
 `
 
 fontFace`
