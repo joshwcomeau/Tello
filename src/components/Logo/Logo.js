@@ -20,6 +20,9 @@ const Logo = () => {
   use the color vars. TODO: Use some sort of color lib to determine this,
   based on a % mix between the two colors
 */
+const gradientPink = '#e600a4';
+const gradientPurple = '#d800ea';
+
 const LogoElem = styled.h1`
   font-size: 64px;
   font-weight: bold;
@@ -29,7 +32,7 @@ const LogoElem = styled.h1`
   text-align: center;
   letter-spacing: -1px;
   font-family: 'Raleway';
-  background: linear-gradient(#e600a3, #d800ea);
+  background: linear-gradient(${gradientPink}, ${gradientPurple});
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 `;

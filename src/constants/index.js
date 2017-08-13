@@ -17,8 +17,15 @@ export const COLORS = {
     primary: '#2979FF',
     dark: '#2962FF',
   },
+  green: {
+    primary: '#00E676',
+  },
+  lime: {
+    primary: '#C6FF00',
+  },
   gray: {
     light: '#EEEEEE',
+    primary: '#777777',
     dark: '#424242',
     veryDark: '#1F1D1D',
   },

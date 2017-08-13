@@ -11,6 +11,7 @@ import {
   ROW_HEIGHT,
   ROW_HEIGHT_PX
 } from '../../constants';
+import getDomainColor from '../../helpers/domain-colors';
 
 import Episode from '../Episode';
 import Tag from '../Tag';
@@ -38,20 +39,25 @@ class BacklogRow extends Component {
   render() {
     const { show: { type, name, episodes } } = this.props;
 
+    const {baseColor} = getDomainColor(type);
+
     return (
       <Wrapper>
         <Row>
           <ShowDetails>
             <ShowName>{name}</ShowName>
-            <Tag color={getTagBackgroundColor(type)}>
-              {type}
-            </Tag>
+            <TagWrapper>
+              <Tag color={baseColor}>
+                {type}
+              </Tag>
+            </TagWrapper>
           </ShowDetails>
 
           <EpisodeWrapper>
             <EpisodeGradient />
             {episodes.slice(0, 4).map(episode => (
               <Episode
+                showType={type}
                 height={ROW_HEIGHT - UNIT}
                 season={episode.season}
                 number={episode.number}
@@ -79,7 +85,8 @@ const Row = styled.div`
 
 const ShowDetails = styled.div`
   display: block;
-  padding: ${UNITS_IN_PX[1]};
+  position: relative;
+  padding: ${HALF_UNIT_PX};
   width: ${UNITS_IN_PX[15]};
   box-shadow: 0px 1px 6px rgba(0,0,0,0.4);
 `;
@@ -87,9 +94,15 @@ const ShowDetails = styled.div`
 const ShowName = styled.h4`
   font-size: 22px;
   font-weight: bold;
-  margin-top: -5px;
+  margin-top: -3px;
   margin-bottom: 3px;
 `;
+
+const TagWrapper = styled.div`
+  position: absolute;
+  left: ${HALF_UNIT_PX};
+  bottom: ${HALF_UNIT_PX};
+`
 
 const EpisodeWrapper = styled.div`
   position: relative;

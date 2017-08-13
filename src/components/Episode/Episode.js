@@ -3,33 +3,39 @@ import PropTypes from 'prop-types';
 import styled from 'emotion/react';
 
 import { COLORS, HALF_UNIT_PX, UNITS_IN_PX } from '../../constants';
+import getDomainColor from '../../helpers/domain-colors';
 
 import { formatDate, getEpisodeNumString } from './Episode.utils';
 
 
 const propTypes = {
   height: PropTypes.number.isRequired,
+  showType: PropTypes.string.isRequired,
   season: PropTypes.number.isRequired,
   number: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   airDate: PropTypes.string.isRequired,
 };
 
-const Episode = ({ height, season, number, name, airDate }) => (
-  <EpisodeElem height={height}>
-    <EpisodeHeader>
-      <EpisodeAirDate>
-        {formatDate(airDate)}
-      </EpisodeAirDate>
+const Episode = ({ height, showType, season, number, name, airDate }) => {
+  const {baseColor, highlightColor} = getDomainColor(showType);
 
-      <EpisodeNum>
-        {getEpisodeNumString(season, number)}
-      </EpisodeNum>
-    </EpisodeHeader>
+  return (
+    <EpisodeElem height={height} color1={baseColor} color2={highlightColor}>
+      <EpisodeHeader>
+        <EpisodeAirDate>
+          {formatDate(airDate)}
+        </EpisodeAirDate>
 
-    <EpisodeName>{name}</EpisodeName>
-  </EpisodeElem>
-);
+        <EpisodeNum>
+          {getEpisodeNumString(season, number)}
+        </EpisodeNum>
+      </EpisodeHeader>
+
+      <EpisodeName>{name}</EpisodeName>
+    </EpisodeElem>
+  );
+};
 
 const EpisodeElem = styled.div`
   display: inline-flex;
@@ -40,7 +46,10 @@ const EpisodeElem = styled.div`
   max-width: ${UNITS_IN_PX[22]};
   margin-right: ${HALF_UNIT_PX};
   padding: ${HALF_UNIT_PX};
-  background: linear-gradient(${COLORS.blue.primary}, ${COLORS.deepPurple.primary});
+  background: linear-gradient(
+    ${props => props.color1},
+    ${props => props.color2}
+  );
   color: ${COLORS.white};
 `;
 

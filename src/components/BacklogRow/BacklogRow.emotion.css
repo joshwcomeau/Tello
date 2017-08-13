@@ -3,14 +3,18 @@
   box-shadow: 1px 0px 3px rgba(0,0,0,0.9); }
 .css-Row-4f7v5a { display: -webkit-box; display: -moz-box; display: -ms-flexbox; display: -webkit-flex; display: flex;
   height: var(--css-Row-4f7v5a-0); }
-.css-ShowDetails-snzwkc { display: block;
-  padding: var(--css-ShowDetails-snzwkc-0);
-  width: var(--css-ShowDetails-snzwkc-1);
+.css-ShowDetails-fbwpey { display: block;
+  position: relative;
+  padding: var(--css-ShowDetails-fbwpey-0);
+  width: var(--css-ShowDetails-fbwpey-1);
   box-shadow: 0px 1px 6px rgba(0,0,0,0.4); }
-.css-ShowName-1ch88k6 { font-size: 22px;
+.css-ShowName-o92433 { font-size: 22px;
   font-weight: bold;
-  margin-top: -5px;
+  margin-top: -3px;
   margin-bottom: 3px; }
+.css-TagWrapper-1o9a21d { position: absolute;
+  left: var(--css-TagWrapper-1o9a21d-0);
+  bottom: var(--css-TagWrapper-1o9a21d-1); }
 .css-EpisodeWrapper-d20ufr { position: relative;
   -webkit-flex: 1;
   -ms-flex: 1;
