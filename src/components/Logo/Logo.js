@@ -11,7 +11,7 @@ import { ROW_HEIGHT_PX, UNITS_IN_PX, COLORS } from '../../constants';
 */
 const LogoElem = styled.h1`
   font-size: 64px;
-  font-weight: normal;
+  font-weight: bold;
   height: ${ROW_HEIGHT_PX};
   line-height: ${ROW_HEIGHT_PX};
   width: ${UNITS_IN_PX[15]};
@@ -32,7 +32,7 @@ const Logo = () => {
   return (
     <LogoContainer>
       <LogoElem>
-        Tevion
+        Aviato
       </LogoElem>
     </LogoContainer>
   );

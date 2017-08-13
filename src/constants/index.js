@@ -1,3 +1,6 @@
+import { range } from '../utils';
+
+
 export const COLORS = {
   pink: {
     light: '#FF4081',
@@ -40,29 +43,7 @@ export const BREAKPOINTS = {
 // Sizes
 export const UNIT = 15;
 
-export const UNITS_IN_PX = [
-  null,
-  UNIT * 1 + 'px',
-  UNIT * 2 + 'px',
-  UNIT * 3 + 'px',
-  UNIT * 4 + 'px',
-  UNIT * 5 + 'px',
-  UNIT * 6 + 'px',
-  UNIT * 7 + 'px',
-  UNIT * 8 + 'px',
-  UNIT * 9 + 'px',
-  UNIT * 10 + 'px',
-  UNIT * 11 + 'px',
-  UNIT * 12 + 'px',
-  UNIT * 13 + 'px',
-  UNIT * 14 + 'px',
-  UNIT * 15 + 'px',
-  UNIT * 16 + 'px',
-  UNIT * 17 + 'px',
-  UNIT * 18 + 'px',
-  UNIT * 19 + 'px',
-  UNIT * 20 + 'px',
-];
+export const UNITS_IN_PX = range(30).map(i => UNIT * i + 'px');
 
 export const HALF_UNIT = Math.round(UNIT / 2);
 export const HALF_UNIT_PX = HALF_UNIT + 'px';
