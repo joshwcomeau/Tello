@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'emotion/react';
 
-import { COLORS } from '../../constants';
+import { ROW_HEIGHT_PX, UNITS_IN_PX, COLORS } from '../../constants';
 
 /*
   NOTE: hardcoding these colours, so that it mimics the gradient it sits
@@ -12,10 +12,13 @@ import { COLORS } from '../../constants';
 const LogoElem = styled.h1`
   font-size: 64px;
   font-weight: normal;
-  line-height: 50px;
+  height: ${ROW_HEIGHT_PX};
+  line-height: ${ROW_HEIGHT_PX};
+  width: ${UNITS_IN_PX[15]};
+  text-align: center;
   letter-spacing: -1px;
   font-family: 'Raleway';
-  background: linear-gradient(#e90092, #da00df);
+  background: linear-gradient(#e600a3, #d800ea);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 `;
@@ -23,7 +26,6 @@ const LogoElem = styled.h1`
 const LogoContainer = styled.div`
   display: inline-block;
   background: ${COLORS.gray.veryDark};
-  padding: 12px;
 `
 
 const Logo = () => {

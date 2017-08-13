@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'emotion/react';
 
-import { UNITS_IN_PX } from '../../constants';
-
 
 const propTypes = {
   size: PropTypes.number.isRequired,
@@ -15,7 +13,7 @@ const defaultProps = {
 
 const Spacer = styled.div`
   position: relative;
-  height: ${props => UNITS_IN_PX[props.size]};
+  height: ${props => props.size + 'px'};
 `;
 
 Spacer.propTypes = propTypes;

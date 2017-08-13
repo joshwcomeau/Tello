@@ -1,10 +1,14 @@
 export const COLORS = {
   pink: {
-    primary: '#F50057',
+    light: '#FF4081',
+    primary: '#ee0079',
   },
   purple: {
     primary: '#D500F9',
     dark: '#AA00FF',
+  },
+  deepPurple: {
+    primary: '#651FFF',
   },
   blue: {
     primary: '#2979FF',
@@ -46,11 +50,25 @@ export const UNITS_IN_PX = [
   UNIT * 6 + 'px',
   UNIT * 7 + 'px',
   UNIT * 8 + 'px',
+  UNIT * 9 + 'px',
+  UNIT * 10 + 'px',
+  UNIT * 11 + 'px',
+  UNIT * 12 + 'px',
+  UNIT * 13 + 'px',
+  UNIT * 14 + 'px',
+  UNIT * 15 + 'px',
+  UNIT * 16 + 'px',
+  UNIT * 17 + 'px',
+  UNIT * 18 + 'px',
+  UNIT * 19 + 'px',
+  UNIT * 20 + 'px',
 ];
 
-export const HALF_UNIT_PX = Math.round(UNIT / 2) + 'px';
+export const HALF_UNIT = Math.round(UNIT / 2);
+export const HALF_UNIT_PX = HALF_UNIT + 'px';
 
-
+export const ROW_HEIGHT = UNIT * 5;
+export const ROW_HEIGHT_PX = ROW_HEIGHT + 'px';
 
 export const MAX_WIDTH = {
   sm: '100%',

@@ -1,12 +1,12 @@
-.css-EpisodeElem-1dxn35a { display: inline-block;
-  height: var(--css-EpisodeElem-1dxn35a-0);
-  margin-right: var(--css-EpisodeElem-1dxn35a-1);
-  padding: var(--css-EpisodeElem-1dxn35a-2);
-  background: var(--css-EpisodeElem-1dxn35a-3);
-  color: var(--css-EpisodeElem-1dxn35a-4);
-  border-radius: 4px; }
-.css-EpisodeNum-1wputeo { font-size: 12px;
+.css-EpisodeHeader-uf1ume { display: -webkit-box; display: -moz-box; display: -ms-flexbox; display: -webkit-flex; display: flex;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  -webkit-box-pack: justify;
+  justify-content: space-between; }
+.css-EpisodeNum-y4amv7 { font-size: 11px;
   text-transform: uppercase;
-  color: var(--css-EpisodeNum-1wputeo-0); }
-.css-EpisodeName-ac8vxe { font-size: 15px;
-  color: var(--css-EpisodeName-ac8vxe-0); }
+  opacity: 0.6; }
+.css-EpisodeName-1tdzlck { font-size: 15px;
+  line-height: 25px; }
+.css-EpisodeAirDate-12hjx5u { font-size: 11px;
+  font-weight: normal; }

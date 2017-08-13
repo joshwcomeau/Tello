@@ -1,13 +1,15 @@
-.css-LogoElem-1nvqs55 { font-size: 64px;
+.css-LogoElem-13vrv1h { font-size: 64px;
   font-weight: normal;
-  line-height: 50px;
+  height: var(--css-LogoElem-13vrv1h-0);
+  line-height: var(--css-LogoElem-13vrv1h-1);
+  width: var(--css-LogoElem-13vrv1h-2);
+  text-align: center;
   letter-spacing: -1px;
   font-family: 'Raleway';
-  background: -webkit-linear-gradient(#e90092, #da00df);
-  background: -moz-linear-gradient(#e90092, #da00df);
-  background: linear-gradient(#e90092, #da00df);
+  background: -webkit-linear-gradient(#e600a3, #d800ea);
+  background: -moz-linear-gradient(#e600a3, #d800ea);
+  background: linear-gradient(#e600a3, #d800ea);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent; }
-.css-LogoContainer-iuvftq { display: inline-block;
-  background: var(--css-LogoContainer-iuvftq-0);
-  padding: 12px; }
+.css-LogoContainer-7ksb77 { display: inline-block;
+  background: var(--css-LogoContainer-7ksb77-0); }

@@ -9,7 +9,7 @@ import MaxWidthWrapper from '../MaxWidthWrapper';
 
 const HeaderElem = styled.header`
   position: relative;
-  height: 100px;
+  height: ${UNITS_IN_PX[8]};
   background: linear-gradient(${COLORS.pink.primary}, ${COLORS.purple.primary});
 `;
 

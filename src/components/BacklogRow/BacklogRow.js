@@ -2,12 +2,18 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'emotion/react';
 
-import { COLORS, HALF_UNIT_PX, UNITS_IN_PX } from '../../constants';
+import {
+  COLORS,
+  UNIT,
+  HALF_UNIT,
+  HALF_UNIT_PX,
+  UNITS_IN_PX,
+  ROW_HEIGHT,
+  ROW_HEIGHT_PX
+} from '../../constants';
 
 import Episode from '../Episode';
 
-
-const ROW_HEIGHT = 75;
 
 const propTypes = {
   show: PropTypes.shape({
@@ -28,6 +34,7 @@ const Wrapper = styled.div`
   color: ${COLORS.black};
   background: ${COLORS.white};
   box-shadow: 1px 0px 3px rgba(0,0,0,0.9);
+  height: ${ROW_HEIGHT_PX};
 `;
 
 const Row = styled.div`
@@ -36,8 +43,8 @@ const Row = styled.div`
 
 const ShowImage = styled.img`
   display: block;
-  width: ${ROW_HEIGHT + 'px'};
-  height: ${ROW_HEIGHT + 'px'};
+  width: ${ROW_HEIGHT_PX};
+  height: ${ROW_HEIGHT_PX};
   border: 2px solid ${COLORS.white};
   object-fit: cover;
   object-position: top center;
@@ -46,7 +53,8 @@ const ShowImage = styled.img`
 const ShowDetails = styled.div`
   display: block;
   padding: ${UNITS_IN_PX[1]};
-  width: 250px;
+  width: ${UNITS_IN_PX[15]};
+  box-shadow: 0px 1px 6px rgba(0,0,0,0.4);
 `;
 
 const ShowName = styled.h4`
@@ -63,7 +71,6 @@ const getTagBackgroundColor = tag => {
 
 const TypeTag = styled.span`
   display: inline-block;
-  border-radius: 20px;
   font-size: 10px;
   color: ${COLORS.white};
   background: ${props => getTagBackgroundColor(props.children)};
@@ -75,6 +82,7 @@ const EpisodeWrapper = styled.div`
   padding: ${HALF_UNIT_PX};
   overflow: hidden;
   white-space: nowrap;
+  padding-left: ${HALF_UNIT + 2 + 'px'};
 `
 
 class BacklogRow extends Component {
@@ -94,10 +102,11 @@ class BacklogRow extends Component {
           <EpisodeWrapper>
             {episodes.slice(0, 4).map(episode => (
               <Episode
-                height={ROW_HEIGHT}
+                height={ROW_HEIGHT - UNIT}
                 season={episode.season}
                 number={episode.number}
                 name={episode.name}
+                airDate={episode.airdate}
               />
             ))}
           </EpisodeWrapper>
