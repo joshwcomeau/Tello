@@ -1,20 +1,13 @@
-.css-LogoElem-yv48j5 { font-size: 64px;
+.css-LogoElem-1nvqs55 { font-size: 64px;
   font-weight: normal;
   line-height: 50px;
   letter-spacing: -1px;
   font-family: 'Raleway';
-  /*
-    NOTE: hardcoding these colours, so that it mimics the gradient it sits
-    in front of. Because the text isn't 100% of the height, we can't simply
-    use the color vars. TODO: Use some sort of color lib to determine this,
-    based on a % mix between the two colors
-  */
   background: -webkit-linear-gradient(#e90092, #da00df);
   background: -moz-linear-gradient(#e90092, #da00df);
   background: linear-gradient(#e90092, #da00df);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent; }
-.css-LogoContainer-4ad39v { display: inline-block;
-  background: var(--css-LogoContainer-4ad39v-0);
-  padding: 12px;
-  border-radius: 2px 2px 0 0; }
+.css-LogoContainer-iuvftq { display: inline-block;
+  background: var(--css-LogoContainer-iuvftq-0);
+  padding: 12px; }

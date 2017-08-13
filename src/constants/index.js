@@ -1,4 +1,4 @@
-export const colors = {
+export const COLORS = {
   pink: {
     primary: '#F50057',
   },
@@ -11,3 +11,43 @@ export const colors = {
   },
   white: '#FFFFFF',
 };
+
+// Media queries
+export const BREAKPOINT_SIZES = {
+  xs: 320,
+  sm: 750,
+  md: 1100,
+  lg: 1600,
+};
+export const BREAKPOINTS = {
+  xs: `(max-width: ${BREAKPOINT_SIZES.xs}px)`,
+  sm: `(max-width: ${BREAKPOINT_SIZES.sm}px)`,
+  md: `(max-width: ${BREAKPOINT_SIZES.md}px)`,
+  lg: `(max-width: ${BREAKPOINT_SIZES.lg}px)`,
+};
+
+// Sizes
+export const UNIT = 15;
+
+export const UNITS_IN_PX = [
+  null,
+  UNIT * 1 + 'px',
+  UNIT * 2 + 'px',
+  UNIT * 3 + 'px',
+  UNIT * 4 + 'px',
+  UNIT * 5 + 'px',
+  UNIT * 6 + 'px',
+  UNIT * 7 + 'px',
+  UNIT * 8 + 'px',
+]
+
+
+export const MAX_WIDTH = {
+  sm: '100%',
+  md: '900px',
+  base: '1100px',
+};
+
+export const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(
+  navigator.userAgent
+);

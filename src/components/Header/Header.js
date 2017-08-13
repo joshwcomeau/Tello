@@ -1,29 +1,32 @@
 import React from 'react';
 import styled from 'emotion/react';
 
-import { colors } from '../../constants';
+import { COLORS, UNITS_IN_PX } from '../../constants';
 
 import Logo from '../Logo';
+import MaxWidthWrapper from '../MaxWidthWrapper';
 
 
 const HeaderElem = styled.header`
   position: relative;
   height: 100px;
-  background: linear-gradient(${colors.pink.primary}, ${colors.purple.primary});
+  background: linear-gradient(${COLORS.pink.primary}, ${COLORS.purple.primary});
 `;
 
 const LogoWrapper = styled.div`
   position: absolute;
-  left: 25px;
+  left: ${UNITS_IN_PX[2]};
   bottom: 0;
 `
 
 const Header = () => {
   return (
     <HeaderElem>
-      <LogoWrapper>
-        <Logo />
-      </LogoWrapper>
+      <MaxWidthWrapper style={{ height: '100%' }}>
+        <LogoWrapper>
+          <Logo />
+        </LogoWrapper>
+      </MaxWidthWrapper>
     </HeaderElem>
   );
 };
