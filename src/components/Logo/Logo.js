@@ -8,7 +8,7 @@ const Logo = () => {
   return (
     <LogoContainer>
       <LogoElem>
-        Aviato
+        Castor
       </LogoElem>
     </LogoContainer>
   );
@@ -20,8 +20,8 @@ const Logo = () => {
   use the color vars. TODO: Use some sort of color lib to determine this,
   based on a % mix between the two colors
 */
-const gradientPink = '#e600a4';
-const gradientPurple = '#d800ea';
+const gradientPink = '#e90091';
+const gradientPurple = '#da00e0';
 
 const LogoElem = styled.h1`
   font-size: 64px;
@@ -32,7 +32,7 @@ const LogoElem = styled.h1`
   text-align: center;
   letter-spacing: -1px;
   font-family: 'Raleway';
-  background: linear-gradient(${gradientPink}, ${gradientPurple});
+  background:  linear-gradient(${gradientPink}, ${gradientPurple});
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 `;
@@ -41,5 +41,47 @@ const LogoContainer = styled.div`
   display: inline-block;
   background: ${COLORS.gray.veryDark};
 `;
+
+// const LetterAUppercase = styled.span`
+//   letter-spacing: -6px;
+//   &:before {
+//     content: 'A';
+//   }
+// `;
+//
+// const LetterV = styled.span`
+//   letter-spacing: -1px;
+//   &:before {
+//     content: 'v';
+//   }
+// `;
+//
+// const LetterI = styled.span`
+//   letter-spacing: -1px;
+//   &:before {
+//     content: 'i';
+//   }
+// `;
+//
+// const LetterA = styled.span`
+//   letter-spacing: -2px;
+//   &:before {
+//     content: 'a';
+//   }
+// `;
+//
+// const LetterT = styled.span`
+//   letter-spacing: -2px;
+//   &:before {
+//     content: 't';
+//   }
+// `;
+//
+// const LetterO = styled.span`
+//   letter-spacing: -1px;
+//   &:before {
+//     content: 'o';
+//   }
+// `;
 
 export default Logo;
