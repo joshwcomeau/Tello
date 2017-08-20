@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
 
+import Button from '../Button';
+
 class Home extends Component {
   render() {
-    return <div />;
+    return (
+      <Button color="red">
+        Sign into Google
+      </Button>
+    );
   }
 }
 

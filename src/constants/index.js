@@ -2,6 +2,10 @@ import { range } from '../utils';
 
 
 export const COLORS = {
+  red: {
+    primary: '#FF1744',
+    dark: '#D50000',
+  },
   pink: {
     light: '#FF4081',
     primary: '#ee0079',
@@ -12,6 +16,7 @@ export const COLORS = {
   },
   deepPurple: {
     primary: '#651FFF',
+    dark: '#5000bf',
   },
   blue: {
     primary: '#2979FF',
