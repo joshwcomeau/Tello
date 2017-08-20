@@ -5,7 +5,7 @@ import Button from '../Button';
 class Home extends Component {
   render() {
     return (
-      <Button color="red">
+      <Button color="red" tag="a" href="http://google.com">
         Sign into Google
       </Button>
     );
