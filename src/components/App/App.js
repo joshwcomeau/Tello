@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
+import { Route } from 'react-router-dom';
 
 import { ROW_HEIGHT } from '../../constants';
 
 import Header from '../Header';
-import Backlog from '../Backlog';
 import MaxWidthWrapper from '../MaxWidthWrapper';
 import Spacer from '../Spacer';
+
+import Backlog from '../Backlog';
+import Home from '../Home';
 
 
 class App extends Component {
@@ -17,7 +20,8 @@ class App extends Component {
         <Spacer size={ROW_HEIGHT} />
 
         <MaxWidthWrapper>
-          <Backlog />
+          <Route exact path="/" component={Home} />
+          <Route path="/backlog" component={Backlog} />
         </MaxWidthWrapper>
       </div>
     );
