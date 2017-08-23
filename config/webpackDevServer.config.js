@@ -87,6 +87,22 @@ module.exports = function(proxy, allowedHost) {
       // it used the same host and port.
       // https://github.com/facebookincubator/create-react-app/issues/2272#issuecomment-302832432
       app.use(noopServiceWorkerMiddleware());
+
+      // HACK - So, regrettably, we need to do this jig when in development,
+      // since our API is on a different server. In dev, the Node API sends
+      // us here, sending the token as a query param. We then store it in
+      // a cookie, to mimic the prod experience of it redirecting to the
+      // homepage with a token cookie.
+      app.get(
+        '/auth/google/callback',
+        (req, res) => {
+          const { token } = req.query;
+
+          res.cookie('token', token);
+
+          res.redirect('/');
+        }
+      )
     },
   };
 };

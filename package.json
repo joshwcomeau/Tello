@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start:client": "node scripts/start.js",
-    "start:server": "nodemon server/index.js",
+    "start:server": "NODE_ENV=development nodemon server/index.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom",
     "flow": "flow"

@@ -1,5 +1,4 @@
 const nconf = require('nconf');
-const cookie = require('cookie');
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const jwt = require('jsonwebtoken');
 const uuidv4 = require('uuid/v4');
@@ -61,8 +60,6 @@ module.exports = (passport) => {
           if (err) {
             return done(err);
           }
-
-          console.log('CREATED USER', newUser);
 
           return done(null, newUser);
         });

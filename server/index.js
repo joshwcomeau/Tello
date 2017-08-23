@@ -36,12 +36,19 @@ app.get(
     // The actual dev webserver is on 3000, though.
     // Because of that, I can't simply set a cookie to pass the login token
     // to the client :/
-    // That said, the token is JWT, and so there's really no harm in just
-    // passing it with the URL.
-    // TODO: Maybe use headers for this?
+    console.log('\n\n\n\nENV', process.env);
     const {token} = req.user;
 
-    return res.redirect(`${nconf.get('WEB_URL')}?token=${token}`);
+    if (process.env.NODE_ENV === 'development') {
+
+      return res.redirect(
+        `${nconf.get('WEB_URL')}/auth/google/callback?token=${token}`
+      );
+    }
+
+    res.cookie('authToken', token);
+
+    return res.redirect('/');
   }
 );
 
