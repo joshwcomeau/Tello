@@ -3,9 +3,9 @@ const mongoose = require('mongoose');;
 const {ShowSchema} = require('./Show.model');
 
 const UserSchema = new mongoose.Schema({
+  token: String,
   name: String,
   googleId: String,
-  googleToken: String,
   email: String,
   shows: [ShowSchema],
 });

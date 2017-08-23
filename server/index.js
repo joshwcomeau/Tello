@@ -30,10 +30,19 @@ app.get(
 
 app.get(
   '/auth/google/callback',
-  passport.authenticate('google', {
-    successRedirect : nconf.get('WEB_URL'),
-    failureRedirect : nconf.get('WEB_URL'),
-  })
+  passport.authenticate('google'),
+  (req, res) => {
+    // On localhost, this API runs on port 3005.
+    // The actual dev webserver is on 3000, though.
+    // Because of that, I can't simply set a cookie to pass the login token
+    // to the client :/
+    // That said, the token is JWT, and so there's really no harm in just
+    // passing it with the URL.
+    // TODO: Maybe use headers for this?
+    const {token} = req.user;
+
+    return res.redirect(`${nconf.get('WEB_URL')}?token=${token}`);
+  }
 );
 
 // Express only serves static assets in production

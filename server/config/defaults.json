@@ -1,5 +1,6 @@
 {
   "WEB_URL": "http://localhost:3000",
   "MONGO_URL": "mongodb://localhost:27017/teviso",
-  "PORT": 3005
+  "PORT": 3005,
+  "JWT_SECRET": "test"
 }

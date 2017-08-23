@@ -1,20 +1,17 @@
 const nconf = require('nconf');
 const cookie = require('cookie');
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+const jwt = require('jsonwebtoken');
+const uuidv4 = require('uuid/v4');
 
 const { User } = require('../models/User.model');
 
 
 module.exports = (passport) => {
-  // used to serialize the user for the session
-  passport.serializeUser((user, done) => done(null, user.id));
-
-  // used to deserialize the user
-  passport.deserializeUser(function(id, done) {
-    databaseConnection.then(db => {
-      db.collection('users').findOne({ _id: id }, done)
-    });
-  });
+  // NOTE: I don't think I'm actually using this serializer, since I use JWTs
+  // independently. Sadly, passport complains if they aren't defined, though.
+  passport.serializeUser((user, done) => done(null, user._id));
+  passport.deserializeUser((id, done) => User.findById(id, done));
 
   // =========================================================================
   // GOOGLE ==================================================================
@@ -24,12 +21,11 @@ module.exports = (passport) => {
     clientSecret: nconf.get('GOOGLE_CLIENT_SECRET'),
     callbackURL: nconf.get('GOOGLE_CALLBACK_URL'),
   }, (token, refreshToken, profile, done) => {
-    console.log("PASSPORT GOT STUFF", profile);
-
-    cookie.serialize('someThing', 'someVal');
 
     // make the code asynchronous
     // User.findOne won't fire until we have all our data back from Google
+    // TODO: Is this actually necessary?!
+    // TODO: Move the user-fetching stuff to a helper somewhere.
     process.nextTick(() => {
       User.findOne({ googleId: profile.id }, (err, user) => {
         if (err) {
@@ -49,10 +45,16 @@ module.exports = (passport) => {
           profile.emails[0].value
         );
 
+        // Create a JWT token for them to authenticate with, and store it
+        // in with the user.
+        // TODO: Encrypt it, since this token is essentially a password.
+        const userId = uuidv4();
+        const token = jwt.sign(userId, nconf.get('JWT_SECRET'));
+
         User.create({
+          token,
           name: profile.displayName,
           googleId: profile.id,
-          googleToken: profile.token,
           email: userEmail,
           shows: [],
         }, (err, newUser) => {
