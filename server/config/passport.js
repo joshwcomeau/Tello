@@ -1,8 +1,9 @@
 const nconf = require('nconf');
+const cookie = require('cookie');
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
-const { MongoClient } = require('mongodb');
 
-const databaseConnection = require('../db');
+const { User } = require('../models/User.model');
+
 
 module.exports = (passport) => {
   // used to serialize the user for the session
@@ -24,56 +25,46 @@ module.exports = (passport) => {
     callbackURL: nconf.get('GOOGLE_CALLBACK_URL'),
   }, (token, refreshToken, profile, done) => {
     console.log("PASSPORT GOT STUFF", profile);
+
+    cookie.serialize('someThing', 'someVal');
+
     // make the code asynchronous
     // User.findOne won't fire until we have all our data back from Google
     process.nextTick(() => {
-      databaseConnection.then(db => {
-        const query = { 'google.id': profile.id };
+      User.findOne({ googleId: profile.id }, (err, user) => {
+        if (err) {
+          return done(err);
+        }
 
-        db.collection('users').findOne(query, (err, user) => {
+        // if a user is found, log them in
+        if (user) {
+          console.log('FOUND USER', user)
+          return done(null, user);
+        }
+
+        // If no user is found, create a new user.
+        const userEmail = (
+          profile.emails &&
+          profile.emails[0] &&
+          profile.emails[0].value
+        );
+
+        User.create({
+          name: profile.displayName,
+          googleId: profile.id,
+          googleToken: profile.token,
+          email: userEmail,
+          shows: [],
+        }, (err, newUser) => {
           if (err) {
             return done(err);
           }
 
-          // if a user is found, log them in
-          if (user) {
-            return done(null, user);
-          }
+          console.log('CREATED USER', newUser);
 
-          // If no user is found, create a new user.
-          console.log('PROFILE', profile);
+          return done(null, newUser);
         });
       });
-
-      // // try to find the user based on their google id
-      // User.findOne({ 'google.id' : profile.id }, function(err, user) {
-      //   if (err)
-      //     return done(err);
-      //
-      //   if (user) {
-      //
-      //     // if a user is found, log them in
-      //     return done(null, user);
-      //   } else {
-      //     // if the user isnt in our database, create a new user
-      //     var newUser          = new User();
-      //
-      //     // set all of the relevant information
-      //     newUser.google.id    = profile.id;
-      //     newUser.google.token = token;
-      //     newUser.google.name  = profile.displayName;
-      //     newUser.google.email = profile.emails[0].value; // pull the first email
-      //
-      //     // save the user
-      //     newUser.save(function(err) {
-      //       if (err)
-      //         throw err;
-      //       return done(null, newUser);
-      //     });
-      //   }
-      // });
     });
-
   }));
-
 };

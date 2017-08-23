@@ -1,7 +1,7 @@
-const { model, Schema } = require('mongoose');;
+const mongoose = require('mongoose');;
 
 
-const ShowSchema = new Schema({
+const ShowSchema = new mongoose.Schema({
   name: String,
   type: String,
   status: String,
@@ -9,7 +9,7 @@ const ShowSchema = new Schema({
   seenEpisodes: [String],
 });
 
-const Show = model('Show', ShowSchema);
+const Show = mongoose.model('Show', ShowSchema);
 
 module.exports.ShowSchema = ShowSchema;
 module.exports.Show = Show;

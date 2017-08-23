@@ -9,18 +9,18 @@ const passport = require('passport');
 require('./initialize');
 
 
-const databaseConnection = require('./db');
-
 
 const app = express();
 
 app.set('port', nconf.get('PORT') || 3005);
 
+app.use(passport.initialize());
 
 require('./config/passport')(passport);
 
 app.use(bodyParser.json({ limit: '1mb' }));
 app.use(bodyParser.urlencoded({ extended: false }));
+
 
 
 app.get(
@@ -31,8 +31,8 @@ app.get(
 app.get(
   '/auth/google/callback',
   passport.authenticate('google', {
-    successRedirect : '/',
-    failureRedirect : '/'
+    successRedirect : nconf.get('WEB_URL'),
+    failureRedirect : nconf.get('WEB_URL'),
   })
 );
 
@@ -41,10 +41,6 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static('build'));
 }
 
-databaseConnection.then(db => {
-  app.listen(nconf.get('PORT'), () => {
-    console.info(`==> 🌎  Listening on port ${nconf.get('PORT')}.`);
-  });
-}).catch(err => {
-  console.error('Error connecting to database', err);
+app.listen(nconf.get('PORT'), () => {
+  console.info(`==> 🌎  Listening on port ${nconf.get('PORT')}.`);
 });

@@ -1,6 +1,8 @@
 const fs = require('fs');
 
 const nconf = require('nconf');
+const mongoose = require('mongoose');
+
 
 if ( typeof process.env.NODE_ENV === 'undefined' ) {
   process.env.NODE_ENV = 'development'
@@ -36,3 +38,5 @@ nconf
   .file('private', PRIVATE_CONFIG)
   .file('environment', ENV_CONFIG)
   .file('defaults', DEFAULT_CONFIG);
+
+mongoose.connect(nconf.get('MONGO_URL'));
