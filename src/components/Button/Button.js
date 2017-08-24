@@ -23,7 +23,7 @@ Button.defaultProps = defaultProps;
 
 const buttonColors = {
   red: {
-    light: COLORS.red .primary,
+    light: COLORS.red.primary,
     dark: COLORS.red.primary,
     border: COLORS.red.dark,
   },

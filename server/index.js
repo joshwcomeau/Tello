@@ -9,7 +9,6 @@ const passport = require('passport');
 require('./initialize');
 
 
-
 const app = express();
 
 app.set('port', nconf.get('PORT') || 3005);
@@ -46,7 +45,7 @@ app.get(
       );
     }
 
-    res.cookie('authToken', token);
+    res.cookie(nconf.get('AUTH_TOKEN_KEY'), token);
 
     return res.redirect('/');
   }

@@ -93,12 +93,14 @@ module.exports = function(proxy, allowedHost) {
       // us here, sending the token as a query param. We then store it in
       // a cookie, to mimic the prod experience of it redirecting to the
       // homepage with a token cookie.
+      const AUTH_TOKEN_KEY = 'tvAuthToken';
+
       app.get(
         '/auth/google/callback',
         (req, res) => {
           const { token } = req.query;
 
-          res.cookie('token', token);
+          res.cookie(AUTH_TOKEN_KEY, token);
 
           res.redirect('/');
         }

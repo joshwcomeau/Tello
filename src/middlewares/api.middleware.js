@@ -22,6 +22,10 @@ export default function createAPIMiddleware() {
           });
         break;
       }
+
+      default:
+        // No action needed by default.
+        break;
     }
   }
 }
