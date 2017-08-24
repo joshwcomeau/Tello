@@ -8,7 +8,7 @@ const Logo = () => {
   return (
     <LogoContainer>
       <LogoElem>
-        Castor
+        Tello
       </LogoElem>
     </LogoContainer>
   );

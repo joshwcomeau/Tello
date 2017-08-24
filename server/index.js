@@ -8,6 +8,8 @@ const passport = require('passport');
 
 require('./initialize');
 
+const { User } = require('./models/User.model')
+
 
 const app = express();
 
@@ -50,6 +52,24 @@ app.get(
     return res.redirect('/');
   }
 );
+
+app.get('/users/me', (req, res, next) => {
+  const bearerTokenHeader = req.header('Authorization');
+
+  if (typeof bearerTokenHeader !== 'string') {
+    return next(new Error('Please provide a bearer token with this request.'));
+  }
+
+  const token = bearerTokenHeader.replace(/^Bearer\s/i, '')
+
+  User.findOne({ token }, (err, user) => {
+    if (err) {
+      return next(err);
+    }
+
+    return res.json(user);
+  });
+})
 
 // Express only serves static assets in production
 if (process.env.NODE_ENV === 'production') {

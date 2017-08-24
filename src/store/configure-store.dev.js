@@ -6,9 +6,10 @@ import createAPIMiddleware from '../middlewares/api.middleware';
 import DevTools from '../components/DevTools';
 
 
-export default function configureStore(history) {
+export default function configureStore(history, initialState) {
   const store = createStore(
     rootReducer,
+    initialState,
     compose(
       applyMiddleware(routerMiddleware(history), createAPIMiddleware()),
       DevTools.instrument()

@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
+import { userDataRequest } from '../../actions';
 import { AUTH_TOKEN_KEY, ROW_HEIGHT } from '../../constants';
 import { getCookie } from '../../utils';
 
@@ -11,12 +14,22 @@ import Backlog from '../Backlog';
 import Home from '../Home';
 
 
-class App extends Component {
-  componentDidMount() {
-    // Check if the user has an auth token stored in the cookie.
-    const token = getCookie(AUTH_TOKEN_KEY);
+// For our initial mount,
+const token = getCookie(AUTH_TOKEN_KEY);
 
-    console.log(token);
+class App extends Component {
+  static propTypes = {
+    userDataRequest: PropTypes.func.isRequired,
+  }
+
+  componentDidMount() {
+    const { isLoggedIn, userDataRequest } = this.props;
+
+    console.log('MOUNT', this.props);
+
+    if (isLoggedIn) {
+      userDataRequest();
+    }
   }
 
   render() {
@@ -35,4 +48,8 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = state => ({
+  isLoggedIn: state.auth.isLoggedIn,
+});
+
+export default connect(mapStateToProps, { userDataRequest })(App);

@@ -2,17 +2,32 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
+import createHistory from 'history/createBrowserHistory'
 
+import configureStore from './store';
+import { getCookie } from './utils';
+import { AUTH_TOKEN_KEY } from './constants';
+
+import registerServiceWorker from './registerServiceWorker';
 import App from './components/App';
 import DevTools from './components/DevTools';
-import configureStore from './store';
-import registerServiceWorker from './registerServiceWorker';
 
 import './polyfills';
 import './global-styles';
 
+const history = createHistory();
 
-const store = configureStore();
+const initialState = {
+  auth: {
+    // We'll assume that if they have an auth token stored in a cookie, they're
+    // logged in at first. Of course this will need to be validated by the server,
+    // but this way we can avoid the logged-out-flash. The odds of an invalid
+    // token are very low, since the cookie never expires.
+    isLoggedIn: !!getCookie(AUTH_TOKEN_KEY),
+  },
+}
+
+const store = configureStore(history, initialState);
 
 ReactDOM.render(
   <Provider store={store}>

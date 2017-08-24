@@ -1,4 +1,4 @@
-TV_MAZE = {
+module.exports = {
   search: (query) => {
     return `http://api.tvmaze.com/search/shows?q=${query}`;
   },

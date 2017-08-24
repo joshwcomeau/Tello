@@ -6,8 +6,9 @@ export const USER_DATA_RECEIVE = 'USER_DATA_RECEIVE';
 export const USER_DATA_FAILURE = 'USER_DATA_FAILURE';
 
 
-export const userDataRequest = () => ({
+export const userDataRequest = (token) => ({
   type: USER_DATA_REQUEST,
+  token,
 });
 
 export const userDataReceive = (data) => ({
