@@ -2,6 +2,7 @@ import {
   ADD_SHOW,
   REMOVE_SHOW,
   TOGGLE_EPISODE,
+  USER_DATA_RECEIVE,
 } from '../actions';
 
 
@@ -12,6 +13,12 @@ const initialState = {
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
+    case USER_DATA_RECEIVE: {
+      return {
+        ...state,
+        userData: action.data,
+      };
+    }
     case ADD_SHOW: {
       // TODO
       return state;

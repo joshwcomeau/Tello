@@ -67,7 +67,16 @@ app.get('/users/me', (req, res, next) => {
       return next(err);
     }
 
-    return res.json(user);
+    // The user object we return should be a simplified version of the DB record.
+    // TODO: Move this somewhere?
+    const simplifiedUser = {
+      name: user.name,
+      email: user.email,
+      shows: user.shows,
+      id: user._id,
+    };
+
+    return res.json(simplifiedUser);
   });
 })
 
