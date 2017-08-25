@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
+import styled from 'emotion/react';
 import PropTypes from 'prop-types';
 
 import { userDataRequest } from '../../actions';
@@ -37,16 +38,23 @@ class App extends Component {
       <div>
         <Header />
 
-        <Spacer size={ROW_HEIGHT} />
+        <Body>
+          <Spacer size={ROW_HEIGHT} />
 
-        <MaxWidthWrapper>
-          <Route exact path="/" component={Home} />
-          <Route path="/backlog" component={Backlog} />
-        </MaxWidthWrapper>
+          <MaxWidthWrapper>
+            <Route exact path="/" component={Home} />
+            <Route path="/backlog" component={Backlog} />
+          </MaxWidthWrapper>
+        </Body>
       </div>
     );
   }
 }
+
+const Body = styled.div`
+  position: relative;
+  z-index: 1;
+`
 
 const mapStateToProps = state => ({
   isLoggedIn: state.auth.isLoggedIn,

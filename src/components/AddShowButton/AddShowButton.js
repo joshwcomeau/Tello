@@ -23,7 +23,15 @@ const ButtonElem = styled.button`
   color: ${COLORS.white};
   background: ${COLORS.purple.dark};
   font-family: 'Raleway';
+  transition: background 300ms;
+  outline: none;
+  cursor: pointer;
+  overflow: hidden;
 
+
+  &:hover {
+    background: ${COLORS.deepPurple.primary};
+  }
 `;
 
 

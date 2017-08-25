@@ -1,10 +1,16 @@
-.css-ButtonElem-oz758p { font-size: 96px;
+.css-ButtonElem-1jcgqy3 { font-size: 96px;
   -moz-box-sizing: content-box;
   box-sizing: content-box;
-  width: var(--css-ButtonElem-oz758p-0);
-  height: var(--css-ButtonElem-oz758p-1);
-  line-height: var(--css-ButtonElem-oz758p-2);
+  width: var(--css-ButtonElem-1jcgqy3-0);
+  height: var(--css-ButtonElem-1jcgqy3-1);
+  line-height: var(--css-ButtonElem-1jcgqy3-2);
   border: none;
-  color: var(--css-ButtonElem-oz758p-3);
-  background: var(--css-ButtonElem-oz758p-4);
-  font-family: 'Raleway'; }
+  color: var(--css-ButtonElem-1jcgqy3-3);
+  background: var(--css-ButtonElem-1jcgqy3-4);
+  font-family: 'Raleway';
+  -webkit-transition: background 300ms;
+  transition: background 300ms;
+  outline: none;
+  cursor: pointer;
+  overflow: hidden; }
+.css-ButtonElem-1jcgqy3:hover { background: var(--css-ButtonElem-1jcgqy3-5); }

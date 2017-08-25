@@ -52,7 +52,7 @@ const ButtonElem = styled.button`
     ${props => buttonColors[props.color].dark}
   );
   border: none;
-  border-bottom: 5px solid ${props => buttonColors[props.color].border};
+  border-bottom: 5px solid rgba(0,0,0,0.25);
 `;
 
 const LinkButtonElem = styled.a`
@@ -66,7 +66,7 @@ const LinkButtonElem = styled.a`
     ${props => buttonColors[props.color].dark}
   );
   border: none;
-  border-bottom: 5px solid ${props => buttonColors[props.color].border};
+  border-bottom: 5px solid rgba(0,0,0,0.25);
 `;
 
 export default Button;

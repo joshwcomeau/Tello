@@ -27,7 +27,8 @@ const Header = () => {
 
 const HeaderElem = styled.header`
   position: relative;
-  height: ${UNITS_IN_PX[9]};
+  z-index: 5;
+  height: ${UNITS_IN_PX[10]};
   background: linear-gradient(${COLORS.pink.primary}, ${COLORS.purple.primary});
 `;
 
