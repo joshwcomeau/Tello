@@ -1,11 +1,19 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import styled from 'emotion/react';
 
-import { ROW_HEIGHT, ROW_HEIGHT_PX, UNITS_IN_PX, COLORS } from '../../constants';
+import { showAddShowModal } from '../../actions';
+import {
+  MODAL_IDS,
+  ROW_HEIGHT,
+  ROW_HEIGHT_PX,
+  UNITS_IN_PX,
+  COLORS
+} from '../../constants';
 
 
-const AddShowButton = ({ toggleAddShowModal }) => (
-  <ButtonElem>
+const AddShowButton = ({ showAddShowModal }) => (
+  <ButtonElem onClick={showAddShowModal}>
     +
   </ButtonElem>
 )
@@ -35,4 +43,4 @@ const ButtonElem = styled.button`
 `;
 
 
-export default AddShowButton;
+export default connect(null, { showAddShowModal })(AddShowButton);

@@ -9,6 +9,7 @@ import { AUTH_TOKEN_KEY, ROW_HEIGHT } from '../../constants';
 import { getCookie } from '../../utils';
 
 import Header from '../Header';
+import RightModal from '../RightModal';
 import MaxWidthWrapper from '../MaxWidthWrapper';
 import Spacer from '../Spacer';
 import Backlog from '../Backlog';
@@ -37,6 +38,8 @@ class App extends Component {
     return (
       <div>
         <Header />
+
+        <RightModal />
 
         <Body>
           <Spacer size={ROW_HEIGHT} />
