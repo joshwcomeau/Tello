@@ -19,6 +19,7 @@ export default function reducer(state = initialState, action) {
         userData: action.data,
       };
     }
+
     case ADD_SHOW: {
       // TODO
       return state;

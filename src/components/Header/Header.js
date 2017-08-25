@@ -1,8 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import styled from 'emotion/react';
 
 import { COLORS, UNITS_IN_PX } from '../../constants';
 
+import AddShowButton from '../AddShowButton';
 import Logo from '../Logo';
 import MaxWidthWrapper from '../MaxWidthWrapper';
 
@@ -14,6 +16,10 @@ const Header = () => {
         <LogoWrapper>
           <Logo />
         </LogoWrapper>
+
+        <AddShowButtonWrapper>
+          <AddShowButton />
+        </AddShowButtonWrapper>
       </MaxWidthWrapper>
     </HeaderElem>
   );
@@ -35,4 +41,15 @@ const LogoWrapper = styled.div`
   margin-bottom: auto;
 `;
 
-export default Header;
+const AddShowButtonWrapper = styled.div`
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  transform: translateY(50%);
+`;
+
+const mapStateToProps = state => ({
+  isLoggedIn: state.auth.isLoggedIn,
+});
+
+export default connect(mapStateToProps)(Header);
