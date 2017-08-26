@@ -1,14 +1,16 @@
 .css-headingCSS-4k9dd5 { display: block;
   font-weight: bold;
   font-family: 'Raleway'; }
-.css-HeadingLarge-h0wsnj {
+.css-HeadingLarge-1eojnk0 {
   font-size: 72px;
+  letter-spacing: -2px;
+  color: var(--css-HeadingLarge-1eojnk0-0); }
+.css-HeadingMedium-vrh5jc {
+  font-size: 42px;
   letter-spacing: -1px;
-  color: var(--css-HeadingLarge-h0wsnj-0); }
-.css-HeadingMedium-125gzpx {
-  font-size: 48px;
-  line-height: 36px;
-  color: var(--css-HeadingMedium-125gzpx-0); }
+  line-height: 32px;
+  margin-bottom: var(--css-HeadingMedium-vrh5jc-0);
+  color: var(--css-HeadingMedium-vrh5jc-1) }
 .css-HeadingSmall-1knw1gd {
   font-size: 24px;
   color: var(--css-HeadingSmall-1knw1gd-0); }

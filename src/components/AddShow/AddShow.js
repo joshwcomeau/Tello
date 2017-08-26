@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import Heading from '../Heading';
+import TextInput from '../TextInput';
 
 
 class AddShow extends Component {
@@ -8,6 +9,8 @@ class AddShow extends Component {
     return (
       <div>
         <Heading>Add New Show</Heading>
+
+        <TextInput changeDebounceTime={300} />
       </div>
     );
   }

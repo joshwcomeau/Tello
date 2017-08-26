@@ -3,7 +3,7 @@ import styled from 'emotion/react';
 import { css } from 'emotion';
 import PropTypes from 'prop-types';
 
-import { COLORS } from '../../constants';
+import { COLORS, UNITS_IN_PX } from '../../constants';
 
 
 const propTypes = {
@@ -40,14 +40,16 @@ const headingCSS = css`
 const HeadingLarge = styled.h2`
   composes: ${headingCSS};
   font-size: 72px;
-  letter-spacing: -1px;
+  letter-spacing: -2px;
   color: ${getFontColor};
 `;
 
 const HeadingMedium = styled.h4`
   composes: ${headingCSS};
-  font-size: 48px;
-  line-height: 36px;
+  font-size: 42px;
+  letter-spacing: -1px;
+  line-height: 32px;
+  margin-bottom: ${UNITS_IN_PX[2]}
   color: ${getFontColor};
 `;
 
