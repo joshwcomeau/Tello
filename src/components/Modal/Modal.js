@@ -6,14 +6,15 @@ import PropTypes from 'prop-types';
 const propTypes = {
   isVisible: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
+  children: PropTypes.node,
 };
 
-const Modal = ({ isVisible, handleClose }) => {
+const Modal = ({ isVisible, handleClose, children }) => {
   return (
     <Wrapper isVisible={isVisible}>
       <Backdrop isVisible={isVisible} onClick={handleClose} />
       <ModalElem isVisible={isVisible}>
-
+        {children}
       </ModalElem>
     </Wrapper>
   );

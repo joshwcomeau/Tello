@@ -27,8 +27,6 @@ class App extends Component {
   componentDidMount() {
     const { isLoggedIn, userDataRequest } = this.props;
 
-    console.log('MOUNT', this.props);
-
     if (isLoggedIn) {
       userDataRequest();
     }
