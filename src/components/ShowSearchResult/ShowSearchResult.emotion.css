@@ -1,20 +1,31 @@
-.css-Wrapper-eqn95f { display: -webkit-box; display: -moz-box; display: -ms-flexbox; display: -webkit-flex; display: flex;
-  height: var(--css-Wrapper-eqn95f-0);
-  padding: var(--css-Wrapper-eqn95f-1);
-  margin-bottom: var(--css-Wrapper-eqn95f-2);
-  background: var(--css-Wrapper-eqn95f-3);
-  border-bottom: 1px solid var(--css-Wrapper-eqn95f-4); }
-.css-MainContent-yp9swi { -webkit-flex: 1; -ms-flex: 1; flex: 1; }
-.css-Summary-1fame8f { padding: var(--css-Summary-1fame8f-0) 0;
-  font-size: 13px; }
-.css-ImageContainer-vg1z0t { height: 100%;
-  margin-right: var(--css-ImageContainer-vg1z0t-0); }
-.css-AddButton-1mygka8 { width: var(--css-AddButton-1mygka8-0);
-  height: var(--css-AddButton-1mygka8-1);
-  margin-left: var(--css-AddButton-1mygka8-2);
-  background: var(--css-AddButton-1mygka8-3);
-  color: var(--css-AddButton-1mygka8-4);
-  cursor: pointer;
-  font-size: 44px;
-  font-family: 'Raleway';
-  border: none; }
+.css-Wrapper-tr8xu { display: -webkit-box; display: -moz-box; display: -ms-flexbox; display: -webkit-flex; display: flex;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  -webkit-box-align: center;
+  align-items: center;
+  cursor: default; }
+.css-Checkbox-1qk44xp { width: 15px;
+  height: 15px;
+  margin-right: var(--css-Checkbox-1qk44xp-0);
+  border: var(--css-Checkbox-1qk44xp-1);
+  background: var(--css-Checkbox-1qk44xp-2) }
+.css-MainContent-11oe0jo { -webkit-flex: 1; -ms-flex: 1; flex: 1;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  -webkit-box-align: center;
+  align-items: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-right: var(--css-MainContent-11oe0jo-0);
+  height: var(--css-MainContent-11oe0jo-1);
+  -webkit-transform: translateY(-2px);
+  -ms-transform: translateY(-2px);
+  transform: translateY(-2px); }
+.css-Status-1s2vo15 { font-size: 12px;
+  color: var(--css-Status-1s2vo15-0); }

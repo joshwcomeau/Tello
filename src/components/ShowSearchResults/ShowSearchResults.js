@@ -11,9 +11,10 @@ import ShowSearchResult from '../ShowSearchResult';
 const propTypes = {
   status: PropTypes.oneOf(['idle', 'loading', 'done']),
   shows: PropTypes.arrayOf(ShowProps),
+  onToggleShow: PropTypes.func.isRequired,
 };
 
-const ShowSearchResults = ({ status, shows }) => {
+const ShowSearchResults = ({ status, shows, onToggleShow }) => {
   return (
     <Wrapper>
       {shows.map(show => (
@@ -21,6 +22,7 @@ const ShowSearchResults = ({ status, shows }) => {
           key={show.id}
           show={show}
           isAlreadyAdded={false /* TODO */}
+          onToggleShow={onToggleShow}
         />
       ))}
     </Wrapper>

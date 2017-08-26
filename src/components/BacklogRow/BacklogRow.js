@@ -48,9 +48,7 @@ class BacklogRow extends Component {
           <ShowDetails>
             <Heading size="small">{name}</Heading>
             <TagWrapper>
-              <Tag color={baseColor}>
-                {type}
-              </Tag>
+              <Tag domain={type} />
             </TagWrapper>
           </ShowDetails>
 

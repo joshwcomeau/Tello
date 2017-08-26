@@ -1,5 +1,35 @@
-.css-buttonCSS-f3en5x { padding: 0 var(--css-buttonCSS-f3en5x-0);
-  height: var(--css-buttonCSS-f3en5x-1);
-  color: var(--css-buttonCSS-f3en5x-2);
+.css-buttonCSS-1l5vsj8 { padding: 0 var(--css-buttonCSS-1l5vsj8-0);
+  height: var(--css-buttonCSS-1l5vsj8-1);
+  color: var(--css-buttonCSS-1l5vsj8-2);
   font-size: 18px;
-  font-weight: bold; }
+  font-weight: bold;
+  cursor: pointer; }
+.css-buttonCSS-1l5vsj8:disabled { background: var(--css-buttonCSS-1l5vsj8-3) !important; border-bottom: 5px solid rgba(0, 0, 0, 0.25) !important; cursor: not-allowed; }
+.css-ButtonElem-1ndn6ts {
+  width: var(--css-ButtonElem-1ndn6ts-0);
+  background: var(--css-ButtonElem-1ndn6ts-1);
+  border: none;
+  border-bottom: var(--css-ButtonElem-1ndn6ts-2); }
+.css-ButtonElem-1ndn6ts:hover {
+  background: var(--css-ButtonElem-1ndn6ts-3); }
+.css-LinkButtonElem-8gymg9 {
+  width: var(--css-LinkButtonElem-8gymg9-0);
+  text-decoration: none;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-inline-flexbox;
+  display: -webkit-inline-flex;
+  display: inline-flex;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  -webkit-box-align: center;
+  align-items: center;
+  background: var(--css-LinkButtonElem-8gymg9-1);
+  border: none;
+  border-bottom: var(--css-LinkButtonElem-8gymg9-2); }
+.css-LinkButtonElem-8gymg9:hover {
+  background: var(--css-LinkButtonElem-8gymg9-3); }

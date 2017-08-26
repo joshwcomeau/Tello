@@ -9,6 +9,12 @@ export const MODAL_IDS = {
 };
 
 export const COLORS = {
+  orange: {
+    primary: '#FF9100',
+  },
+  deepOrange: {
+    primary: '#FF3D00',
+  },
   red: {
     primary: '#FF1744',
     dark: '#D50000',
@@ -30,7 +36,7 @@ export const COLORS = {
     dark: '#2962FF',
   },
   green: {
-    primary: '#00E676',
+    primary: '#00C853',
   },
   lime: {
     primary: '#C6FF00',

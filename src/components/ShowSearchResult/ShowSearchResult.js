@@ -7,87 +7,93 @@ import { truncateStringByWordCount } from '../../utils';
 import { ShowProps } from '../../types';
 
 import Heading from '../Heading';
-import ShowImage from '../ShowImage';
+import Tag from '../Tag';
 import AddShowButton from '../AddShowButton';
 
 
 const propTypes = {
   show: ShowProps,
   isAlreadyAdded: PropTypes.bool,
+  onToggleShow: PropTypes.func.isRequired,
 };
 
 class ShowSearchResult extends Component {
   state = {
     isHovering: false,
+    isSelected: false,
   }
 
   handleMouseEnter = () => this.setState({ isHovering: true })
   handleMouseLeave = () => this.setState({ isHovering: false })
+  handleClick = () => {
+    this.setState({ isSelected: !this.state.isSelected });
+
+    this.props.onToggleShow(this.props.show.id);
+  }
 
   render() {
-    const { isHovering } = this.state;
+    const { isHovering, isSelected } = this.state;
     const { show: { id, name, image, status, type, summary } } = this.props;
 
     return (
       <Wrapper
         onMouseEnter={this.handleMouseEnter}
         onMouseLeave={this.handleMouseLeave}
+        onClick={this.handleClick}
       >
-        <ImageContainer>
-          <ShowImage name={name} src={image} />
-        </ImageContainer>
-
+        <Checkbox highlighted={isHovering} checked={isSelected} />
         <MainContent>
           <Heading size="small">{name}</Heading>
-          <Summary>{truncateStringByWordCount(summary, 30)}</Summary>
         </MainContent>
-        <AddShowButton
-          onClick={function() {}}
-          color={isHovering
-            ? COLORS.green.primary
-            : COLORS.lime.dark
-          }
-        />
+        <Status isRunning={status === 'Running'}>{status}</Status>
       </Wrapper>
     );
   }
 }
 
-const HEIGHT_IN_UNITS = 7;
+const HEIGHT_IN_UNITS = 3;
 
 const Wrapper = styled.div`
   display: flex;
-  height: ${UNITS_IN_PX[HEIGHT_IN_UNITS]};
-  padding: ${UNITS_IN_PX[1]};
-  margin-bottom: ${UNITS_IN_PX[1]}
-  background: ${COLORS.white};
-  border-bottom: 1px solid ${COLORS.gray.light};
+  align-items: center;
+  cursor: default;
+`;
+
+const getCheckboxBorder = props => (
+  `2px solid ${
+    (props.highlighted || props.checked)
+      ? COLORS.blue.primary
+      : COLORS.gray.dark
+  }`
+);
+
+const getCheckboxBackground = props => (
+  props.checked ? COLORS.blue.primary : 'transparent'
+);
+
+const Checkbox = styled.div`
+  width: 15px;
+  height: 15px;
+  margin-right: ${UNITS_IN_PX[1]};
+  border: ${getCheckboxBorder};
+  background: ${getCheckboxBackground}
 `;
 
 const MainContent = styled.div`
   flex: 1;
-`;
-
-const Summary = styled.p`
-  padding: ${HALF_UNIT_PX} 0;
-  font-size: 13px;
-`
-
-const ImageContainer = styled.div`
-  height: 100%;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   margin-right: ${UNITS_IN_PX[1]};
+  height: ${UNITS_IN_PX[HEIGHT_IN_UNITS]};
+  transform: translateY(-2px);
 `;
 
-const AddButton = styled.button`
-  width: ${UNITS_IN_PX[HEIGHT_IN_UNITS]};
-  height: ${UNITS_IN_PX[HEIGHT_IN_UNITS]};
-  margin-left: ${UNITS_IN_PX[1]};
-  background: ${COLORS.green.primary};
-  color: ${COLORS.white};
-  cursor: pointer;
-  font-size: 44px;
-  font-family: 'Raleway';
-  border: none;
+const Status = styled.div`
+  font-size: 12px;
+  color: ${props => props.isRunning ? COLORS.green.primary : COLORS.gray.primary};
 `;
 
 ShowSearchResult.propTypes = propTypes;

@@ -23,14 +23,27 @@ Button.defaultProps = defaultProps;
 
 const buttonColors = {
   red: {
-    light: COLORS.red.primary,
-    dark: COLORS.red.primary,
+    background: COLORS.red.primary,
+    backgroundHover: COLORS.red.dark,
+    border: '5px solid ' + COLORS.red.dark,
   },
   blue: {
-    light: COLORS.blue.primary,
-    dark: COLORS.deepPurple.primary,
+    background: COLORS.deepPurple.primary,
+    backgroundHover: `linear-gradient(
+      ${COLORS.blue.primary},
+      ${COLORS.deepPurple.primary}
+    )`,
+    border: '5px solid ' + COLORS.deepPurple.dark,
   },
 };
+
+const generateButtonGetter = attribute => props => (
+  buttonColors[props.color][attribute]
+);
+
+const getButtonBackground = generateButtonGetter('background');
+const getButtonHoverBackground = generateButtonGetter('backgroundHover');
+const getButtonBorder = generateButtonGetter('border');
 
 const buttonCSS = css`
   padding: 0 ${UNITS_IN_PX[3]};
@@ -38,33 +51,44 @@ const buttonCSS = css`
   color: ${COLORS.white};
   font-size: 18px;
   font-weight: bold;
-`
+  cursor: pointer;
+
+  &:disabled {
+    background: ${COLORS.gray.primary} !important;
+    border-bottom: 5px solid rgba(0, 0, 0, 0.25) !important;
+    cursor: not-allowed;
+  }
+`;
 
 // TODO: Figure out how to dedupe the props-based styles.
 // Can't just have background/border in the `css` call, since it's dependent
 // on props.
 const ButtonElem = styled.button`
   composes: ${buttonCSS};
-  background: linear-gradient(
-    ${props => buttonColors[props.color].light},
-    ${props => buttonColors[props.color].dark}
-  );
+  width: ${props => props.fill ? '100%' : 'auto'};
+  background: ${getButtonBackground};
   border: none;
-  border-bottom: 5px solid rgba(0,0,0,0.25);
+  border-bottom: ${getButtonBorder};
+
+  &:hover {
+    background: ${getButtonHoverBackground};
+  }
 `;
 
 const LinkButtonElem = styled.a`
   composes: ${buttonCSS};
+  width: ${props => props.fill ? '100%' : 'auto'};
   text-decoration: none;
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(
-    ${props => buttonColors[props.color].light},
-    ${props => buttonColors[props.color].dark}
-  );
+  background: ${getButtonBackground};
   border: none;
-  border-bottom: 5px solid rgba(0,0,0,0.25);
+  border-bottom: ${getButtonBorder};
+
+  &:hover {
+    background: ${getButtonHoverBackground};
+  }
 `;
 
 export default Button;

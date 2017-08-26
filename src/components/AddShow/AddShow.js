@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+import styled from 'emotion/react';
 
 import { getSearchEndpoint, formatSearchResults } from '../../helpers/tv-maze';
+
+import Button from '../Button';
 import Heading from '../Heading';
 import TextInput from '../TextInput';
 import ShowSearchResult from '../ShowSearchResult';
@@ -93,6 +96,7 @@ class AddShow extends Component {
         "summary": "Sgt. Jack Ramsey, an undercover detective with the Los Angeles Police Department, found himself teamed with a very green partner named J.Z. Kane. Together they formed a relationship based on friendship and trust (completely platonic) that led to them capturing many of L.A.'s criminals."
       }
     ],
+    selectedShowIds: [],
   }
 
   handleSearch = (query) => {
@@ -117,10 +121,25 @@ class AddShow extends Component {
       .catch(console.error);
   }
 
+  handleToggleShow = (id) => {
+    const { selectedShowIds } = this.state;
+
+    let nextShowIds;
+
+    if (selectedShowIds.includes(id)) {
+      nextShowIds = selectedShowIds.filter(selectedId => selectedId !== id)
+    } else {
+      nextShowIds = [...selectedShowIds, id];
+    }
+
+    this.setState({ selectedShowIds: nextShowIds });
+  }
+
   render() {
-    console.log(this.state);
+    const numOfShowsSelected = this.state.selectedShowIds.length
+
     return (
-      <div>
+      <Wrapper>
         <Heading>Add New Show</Heading>
 
         <TextInput
@@ -129,13 +148,34 @@ class AddShow extends Component {
           changeDebounceTime={300}
         />
 
-        <ShowSearchResults
-          status={this.state.status}
-          shows={this.state.shows}
-        />
-      </div>
+        <Flex>
+          <ShowSearchResults
+            status={this.state.status}
+            shows={this.state.shows}
+            onToggleShow={this.handleToggleShow}
+            style={{ flex: 1 }}
+          />
+        </Flex>
+
+        <Button
+          fill
+          disabled={numOfShowsSelected === 0}
+        >
+          {numOfShowsSelected === 0 ? 'Add Shows' : `Add ${numOfShowsSelected} Show(s)`}
+        </Button>
+      </Wrapper>
     );
   }
 }
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+`;
+
+const Flex = styled.div`
+  flex: 1;
+`;
 
 export default AddShow;
