@@ -30,4 +30,13 @@ export const debounce = (callback, wait, context = this) => {
     clearTimeout(timeout)
     timeout = setTimeout(later, wait)
   }
+};
+
+export const stripHTMLFromString = string => {
+  // Rather than try and use a regex, we'll just rely on the browser's engine.
+  // NOTE: This is probably not safe to use on untrusted
+  const placeholderDiv = document.createElement("div");
+  placeholderDiv.innerHTML = string;
+
+  return placeholderDiv.textContent || placeholderDiv.innerText || "";
 }
