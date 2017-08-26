@@ -29,6 +29,8 @@ class AddShow extends Component {
   handleSearch = (query) => {
     this.setState({
       status: 'loading',
+      shows: [],
+      selectedShowIds: [],
     });
 
     // NOTE: The "right" way to do this would be to use redux, and proxy through

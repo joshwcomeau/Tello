@@ -1,5 +1,23 @@
-.css-CheckboxElem-hxejny { width: var(--css-CheckboxElem-hxejny-0);
-  height: var(--css-CheckboxElem-hxejny-1);
-  margin-right: var(--css-CheckboxElem-hxejny-2);
-  border: var(--css-CheckboxElem-hxejny-3);
-  background: var(--css-CheckboxElem-hxejny-4) }
+.css-Wrapper-1l2k0fh { position: relative;
+  width: var(--css-Wrapper-1l2k0fh-0);
+  height: var(--css-Wrapper-1l2k0fh-1);
+  margin-right: var(--css-Wrapper-1l2k0fh-2); }
+.css-CheckboxBorder-5au73n { width: var(--css-CheckboxBorder-5au73n-0);
+  height: var(--css-CheckboxBorder-5au73n-1);
+  border-width: var(--css-CheckboxBorder-5au73n-2);
+  border-style: solid;
+  border-color: var(--css-CheckboxBorder-5au73n-3); }
+.css-CheckboxDot-jlk17u { position: absolute;
+  width: var(--css-CheckboxDot-jlk17u-0);
+  height: var(--css-CheckboxDot-jlk17u-1);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  background-color: var(--css-CheckboxDot-jlk17u-2);
+  -webkit-transform: scale(var(--css-CheckboxDot-jlk17u-3));
+  -ms-transform: scale(var(--css-CheckboxDot-jlk17u-3));
+  transform: scale(var(--css-CheckboxDot-jlk17u-3));
+  -webkit-transition: -webkit-transform 250ms,transform 250ms;
+  transition: -ms-transform 250ms,-webkit-transform 250ms,transform 250ms; }

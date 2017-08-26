@@ -7,7 +7,7 @@ export const getColorForStatus = ({ status }) => {
 
     case 'To Be Determined':
     case 'In Development':
-      return COLORS.orange.primary;
+      return COLORS.blue.primary;
 
     case 'Ended':
     default:

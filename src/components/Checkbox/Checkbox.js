@@ -2,39 +2,56 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'emotion/react';
 
-import { COLORS, UNITS_IN_PX } from '../../constants';
+import { COLORS, UNIT, UNITS_IN_PX } from '../../constants';
 
 
 const Checkbox = ({ highlighted, checked, handleClick }) => {
   return (
-    <div>
-      <CheckboxElem
-        highlighted={highlighted}
-        checked={checked}
+    <Wrapper>
+      <CheckboxBorder
+        colored={highlighted || checked}
         onClick={handleClick}
       />
-    </div>
+
+      <CheckboxDot
+        visible={checked}
+      />
+    </Wrapper>
   );
 };
 
-const getCheckboxBorder = props => (
-  `2px solid ${
-    (props.highlighted || props.checked)
-      ? COLORS.blue.primary
-      : COLORS.gray.dark
-  }`
-);
 
-const getCheckboxBackground = props => (
-  props.checked ? COLORS.blue.primary : 'transparent'
-);
-
-const CheckboxElem = styled.div`
+const Wrapper = styled.div`
+  position: relative;
   width: ${UNITS_IN_PX[1]};
   height: ${UNITS_IN_PX[1]};
   margin-right: ${UNITS_IN_PX[1]};
-  border: ${getCheckboxBorder};
-  background: ${getCheckboxBackground}
+`
+
+const borderWidth = 2;
+const cellPadding = 0;
+const dotSize = UNIT - (borderWidth * 2) - (cellPadding * 2);
+
+const CheckboxBorder = styled.div`
+  width: ${UNITS_IN_PX[1]};
+  height: ${UNITS_IN_PX[1]};
+  border-width: ${borderWidth + 'px'};
+  border-style: solid;
+  border-color: ${props => props.colored ? COLORS.blue.primary : COLORS.gray.dark};
+`;
+
+const CheckboxDot = styled.div`
+  position: absolute;
+  width: ${dotSize + 'px'};
+  height: ${dotSize + 'px'};
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  background-color: ${COLORS.blue.primary};
+  transform: scale(${props => props.visible ? 1 : 0});
+  transition: transform 250ms;
 `;
 
 export default Checkbox;
