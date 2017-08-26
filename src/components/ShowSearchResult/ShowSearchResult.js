@@ -9,6 +9,7 @@ import { ShowProps } from '../../types';
 import Heading from '../Heading';
 import Tag from '../Tag';
 import AddShowButton from '../AddShowButton';
+import Checkbox from '../Checkbox';
 
 import { getColorForStatus } from './ShowSearchResult.helpers';
 
@@ -62,26 +63,6 @@ const Wrapper = styled.div`
   align-items: center;
   cursor: default;
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-`;
-
-const getCheckboxBorder = props => (
-  `2px solid ${
-    (props.highlighted || props.checked)
-      ? COLORS.blue.primary
-      : COLORS.gray.dark
-  }`
-);
-
-const getCheckboxBackground = props => (
-  props.checked ? COLORS.blue.primary : 'transparent'
-);
-
-const Checkbox = styled.div`
-  width: 15px;
-  height: 15px;
-  margin-right: ${UNITS_IN_PX[1]};
-  border: ${getCheckboxBorder};
-  background: ${getCheckboxBackground}
 `;
 
 const MainContent = styled.div`
