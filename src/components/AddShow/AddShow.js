@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import styled from 'emotion/react';
 
 import { addShows } from '../../actions';
+import { getTrackedShowIds } from '../../reducers/auth.reducer';
 import { getSearchEndpoint, formatSearchResults } from '../../helpers/tv-maze';
 
 import Button from '../Button';
@@ -17,6 +18,7 @@ import { getButtonText } from './AddShow.helpers';
 
 class AddShow extends Component {
   static propTypes = {
+    trackedShowIds: PropTypes.arrayOf(PropTypes.string),
     addShows: PropTypes.func.isRequired,
   }
 
@@ -75,6 +77,7 @@ class AddShow extends Component {
   }
 
   render() {
+    console.log(this.props.trackedShowIds);
     const numOfShowsSelected = this.state.selectedShowIds.length
 
     return (
@@ -118,4 +121,8 @@ const Flex = styled.div`
   flex: 1;
 `;
 
-export default connect(null, { addShows })(AddShow);
+const mapStateToProps = state => ({
+  trackedShowIds: getTrackedShowIds(state),
+});
+
+export default connect(mapStateToProps, { addShows })(AddShow);

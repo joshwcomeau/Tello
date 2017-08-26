@@ -1,3 +1,5 @@
+import { createSelector } from 'reselect';
+
 import {
   ADD_SHOWS,
   REMOVE_SHOW,
@@ -53,3 +55,13 @@ export default function reducer(state = initialState, action) {
     }
   }
 }
+
+// Selectors
+const getUserData = state => state.userData
+const getTrackedShows = createSelector(getUserData, (userData) => (
+  userData ? userData.trackedShows : []
+));
+
+const getTrackedShowIds = createSelector(getTrackedShows, (trackedShows) => {
+  trackedShows.map(show => show.id)
+});
