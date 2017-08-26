@@ -55,23 +55,23 @@ measureFileSizesBeforeBuild(paths.appBuild)
   .then(
     ({ stats, previousFileSizes, warnings }) => {
       if (warnings.length) {
-        console.log(chalk.yellow('Compiled with warnings.\n'));
-        console.log(warnings.join('\n\n'));
-        console.log(
+        console.info(chalk.yellow('Compiled with warnings.\n'));
+        console.info(warnings.join('\n\n'));
+        console.info(
           '\nSearch for the ' +
             chalk.underline(chalk.yellow('keywords')) +
             ' to learn more about each warning.'
         );
-        console.log(
+        console.info(
           'To ignore, add ' +
             chalk.cyan('// eslint-disable-next-line') +
             ' to the line before.\n'
         );
       } else {
-        console.log(chalk.green('Compiled successfully.\n'));
+        console.info(chalk.green('Compiled successfully.\n'));
       }
 
-      console.log('File sizes after gzip:\n');
+      console.info('File sizes after gzip:\n');
       printFileSizesAfterBuild(
         stats,
         previousFileSizes,
@@ -79,7 +79,7 @@ measureFileSizesBeforeBuild(paths.appBuild)
         WARN_AFTER_BUNDLE_GZIP_SIZE,
         WARN_AFTER_CHUNK_GZIP_SIZE
       );
-      console.log();
+      console.info();
 
       const appPackage = require(paths.appPackageJson);
       const publicUrl = paths.publicUrl;
@@ -94,7 +94,7 @@ measureFileSizesBeforeBuild(paths.appBuild)
       );
     },
     err => {
-      console.log(chalk.red('Failed to compile.\n'));
+      console.info(chalk.red('Failed to compile.\n'));
       printBuildError(err);
       process.exit(1);
     }
@@ -102,7 +102,7 @@ measureFileSizesBeforeBuild(paths.appBuild)
 
 // Create the production build and print the deployment instructions.
 function build(previousFileSizes) {
-  console.log('Creating an optimized production build...');
+  console.info('Creating an optimized production build...');
 
   let compiler = webpack(config);
   return new Promise((resolve, reject) => {
@@ -125,7 +125,7 @@ function build(previousFileSizes) {
           process.env.CI.toLowerCase() !== 'false') &&
         messages.warnings.length
       ) {
-        console.log(
+        console.info(
           chalk.yellow(
             '\nTreating warnings as errors because process.env.CI = true.\n' +
               'Most CI servers set it automatically.\n'

@@ -37,7 +37,6 @@ app.get(
     // The actual dev webserver is on 3000, though.
     // Because of that, I can't simply set a cookie to pass the login token
     // to the client :/
-    console.log('\n\n\n\nENV', process.env);
     const {token} = req.user;
 
     if (process.env.NODE_ENV === 'development') {

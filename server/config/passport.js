@@ -33,7 +33,6 @@ module.exports = (passport) => {
 
         // if a user is found, log them in
         if (user) {
-          console.log('FOUND USER', user)
           return done(null, user);
         }
 

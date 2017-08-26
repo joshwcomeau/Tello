@@ -1,6 +1,6 @@
 const unwrap = response => {
   if (response.status !== 200) {
-    console.log(response.status, response);
+    console.error('Error fetching data', response.status, response);
     throw new Error(response);
   }
 
@@ -12,10 +12,5 @@ export const getAuthUserData = (token) => {
     Authorization: `Bearer ${token}`,
   });
 
-  return fetch('./users/me', { headers })
-    .then(unwrap)
-    .then(json => {
-      console.log(json);
-      return json;
-    })
+  return fetch('./users/me', { headers }).then(unwrap);
 };

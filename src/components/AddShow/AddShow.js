@@ -77,7 +77,7 @@ class AddShow extends Component {
   }
 
   render() {
-    console.log(this.props.trackedShowIds);
+    console.log('Show Ids', this.props.trackedShowIds);
     const numOfShowsSelected = this.state.selectedShowIds.length
 
     return (

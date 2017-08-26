@@ -6,7 +6,7 @@ export const getSearchEndpoint = query => (
 );
 
 export const formatSearchResults = results => (
-  results.map(({show}) => (console.log(show) || {
+  results.map(({show}) => ({
     id: show.id,
     name: show.name,
     image: show.image && show.image.medium,

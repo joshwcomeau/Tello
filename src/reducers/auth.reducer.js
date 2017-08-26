@@ -23,7 +23,6 @@ export default function reducer(state = initialState, action) {
     }
 
     case ADD_SHOWS: {
-      console.log(action);
       // This action is also used for the `shows` reducer.
       // We want to pluck out the show IDs and store them on the user object.
       const userShows = action.shows.map(show => ({

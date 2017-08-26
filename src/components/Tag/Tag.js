@@ -6,7 +6,6 @@ import getDomainColor from '../../helpers/domain-colors';
 
 
 const Tag = ({ domain }) => (
-  console.log(getDomainColor(domain), domain) ||
   <TagElem backgroundColor={getDomainColor(domain).baseColor}>
     {domain}
   </TagElem>
