@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'emotion/react';
 import PropTypes from 'prop-types';
 
+import { COLORS, UNITS_IN_PX } from '../../constants';
+
 
 const propTypes = {
   isVisible: PropTypes.bool.isRequired,
@@ -50,7 +52,9 @@ const ModalElem = styled.div`
   right: 0;
   bottom: 0;
   width: 40%;
-  background: white;
+  padding: ${UNITS_IN_PX[3]} ${UNITS_IN_PX[4]};
+  background: ${COLORS.gray.veryLight};
+  color: ${COLORS.gray.veryDark};
   box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.5);
   transform: ${props => props.isVisible ? 'translateX(0)' : 'translateX(100%)'};
   transition: transform 500ms;
