@@ -40,3 +40,17 @@ export const stripHTMLFromString = string => {
 
   return placeholderDiv.textContent || placeholderDiv.innerText || "";
 }
+
+export const truncateStringByWordCount = (string, maxWords) => {
+  const wordArray = string.split(/\s/g);
+
+  // Maybe no truncation is necessary, if the string is below the limit?
+  if (wordArray.length <= maxWords) {
+    return string;
+  }
+
+  const truncatedString = wordArray.slice(0, maxWords).join(' ');
+
+  // Attach an ellipsis at the end, since it needed truncation
+  return `${truncatedString}…`;
+}

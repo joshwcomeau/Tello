@@ -1,13 +1,14 @@
 .css-Wrapper-z3omj5 { position: relative;
   margin: var(--css-Wrapper-z3omj5-0) 0; }
-.css-Input-16y5h4a { background: transparent;
+.css-Input-1t0u2fi { background: transparent;
   border: none;
   outline: none;
-  height: var(--css-Input-16y5h4a-0);
+  height: var(--css-Input-1t0u2fi-0);
   padding: 0;
   font-size: 20px;
-  color: var(--css-Input-16y5h4a-1);
+  color: var(--css-Input-1t0u2fi-1);
   width: 100%; }
+.css-Input-1t0u2fi::placeholder { color: var(--css-Input-1t0u2fi-2); }
 .css-BottomBorder-kyklaq { position: absolute;
   z-index: 1;
   left: 0;

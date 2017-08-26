@@ -42,7 +42,7 @@ const Backdrop = styled.div`
   bottom: 0;
   background: rgba(0, 0, 0, 0.35);
   opacity: ${props => props.isVisible ? 1 : 0};
-  transition: opacity 800ms;
+  transition: opacity 750ms;
 `;
 
 const ModalElem = styled.div`
@@ -51,7 +51,8 @@ const ModalElem = styled.div`
   top: 0;
   right: 0;
   bottom: 0;
-  width: 40%;
+  width: 800px;
+  max-width: 85%;
   padding: ${UNITS_IN_PX[3]} ${UNITS_IN_PX[4]};
   background: ${COLORS.gray.veryLight};
   color: ${COLORS.gray.veryDark};

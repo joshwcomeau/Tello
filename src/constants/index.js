@@ -37,7 +37,7 @@ export const COLORS = {
   },
   gray: {
     veryLight: '#F4F4F4',
-    light: '#EEEEEE',
+    light: '#CCCCCC',
     primary: '#777777',
     dark: '#424242',
     veryDark: '#1F1D1D',

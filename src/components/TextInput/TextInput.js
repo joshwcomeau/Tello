@@ -62,6 +62,10 @@ const Input = styled.input`
   font-size: 20px;
   color: ${COLORS.gray.veryDark};
   width: 100%;
+
+  &::placeholder {
+    color: ${COLORS.gray.light};
+  }
 `;
 
 const BottomBorder = styled.div`

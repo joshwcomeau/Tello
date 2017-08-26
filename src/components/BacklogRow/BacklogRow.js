@@ -14,6 +14,7 @@ import {
 import getDomainColor from '../../helpers/domain-colors';
 
 import Episode from '../Episode';
+import Heading from '../Heading';
 import Tag from '../Tag';
 import { getTagBackgroundColor } from './BacklogRow.utils';
 
@@ -45,7 +46,7 @@ class BacklogRow extends Component {
       <Wrapper>
         <Row>
           <ShowDetails>
-            <ShowName>{name}</ShowName>
+            <Heading size="small">{name}</Heading>
             <TagWrapper>
               <Tag color={baseColor}>
                 {type}

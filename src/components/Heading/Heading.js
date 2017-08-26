@@ -55,7 +55,8 @@ const HeadingMedium = styled.h4`
 
 const HeadingSmall = styled.h6`
   composes: ${headingCSS};
-  font-size: 24px;
+  font-size: 22px;
+  line-height: 18px;
   color: ${getFontColor};
 `;
 

@@ -5,14 +5,13 @@
   right: 0;
   bottom: 0;
   pointer-events: var(--css-Wrapper-1qyhqdj-0); }
-.css-Backdrop-1lzeu0e { position: absolute;
+.css-Backdrop-x7jlfk { position: absolute;
   z-index: 100;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   background: rgba(0, 0, 0, 0.35);
-  box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.5);
-  opacity: var(--css-Backdrop-1lzeu0e-0);
-  -webkit-transition: opacity 800ms;
-  transition: opacity 800ms; }
+  opacity: var(--css-Backdrop-x7jlfk-0);
+  -webkit-transition: opacity 750ms;
+  transition: opacity 750ms; }

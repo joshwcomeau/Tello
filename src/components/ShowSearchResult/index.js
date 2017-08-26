@@ -1,1 +1,1 @@
-export { default } from './ShowSearchResult';
+export { default, propTypes } from './ShowSearchResult';
