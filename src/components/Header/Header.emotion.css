@@ -5,8 +5,8 @@
   bottom: 0;
   margin-top: auto;
   margin-bottom: auto; }
-.css-AddShowButtonWrapper-11yvbdz { position: absolute;
-  right: 0;
+.css-AddShowButtonWrapper-15k71qr { position: absolute;
+  right: var(--css-AddShowButtonWrapper-15k71qr-0);
   bottom: 0;
   -webkit-transform: translateY(50%);
   -ms-transform: translateY(50%);

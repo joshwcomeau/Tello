@@ -10,6 +10,8 @@ import Heading from '../Heading';
 import Tag from '../Tag';
 import AddShowButton from '../AddShowButton';
 
+import { getColorForStatus } from './ShowSearchResult.helpers';
+
 
 const propTypes = {
   show: ShowProps,
@@ -45,7 +47,9 @@ class ShowSearchResult extends Component {
         <MainContent>
           <Heading size="small">{name}</Heading>
         </MainContent>
-        <Status isRunning={status === 'Running'}>{status}</Status>
+        <DevelopmentStatus status={status}>
+          {status}
+        </DevelopmentStatus>
       </Wrapper>
     );
   }
@@ -57,6 +61,7 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   cursor: default;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 `;
 
 const getCheckboxBorder = props => (
@@ -91,9 +96,9 @@ const MainContent = styled.div`
   transform: translateY(-2px);
 `;
 
-const Status = styled.div`
+const DevelopmentStatus = styled.div`
   font-size: 12px;
-  color: ${props => props.isRunning ? COLORS.green.primary : COLORS.gray.primary};
+  color: ${getColorForStatus};
 `;
 
 ShowSearchResult.propTypes = propTypes;

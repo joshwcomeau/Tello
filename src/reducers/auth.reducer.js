@@ -1,5 +1,5 @@
 import {
-  ADD_SHOW,
+  ADD_SHOWS,
   REMOVE_SHOW,
   TOGGLE_EPISODE,
   USER_DATA_RECEIVE,
@@ -20,9 +20,22 @@ export default function reducer(state = initialState, action) {
       };
     }
 
-    case ADD_SHOW: {
-      // TODO
-      return state;
+    case ADD_SHOWS: {
+      console.log(action);
+      // This action is also used for the `shows` reducer.
+      // We want to pluck out the show IDs and store them on the user object.
+      const userShows = action.shows.map(show => ({
+        id: show.id,
+        seenEpisodes: [],
+      }));
+
+      return {
+        ...state,
+        userData: {
+          ...state.userData,
+          trackedShows: [...state.userData.shows, ...userShows],
+        },
+      };
     }
 
     case REMOVE_SHOW: {

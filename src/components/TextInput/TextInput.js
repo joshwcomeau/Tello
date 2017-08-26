@@ -50,7 +50,7 @@ class TextInput extends Component {
 
 const Wrapper = styled.div`
   position: relative;
-  margin: ${UNITS_IN_PX[1]} 0;
+  margin-bottom: ${UNITS_IN_PX[1]};
 `;
 
 const Input = styled.input`

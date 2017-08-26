@@ -1,7 +1,7 @@
 import { MODAL_IDS } from '../constants';
 
 
-export const ADD_SHOW = 'ADD_SHOW';
+export const ADD_SHOWS = 'ADD_SHOWS';
 export const REMOVE_SHOW = 'REMOVE_SHOW';
 export const SHOW_MODAL = 'SHOW_MODAL';
 export const HIDE_MODAL = 'HIDE_MODAL';
@@ -10,6 +10,11 @@ export const USER_DATA_REQUEST = 'USER_DATA_REQUEST';
 export const USER_DATA_RECEIVE = 'USER_DATA_RECEIVE';
 export const USER_DATA_FAILURE = 'USER_DATA_FAILURE';
 
+
+export const addShows = ({ shows }) => ({
+  type: ADD_SHOWS,
+  shows,
+});
 
 export const showModal = ({ id, side }) => ({
   type: SHOW_MODAL,

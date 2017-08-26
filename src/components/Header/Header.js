@@ -49,7 +49,7 @@ const LogoWrapper = styled.div`
 
 const AddShowButtonWrapper = styled.div`
   position: absolute;
-  right: 0;
+  right: ${UNITS_IN_PX[2]};
   bottom: 0;
   transform: translateY(50%);
 `;

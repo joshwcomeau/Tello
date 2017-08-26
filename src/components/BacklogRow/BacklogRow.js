@@ -56,6 +56,7 @@ class BacklogRow extends Component {
             <EpisodeGradient />
             {episodes.slice(0, 4).map(episode => (
               <Episode
+                key={episode.id}
                 showType={type}
                 height={ROW_HEIGHT - UNIT}
                 season={episode.season}

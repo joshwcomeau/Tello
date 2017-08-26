@@ -1,9 +1,10 @@
-.css-Wrapper-tr8xu { display: -webkit-box; display: -moz-box; display: -ms-flexbox; display: -webkit-flex; display: flex;
+.css-Wrapper-166eu70 { display: -webkit-box; display: -moz-box; display: -ms-flexbox; display: -webkit-flex; display: flex;
   -webkit-align-items: center;
   -ms-flex-align: center;
   -webkit-box-align: center;
   align-items: center;
-  cursor: default; }
+  cursor: default;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05); }
 .css-Checkbox-1qk44xp { width: 15px;
   height: 15px;
   margin-right: var(--css-Checkbox-1qk44xp-0);
@@ -27,5 +28,5 @@
   -webkit-transform: translateY(-2px);
   -ms-transform: translateY(-2px);
   transform: translateY(-2px); }
-.css-Status-1s2vo15 { font-size: 12px;
-  color: var(--css-Status-1s2vo15-0); }
+.css-DevelopmentStatus-1s2vo15 { font-size: 12px;
+  color: var(--css-DevelopmentStatus-1s2vo15-0); }
