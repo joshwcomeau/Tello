@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect';
+import update from 'immutability-helper';
 
 import {
   ADD_SHOWS,
@@ -12,6 +13,7 @@ const initialState = {
   isLoggedIn: false,
   userData: null,
 };
+
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
@@ -30,16 +32,13 @@ export default function reducer(state = initialState, action) {
         seenEpisodes: [],
       }));
 
-      return {
-        ...state,
+      return update(state, {
         userData: {
-          ...state.userData,
-          trackedShows: [
-            ...state.userData.trackedShows,
-            ...newlyTrackedShows
-          ],
+          trackedShows: {
+            $push: newlyTrackedShows,
+          },
         },
-      };
+      });
     }
 
     case REMOVE_SHOW: {
