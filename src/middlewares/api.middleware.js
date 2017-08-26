@@ -1,9 +1,10 @@
+import Cookies from 'cookies-js';
+
 import {
   USER_DATA_REQUEST,
   userDataReceive,
   userDataFailure,
 } from '../actions';
-import { getCookie } from '../utils';
 import { AUTH_TOKEN_KEY } from '../constants';
 import { getAuthUserData } from '../services/api.service';
 
@@ -16,7 +17,7 @@ export default function createAPIMiddleware() {
 
     // Fetch the user's token from the cookie. If no cookie is found, they
     // must be logged out, and shouldn't be interacting with our API.
-    const token = getCookie(AUTH_TOKEN_KEY);
+    const token = Cookies.get(AUTH_TOKEN_KEY);
 
     switch (action.type) {
       case USER_DATA_REQUEST: {
@@ -25,6 +26,13 @@ export default function createAPIMiddleware() {
             next(userDataReceive(json));
           })
           .catch(err => {
+            // If there was an error, let's delete the locally-stored
+            // cookie. This forces the user to attempt to login again,
+            // which should hopefully fix whatever caused the error.
+            Cookies.expire(AUTH_TOKEN_KEY);
+
+            // Dispatch a failure action so an error can be shown to
+            // the user.
             next(userDataFailure(err));
           });
         break;

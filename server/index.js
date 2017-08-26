@@ -66,12 +66,18 @@ app.get('/users/me', (req, res, next) => {
       return next(err);
     }
 
+    // If no user was found, it means the account was deleted.
+    // let's return null, the client can then delete the token.
+    if (!user) {
+      return next(err);
+    }
+
     // The user object we return should be a simplified version of the DB record.
     // TODO: Move this somewhere?
     const simplifiedUser = {
       name: user.name,
       email: user.email,
-      shows: user.shows,
+      trackedShows: user.trackedShows,
       id: user._id,
     };
 

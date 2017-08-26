@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory'
+import Cookies from 'cookies-js';
 
 import configureStore from './store';
-import { getCookie } from './utils';
 import { AUTH_TOKEN_KEY } from './constants';
 
 import registerServiceWorker from './registerServiceWorker';
@@ -23,7 +23,7 @@ const initialState = {
     // logged in at first. Of course this will need to be validated by the server,
     // but this way we can avoid the logged-out-flash. The odds of an invalid
     // token are very low, since the cookie never expires.
-    isLoggedIn: !!getCookie(AUTH_TOKEN_KEY),
+    isLoggedIn: !!Cookies.get(AUTH_TOKEN_KEY),
   },
 }
 

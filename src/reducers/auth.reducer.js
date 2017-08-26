@@ -25,7 +25,7 @@ export default function reducer(state = initialState, action) {
     case ADD_SHOWS: {
       // This action is also used for the `shows` reducer.
       // We want to pluck out the show IDs and store them on the user object.
-      const userShows = action.shows.map(show => ({
+      const newlyTrackedShows = action.shows.map(show => ({
         id: show.id,
         seenEpisodes: [],
       }));
@@ -34,7 +34,10 @@ export default function reducer(state = initialState, action) {
         ...state,
         userData: {
           ...state.userData,
-          trackedShows: [...state.userData.shows, ...userShows],
+          trackedShows: [
+            ...state.userData.trackedShows,
+            ...newlyTrackedShows
+          ],
         },
       };
     }
@@ -56,11 +59,13 @@ export default function reducer(state = initialState, action) {
 }
 
 // Selectors
-const getUserData = state => state.userData
-const getTrackedShows = createSelector(getUserData, (userData) => (
-  userData ? userData.trackedShows : []
-));
+export const getUserData = state => state.auth.userData;
+export const getTrackedShows = createSelector(
+  getUserData,
+  (userData) => userData ? userData.trackedShows : []
+);
 
-const getTrackedShowIds = createSelector(getTrackedShows, (trackedShows) => {
-  trackedShows.map(show => show.id)
-});
+export const getTrackedShowIds = createSelector(
+  getTrackedShows,
+  (trackedShows) => trackedShows.map(show => show.id)
+);

@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
 import styled from 'emotion/react';
+import Cookies from 'cookies-js';
 import PropTypes from 'prop-types';
 
 import { userDataRequest } from '../../actions';
 import { AUTH_TOKEN_KEY, ROW_HEIGHT } from '../../constants';
-import { getCookie } from '../../utils';
 
 import Header from '../Header';
 import RightModal from '../RightModal';
@@ -17,7 +17,7 @@ import Home from '../Home';
 
 
 // For our initial mount,
-const token = getCookie(AUTH_TOKEN_KEY);
+const token = Cookies.get(AUTH_TOKEN_KEY);
 
 class App extends Component {
   static propTypes = {

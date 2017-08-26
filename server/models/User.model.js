@@ -7,7 +7,7 @@ const UserSchema = new mongoose.Schema({
   name: String,
   googleId: String,
   email: String,
-  shows: [ShowSchema],
+  trackedShows: [ShowSchema],
 });
 
 const User = mongoose.model('User', UserSchema);

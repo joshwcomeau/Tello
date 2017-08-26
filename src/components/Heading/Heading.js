@@ -2,20 +2,20 @@ import React from 'react';
 import styled from 'emotion/react';
 import { css } from 'emotion';
 import PropTypes from 'prop-types';
-
 import { COLORS, UNITS_IN_PX } from '../../constants';
 
 
 const propTypes = {
   size: PropTypes.oneOf(['small', 'medium', 'large']).isRequired,
   theme: PropTypes.oneOf(['light', 'dark']).isRequired,
-  children: PropTypes.node
+  children: PropTypes.node,
 };
 
 const defaultProps = {
   size: 'medium',
   theme: 'dark',
-}
+};
+
 const Heading = ({ size, children, ...delegated }) => (
   React.createElement(
     headingComponentMap[size],
@@ -49,7 +49,7 @@ const HeadingMedium = styled.h4`
   font-size: 42px;
   letter-spacing: -1px;
   line-height: 32px;
-  margin-bottom: ${UNITS_IN_PX[2]}
+  margin-bottom: ${UNITS_IN_PX[2]};
   color: ${getFontColor};
 `;
 
