@@ -7,5 +7,14 @@
 .css-MainContent-yp9swi { -webkit-flex: 1; -ms-flex: 1; flex: 1; }
 .css-Summary-1fame8f { padding: var(--css-Summary-1fame8f-0) 0;
   font-size: 13px; }
-.css-Image-vg1z0t { height: 100%;
-  margin-right: var(--css-Image-vg1z0t-0); }
+.css-ImageContainer-vg1z0t { height: 100%;
+  margin-right: var(--css-ImageContainer-vg1z0t-0); }
+.css-AddButton-1mygka8 { width: var(--css-AddButton-1mygka8-0);
+  height: var(--css-AddButton-1mygka8-1);
+  margin-left: var(--css-AddButton-1mygka8-2);
+  background: var(--css-AddButton-1mygka8-3);
+  color: var(--css-AddButton-1mygka8-4);
+  cursor: pointer;
+  font-size: 44px;
+  font-family: 'Raleway';
+  border: none; }

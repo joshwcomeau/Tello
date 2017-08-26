@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import styled from 'emotion/react';
 
-import { showAddShowModal } from '../../actions';
 import {
   MODAL_IDS,
   ROW_HEIGHT,
@@ -12,35 +11,38 @@ import {
 } from '../../constants';
 
 
-const AddShowButton = ({ showAddShowModal }) => (
-  <ButtonElem onClick={showAddShowModal}>
+const propTypes = {
+  color: PropTypes.string,
+  hoverColor: PropTypes.string,
+  onClick: PropTypes.func.isRequired,
+};
+
+const AddShowButton = (props) => (
+  <ButtonElem {...props}>
     +
   </ButtonElem>
-)
+);
 
-
-const gradientPurple = '#da00e0';
+AddShowButton.propTypes = propTypes;
 
 const ButtonElem = styled.button`
   font-size: 96px;
-  box-sizing: content-box;
   width: ${ROW_HEIGHT_PX};
   height: ${ROW_HEIGHT_PX};
   line-height: ${ROW_HEIGHT_PX};
   border: none;
   color: ${COLORS.white};
-  background: ${COLORS.purple.dark};
+  background: ${props => props.color};
   font-family: 'Raleway';
   transition: background 300ms;
   outline: none;
   cursor: pointer;
   overflow: hidden;
 
-
   &:hover {
-    background: ${COLORS.deepPurple.primary};
+    background: ${props => props.hoverColor || props.color};
   }
 `;
 
 
-export default connect(null, { showAddShowModal })(AddShowButton);
+export default AddShowButton;

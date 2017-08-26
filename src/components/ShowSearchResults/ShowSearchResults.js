@@ -3,20 +3,25 @@ import styled from 'emotion/react';
 import PropTypes from 'prop-types';
 
 import { UNITS_IN_PX } from '../../constants';
+import { ShowProps } from '../../types';
 
-import ShowSearchResult, { propTypes as ShowPropTypes } from '../ShowSearchResult';
+import ShowSearchResult from '../ShowSearchResult';
 
 
 const propTypes = {
   status: PropTypes.oneOf(['idle', 'loading', 'done']),
-  shows: PropTypes.arrayOf(ShowPropTypes),
+  shows: PropTypes.arrayOf(ShowProps),
 };
 
 const ShowSearchResults = ({ status, shows }) => {
   return (
     <Wrapper>
       {shows.map(show => (
-        <ShowSearchResult key={show.id} {...show} />
+        <ShowSearchResult
+          key={show.id}
+          show={show}
+          isAlreadyAdded={false /* TODO */}
+        />
       ))}
     </Wrapper>
   );

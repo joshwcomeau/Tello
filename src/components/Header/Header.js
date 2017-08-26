@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'emotion/react';
 
+import { showAddShowModal } from '../../actions';
 import { COLORS, UNITS_IN_PX } from '../../constants';
 
 import AddShowButton from '../AddShowButton';
@@ -9,7 +10,7 @@ import Logo from '../Logo';
 import MaxWidthWrapper from '../MaxWidthWrapper';
 
 
-const Header = () => {
+const Header = ({ isLoggedIn, showAddShowModal }) => {
   return (
     <HeaderElem>
       <MaxWidthWrapper style={{ height: '100%' }}>
@@ -18,7 +19,11 @@ const Header = () => {
         </LogoWrapper>
 
         <AddShowButtonWrapper>
-          <AddShowButton />
+          <AddShowButton
+            color={COLORS.purple.dark}
+            hoverColor={COLORS.deepPurple.primary}
+            onClick={showAddShowModal}
+          />
         </AddShowButtonWrapper>
       </MaxWidthWrapper>
     </HeaderElem>
@@ -53,4 +58,4 @@ const mapStateToProps = state => ({
   isLoggedIn: state.auth.isLoggedIn,
 });
 
-export default connect(mapStateToProps)(Header);
+export default connect(mapStateToProps, { showAddShowModal })(Header);

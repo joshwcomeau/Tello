@@ -34,6 +34,7 @@ export const COLORS = {
   },
   lime: {
     primary: '#C6FF00',
+    dark: '#AEEA00',
   },
   gray: {
     veryLight: '#F4F4F4',
@@ -65,7 +66,7 @@ export const UNIT = 15;
 
 export const UNITS_IN_PX = range(30).map(i => UNIT * i + 'px');
 
-export const HALF_UNIT = Math.round(UNIT / 2);
+export const HALF_UNIT = UNIT / 2;
 export const HALF_UNIT_PX = HALF_UNIT + 'px';
 
 export const ROW_HEIGHT = UNIT * 5;

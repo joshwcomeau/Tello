@@ -25,12 +25,10 @@ const buttonColors = {
   red: {
     light: COLORS.red.primary,
     dark: COLORS.red.primary,
-    border: COLORS.red.dark,
   },
   blue: {
     light: COLORS.blue.primary,
     dark: COLORS.deepPurple.primary,
-    border: COLORS.deepPurple.dark,
   },
 };
 

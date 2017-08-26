@@ -1,42 +1,64 @@
-import React from 'react';
+import React, { Component } from 'react';
 import styled from 'emotion/react';
 import PropTypes from 'prop-types';
 
-import placeholderImage from '../../images/placeholder.png';
 import { COLORS, UNITS_IN_PX, HALF_UNIT_PX } from '../../constants';
 import { truncateStringByWordCount } from '../../utils';
+import { ShowProps } from '../../types';
 
 import Heading from '../Heading';
+import ShowImage from '../ShowImage';
+import AddShowButton from '../AddShowButton';
 
 
-export const propTypes = {
-  id: PropTypes.number.isRequired,
-  name: PropTypes.string.isRequired,
-  image: PropTypes.string.isRequired,
-  status: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
-  summary: PropTypes.string.isRequired,
+const propTypes = {
+  show: ShowProps,
+  isAlreadyAdded: PropTypes.bool,
 };
 
-const defaultProps = {
-  image: placeholderImage,
-};
+class ShowSearchResult extends Component {
+  state = {
+    isHovering: false,
+  }
 
+  handleMouseEnter = () => this.setState({ isHovering: true })
+  handleMouseLeave = () => this.setState({ isHovering: false })
 
-const ShowSearchResult = ({ id, name, image, status, type, summary }) => (
-  <Wrapper>
-    <Image src={image} />
-    <MainContent>
-      <Heading size="small">{name}</Heading>
-      <Summary>{truncateStringByWordCount(summary, 30)}</Summary>
-    </MainContent>
-  </Wrapper>
-);
+  render() {
+    const { isHovering } = this.state;
+    const { show: { id, name, image, status, type, summary } } = this.props;
+
+    return (
+      <Wrapper
+        onMouseEnter={this.handleMouseEnter}
+        onMouseLeave={this.handleMouseLeave}
+      >
+        <ImageContainer>
+          <ShowImage name={name} src={image} />
+        </ImageContainer>
+
+        <MainContent>
+          <Heading size="small">{name}</Heading>
+          <Summary>{truncateStringByWordCount(summary, 30)}</Summary>
+        </MainContent>
+        <AddShowButton
+          onClick={function() {}}
+          color={isHovering
+            ? COLORS.green.primary
+            : COLORS.lime.dark
+          }
+        />
+      </Wrapper>
+    );
+  }
+}
+
+const HEIGHT_IN_UNITS = 7;
 
 const Wrapper = styled.div`
   display: flex;
-  height: ${UNITS_IN_PX[8]};
-  padding: ${HALF_UNIT_PX};
+  height: ${UNITS_IN_PX[HEIGHT_IN_UNITS]};
+  padding: ${UNITS_IN_PX[1]};
   margin-bottom: ${UNITS_IN_PX[1]}
   background: ${COLORS.white};
   border-bottom: 1px solid ${COLORS.gray.light};
@@ -51,12 +73,23 @@ const Summary = styled.p`
   font-size: 13px;
 `
 
-const Image = styled.img`
+const ImageContainer = styled.div`
   height: 100%;
   margin-right: ${UNITS_IN_PX[1]};
 `;
 
+const AddButton = styled.button`
+  width: ${UNITS_IN_PX[HEIGHT_IN_UNITS]};
+  height: ${UNITS_IN_PX[HEIGHT_IN_UNITS]};
+  margin-left: ${UNITS_IN_PX[1]};
+  background: ${COLORS.green.primary};
+  color: ${COLORS.white};
+  cursor: pointer;
+  font-size: 44px;
+  font-family: 'Raleway';
+  border: none;
+`;
+
 ShowSearchResult.propTypes = propTypes;
-ShowSearchResult.defaultProps = defaultProps
 
 export default ShowSearchResult;
