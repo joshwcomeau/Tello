@@ -60,8 +60,9 @@ export const episodesRequest = ({ showId }) => ({
   showId,
 });
 
-export const episodesReceive = ({ episodes }) => ({
+export const episodesReceive = ({ showId, episodes }) => ({
   type: EPISODES_RECEIVE,
+  showId,
   episodes,
 });
 

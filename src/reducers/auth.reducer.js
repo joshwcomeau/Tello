@@ -45,7 +45,16 @@ function userReducer(state = initialState.user, action) {
     }
 
     case EPISODES_RECEIVE: {
+      const nextShows = state.trackedShows.map(show => (
+        show.id === action.showId
+          ? { ...show, episodes: action.episodes }
+          : show
+      ));
 
+      return {
+        ...state,
+        trackedShows: nextShows,
+      };
     }
 
     case REMOVE_SHOW: {

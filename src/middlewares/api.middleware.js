@@ -63,7 +63,7 @@ export default function createAPIMiddleware() {
         getEpisodesForShow({ showId: action.showId })
           .then(formatEpisodeResults)
           .then(episodes => {
-            next(episodesReceive({ episodes }));
+            next(episodesReceive({ showId: action.showId, episodes }));
           });
       }
 
