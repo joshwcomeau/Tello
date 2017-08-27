@@ -13,6 +13,9 @@ class Backlog extends Component {
   }
 
   render() {
+    const { shows } = this.props;
+
+    console.log({shows})
     return null;
     // return <BacklogRow show={stub} />;
   }

@@ -15,6 +15,11 @@ const initialState = {
 };
 
 
+const extractUserShows = shows => shows.map(show => ({
+  id: show.id,
+  seenEpisodes: show.seenEpisodes || [],
+}));
+
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case USER_DATA_RECEIVE: {
@@ -25,17 +30,10 @@ export default function reducer(state = initialState, action) {
     }
 
     case START_TRACKING_NEW_SHOWS: {
-      // This action is also used for the `shows` reducer.
-      // We want to pluck out the show IDs and store them on the user object.
-      const newlyTrackedShows = action.shows.map(show => ({
-        id: show.id,
-        seenEpisodes: [],
-      }));
-
       return update(state, {
         userData: {
           trackedShows: {
-            $push: newlyTrackedShows,
+            $push: extractUserShows(action.shows),
           },
         },
       });

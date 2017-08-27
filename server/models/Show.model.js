@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const ShowSchema = new mongoose.Schema({
-  tvMazeId: Number,
+  _id: Number,
   name: String,
   image: String,
   status: String,

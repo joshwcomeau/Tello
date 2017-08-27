@@ -16,6 +16,6 @@ export const getPopulatedShowData = createSelector(
     // [{ id: 123, seenEpisodes: [1, 2, 3] }]
     // We want to pull the associated shows and episodes from their
     // respective reducers, and denormalize them into a nested structure.
-
+    console.log({ trackedShows, showsArray, episodes })
   }
 )
