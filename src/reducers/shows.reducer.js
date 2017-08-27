@@ -1,14 +1,19 @@
+import { createSelector } from 'reselect';
+
 import {
-  ADD_SHOWS,
+  START_TRACKING_NEW_SHOWS,
 } from '../actions';
 
 
-const initialState = [];
+const initialState = {};
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
-    case ADD_SHOWS: {
-      return [...state, ...action.shows];
+    case START_TRACKING_NEW_SHOWS: {
+      return action.shows.reduce((acc, show) => ({
+        ...acc,
+        [show.id]: show,
+      }), state);
     }
 
     default: {
@@ -16,3 +21,11 @@ export default function reducer(state = initialState, action) {
     }
   }
 }
+
+
+// Selectors
+export const getShows = state => state.shows;
+export const getShowsArray = createSelector(
+  getShows,
+  (shows) => Object.keys(shows).map(id => shows[id])
+);

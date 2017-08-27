@@ -1,7 +1,7 @@
 import { MODAL_IDS } from '../constants';
 
 
-export const ADD_SHOWS = 'ADD_SHOWS';
+export const START_TRACKING_NEW_SHOWS = 'START_TRACKING_NEW_SHOWS';
 export const REMOVE_SHOW = 'REMOVE_SHOW';
 export const SHOW_MODAL = 'SHOW_MODAL';
 export const HIDE_MODAL = 'HIDE_MODAL';
@@ -9,10 +9,13 @@ export const TOGGLE_EPISODE = 'TOGGLE_EPISODE';
 export const USER_DATA_REQUEST = 'USER_DATA_REQUEST';
 export const USER_DATA_RECEIVE = 'USER_DATA_RECEIVE';
 export const USER_DATA_FAILURE = 'USER_DATA_FAILURE';
+export const EPISODES_REQUEST = 'EPISODES_REQUEST';
+export const EPISODES_RECEIVE = 'EPISODES_RECEIVE';
+export const EPISODES_FAILURE = 'EPISODES_FAILURE';
 
 
-export const addShows = ({ shows }) => ({
-  type: ADD_SHOWS,
+export const startTrackingNewShows = ({ shows }) => ({
+  type: START_TRACKING_NEW_SHOWS,
   shows,
 });
 
@@ -44,5 +47,19 @@ export const userDataReceive = (data) => ({
 
 export const userDataFailure = (error) => ({
   type: USER_DATA_FAILURE,
+  error,
+});
+
+export const episodesRequest = () => ({
+  type: EPISODES_REQUEST,
+});
+
+export const episodesReceive = ({ episodes }) => ({
+  type: EPISODES_RECEIVE,
+  episodes,
+});
+
+export const episodesFailure = ({ error }) => ({
+  type: EPISODES_FAILURE,
   error,
 });

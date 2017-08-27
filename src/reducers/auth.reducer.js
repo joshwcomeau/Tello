@@ -2,7 +2,7 @@ import { createSelector } from 'reselect';
 import update from 'immutability-helper';
 
 import {
-  ADD_SHOWS,
+  START_TRACKING_NEW_SHOWS,
   REMOVE_SHOW,
   TOGGLE_EPISODE,
   USER_DATA_RECEIVE,
@@ -24,7 +24,7 @@ export default function reducer(state = initialState, action) {
       };
     }
 
-    case ADD_SHOWS: {
+    case START_TRACKING_NEW_SHOWS: {
       // This action is also used for the `shows` reducer.
       // We want to pluck out the show IDs and store them on the user object.
       const newlyTrackedShows = action.shows.map(show => ({

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'emotion/react';
 
-import { addShows } from '../../actions';
+import { startTrackingNewShows, hideModal } from '../../actions';
 import { getTrackedShowIds } from '../../reducers/auth.reducer';
 import { getSearchEndpoint, formatSearchResults } from '../../helpers/tv-maze';
 
@@ -19,7 +19,7 @@ import { getButtonText } from './AddShow.helpers';
 class AddShow extends Component {
   static propTypes = {
     previouslyTrackedShowIds: PropTypes.arrayOf(PropTypes.string),
-    addShows: PropTypes.func.isRequired,
+    startTrackingNewShows: PropTypes.func.isRequired,
   }
 
   state = {
@@ -73,11 +73,19 @@ class AddShow extends Component {
       shows.find(show => show.id === id)
     ));
 
-    this.props.addShows({ shows: selectedShows });
+    // Dispatch the action which will persist this selection to the server.
+    this.props.startTrackingNewShows({ shows: selectedShows });
+
+    // Close and reset this modal.
+    this.props.hideModal({ side: 'right' });
+    this.setState({
+      status: 'idle',
+      shows: [],
+      selectedShowIds: [],
+    });
   }
 
   render() {
-    console.log('Show Ids', this.props.previouslyTrackedShowIds);
     const numOfShowsSelected = this.state.selectedShowIds.length
 
     return (
@@ -126,4 +134,6 @@ const mapStateToProps = state => ({
   previouslyTrackedShowIds: getTrackedShowIds(state),
 });
 
-export default connect(mapStateToProps, { addShows })(AddShow);
+const mapDispatchToProps = { startTrackingNewShows, hideModal };
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddShow);
