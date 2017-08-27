@@ -11,17 +11,23 @@ import ShowSearchResult from '../ShowSearchResult';
 const propTypes = {
   status: PropTypes.oneOf(['idle', 'loading', 'done']),
   shows: PropTypes.arrayOf(ShowProps),
+  previouslyTrackedShowIds: PropTypes.arrayOf(PropTypes.string),
   onToggleShow: PropTypes.func.isRequired,
 };
 
-const ShowSearchResults = ({ status, shows, onToggleShow }) => {
+const ShowSearchResults = ({
+  status,
+  shows,
+  previouslyTrackedShowIds,
+  onToggleShow
+}) => {
   return (
     <Wrapper>
       {shows.map(show => (
         <ShowSearchResult
           key={show.id}
           show={show}
-          isAlreadyAdded={false /* TODO */}
+          isAlreadyAdded={previouslyTrackedShowIds.includes(show.id)}
           onToggleShow={onToggleShow}
         />
       ))}

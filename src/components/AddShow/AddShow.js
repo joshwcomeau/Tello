@@ -18,7 +18,7 @@ import { getButtonText } from './AddShow.helpers';
 
 class AddShow extends Component {
   static propTypes = {
-    trackedShowIds: PropTypes.arrayOf(PropTypes.string),
+    previouslyTrackedShowIds: PropTypes.arrayOf(PropTypes.string),
     addShows: PropTypes.func.isRequired,
   }
 
@@ -77,7 +77,7 @@ class AddShow extends Component {
   }
 
   render() {
-    console.log('Show Ids', this.props.trackedShowIds);
+    console.log('Show Ids', this.props.previouslyTrackedShowIds);
     const numOfShowsSelected = this.state.selectedShowIds.length
 
     return (
@@ -94,6 +94,7 @@ class AddShow extends Component {
           <ShowSearchResults
             status={this.state.status}
             shows={this.state.shows}
+            previouslyTrackedShowIds={this.props.previouslyTrackedShowIds}
             onToggleShow={this.handleToggleShow}
             style={{ flex: 1 }}
           />
@@ -122,7 +123,7 @@ const Flex = styled.div`
 `;
 
 const mapStateToProps = state => ({
-  trackedShowIds: getTrackedShowIds(state),
+  previouslyTrackedShowIds: getTrackedShowIds(state),
 });
 
 export default connect(mapStateToProps, { addShows })(AddShow);
