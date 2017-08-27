@@ -35,6 +35,14 @@ export const COLORS = {
     primary: '#2979FF',
     dark: '#2962FF',
   },
+  cyan: {
+    primary: '#00E5FF',
+    dark: '#00B8D4',
+  },
+  teal: {
+    primary: '#1DE9B6',
+    dark: '#00BFA5',
+  },
   green: {
     primary: '#00C853',
   },

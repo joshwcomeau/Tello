@@ -12,7 +12,6 @@ const authHref = `${hrefPrefix}/auth/google`;
 
 class Login extends Component {
   render() {
-    console.log('Render login')
     return (
       <Button color="red" tag="a" href={authHref}>
         Sign into Google

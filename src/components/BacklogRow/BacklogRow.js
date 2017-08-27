@@ -13,7 +13,7 @@ import {
   ROW_HEIGHT_PX
 } from '../../constants';
 import getDomainColor from '../../helpers/domain-colors.helpers';
-import { episodesRequest } from '../../actions';
+import { episodesRequest, toggleEpisode } from '../../actions';
 
 import Episode from '../Episode';
 import Heading from '../Heading';
@@ -54,7 +54,7 @@ class BacklogRow extends Component {
   }
 
   renderEpisodes() {
-    const { show: { type, episodes } } = this.props;
+    const { show: { id, type, episodes } } = this.props;
 
     if (!episodes) {
       // TODO: Loading? Also add some sort of isFetching flag to shows,
@@ -74,6 +74,10 @@ class BacklogRow extends Component {
             number={episode.number}
             name={episode.name}
             airDate={episode.airdate}
+            handleClick={() => toggleEpisode({
+              showId: id,
+              episodeId: episode.id,
+            })}
           />
         ))}
       </EpisodeWrapper>
@@ -160,4 +164,6 @@ const EpisodeGradient = styled.div`
   );
 `;
 
-export default connect(null, { episodesRequest })(BacklogRow);
+const mapDispatchToProps = { episodesRequest, toggleEpisode };
+
+export default connect(null, mapDispatchToProps)(BacklogRow);

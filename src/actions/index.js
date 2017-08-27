@@ -36,6 +36,12 @@ export const hideModal = ({ side }) => ({
   side,
 });
 
+export const toggleEpisode = ({ showId, episodeId }) => ({
+  type: TOGGLE_EPISODE,
+  showId,
+  episodeId,
+});
+
 // Convenience wrapper around `showModal`
 export const showAddShowModal = () => (
   showModal({ id: MODAL_IDS.addShow, side: 'right' })

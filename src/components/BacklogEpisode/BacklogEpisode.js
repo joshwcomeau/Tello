@@ -17,11 +17,24 @@ const propTypes = {
   airDate: PropTypes.string.isRequired,
 };
 
-const Episode = ({ height, showType, season, number, name, airDate }) => {
+const BacklogEpisode = ({
+  height,
+  showType,
+  season,
+  number,
+  name,
+  airDate,
+  handleClick,
+}) => {
   const {baseColor, highlightColor} = getDomainColor(showType);
 
   return (
-    <EpisodeElem height={height} color1={baseColor} color2={highlightColor}>
+    <Episode
+      height={height}
+      color1={baseColor}
+      color2={highlightColor}
+      onClick={handleClick}
+    >
       <EpisodeHeader>
         <EpisodeAirDate>
           {formatDate(airDate)}
@@ -33,11 +46,11 @@ const Episode = ({ height, showType, season, number, name, airDate }) => {
       </EpisodeHeader>
 
       <EpisodeName>{name}</EpisodeName>
-    </EpisodeElem>
+    </Episode>
   );
 };
 
-const EpisodeElem = styled.div`
+const Episode = styled.div`
   display: inline-flex;
   flex-direction: column;
   justify-content: space-between;
@@ -51,6 +64,7 @@ const EpisodeElem = styled.div`
     ${props => props.color2}
   );
   color: ${COLORS.white};
+  cursor: pointer;
 `;
 
 const EpisodeHeader = styled.header`
@@ -73,8 +87,13 @@ const EpisodeName = styled.h3`
   font-size: 16px;
   line-height: 25px;
   margin-bottom: -3px;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.1);
 `;
 
-Episode.propTypes = propTypes;
+BacklogEpisode.propTypes = propTypes;
 
-export default Episode;
+export default BacklogEpisode;

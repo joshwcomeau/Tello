@@ -21,6 +21,13 @@ const initialState = {
 };
 
 
+const convertArrayToMap = list => (
+  list.reduce((acc, item) => ({
+    ...acc,
+    [item.id]: item,
+  }), {})
+);
+
 function userReducer(state = initialState.user, action) {
   switch (action.type) {
     case USER_DATA_RECEIVE: {
@@ -32,29 +39,40 @@ function userReducer(state = initialState.user, action) {
       // Because we fetch straight from TV Maze and don't wait for server
       // confirmation, we have to add this in manually here, so that the
       // data is consistent.
-      const shows = action.shows.map(show => ({
+      const newShows = action.shows.map(show => ({
         ...show,
         seenEpisodes: [],
       }));
 
-      return update(state, {
-        trackedShows: {
-          $push: shows,
-        },
-      });
-    }
-
-    case EPISODES_RECEIVE: {
-      const nextShows = state.trackedShows.map(show => (
-        show.id === action.showId
-          ? { ...show, episodes: action.episodes }
-          : show
-      ));
+      // Convert the state shape so that it's map-like, instead of an array.
+      const newShowsMap = convertArrayToMap(newShows);
 
       return {
         ...state,
-        trackedShows: nextShows,
+        trackedShows: {
+          ...state.trackedShows,
+          ...newShowsMap,
+        },
       };
+    }
+
+    case EPISODES_RECEIVE: {
+      const { showId, episodes } = action;
+
+      // Convert the list of episodes to a map
+      const episodeMap = convertArrayToMap(episodes);
+
+      // Add these episodes to the show
+      const show = {
+        ...state.trackedShows[showId],
+        episodes: episodeMap
+      };
+
+      return update(state, {
+        trackedShows: {
+          [showId]: { $set: show },
+        },
+      });
     }
 
     case REMOVE_SHOW: {
@@ -63,7 +81,14 @@ function userReducer(state = initialState.user, action) {
     }
 
     case TOGGLE_EPISODE: {
-      // TODO
+      const { showId, episodeId } = action;
+
+      const showIndex = state.trackedShows.findIndex(s => s.id === showId);
+      const show = state.trackedShows[showIndex];
+
+
+
+
       return state;
     }
 
@@ -104,7 +129,7 @@ export default combineReducers({
 // Selectors
 const getToken = state => state.auth.token;
 const getIsFetching = state => state.auth.isFetching;
-const getUserData = state => state.auth.user;
+const getUser = state => state.auth.user;
 
 // This doesn't _really_ tell us if we're logged in;
 // It tells us if we're attempting a login, though, so it's safe to
@@ -112,11 +137,36 @@ const getUserData = state => state.auth.user;
 export const getIsLoggedIn = state => !!getToken(state);
 
 export const getTrackedShows = createSelector(
-  getIsLoggedIn, getUserData,
-  (isLoggedIn, userData) => isLoggedIn ? userData.trackedShows : []
+  getUser,
+  (user) => (user.trackedShows || [])
 );
 
 export const getTrackedShowIds = createSelector(
   getTrackedShows,
-  (trackedShows) => trackedShows.map(show => show.id)
+  (shows) => Object.keys(shows)
+);
+
+
+export const getTrackedShowsArray = createSelector(
+  getTrackedShows,
+  getTrackedShowIds,
+  (shows, showIds) => showIds.map(showId => {
+    const show = shows[showId];
+
+    // If ths show has no episodes, no further array-making is required.
+    if (!show.episodes) {
+      return show;
+    }
+
+    // If the show has episodes, though, we need to turn the episode map
+    // into an array as well.
+    const episodes = Object.keys(show.episodes).map(episodeId => (
+      show.episodes[episodeId]
+    ));
+
+    return {
+      ...show,
+      episodes,
+    };
+  })
 );

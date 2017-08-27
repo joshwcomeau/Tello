@@ -7,12 +7,12 @@ const domainColors = {
     highlightColor: COLORS.deepPurple.primary,
   },
   animation: {
-    baseColor: COLORS.deepPurple.primary,
-    highlightColor: COLORS.purple.primary,
+    baseColor: COLORS.teal.dark,
+    highlightColor: COLORS.green.primary,
   },
   scripted: {
-    baseColor: COLORS.green.primary,
-    highlightColor: COLORS.lime.primary,
+    baseColor: COLORS.purple.primary,
+    highlightColor: COLORS.deepPurple.primary,
   },
   default: {
     baseColor: COLORS.gray.primary,

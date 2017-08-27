@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 
-import { getIsLoggedIn, getTrackedShows } from '../../reducers/auth.reducer';
+import { getIsLoggedIn, getTrackedShowsArray } from '../../reducers/auth.reducer';
 
 import BacklogRow from '../BacklogRow';
 import Heading from '../Heading';
@@ -44,7 +44,7 @@ class Backlog extends Component {
 
 const mapStateToProps = state => ({
   isLoggedIn: getIsLoggedIn(state),
-  trackedShows: getTrackedShows(state),
+  trackedShows: getTrackedShowsArray(state),
 });
 
 export default connect(mapStateToProps)(Backlog);

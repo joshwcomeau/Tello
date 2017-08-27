@@ -25,9 +25,22 @@ const User = mongoose.model('User', UserSchema);
 module.exports.UserSchema = UserSchema;
 module.exports.User = User;
 
-module.exports.getPublicUser = user => ({
-  id: user._id,
-  name: user.name,
-  email: user.email,
-  trackedShows: user.trackedShows.map(getPublicShow),
-});
+module.exports.getPublicUser = user => {
+  const shows = user.trackedShows.map(getPublicShow);
+
+  // Build up a 'map' type object.
+  const showsMap = shows.reduce((acc, show) => (
+    Object.assign(
+      {},
+      acc,
+      { [show.id]: show }
+    )
+  ), {});
+
+  return {
+    id: user._id,
+    name: user.name,
+    email: user.email,
+    trackedShows: showsMap,
+  };
+};
