@@ -1,19 +1,26 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 
 import { getTrackedShows } from '../../reducers/auth.reducer';
 
 import BacklogRow from '../BacklogRow';
+import Heading from '../Heading';
 
 
 class Backlog extends Component {
   componentDidMount() {
-    // TODO: If we aren't logged in, redirect to a login page.
+    // If the user isn't logged in, redirect them to the login page.
+    // NOTE: Tried doing this with ReactRouter's <Redirect>, but it didn't work :/
+    // Same with using `withRouter` and .push-ing a new state.
+    if (!this.props.isLoggedIn) {
+      window.location = '/login';
+    }
   }
-
   render() {
-    const { trackedShows } = this.props;
+    console.log('Render Backlog')
+    const { isLoggedIn, trackedShows } = this.props;
 
     // TODO: Figure out if we're still waiting on results.
     // We should be able to tell by comparing `isLoggedIn` to `userData`,
@@ -21,6 +28,7 @@ class Backlog extends Component {
 
     return (
       <span>
+        <Heading>Backlog</Heading>
         {trackedShows.map(show => (
           <BacklogRow key={show.id} show={show} />
         ))}

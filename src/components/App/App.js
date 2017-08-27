@@ -14,6 +14,7 @@ import MaxWidthWrapper from '../MaxWidthWrapper';
 import Spacer from '../Spacer';
 import Backlog from '../Backlog';
 import Home from '../Home';
+import Login from '../Login';
 
 
 // For our initial mount,
@@ -43,8 +44,9 @@ class App extends Component {
           <Spacer size={ROW_HEIGHT} />
 
           <MaxWidthWrapper>
-            <Route exact path="/" component={Home} />
+            <Route exact path="/" component={Backlog} />
             <Route path="/backlog" component={Backlog} />
+            <Route path="/login" component={Login} />
           </MaxWidthWrapper>
         </Body>
       </div>
