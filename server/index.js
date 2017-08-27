@@ -8,7 +8,8 @@ const passport = require('passport');
 
 require('./initialize');
 
-const { User } = require('./models/User.model')
+const { User } = require('./models/User.model');
+const { authenticatedRoute, jwtAuthentication } = require('./middleware');
 
 
 const app = express();
@@ -22,6 +23,10 @@ require('./config/passport')(passport);
 app.use(bodyParser.json({ limit: '1mb' }));
 app.use(bodyParser.urlencoded({ extended: false }));
 
+
+// This middleware looks for an `Authentication` header, and turns it into
+// a User object (stored on req.user).
+app.use(jwtAuthentication);
 
 
 app.get(
@@ -52,38 +57,18 @@ app.get(
   }
 );
 
-app.get('/users/me', (req, res, next) => {
-  const bearerTokenHeader = req.header('Authorization');
+app.get('/users/me', authenticatedRoute, (req, res, next) => {
+  // The user object we return should be a simplified version of the DB record.
+  // TODO: Move this somewhere?
+  const simplifiedUser = {
+    name: req.user.name,
+    email: req.user.email,
+    trackedShows: req.user.trackedShows,
+    id: req.user._id,
+  };
 
-  if (typeof bearerTokenHeader !== 'string') {
-    return next(new Error('Please provide a bearer token with this request.'));
-  }
-
-  const token = bearerTokenHeader.replace(/^Bearer\s/i, '')
-
-  User.findOne({ token }, (err, user) => {
-    if (err) {
-      return next(err);
-    }
-
-    // If no user was found, it means the account was deleted.
-    // let's return null, the client can then delete the token.
-    if (!user) {
-      return next(err);
-    }
-
-    // The user object we return should be a simplified version of the DB record.
-    // TODO: Move this somewhere?
-    const simplifiedUser = {
-      name: user.name,
-      email: user.email,
-      trackedShows: user.trackedShows,
-      id: user._id,
-    };
-
-    return res.json(simplifiedUser);
-  });
-})
+  return res.json(simplifiedUser);
+});
 
 // Express only serves static assets in production
 if (process.env.NODE_ENV === 'production') {
