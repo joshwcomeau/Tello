@@ -10,6 +10,7 @@ import {
   episodesReceive,
 } from '../actions';
 import { AUTH_TOKEN_KEY } from '../constants';
+import { formatEpisodeResults } from '../helpers/tv-maze.helpers';
 import {
   getAuthUserData,
   postNewlyTrackedShows,
@@ -60,6 +61,7 @@ export default function createAPIMiddleware() {
 
       case EPISODES_REQUEST: {
         getEpisodesForShow({ showId: action.showId })
+          .then(formatEpisodeResults)
           .then(episodes => {
             next(episodesReceive({ episodes }));
           });

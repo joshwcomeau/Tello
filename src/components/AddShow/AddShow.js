@@ -7,7 +7,7 @@ import { startTrackingNewShows, hideModal } from '../../actions';
 import { getTrackedShowIds } from '../../reducers/auth.reducer';
 import {
   getSearchEndpoint,
-  formatSearchResults
+  formatShowResults
 } from '../../helpers/tv-maze.helpers';
 
 import Button from '../Button';
@@ -45,7 +45,7 @@ class AddShow extends Component {
 
     fetch(tvMazeEndpoint)
       .then(res => res.json())
-      .then(formatSearchResults)
+      .then(formatShowResults)
       .then(shows => {
         this.setState({
           status: 'done',

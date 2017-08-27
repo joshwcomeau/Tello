@@ -41,9 +41,8 @@ export const showAddShowModal = () => (
   showModal({ id: MODAL_IDS.addShow, side: 'right' })
 );
 
-export const userDataRequest = (token) => ({
+export const userDataRequest = () => ({
   type: USER_DATA_REQUEST,
-  token,
 });
 
 export const userDataReceive = (data) => ({

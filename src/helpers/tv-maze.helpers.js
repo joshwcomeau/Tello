@@ -9,8 +9,8 @@ export const getEpisodesEndpoint = showId => (
   `http://api.tvmaze.com/shows/${showId}/episodes`
 );
 
-export const formatSearchResults = results => (
-  results.map(({show}) => ({
+export const formatShowResults = results => (
+  results.map(({ show }) => ({
     id: show.id,
     name: show.name,
     image: show.image && show.image.medium,
@@ -20,3 +20,13 @@ export const formatSearchResults = results => (
     region: show.network && show.network.country && show.network.country.code,
   }))
 );
+
+export const formatEpisodeResults = results => (
+  results.map((episode) => ({
+    id: episode.id,
+    name: episode.name,
+    season: episode.season,
+    number: episode.number,
+    airdate: episode.airdate,
+  }))
+)

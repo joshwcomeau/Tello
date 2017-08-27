@@ -20,7 +20,7 @@ export const stripHTMLFromString = string => {
   placeholderDiv.innerHTML = string;
 
   return placeholderDiv.textContent || placeholderDiv.innerText || "";
-}
+};
 
 export const truncateStringByWordCount = (string, maxWords) => {
   const wordArray = string.split(/\s/g);
@@ -34,4 +34,6 @@ export const truncateStringByWordCount = (string, maxWords) => {
 
   // Attach an ellipsis at the end, since it needed truncation
   return `${truncatedString}…`;
-}
+};
+
+export const isEmpty = obj => Object.keys(obj).length === 0;

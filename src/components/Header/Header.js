@@ -4,6 +4,7 @@ import styled from 'emotion/react';
 
 import { showAddShowModal } from '../../actions';
 import { COLORS, UNITS_IN_PX } from '../../constants';
+import { getIsLoggedIn } from '../../reducers/auth.reducer';
 
 import AddShowButton from '../AddShowButton';
 import Logo from '../Logo';
@@ -55,7 +56,7 @@ const AddShowButtonWrapper = styled.div`
 `;
 
 const mapStateToProps = state => ({
-  isLoggedIn: state.auth.isLoggedIn,
+  isLoggedIn: getIsLoggedIn(state),
 });
 
 export default connect(mapStateToProps, { showAddShowModal })(Header);

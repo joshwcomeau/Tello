@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 
 import { userDataRequest } from '../../actions';
 import { AUTH_TOKEN_KEY, ROW_HEIGHT } from '../../constants';
+import { getIsLoggedIn } from '../../reducers/auth.reducer';
 
 import Header from '../Header';
 import RightModal from '../RightModal';
@@ -60,7 +61,7 @@ const Body = styled.div`
 `
 
 const mapStateToProps = state => ({
-  isLoggedIn: state.auth.isLoggedIn,
+  isLoggedIn: getIsLoggedIn(state),
 });
 
 export default connect(mapStateToProps, { userDataRequest })(App);

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 
-import { getTrackedShows } from '../../reducers/auth.reducer';
+import { getIsLoggedIn, getTrackedShows } from '../../reducers/auth.reducer';
 
 import BacklogRow from '../BacklogRow';
 import Heading from '../Heading';
@@ -19,8 +19,13 @@ class Backlog extends Component {
     }
   }
   render() {
-    console.log('Render Backlog')
     const { isLoggedIn, trackedShows } = this.props;
+
+    // If we aren't logged in, render nothing.
+    // Immediately upon mount we'll be redirected to the login page.
+    if (!isLoggedIn || !trackedShows) {
+      return null;
+    }
 
     // TODO: Figure out if we're still waiting on results.
     // We should be able to tell by comparing `isLoggedIn` to `userData`,
@@ -28,7 +33,7 @@ class Backlog extends Component {
 
     return (
       <span>
-        <Heading>Backlog</Heading>
+        <Heading theme="light">Backlog</Heading>
         {trackedShows.map(show => (
           <BacklogRow key={show.id} show={show} />
         ))}
@@ -38,7 +43,7 @@ class Backlog extends Component {
 }
 
 const mapStateToProps = state => ({
-  isLoggedIn: state.auth.isLoggedIn,
+  isLoggedIn: getIsLoggedIn(state),
   trackedShows: getTrackedShows(state),
 });
 

@@ -27,12 +27,13 @@ const propTypes = {
     image: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     status: PropTypes.string.isRequired,
-    genres: PropTypes.arrayOf(PropTypes.string).isRequired,
     episodes: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.number.isRequired,
       season: PropTypes.number.isRequired,
-      episode: PropTypes.number.isRequired,
+      number: PropTypes.number.isRequired,
       name: PropTypes.string.isRequired,
-    })).isRequired,
+      airdate: PropTypes.string.isRequired,
+    })),
   }),
 };
 
