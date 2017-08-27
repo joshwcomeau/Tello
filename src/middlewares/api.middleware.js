@@ -2,11 +2,13 @@ import Cookies from 'cookies-js';
 
 import {
   USER_DATA_REQUEST,
+  START_TRACKING_NEW_SHOWS,
   userDataReceive,
   userDataFailure,
+  failureSyncingNewShows,
 } from '../actions';
 import { AUTH_TOKEN_KEY } from '../constants';
-import { getAuthUserData } from '../services/api.service';
+import { getAuthUserData, postNewlyTrackedShows } from '../services/api.service';
 
 
 
@@ -21,7 +23,7 @@ export default function createAPIMiddleware() {
 
     switch (action.type) {
       case USER_DATA_REQUEST: {
-        getAuthUserData(token)
+        getAuthUserData({ token })
           .then(json => {
             next(userDataReceive(json));
           })
@@ -36,6 +38,18 @@ export default function createAPIMiddleware() {
             next(userDataFailure(err));
           });
         break;
+      }
+
+      case START_TRACKING_NEW_SHOWS: {
+        // We don't actually care about the server response (the point of this
+        // call is just to sync the server with what the user's selected on
+        // the client). Only worry if the server bows up.
+        postNewlyTrackedShows({ token, shows: action.shows })
+          .catch(err => {
+            console.error('Could not persist new tracked shows', err);
+
+            next(failureSyncingNewShows({ shows: action.shows }));
+          })
       }
 
       default:

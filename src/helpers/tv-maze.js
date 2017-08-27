@@ -13,5 +13,6 @@ export const formatSearchResults = results => (
     status: show.status,
     type: show.type,
     summary: stripHTMLFromString(show.summary),
+    region: show.network && show.network.country && show.network.country.code,
   }))
-)
+);

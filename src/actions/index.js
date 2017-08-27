@@ -2,6 +2,7 @@ import { MODAL_IDS } from '../constants';
 
 
 export const START_TRACKING_NEW_SHOWS = 'START_TRACKING_NEW_SHOWS';
+export const FAILURE_SYNCING_NEW_SHOWS = 'FAILURE_SYNCING_NEW_SHOWS';
 export const REMOVE_SHOW = 'REMOVE_SHOW';
 export const SHOW_MODAL = 'SHOW_MODAL';
 export const HIDE_MODAL = 'HIDE_MODAL';
@@ -16,6 +17,11 @@ export const EPISODES_FAILURE = 'EPISODES_FAILURE';
 
 export const startTrackingNewShows = ({ shows }) => ({
   type: START_TRACKING_NEW_SHOWS,
+  shows,
+});
+
+export const failureSyncingNewShows = ({ shows }) => ({
+  type: FAILURE_SYNCING_NEW_SHOWS,
   shows,
 });
 

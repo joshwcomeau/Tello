@@ -18,7 +18,7 @@ import { getButtonText } from './AddShow.helpers';
 
 class AddShow extends Component {
   static propTypes = {
-    previouslyTrackedShowIds: PropTypes.arrayOf(PropTypes.string),
+    previouslyTrackedShowIds: PropTypes.arrayOf(PropTypes.number),
     startTrackingNewShows: PropTypes.func.isRequired,
   }
 

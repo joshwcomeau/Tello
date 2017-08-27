@@ -5,12 +5,29 @@ const unwrap = response => {
   }
 
   return response.json();
-}
+};
 
-export const getAuthUserData = (token) => {
-  const headers = new Headers({
-    Authorization: `Bearer ${token}`,
-  });
+const getAuthHeaders = token => (
+  new Headers({
+    'Content-type' :  'application/json',
+    'Authorization': `Bearer ${token}`,
+  })
+);
+
+export const getAuthUserData = ({ token }) => {
+  const headers = getAuthHeaders(token);
 
   return fetch('./users/me', { headers }).then(unwrap);
 };
+
+export const postNewlyTrackedShows = ({ token, shows }) => {
+  const headers = getAuthHeaders(token);
+
+  const options = {
+    method: 'POST',
+    body: JSON.stringify({ shows }),
+    headers,
+  };
+
+  return fetch('/shows/create', options).then(unwrap);
+}

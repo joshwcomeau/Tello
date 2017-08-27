@@ -70,6 +70,13 @@ app.get('/users/me', authenticatedRoute, (req, res, next) => {
   return res.json(simplifiedUser);
 });
 
+app.post('/shows/create', authenticatedRoute, (req, res, next) => {
+  req.user.addShows(req.body.shows, (err, result) => {
+    console.log(err, result);
+    return res.json({ ok: true });
+  })
+})
+
 // Express only serves static assets in production
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('build'));

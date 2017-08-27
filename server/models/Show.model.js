@@ -1,12 +1,14 @@
-const mongoose = require('mongoose');;
-
+const mongoose = require('mongoose');
 
 const ShowSchema = new mongoose.Schema({
+  tvMazeId: Number,
   name: String,
-  type: String,
+  image: String,
   status: String,
+  type: String,
   summary: String,
-  seenEpisodes: [String],
+  region: String,
+  seenEpisodes: { type: [String], default: [] },
 });
 
 const Show = mongoose.model('Show', ShowSchema);
