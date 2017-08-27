@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { getPopulatedShowData } from '../../selectors';
+import { getTrackedShows } from '../../reducers/auth.reducer';
 
 import BacklogRow from '../BacklogRow';
 
@@ -13,17 +13,27 @@ class Backlog extends Component {
   }
 
   render() {
-    const { shows } = this.props;
+    const { trackedShows } = this.props;
 
-    console.log({shows})
-    return null;
-    // return <BacklogRow show={stub} />;
+    console.log({trackedShows})
+
+    // TODO: Figure out if we're still waiting on results.
+    // We should be able to tell by comparing `isLoggedIn` to `userData`,
+    // but if not we can always add a redux field to `auth` reducer.
+
+    return (
+      <span>
+        {trackedShows.map(show => (
+          <BacklogRow key={show.id} show={show} />
+        ))}
+      </span>
+    );
   }
 }
 
 const mapStateToProps = state => ({
   isLoggedIn: state.auth.isLoggedIn,
-  shows: getPopulatedShowData(state),
+  trackedShows: getTrackedShows(state),
 });
 
 export default connect(mapStateToProps)(Backlog);

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'emotion/react';
 
@@ -12,11 +13,12 @@ import {
   ROW_HEIGHT_PX
 } from '../../constants';
 import getDomainColor from '../../helpers/domain-colors';
+import { episodesRequest } from '../../actions';
 
 import Episode from '../Episode';
 import Heading from '../Heading';
 import Tag from '../Tag';
-import { getTagBackgroundColor } from './BacklogRow.utils';
+import { getTagBackgroundColor } from './BacklogRow.helpers';
 
 
 const propTypes = {
@@ -37,6 +39,46 @@ const propTypes = {
 class BacklogRow extends Component {
   static propTypes = propTypes
 
+  componentDidMount() {
+    const { show, episodesRequest } = this.props;
+    // If we don't yet have any `episodes` for this show, we have to fetch
+    // them! We can make a few assumptions though:
+    // - The list of episodes won't change externally in a given session,
+    //   so if we already have them, we don't need to fetch them.
+    // - We only have to do this check on mount, because a given BacklogRow
+    //   will never change shows after mount.
+    if (!show.episodes) {
+      episodesRequest({ showId: show.id });
+    }
+  }
+
+  renderEpisodes() {
+    const { show: { type, episodes } } = this.props;
+
+    if (!episodes) {
+      // TODO: Loading? Also add some sort of isFetching flag to shows,
+      // so that we can distinguish "this show has no episodes".
+      return null;
+    }
+
+    return (
+      <EpisodeWrapper>
+        <EpisodeGradient />
+        {episodes.slice(0, 4).map(episode => (
+          <Episode
+            key={episode.id}
+            showType={type}
+            height={ROW_HEIGHT - UNIT}
+            season={episode.season}
+            number={episode.number}
+            name={episode.name}
+            airDate={episode.airdate}
+          />
+        ))}
+      </EpisodeWrapper>
+    );
+  }
+
   render() {
     const { show: { type, name, episodes } } = this.props;
 
@@ -52,20 +94,7 @@ class BacklogRow extends Component {
             </TagWrapper>
           </ShowDetails>
 
-          <EpisodeWrapper>
-            <EpisodeGradient />
-            {episodes.slice(0, 4).map(episode => (
-              <Episode
-                key={episode.id}
-                showType={type}
-                height={ROW_HEIGHT - UNIT}
-                season={episode.season}
-                number={episode.number}
-                name={episode.name}
-                airDate={episode.airdate}
-              />
-            ))}
-          </EpisodeWrapper>
+          {this.renderEpisodes()}
         </Row>
       </Wrapper>
     );
@@ -76,6 +105,7 @@ const Wrapper = styled.div`
   color: ${COLORS.black};
   background: ${COLORS.white};
   box-shadow: 1px 0px 3px rgba(0,0,0,0.9);
+  margin-bottom: ${UNITS_IN_PX[1]};
 `;
 
 const Row = styled.div`
@@ -129,4 +159,4 @@ const EpisodeGradient = styled.div`
   );
 `;
 
-export default BacklogRow;
+export default connect(null, { episodesRequest })(BacklogRow);

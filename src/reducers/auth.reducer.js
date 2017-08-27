@@ -15,11 +15,6 @@ const initialState = {
 };
 
 
-const extractUserShows = shows => shows.map(show => ({
-  id: show.id,
-  seenEpisodes: show.seenEpisodes || [],
-}));
-
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case USER_DATA_RECEIVE: {
@@ -30,10 +25,18 @@ export default function reducer(state = initialState, action) {
     }
 
     case START_TRACKING_NEW_SHOWS: {
+      // On the server, new shows have an empty `seenEpisodes` array added.
+      // Because we fetch straight from TV Maze and don't wait for server
+      // confirmation, we have to add this in manually here, so that the
+      // data is consistent.
+      const shows = action.shows.map(show => ({
+        ...show,
+        seenEpisodes: [],
+      }));
       return update(state, {
         userData: {
           trackedShows: {
-            $push: extractUserShows(action.shows),
+            $push: shows,
           },
         },
       });
