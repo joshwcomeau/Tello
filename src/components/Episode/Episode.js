@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'emotion/react';
 
 import { COLORS, HALF_UNIT_PX, UNITS_IN_PX } from '../../constants';
-import getDomainColor from '../../helpers/domain-colors';
+import getDomainColor from '../../helpers/domain-colors.helpers';
 
 import { formatDate, getEpisodeNumString } from './Episode.utils';
 

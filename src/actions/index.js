@@ -56,8 +56,9 @@ export const userDataFailure = (error) => ({
   error,
 });
 
-export const episodesRequest = () => ({
+export const episodesRequest = ({ showId }) => ({
   type: EPISODES_REQUEST,
+  showId,
 });
 
 export const episodesReceive = ({ episodes }) => ({

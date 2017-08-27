@@ -5,7 +5,10 @@ import styled from 'emotion/react';
 
 import { startTrackingNewShows, hideModal } from '../../actions';
 import { getTrackedShowIds } from '../../reducers/auth.reducer';
-import { getSearchEndpoint, formatSearchResults } from '../../helpers/tv-maze';
+import {
+  getSearchEndpoint,
+  formatSearchResults
+} from '../../helpers/tv-maze.helpers';
 
 import Button from '../Button';
 import Heading from '../Heading';

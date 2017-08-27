@@ -5,6 +5,10 @@ export const getSearchEndpoint = query => (
   `http://api.tvmaze.com/search/shows?q=${query}`
 );
 
+export const getEpisodesEndpoint = showId => (
+  `http://api.tvmaze.com/shows/${showId}/episodes`
+);
+
 export const formatSearchResults = results => (
   results.map(({show}) => ({
     id: show.id,

@@ -12,7 +12,7 @@ import {
   ROW_HEIGHT,
   ROW_HEIGHT_PX
 } from '../../constants';
-import getDomainColor from '../../helpers/domain-colors';
+import getDomainColor from '../../helpers/domain-colors.helpers';
 import { episodesRequest } from '../../actions';
 
 import Episode from '../Episode';

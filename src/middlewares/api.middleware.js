@@ -3,12 +3,18 @@ import Cookies from 'cookies-js';
 import {
   USER_DATA_REQUEST,
   START_TRACKING_NEW_SHOWS,
+  EPISODES_REQUEST,
   userDataReceive,
   userDataFailure,
   failureSyncingNewShows,
+  episodesReceive,
 } from '../actions';
 import { AUTH_TOKEN_KEY } from '../constants';
-import { getAuthUserData, postNewlyTrackedShows } from '../services/api.service';
+import {
+  getAuthUserData,
+  postNewlyTrackedShows,
+  getEpisodesForShow,
+} from '../services/api.service';
 
 
 
@@ -50,6 +56,13 @@ export default function createAPIMiddleware() {
 
             next(failureSyncingNewShows({ shows: action.shows }));
           })
+      }
+
+      case EPISODES_REQUEST: {
+        getEpisodesForShow({ showId: action.showId })
+          .then(episodes => {
+            next(episodesReceive({ episodes }));
+          });
       }
 
       default:

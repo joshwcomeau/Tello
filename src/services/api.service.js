@@ -1,3 +1,5 @@
+import { getEpisodesEndpoint } from '../helpers/tv-maze.helpers';
+
 const unwrap = response => {
   if (response.status !== 200) {
     console.error('Error fetching data', response.status, response);
@@ -30,4 +32,8 @@ export const postNewlyTrackedShows = ({ token, shows }) => {
   };
 
   return fetch('/shows/create', options).then(unwrap);
+}
+
+export const getEpisodesForShow = ({ showId }) => {
+  return fetch(getEpisodesEndpoint(showId)).then(unwrap);
 }

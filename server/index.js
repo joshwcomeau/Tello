@@ -8,7 +8,7 @@ const passport = require('passport');
 
 require('./initialize');
 
-const { User } = require('./models/User.model');
+const { getPublicUser } = require('./models/User.model');
 const { authenticatedRoute, jwtAuthentication } = require('./middleware');
 
 
@@ -58,21 +58,11 @@ app.get(
 );
 
 app.get('/users/me', authenticatedRoute, (req, res, next) => {
-  // The user object we return should be a simplified version of the DB record.
-  // TODO: Move this somewhere?
-  const simplifiedUser = {
-    name: req.user.name,
-    email: req.user.email,
-    trackedShows: req.user.trackedShows,
-    id: req.user._id,
-  };
-
-  return res.json(simplifiedUser);
+  return res.json(getPublicUser(req.user));
 });
 
 app.post('/shows/create', authenticatedRoute, (req, res, next) => {
   req.user.addShows(req.body.shows, (err, result) => {
-    console.log(err, result);
     return res.json({ ok: true });
   })
 })

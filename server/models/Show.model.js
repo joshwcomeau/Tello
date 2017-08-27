@@ -15,3 +15,14 @@ const Show = mongoose.model('Show', ShowSchema);
 
 module.exports.ShowSchema = ShowSchema;
 module.exports.Show = Show;
+
+module.exports.getPublicShow = show => ({
+  id: show._id,
+  name: show.name,
+  image: show.image,
+  status: show.status,
+  type: show.type,
+  summary: show.summary,
+  region: show.region,
+  seenEpisodes: show.seenEpisodes,
+});

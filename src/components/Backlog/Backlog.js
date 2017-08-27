@@ -15,8 +15,6 @@ class Backlog extends Component {
   render() {
     const { trackedShows } = this.props;
 
-    console.log({trackedShows})
-
     // TODO: Figure out if we're still waiting on results.
     // We should be able to tell by comparing `isLoggedIn` to `userData`,
     // but if not we can always add a redux field to `auth` reducer.

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'emotion/react';
 
 import { COLORS } from '../../constants';
-import getDomainColor from '../../helpers/domain-colors';
+import getDomainColor from '../../helpers/domain-colors.helpers';
 
 
 const Tag = ({ domain }) => (

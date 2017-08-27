@@ -30,7 +30,6 @@ class ShowSearchResult extends Component {
   handleMouseEnter = () => this.setState({ isHovering: true })
   handleMouseLeave = () => this.setState({ isHovering: false })
   handleClick = () => {
-    console.log('Click!')
     this.setState({ isSelected: !this.state.isSelected });
 
     this.props.onToggleShow(this.props.show.id);
