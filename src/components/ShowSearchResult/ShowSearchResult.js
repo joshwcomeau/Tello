@@ -2,14 +2,11 @@ import React, { Component } from 'react';
 import styled from 'emotion/react';
 import PropTypes from 'prop-types';
 
-import { COLORS, UNITS_IN_PX, HALF_UNIT_PX } from '../../constants';
-import { truncateStringByWordCount } from '../../utils';
+import { UNITS_IN_PX } from '../../constants';
 import { ShowProps } from '../../types';
 
 import Heading from '../Heading';
 import Subheading from '../Subheading';
-import Tag from '../Tag';
-import AddShowButton from '../AddShowButton';
 import Checkbox from '../Checkbox';
 
 import { getColorForStatus } from './ShowSearchResult.helpers';
@@ -38,7 +35,7 @@ class ShowSearchResult extends Component {
   render() {
     const { isHovering, isSelected } = this.state;
     const {
-      show: { id, name, image, status, type, summary },
+      show: { name, status },
       isAlreadyAdded,
     } = this.props;
 
@@ -70,8 +67,6 @@ class ShowSearchResult extends Component {
     );
   }
 }
-
-const HEIGHT_IN_UNITS = 3;
 
 const Wrapper = styled.div`
   display: flex;

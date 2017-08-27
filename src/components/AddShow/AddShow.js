@@ -13,7 +13,6 @@ import {
 import Button from '../Button';
 import Heading from '../Heading';
 import TextInput from '../TextInput';
-import ShowSearchResult from '../ShowSearchResult';
 import ShowSearchResults from '../ShowSearchResults';
 
 import { getButtonText } from './AddShow.helpers';

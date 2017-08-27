@@ -12,13 +12,11 @@ import {
   ROW_HEIGHT,
   ROW_HEIGHT_PX
 } from '../../constants';
-import getDomainColor from '../../helpers/domain-colors.helpers';
 import { episodesRequest, toggleEpisode } from '../../actions';
 
-import Episode from '../Episode';
+import BacklogEpisode from '../BacklogEpisode';
 import Heading from '../Heading';
 import Tag from '../Tag';
-import { getTagBackgroundColor } from './BacklogRow.helpers';
 
 
 const propTypes = {
@@ -66,7 +64,7 @@ class BacklogRow extends Component {
       <EpisodeWrapper>
         <EpisodeGradient />
         {episodes.slice(0, 4).map(episode => (
-          <Episode
+          <BacklogEpisode
             key={episode.id}
             showType={type}
             height={ROW_HEIGHT - UNIT}
@@ -85,9 +83,7 @@ class BacklogRow extends Component {
   }
 
   render() {
-    const { show: { type, name, episodes } } = this.props;
-
-    const {baseColor} = getDomainColor(type);
+    const { show: { type, name } } = this.props;
 
     return (
       <Wrapper>
@@ -124,13 +120,6 @@ const ShowDetails = styled.div`
   padding: ${HALF_UNIT_PX};
   width: ${UNITS_IN_PX[15]};
   box-shadow: 0px 1px 6px rgba(0,0,0,0.4);
-`;
-
-const ShowName = styled.h4`
-  font-size: 22px;
-  font-weight: bold;
-  margin-top: -3px;
-  margin-bottom: 3px;
 `;
 
 const TagWrapper = styled.div`

@@ -5,6 +5,13 @@ import styled from 'emotion/react';
 import { COLORS, UNIT, UNITS_IN_PX } from '../../constants';
 
 
+const propTypes = {
+  highlighted: PropTypes.bool.isRequired,
+  checked: PropTypes.bool.isRequired,
+  disabled: PropTypes.bool.isRequired,
+  handleClick: PropTypes.func.isRequired,
+};
+
 const Checkbox = ({ highlighted, checked, disabled, handleClick }) => {
   // We want to add blue colour when we're mousing over it, or it's
   // checked, UNLESS it's been disabled.
@@ -16,6 +23,8 @@ const Checkbox = ({ highlighted, checked, disabled, handleClick }) => {
     </Wrapper>
   );
 };
+
+Checkbox.propTypes = propTypes;
 
 
 const Wrapper = styled.div`

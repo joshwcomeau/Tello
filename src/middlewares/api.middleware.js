@@ -57,6 +57,8 @@ export default function createAPIMiddleware() {
 
             next(failureSyncingNewShows({ shows: action.shows }));
           })
+
+        break;
       }
 
       case EPISODES_REQUEST: {
@@ -65,6 +67,8 @@ export default function createAPIMiddleware() {
           .then(episodes => {
             next(episodesReceive({ showId: action.showId, episodes }));
           });
+
+        break;
       }
 
       default:

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'emotion/react';
 import { css } from 'emotion';
 import PropTypes from 'prop-types';
-import { COLORS, UNITS_IN_PX, HALF_UNIT_PX } from '../../constants';
+import { COLORS } from '../../constants';
 
 
 const propTypes = {

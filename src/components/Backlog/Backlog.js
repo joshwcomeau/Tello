@@ -1,15 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Redirect } from 'react-router-dom';
 
 import { getIsLoggedIn, getTrackedShowsArray } from '../../reducers/auth.reducer';
+import { ShowProps } from '../../types';
 
 import BacklogRow from '../BacklogRow';
 import Heading from '../Heading';
 
 
 class Backlog extends Component {
+  static propTypes = {
+    isLoggedIn: PropTypes.bool.isRequired,
+    trackedShows: PropTypes.arrayOf(ShowProps),
+  }
+
   componentDidMount() {
     // If the user isn't logged in, redirect them to the login page.
     // NOTE: Tried doing this with ReactRouter's <Redirect>, but it didn't work :/

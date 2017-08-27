@@ -22,6 +22,8 @@ const Modal = ({ isVisible, handleClose, children }) => {
   );
 };
 
+Modal.propTypes = propTypes;
+
 
 const Wrapper = styled.div`
   position: fixed;

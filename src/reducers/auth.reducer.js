@@ -11,7 +11,6 @@ import {
   USER_DATA_REQUEST,
   USER_DATA_FAILURE,
 } from '../actions';
-import { isEmpty } from '../utils';
 
 
 const initialState = {
@@ -127,9 +126,9 @@ export default combineReducers({
 
 
 // Selectors
-const getToken = state => state.auth.token;
-const getIsFetching = state => state.auth.isFetching;
-const getUser = state => state.auth.user;
+export const getToken = state => state.auth.token;
+export const getIsFetching = state => state.auth.isFetching;
+export const getUser = state => state.auth.user;
 
 // This doesn't _really_ tell us if we're logged in;
 // It tells us if we're attempting a login, though, so it's safe to

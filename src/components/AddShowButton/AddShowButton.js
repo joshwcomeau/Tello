@@ -1,12 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'emotion/react';
 
 import {
-  MODAL_IDS,
-  ROW_HEIGHT,
   ROW_HEIGHT_PX,
-  UNITS_IN_PX,
   COLORS
 } from '../../constants';
 

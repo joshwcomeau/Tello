@@ -35,6 +35,8 @@ const ShowSearchResults = ({
   );
 };
 
+ShowSearchResults.propTypes = propTypes;
+
 const Wrapper = styled.div`
   position: relative;
   margin-top: ${UNITS_IN_PX[4]};
