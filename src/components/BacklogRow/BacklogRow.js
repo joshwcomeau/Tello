@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'emotion/react';
+import FlipMove from 'react-flip-move';
 
 import {
   COLORS,
@@ -35,8 +36,14 @@ const propTypes = {
   }),
 };
 
+const TOGGLE_ANIMATION_DURATION = 1000;
+
 class BacklogRow extends Component {
   static propTypes = propTypes
+
+  state = {
+    isToggling: false,
+  }
 
   componentDidMount() {
     const { show, episodesRequest } = this.props;
@@ -51,8 +58,37 @@ class BacklogRow extends Component {
     }
   }
 
+  componentWillUnmount() {
+    window.clearTimeout(this.toggleEpisodeTimeoutId)
+  }
+
+  toggleEpisode = (episode) => {
+    const { show, toggleEpisode } = this.props;
+
+    // Episodes take some time to disappear, and bad things happen if the user
+    // tries toggling other things in that time.
+    if (this.state.isToggling) {
+      return;
+    }
+
+    this.setState({ isToggling: true }, () => {
+      toggleEpisode({
+        showId: show.id,
+        episodeId: episode.id,
+      });
+
+      this.toggleEpisodeTimeoutId = window.setTimeout(() => {
+        window.requestAnimationFrame(() => {
+          this.setState({ isToggling: false });
+        });
+      }, TOGGLE_ANIMATION_DURATION)
+    });
+  }
+
   renderEpisodes() {
-    const { show: { id, type, episodes } } = this.props;
+    const {
+      show: { id, type, episodes, seenEpisodeIds },
+    } = this.props;
 
     if (!episodes) {
       // TODO: Loading? Also add some sort of isFetching flag to shows,
@@ -60,24 +96,31 @@ class BacklogRow extends Component {
       return null;
     }
 
+    const unseenEpisodes = episodes.filter(episode => (
+      !seenEpisodeIds.includes(episode.id)
+    ));
+
     return (
       <EpisodeWrapper>
         <EpisodeGradient />
-        {episodes.slice(0, 4).map(episode => (
-          <BacklogEpisode
-            key={episode.id}
-            showType={type}
-            height={ROW_HEIGHT - UNIT}
-            season={episode.season}
-            number={episode.number}
-            name={episode.name}
-            airDate={episode.airdate}
-            handleClick={() => toggleEpisode({
-              showId: id,
-              episodeId: episode.id,
-            })}
-          />
-        ))}
+        <FlipMove
+          duration={TOGGLE_ANIMATION_DURATION}
+          enterAnimation={false}
+          leaveAnimation="fade"
+        >
+          {unseenEpisodes.map(episode => (
+            <BacklogEpisode
+              key={episode.id}
+              showType={type}
+              height={ROW_HEIGHT - UNIT}
+              season={episode.season}
+              number={episode.number}
+              name={episode.name}
+              airDate={episode.airdate}
+              handleClick={() => this.toggleEpisode(episode)}
+            />
+          ))}
+        </FlipMove>
       </EpisodeWrapper>
     );
   }

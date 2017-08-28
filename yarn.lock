@@ -5597,9 +5597,9 @@ react-error-overlay@^1.0.10:
     settle-promise "1.0.0"
     source-map "0.5.6"
 
-react-flip-move@^2.9.14:
-  version "2.9.14"
-  resolved "https://registry.yarnpkg.com/react-flip-move/-/react-flip-move-2.9.14.tgz#3b60e44493a4bbe115a8c3d678b844776bbab453"
+react-flip-move@2.9.15:
+  version "2.9.15"
+  resolved "https://registry.yarnpkg.com/react-flip-move/-/react-flip-move-2.9.15.tgz#c33c817d394917c6537aba282732350bba384961"
 
 react-json-tree@^0.10.8:
   version "0.10.9"

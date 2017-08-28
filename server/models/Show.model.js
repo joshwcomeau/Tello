@@ -8,7 +8,7 @@ const ShowSchema = new mongoose.Schema({
   type: String,
   summary: String,
   region: String,
-  seenEpisodes: { type: [String], default: [] },
+  seenEpisodeIds: { type: [String], default: [] },
 });
 
 const Show = mongoose.model('Show', ShowSchema);
@@ -24,5 +24,5 @@ module.exports.getPublicShow = show => ({
   type: show.type,
   summary: show.summary,
   region: show.region,
-  seenEpisodes: show.seenEpisodes,
+  seenEpisodeIds: show.seenEpisodeIds,
 });

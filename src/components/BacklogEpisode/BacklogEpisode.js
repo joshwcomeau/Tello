@@ -1,54 +1,60 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'emotion/react';
 
 import { COLORS, HALF_UNIT_PX, UNITS_IN_PX } from '../../constants';
 import getDomainColor from '../../helpers/domain-colors.helpers';
 
-import { formatDate, getEpisodeNumString } from './BacklogEpisode.utils';
+import { formatDate, getEpisodeNumString } from './BacklogEpisode.helpers';
 
 
-const propTypes = {
-  height: PropTypes.number.isRequired,
-  showType: PropTypes.string.isRequired,
-  season: PropTypes.number.isRequired,
-  number: PropTypes.number.isRequired,
-  name: PropTypes.string.isRequired,
-  airDate: PropTypes.string.isRequired,
-};
+// NOTE: Needs to be a class component because it's passed to FlipMove.
+// FlipMove doesn't support SFCs.
+class BacklogEpisode extends Component {
+  static propTypes = {
+    height: PropTypes.number.isRequired,
+    showType: PropTypes.string.isRequired,
+    season: PropTypes.number.isRequired,
+    number: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    airDate: PropTypes.string.isRequired,
+  }
 
-const BacklogEpisode = ({
-  height,
-  showType,
-  season,
-  number,
-  name,
-  airDate,
-  handleClick,
-}) => {
-  const {baseColor, highlightColor} = getDomainColor(showType);
+  render() {
+    const {
+      height,
+      showType,
+      season,
+      number,
+      name,
+      airDate,
+      handleClick,
+    } = this.props;
 
-  return (
-    <Episode
-      height={height}
-      color1={baseColor}
-      color2={highlightColor}
-      onClick={handleClick}
-    >
-      <EpisodeHeader>
-        <EpisodeAirDate>
-          {formatDate(airDate)}
-        </EpisodeAirDate>
+    const {baseColor, highlightColor} = getDomainColor(showType);
 
-        <EpisodeNum>
-          {getEpisodeNumString(season, number)}
-        </EpisodeNum>
-      </EpisodeHeader>
+    return (
+      <Episode
+        height={height}
+        color1={baseColor}
+        color2={highlightColor}
+        onClick={handleClick}
+      >
+        <EpisodeHeader>
+          <EpisodeAirDate>
+            {formatDate(airDate)}
+          </EpisodeAirDate>
 
-      <EpisodeName>{name}</EpisodeName>
-    </Episode>
-  );
-};
+          <EpisodeNum>
+            {getEpisodeNumString(season, number)}
+          </EpisodeNum>
+        </EpisodeHeader>
+
+        <EpisodeName>{name}</EpisodeName>
+      </Episode>
+    );
+  }
+}
 
 const Episode = styled.div`
   display: inline-flex;
@@ -93,7 +99,5 @@ const EpisodeName = styled.h3`
   white-space: nowrap;
   text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.1);
 `;
-
-BacklogEpisode.propTypes = propTypes;
 
 export default BacklogEpisode;

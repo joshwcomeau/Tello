@@ -27,6 +27,12 @@ const convertArrayToMap = list => (
   }), {})
 );
 
+const toggleInArray = (arr, item) => (
+  arr.includes(item)
+    ? arr.filter(i => i !== item)
+    : [...arr, item]
+);
+
 function userReducer(state = initialState.user, action) {
   switch (action.type) {
     case USER_DATA_RECEIVE: {
@@ -34,13 +40,13 @@ function userReducer(state = initialState.user, action) {
     }
 
     case START_TRACKING_NEW_SHOWS: {
-      // On the server, new shows have an empty `seenEpisodes` array added.
+      // On the server, new shows have an empty `seenEpisodeIds` array added.
       // Because we fetch straight from TV Maze and don't wait for server
       // confirmation, we have to add this in manually here, so that the
       // data is consistent.
       const newShows = action.shows.map(show => ({
         ...show,
-        seenEpisodes: [],
+        seenEpisodeIds: [],
       }));
 
       // Convert the state shape so that it's map-like, instead of an array.
@@ -81,14 +87,17 @@ function userReducer(state = initialState.user, action) {
 
     case TOGGLE_EPISODE: {
       const { showId, episodeId } = action;
+      const show = state.trackedShows[showId];
 
-      const showIndex = state.trackedShows.findIndex(s => s.id === showId);
-      const show = state.trackedShows[showIndex];
+      const nextSeenEpisodeIds = toggleInArray(show.seenEpisodeIds, episodeId);
 
-
-
-
-      return state;
+      return update(state, {
+        trackedShows: {
+          [showId]: {
+            seenEpisodeIds: { $set: nextSeenEpisodeIds },
+          },
+        },
+      });
     }
 
     default: {
