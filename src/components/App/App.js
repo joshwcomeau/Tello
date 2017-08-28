@@ -8,6 +8,7 @@ import { userDataRequest } from '../../actions';
 import { ROW_HEIGHT } from '../../constants';
 import { getIsLoggedIn } from '../../reducers/auth.reducer';
 
+import FlashMessage from '../FlashMessage';
 import Header from '../Header';
 import RightModal from '../RightModal';
 import MaxWidthWrapper from '../MaxWidthWrapper';
@@ -33,6 +34,8 @@ class App extends Component {
   render() {
     return (
       <div>
+        <FlashMessage />
+
         <Header />
 
         <RightModal />

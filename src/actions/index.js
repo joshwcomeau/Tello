@@ -7,12 +7,14 @@ export const REMOVE_SHOW = 'REMOVE_SHOW';
 export const SHOW_MODAL = 'SHOW_MODAL';
 export const HIDE_MODAL = 'HIDE_MODAL';
 export const TOGGLE_EPISODE = 'TOGGLE_EPISODE';
+export const MARK_EPISODE_AS_SEEN = 'MARK_EPISODE_AS_SEEN';
 export const USER_DATA_REQUEST = 'USER_DATA_REQUEST';
 export const USER_DATA_RECEIVE = 'USER_DATA_RECEIVE';
 export const USER_DATA_FAILURE = 'USER_DATA_FAILURE';
 export const EPISODES_REQUEST = 'EPISODES_REQUEST';
 export const EPISODES_RECEIVE = 'EPISODES_RECEIVE';
 export const EPISODES_FAILURE = 'EPISODES_FAILURE';
+export const HIDE_FLASH_MESSAGE = 'HIDE_FLASH_MESSAGE';
 
 
 export const startTrackingNewShows = ({ shows }) => ({
@@ -36,9 +38,15 @@ export const hideModal = ({ side }) => ({
   side,
 });
 
-export const toggleEpisode = ({ showId, episodeId }) => ({
+export const toggleEpisode = ({ show, episodeId }) => ({
   type: TOGGLE_EPISODE,
-  showId,
+  show,
+  episodeId,
+});
+
+export const markEpisodeAsSeen = ({ show, episodeId }) => ({
+  type: MARK_EPISODE_AS_SEEN,
+  show,
   episodeId,
 });
 
@@ -75,4 +83,8 @@ export const episodesReceive = ({ showId, episodes }) => ({
 export const episodesFailure = ({ error }) => ({
   type: EPISODES_FAILURE,
   error,
+});
+
+export const hideFlashMessage = () => ({
+  type: HIDE_FLASH_MESSAGE,
 });

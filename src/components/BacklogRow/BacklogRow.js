@@ -13,7 +13,7 @@ import {
   ROW_HEIGHT,
   ROW_HEIGHT_PX
 } from '../../constants';
-import { episodesRequest, toggleEpisode } from '../../actions';
+import { episodesRequest, markEpisodeAsSeen } from '../../actions';
 
 import BacklogEpisode from '../BacklogEpisode';
 import Heading from '../Heading';
@@ -36,7 +36,7 @@ const propTypes = {
   }),
 };
 
-const TOGGLE_ANIMATION_DURATION = 1000;
+const TOGGLE_ANIMATION_DURATION = 300;
 
 class BacklogRow extends Component {
   static propTypes = propTypes
@@ -59,11 +59,11 @@ class BacklogRow extends Component {
   }
 
   componentWillUnmount() {
-    window.clearTimeout(this.toggleEpisodeTimeoutId)
+    window.clearTimeout(this.markEpisodeAsSeenTimeoutId)
   }
 
-  toggleEpisode = (episode) => {
-    const { show, toggleEpisode } = this.props;
+  handleEpisodeClick = (episode) => {
+    const { show, markEpisodeAsSeen } = this.props;
 
     // Episodes take some time to disappear, and bad things happen if the user
     // tries toggling other things in that time.
@@ -72,16 +72,16 @@ class BacklogRow extends Component {
     }
 
     this.setState({ isToggling: true }, () => {
-      toggleEpisode({
-        showId: show.id,
+      markEpisodeAsSeen({
+        show,
         episodeId: episode.id,
       });
 
-      this.toggleEpisodeTimeoutId = window.setTimeout(() => {
-        window.requestAnimationFrame(() => {
-          this.setState({ isToggling: false });
-        });
-      }, TOGGLE_ANIMATION_DURATION)
+      // HACK: Due to a bug in FlipMove, we have to wait a couple frames longer
+      // than the animation duration, before unsetting the `isToggling` state
+      this.markEpisodeAsSeenTimeoutId = window.setTimeout(() => {
+        this.setState({ isToggling: false });
+      }, TOGGLE_ANIMATION_DURATION + 35)
     });
   }
 
@@ -98,7 +98,7 @@ class BacklogRow extends Component {
 
     const unseenEpisodes = episodes.filter(episode => (
       !seenEpisodeIds.includes(episode.id)
-    ));
+    )).slice(0, 8);
 
     return (
       <EpisodeWrapper>
@@ -117,7 +117,7 @@ class BacklogRow extends Component {
               number={episode.number}
               name={episode.name}
               airDate={episode.airdate}
-              handleClick={() => this.toggleEpisode(episode)}
+              handleClick={() => this.handleEpisodeClick(episode)}
             />
           ))}
         </FlipMove>
@@ -196,6 +196,6 @@ const EpisodeGradient = styled.div`
   );
 `;
 
-const mapDispatchToProps = { episodesRequest, toggleEpisode };
+const mapDispatchToProps = { episodesRequest, markEpisodeAsSeen };
 
 export default connect(null, mapDispatchToProps)(BacklogRow);
