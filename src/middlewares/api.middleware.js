@@ -4,6 +4,8 @@ import {
   USER_DATA_REQUEST,
   START_TRACKING_NEW_SHOWS,
   EPISODES_REQUEST,
+  MARK_EPISODE_AS_SEEN,
+  TOGGLE_EPISODE,
   userDataReceive,
   userDataFailure,
   failureSyncingNewShows,
@@ -15,6 +17,7 @@ import {
   getAuthUserData,
   postNewlyTrackedShows,
   getEpisodesForShow,
+  patchEpisodeSeen,
 } from '../services/api.service';
 
 
@@ -67,6 +70,17 @@ export default function createAPIMiddleware() {
           .then(episodes => {
             next(episodesReceive({ showId: action.showId, episodes }));
           });
+
+        break;
+      }
+
+      case MARK_EPISODE_AS_SEEN: {
+        patchEpisodeSeen({
+          token,
+          showId: action.showId,
+          episodeId: action.episodeId,
+          isSeen: true,
+        });
 
         break;
       }

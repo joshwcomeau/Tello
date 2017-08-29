@@ -37,3 +37,16 @@ export const postNewlyTrackedShows = ({ token, shows }) => {
 export const getEpisodesForShow = ({ showId }) => {
   return fetch(getEpisodesEndpoint(showId)).then(unwrap);
 }
+
+export const patchEpisodeSeen = ({ token, showId, episodeId, isSeen }) => {
+  const headers = getAuthHeaders(token);
+
+  const options = {
+    method: 'PATCH',
+    body: JSON.stringify({ isSeen }),
+    headers,
+  };
+
+  return fetch(`/shows/${showId}/episode/${episodeId}`, options)
+    .then(unwrap);
+}

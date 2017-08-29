@@ -64,8 +64,20 @@ app.get('/users/me', authenticatedRoute, (req, res, next) => {
 app.post('/shows/create', authenticatedRoute, (req, res, next) => {
   req.user.addShows(req.body.shows, (err, result) => {
     return res.json({ ok: true });
-  })
-})
+  });
+});
+
+app.patch(
+  '/shows/:showId/episode/:episodeId',
+  authenticatedRoute,
+  (req, res, next) => {
+    console.log('params', req.params)
+    console.log('body', req.body)
+
+    return res.json({ ok: true });
+  }
+)
+
 
 // Express only serves static assets in production
 if (process.env.NODE_ENV === 'production') {
