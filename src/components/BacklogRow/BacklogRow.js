@@ -72,7 +72,12 @@ class BacklogRow extends Component {
     }
 
     this.setState({ isToggling: true }, () => {
-      markEpisodeAsSeen({ show, episode });
+      markEpisodeAsSeen({
+        showId: show.id,
+        showName: show.name,
+        episodeId: episode.id,
+        episodeName: episode.name,
+      });
 
       // HACK: Due to a bug in FlipMove, we have to wait a couple frames longer
       // than the animation duration, before unsetting the `isToggling` state

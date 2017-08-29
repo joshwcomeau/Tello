@@ -87,13 +87,16 @@ function userReducer(state = initialState.user, action) {
     }
 
     case TOGGLE_EPISODE: {
-      const { show, episode } = action;
+      const { showId, episodeId } = action;
+      const show = state.trackedShows[showId];
 
-      const nextSeenEpisodeIds = toggleInArray(show.seenEpisodeIds, episode.id);
+      const nextSeenEpisodeIds = toggleInArray(show.seenEpisodeIds, episodeId);
+
+      console.log(show.seenEpisodeIds, {nextSeenEpisodeIds})
 
       return update(state, {
         trackedShows: {
-          [show.id]: {
+          [showId]: {
             seenEpisodeIds: { $set: nextSeenEpisodeIds },
           },
         },
@@ -101,12 +104,14 @@ function userReducer(state = initialState.user, action) {
     }
 
     case MARK_EPISODE_AS_SEEN: {
-      const { show, episode } = action;
-      const nextSeenEpisodeIds = [...show.seenEpisodeIds, episode.id];
+      const { showId, episodeId } = action;
+      const show = state.trackedShows[showId];
+
+      const nextSeenEpisodeIds = [...show.seenEpisodeIds, episodeId];
 
       return update(state, {
         trackedShows: {
-          [show.id]: {
+          [showId]: {
             seenEpisodeIds: { $set: nextSeenEpisodeIds },
           },
         },

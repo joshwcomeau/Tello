@@ -1,12 +1,22 @@
 import { createSelector } from 'reselect';
 
 import {
+  toggleEpisode,
   HIDE_FLASH_MESSAGE,
   START_TRACKING_NEW_SHOWS,
   MARK_EPISODE_AS_SEEN,
 } from '../actions';
 
-// null | { messageType: 'alert' | 'success' | 'error', message: string }
+/*
+  null | {
+    messageType: 'alert' | 'success' | 'error',
+    message: string,
+    action: null | {
+      label: string,
+      onClick: ActionCreator
+    }
+  }
+*/
 const initialState = null;
 
 export default function reducer(state = initialState, action) {
@@ -30,11 +40,16 @@ export default function reducer(state = initialState, action) {
     }
 
     case MARK_EPISODE_AS_SEEN: {
-      const { show, episode } = action;
+      const { showId, showName, episodeId, episodeName } = action;
 
       return {
         messageType: 'success',
-        message: `You've marked <em>${episode.name}</em> of <em>${show.name}</em> as seen`,
+        message: `
+          You've marked "${episodeName}" of
+          <strong>${showName}</strong> as seen.
+        `,
+        action: toggleEpisode({ showId, showName, episodeId, episodeName }),
+        actionLabel: 'Undo',
       };
     }
 
@@ -47,3 +62,5 @@ export default function reducer(state = initialState, action) {
 // Selectors
 export const getMessage = state => state.flash && state.flash.message;
 export const getMessageType = state => state.flash && state.flash.messageType;
+export const getAction = state => state.flash && state.flash.action;
+export const getActionLabel = state => state.flash && state.flash.actionLabel;

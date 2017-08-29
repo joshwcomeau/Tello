@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import styled from 'emotion/react';
 import FlipMove from 'react-flip-move';
 import PropTypes from 'prop-types';
 
-import { getMessage, getMessageType } from '../../reducers/flash.reducer';
+import {
+  getMessage,
+  getMessageType,
+  getAction,
+  getActionLabel,
+} from '../../reducers/flash.reducer';
 import { hideFlashMessage } from '../../actions';
 import { COLORS, UNIT, UNITS_IN_PX } from '../../constants';
 
@@ -16,6 +22,9 @@ class FlashMessage extends Component {
     duration: PropTypes.number.isRequired,
     message: PropTypes.string,
     messageType: PropTypes.oneOf(['alert', 'error', 'success']),
+    action: PropTypes.func,
+    actionLabel: PropTypes.string,
+    dispatch: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
@@ -23,9 +32,7 @@ class FlashMessage extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { message, duration, hideFlashMessage } = this.props;
-
-    console.log('UPDATE', message, prevProps.message)
+    const { message, duration, dispatch } = this.props;
 
     // If there is no provided message, do nothing.
     if (!message) {
@@ -38,12 +45,36 @@ class FlashMessage extends Component {
       // Reset the current timeout, so that it resets the timer.
       window.clearTimeout(this.messageTimerId);
 
-      this.messageTimerId = window.setTimeout(hideFlashMessage, duration);
+      this.messageTimerId = window.setTimeout(() => (
+        dispatch(hideFlashMessage())
+      ), duration);
     }
   }
 
+  handleActionClick = () => {
+    // NOTE: Because we aren't using `mapDispatchToProps`, `dispatch` is passed
+    // in as a prop (we have to do it this way, since the `action` comes from
+    // redux as well, so it isn't part of `ownProps`).
+    const { dispatch, action } = this.props;
+
+    // Start by hiding the flash message. The action we'll dispatch afterwards
+    // might show its own, but otherwise we probably want to hide the now-stale
+    // one.
+    dispatch(hideFlashMessage())
+
+    dispatch(action);
+
+  }
+
   render() {
-    const { duration, message, messageType, hideFlashMessage } = this.props;
+    const {
+      duration,
+      message,
+      messageType,
+      action,
+      actionLabel,
+      hideFlashMessage
+    } = this.props;
 
     return (
       <Wrapper
@@ -51,7 +82,15 @@ class FlashMessage extends Component {
         isVisible={!!message}
         type={messageType}
       >
-        <span dangerouslySetInnerHTML={{ __html: message }} />
+        <span>
+          <span dangerouslySetInnerHTML={{ __html: message }} />
+          {action && (
+            <Action onClick={this.handleActionClick}>
+              {actionLabel}
+            </Action>
+          )}
+        </span>
+
         <Dismiss onClick={hideFlashMessage}>
           <DismissIcon />
         </Dismiss>
@@ -108,9 +147,25 @@ const DismissIcon = styled.span`
   transform: translateY(-2px);
 `;
 
+const Action = styled.a`
+  cursor: pointer;
+  text-decoration: underline;
+  font-weight: 600;
+`;
+
 const mapStateToProps = state => ({
   message: getMessage(state),
   messageType: getMessageType(state),
+  action: getAction(state),
+  actionLabel: getActionLabel(state),
 });
 
-export default connect(mapStateToProps, { hideFlashMessage })(FlashMessage);
+const mapDispatchToProps = (dispatch, ownProps) => {
+  console.log('\n\nMAPDIS', ownProps);
+  return {
+    hideFlashMessage: bindActionCreators(hideFlashMessage, dispatch),
+    action: ownProps.action && bindActionCreators(ownProps.action),
+  };
+};
+
+export default connect(mapStateToProps)(FlashMessage);
