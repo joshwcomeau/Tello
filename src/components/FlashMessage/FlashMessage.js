@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 
 import { getMessage, getMessageType } from '../../reducers/flash.reducer';
 import { hideFlashMessage } from '../../actions';
-import { UNITS_IN_PX } from '../../constants';
+import { COLORS, UNIT, UNITS_IN_PX } from '../../constants';
 
 import { getColorForMessageType } from './FlashMessage.helpers';
 
@@ -19,7 +19,7 @@ class FlashMessage extends Component {
   }
 
   static defaultProps = {
-    duration: 5000,
+    duration: 7000,
   }
 
   componentDidUpdate(prevProps) {
@@ -43,7 +43,7 @@ class FlashMessage extends Component {
   }
 
   render() {
-    const { duration, message, messageType } = this.props;
+    const { duration, message, messageType, hideFlashMessage } = this.props;
 
     return (
       <Wrapper
@@ -51,25 +51,61 @@ class FlashMessage extends Component {
         isVisible={!!message}
         type={messageType}
       >
-        {message}
+        <span dangerouslySetInnerHTML={{ __html: message }} />
+        <Dismiss onClick={hideFlashMessage}>
+          <DismissIcon />
+        </Dismiss>
       </Wrapper>
     );
   }
 }
 
+const FLASH_HEIGHT = Math.round(UNIT * 2.5) + 'px';
+
 const Wrapper = styled.div`
   position: fixed;
-  z-index: 100;
+  z-index: 1000;
   top: 0;
   left: 0;
   right: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: ${UNITS_IN_PX[2]};
-  background: ${getColorForMessageType};
+  height: ${FLASH_HEIGHT};
+  background: #FFF;
+  color: ${getColorForMessageType};
   transform: ${props => props.isVisible ? `translateY(0)` : `translateY(-100%)`};
   transition: 850ms;
+  font-size: 15px;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
+  padding: 0 ${UNITS_IN_PX[2]};
+`;
+
+const Message = styled.div`
+  flex: 1;
+`;
+
+const Dismiss = styled.button`
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: ${FLASH_HEIGHT};
+  border: none;
+  background: transparent;
+  color: ${COLORS.red.primary};
+  font-size: 21px;
+  outline: none;
+  cursor: pointer;
+`;
+
+const DismissIcon = styled.span`
+  &:before {
+    content: '×';
+  }
+
+  display: inline-block;
+  transform: translateY(-2px);
 `;
 
 const mapStateToProps = state => ({

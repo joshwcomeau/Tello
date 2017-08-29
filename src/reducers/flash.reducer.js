@@ -34,7 +34,7 @@ export default function reducer(state = initialState, action) {
 
       return {
         messageType: 'success',
-        message: `You've marked "${episode.name}" of "${show.name}" as seen`,
+        message: `You've marked <em>${episode.name}</em> of <em>${show.name}</em> as seen`,
       };
     }
 
