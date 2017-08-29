@@ -38,16 +38,16 @@ export const hideModal = ({ side }) => ({
   side,
 });
 
-export const toggleEpisode = ({ show, episodeId }) => ({
+export const toggleEpisode = ({ show, episode }) => ({
   type: TOGGLE_EPISODE,
   show,
-  episodeId,
+  episode,
 });
 
-export const markEpisodeAsSeen = ({ show, episodeId }) => ({
+export const markEpisodeAsSeen = ({ show, episode }) => ({
   type: MARK_EPISODE_AS_SEEN,
   show,
-  episodeId,
+  episode,
 });
 
 // Convenience wrapper around `showModal`

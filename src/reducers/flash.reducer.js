@@ -30,11 +30,11 @@ export default function reducer(state = initialState, action) {
     }
 
     case MARK_EPISODE_AS_SEEN: {
-      const { show } = action;
+      const { show, episode } = action;
 
       return {
         messageType: 'success',
-        message: `You've marked an episode of "${show.name}" as seen`,
+        message: `You've marked "${episode.name}" of "${show.name}" as seen`,
       };
     }
 

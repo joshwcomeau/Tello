@@ -19,38 +19,40 @@ class FlashMessage extends Component {
   }
 
   static defaultProps = {
-    duration: 500,
+    duration: 5000,
   }
 
   componentDidUpdate(prevProps) {
     const { message, duration, hideFlashMessage } = this.props;
 
+    console.log('UPDATE', message, prevProps.message)
+
+    // If there is no provided message, do nothing.
+    if (!message) {
+      return;
+    }
+
+    // If there's a message that doesn't match, it means we have something
+    // new to display!
     if (prevProps.message !== message) {
+      // Reset the current timeout, so that it resets the timer.
+      window.clearTimeout(this.messageTimerId);
+
       this.messageTimerId = window.setTimeout(hideFlashMessage, duration);
     }
   }
 
   render() {
-    const { message, messageType } = this.props;
+    const { duration, message, messageType } = this.props;
 
     return (
-      <FlipMove
-        duration={1000}
-        enterAnimation={{
-         from: { transform: 'translateY(-100%)' },
-         to: { transform: 'translateY(0)' },
-       }}
-       leaveAnimation={{
-         from: { transform: 'translateY(0)' },
-         to: { transform: 'translateY(-100%)' },
-       }}
+      <Wrapper
+        duration={duration}
+        isVisible={!!message}
+        type={messageType}
       >
-        {message && (
-          <Wrapper key="flash-message" type={messageType}>
-            {message}
-          </Wrapper>
-        )}
-      </FlipMove>
+        {message}
+      </Wrapper>
     );
   }
 }
@@ -58,14 +60,16 @@ class FlashMessage extends Component {
 const Wrapper = styled.div`
   position: fixed;
   z-index: 100;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   top: 0;
   left: 0;
   right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: ${UNITS_IN_PX[2]};
   background: ${getColorForMessageType};
+  transform: ${props => props.isVisible ? `translateY(0)` : `translateY(-100%)`};
+  transition: 850ms;
 `;
 
 const mapStateToProps = state => ({

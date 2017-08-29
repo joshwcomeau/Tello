@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import styled from 'emotion/react';
 import PropTypes from 'prop-types';
 
-import { UNITS_IN_PX } from '../../constants';
+import { COLORS, UNITS_IN_PX } from '../../constants';
 import { ShowProps } from '../../types';
 
 import Heading from '../Heading';
@@ -35,7 +35,7 @@ class ShowSearchResult extends Component {
   render() {
     const { isHovering, isSelected } = this.state;
     const {
-      show: { name, status },
+      show: { name, status, region },
       isAlreadyAdded,
     } = this.props;
 
@@ -54,7 +54,10 @@ class ShowSearchResult extends Component {
         />
 
         <MainContent>
-          <Heading size="small">{name}</Heading>
+          <Heading size="small">
+            {name}
+            {region && <Region>({region})</Region>}
+          </Heading>
           {isAlreadyAdded && (
             <Subheading size="small">Already Tracking</Subheading>
           )}
@@ -70,9 +73,8 @@ class ShowSearchResult extends Component {
 
 const Wrapper = styled.div`
   display: flex;
+  align-items: center;
   cursor: default;
-  padding-top: ${UNITS_IN_PX[1]};
-  padding-bottom: ${UNITS_IN_PX[1]};
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
   opacity: ${props => props.deEmphasize ? 0.5 : 1};
   user-select: none;
@@ -80,11 +82,21 @@ const Wrapper = styled.div`
 
 const MainContent = styled.div`
   flex: 1;
+  padding-top: ${UNITS_IN_PX[1]};
+  padding-bottom: ${UNITS_IN_PX[1]};
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   margin-right: ${UNITS_IN_PX[1]};
-  transform: translateY(-2px);
+  transform: translateY(-1px);
+`;
+
+const Region = styled.span`
+  display: inline-block;
+  margin-left: ${UNITS_IN_PX[1]};
+  font-weight: normal;
+  font-size: 18px;
+  opacity: 0.5;
 `;
 
 const DevelopmentStatus = styled.div`
