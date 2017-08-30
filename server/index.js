@@ -72,7 +72,10 @@ app.patch(
   authenticatedRoute,
   (req, res, next) => {
     const { isSeen } = req.body;
-    const { showId, episodeId } = req.params;
+
+    // Convert our URL params back to numbers.
+    const showId = Number(req.params.showId);
+    const episodeId = Number(req.params.episodeId);
 
     req.user.toggleEpisode({ isSeen, showId, episodeId }, (err, result) => {
       if (err) {

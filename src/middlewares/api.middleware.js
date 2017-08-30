@@ -5,6 +5,7 @@ import {
   START_TRACKING_NEW_SHOWS,
   EPISODES_REQUEST,
   MARK_EPISODE_AS_SEEN,
+  MARK_EPISODE_AS_UNSEEN,
   TOGGLE_EPISODE,
   userDataReceive,
   userDataFailure,
@@ -80,6 +81,17 @@ export default function createAPIMiddleware() {
           showId: action.showId,
           episodeId: action.episodeId,
           isSeen: true,
+        });
+
+        break;
+      }
+
+      case MARK_EPISODE_AS_UNSEEN: {
+        patchEpisodeSeen({
+          token,
+          showId: action.showId,
+          episodeId: action.episodeId,
+          isSeen: false,
         });
 
         break;

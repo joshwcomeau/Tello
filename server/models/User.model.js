@@ -24,7 +24,7 @@ UserSchema.methods.addShows = function addShows(shows, cb) {
 UserSchema.methods.toggleEpisode = function({ isSeen, showId, episodeId }, cb) {
   // TODO: Convert `trackedShows` to a map. Move that logic from client to server.
   // Will make it much simpler to do this method.
-  const showIndex = this.trackedShows.findIndex(show => show.id === showId);
+  const showIndex = this.trackedShows.findIndex(show => show._id === showId);
   const show = this.trackedShows[showIndex];
 
   const alreadySeen = show.seenEpisodeIds.includes(episodeId);

@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 
 import {
-  toggleEpisode,
+  markEpisodeAsUnseen,
   HIDE_FLASH_MESSAGE,
   START_TRACKING_NEW_SHOWS,
   MARK_EPISODE_AS_SEEN,
@@ -48,7 +48,7 @@ export default function reducer(state = initialState, action) {
           You've marked "${episodeName}" of
           <strong>${showName}</strong> as seen.
         `,
-        action: toggleEpisode({ showId, showName, episodeId, episodeName }),
+        action: markEpisodeAsUnseen({ showId, showName, episodeId, episodeName }),
         actionLabel: 'Undo',
       };
     }
