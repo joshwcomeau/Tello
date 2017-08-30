@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Route } from 'react-router-dom';
+import { Route, Redirect, Switch, withRouter } from 'react-router-dom';
 import styled from 'emotion/react';
 import PropTypes from 'prop-types';
 
@@ -13,9 +13,13 @@ import Header from '../Header';
 import RightModal from '../RightModal';
 import MaxWidthWrapper from '../MaxWidthWrapper';
 import Spacer from '../Spacer';
-import Backlog from '../Backlog';
-// import Home from '../Home';
-import Login from '../Login';
+
+import BacklogView from '../BacklogView';
+import CalendarView from '../CalendarView';
+import SummaryView from '../SummaryView';
+
+import LoggedOutView from '../LoggedOutView';
+import LoginView from '../Login';
 
 
 class App extends Component {
@@ -31,7 +35,29 @@ class App extends Component {
     }
   }
 
+  renderLoggedInRoutes() {
+    return (
+      <Switch>
+        <Route exact path="/" component={SummaryView} />
+        <Route path="/backlog" component={BacklogView} />
+        <Route path="/calendar" component={CalendarView} />
+        <Redirect from="/login" to="/" />
+      </Switch>
+    )
+  }
+
+  renderLoggedOutRoutes() {
+    return (
+      <Switch>
+        <Route exact path="/" component={LoggedOutView} />
+        <Route path="/login" component={LoginView} />
+      </Switch>
+    )
+  }
+
   render() {
+    const { isLoggedIn } = this.props;
+
     return (
       <div>
         <FlashMessage />
@@ -44,9 +70,11 @@ class App extends Component {
           <Spacer size={ROW_HEIGHT} />
 
           <MaxWidthWrapper>
-            <Route exact path="/" component={Backlog} />
-            <Route path="/backlog" component={Backlog} />
-            <Route path="/login" component={Login} />
+            {
+              isLoggedIn
+                ? this.renderLoggedInRoutes()
+                : this.renderLoggedOutRoutes()
+            }
           </MaxWidthWrapper>
         </Body>
       </div>
@@ -63,4 +91,5 @@ const mapStateToProps = state => ({
   isLoggedIn: getIsLoggedIn(state),
 });
 
-export default connect(mapStateToProps, { userDataRequest })(App);
+export default withRouter(
+  connect(mapStateToProps, { userDataRequest })(App));

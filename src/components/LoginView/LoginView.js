@@ -10,7 +10,7 @@ const hrefPrefix = process.env.NODE_ENV !== 'production'
   : '';
 const authHref = `${hrefPrefix}/auth/google`;
 
-class Login extends Component {
+class LoginView extends Component {
   render() {
     return (
       <Button color="red" tag="a" href={authHref}>
@@ -20,4 +20,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default LoginView;
