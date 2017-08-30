@@ -60,10 +60,21 @@ class FlashMessage extends Component {
     // Start by hiding the flash message. The action we'll dispatch afterwards
     // might show its own, but otherwise we probably want to hide the now-stale
     // one.
-    dispatch(hideFlashMessage())
+    dispatch(hideFlashMessage());
+
+    // Cancel the hide-message timeout as well
+    window.clearTimeout(this.messageTimerId);
 
     dispatch(action);
+  }
 
+  handleCloseClick = () => {
+    const { dispatch } = this.props;
+
+    dispatch(hideFlashMessage());
+
+    // Cancel the hide-message timeout as well
+    window.clearTimeout(this.messageTimerId);
   }
 
   render() {
@@ -91,7 +102,7 @@ class FlashMessage extends Component {
           )}
         </span>
 
-        <Dismiss onClick={hideFlashMessage}>
+        <Dismiss onClick={this.handleCloseClick}>
           <DismissIcon />
         </Dismiss>
       </Wrapper>
@@ -160,12 +171,5 @@ const mapStateToProps = state => ({
   actionLabel: getActionLabel(state),
 });
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-  console.log('\n\nMAPDIS', ownProps);
-  return {
-    hideFlashMessage: bindActionCreators(hideFlashMessage, dispatch),
-    action: ownProps.action && bindActionCreators(ownProps.action),
-  };
-};
 
 export default connect(mapStateToProps)(FlashMessage);
