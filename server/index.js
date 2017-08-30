@@ -71,10 +71,16 @@ app.patch(
   '/shows/:showId/episode/:episodeId',
   authenticatedRoute,
   (req, res, next) => {
-    console.log('params', req.params)
-    console.log('body', req.body)
+    const { isSeen } = req.body;
+    const { showId, episodeId } = req.params;
 
-    return res.json({ ok: true });
+    req.user.toggleEpisode({ isSeen, showId, episodeId }, (err, result) => {
+      if (err) {
+        return next(err);
+      }
+
+      return res.json({ ok: true });
+    });
   }
 )
 

@@ -8,7 +8,7 @@ const ShowSchema = new mongoose.Schema({
   type: String,
   summary: String,
   region: String,
-  seenEpisodeIds: { type: [String], default: [] },
+  seenEpisodeIds: { type: [Number], default: [] },
 });
 
 const Show = mongoose.model('Show', ShowSchema);
