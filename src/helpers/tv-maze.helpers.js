@@ -13,7 +13,7 @@ export const formatShowResults = results => (
   results.map(({ show }) => ({
     id: show.id,
     name: show.name,
-    image: show.image && show.image.medium,
+    image: show.image && show.image.original,
     status: show.status,
     type: show.type,
     summary: stripHTMLFromString(show.summary),
