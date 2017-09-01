@@ -20,7 +20,6 @@ class BacklogView extends Component {
 
     return (
       <span>
-        <Heading theme="light">Backlog</Heading>
         {trackedShows.map(show => (
           <BacklogRow key={show.id} show={show} />
         ))}

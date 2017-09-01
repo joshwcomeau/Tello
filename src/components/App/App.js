@@ -13,13 +13,14 @@ import Header from '../Header';
 import RightModal from '../RightModal';
 import MaxWidthWrapper from '../MaxWidthWrapper';
 import Spacer from '../Spacer';
+import NavigationHeadings from '../NavigationHeadings';
 
 import BacklogView from '../BacklogView';
 import CalendarView from '../CalendarView';
 import SummaryView from '../SummaryView';
 
 import LoggedOutView from '../LoggedOutView';
-import LoginView from '../Login';
+import LoginView from '../LoginView';
 
 
 class App extends Component {
@@ -36,13 +37,20 @@ class App extends Component {
   }
 
   renderLoggedInRoutes() {
+    const activeSection = this.props.location.pathname.replace(/^\//, '');
+
     return (
-      <Switch>
-        <Route exact path="/" component={SummaryView} />
-        <Route path="/backlog" component={BacklogView} />
-        <Route path="/calendar" component={CalendarView} />
-        <Redirect from="/login" to="/" />
-      </Switch>
+      <div>
+        <NavigationHeadings activeSection={activeSection} />
+
+        <Switch>
+          <Route path="/summary" component={SummaryView} />
+          <Route path="/backlog" component={BacklogView} />
+          <Route path="/calendar" component={CalendarView} />
+          <Redirect from="/login" to="/summary" />
+          <Redirect from="/" to="/summary" />
+        </Switch>
+      </div>
     )
   }
 
