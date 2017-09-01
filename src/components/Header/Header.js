@@ -19,13 +19,15 @@ const Header = ({ isLoggedIn, showAddShowModal }) => {
           <Logo />
         </LogoWrapper>
 
-        <AddShowButtonWrapper>
-          <AddShowButton
-            color={COLORS.purple.dark}
-            hoverColor={COLORS.deepPurple.primary}
-            onClick={showAddShowModal}
-          />
-        </AddShowButtonWrapper>
+        {isLoggedIn && (
+          <AddShowButtonWrapper>
+            <AddShowButton
+              color={COLORS.purple.dark}
+              hoverColor={COLORS.deepPurple.primary}
+              onClick={showAddShowModal}
+            />
+          </AddShowButtonWrapper>
+        )}
       </MaxWidthWrapper>
     </HeaderElem>
   );

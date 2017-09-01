@@ -16,6 +16,8 @@ const TagElem = styled.span`
   color: ${COLORS.white};
   background: ${props => props.backgroundColor};
   padding: 4px 6px;
+  cursor: default;
+  user-select: none;
 `;
 
 export default Tag;

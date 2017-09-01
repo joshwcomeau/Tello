@@ -25,7 +25,11 @@ class NavigationHeadings extends Component {
           const isActive = activeSection === headingSlug;
 
           return (
-            <HeadingLink to={`/${headingSlug}`} isActive={isActive}>
+            <HeadingLink
+              key={headingSlug}
+              to={`/${headingSlug}`}
+              data-active={isActive}
+            >
               <Heading theme="light">{heading}</Heading>
             </HeadingLink>
           )
@@ -37,13 +41,14 @@ class NavigationHeadings extends Component {
 
 const Wrapper = styled.div`
   display: flex;
+  margin-bottom: ${UNITS_IN_PX[3]};
 `;
 
 const HeadingLink = styled(Link)`
   text-decoration: none;
   margin-right: ${UNITS_IN_PX[2]};
-  opacity: ${props => props.isActive ? 1 : 0.4};
-  transition: opacity 500ms;
+  opacity: ${props => props['data-active'] ? 1 : 0.4};
+  transition: opacity ${props => props['data-active'] ? '750ms' : '250ms'};
 `
 
 export default NavigationHeadings;
