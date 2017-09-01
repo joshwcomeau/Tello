@@ -51,7 +51,16 @@ app.get(
       );
     }
 
-    res.cookie(nconf.get('AUTH_TOKEN_KEY'), token);
+    // Make it a 5-year cookie
+    const cookieExpirationDate = new Date(
+      Date.now() + 2 * 365 * 24 * 60 * 60 * 1000
+    );
+
+    res.cookie(
+      nconf.get('AUTH_TOKEN_KEY'),
+      token,
+      { expires: cookieExpirationDate }
+    );
 
     return res.redirect('/');
   }

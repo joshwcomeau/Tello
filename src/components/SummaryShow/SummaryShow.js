@@ -9,6 +9,7 @@ import { truncateStringByWordCount } from '../../utils';
 import placeholderImage from '../../images/placeholder.png';
 import { ShowProps } from '../../types';
 
+import Clearfix from '../Clearfix';
 import Heading from '../Heading';
 import Tag from '../Tag';
 
@@ -42,14 +43,34 @@ class SummaryShow extends Component {
     });
   }
 
+  renderEpisodeGrid() {
+    const { episodes } = this.props.show;
+
+    if (!episodes) {
+      // TODO: loading
+      return null;
+    }
+
+    return (
+      <EpisodeGrid>
+        <Clearfix>
+          {episodes.map(episode => (
+            <Episode
+              key={episode.id}
+              isSeen={episode.isSeen}
+              onMouseEnter={this.hoverEpisode}
+              onMouseLeave={this.leaveEpisode}
+            />
+          ))}
+        </Clearfix>
+      </EpisodeGrid>
+    );
+  }
+
   render() {
     const {
-      show: { id, name, image, type, summary, episodes },
+      show: { id, name, image, type, summary },
     } = this.props;
-
-    // TODO: Some sort of loading indicator for episodes?
-
-    console.log(episodes)
 
     return (
       <Wrapper>
@@ -65,9 +86,7 @@ class SummaryShow extends Component {
           {truncateStringByWordCount(summary, 20)}
         </Body>
 
-        <EpisodeGrid>
-
-        </EpisodeGrid>
+        {this.renderEpisodeGrid()}
       </Wrapper>
     );
   }
@@ -111,6 +130,19 @@ const Body = styled.div`
 const EpisodeGrid = styled.div`
   padding: ${UNITS_IN_PX[1]};
 `;
+
+const Episode = styled.div`
+  display: block;
+  float: left;
+  width: 8px;
+  height: 8px;
+  line-height: 8px;
+  background-color: ${props => props.isSeen
+    ? COLORS.green.primary
+    : COLORS.gray.light
+  };
+  margin: 1px;
+`
 
 const mapDispatchToProps = { episodesRequest, toggleEpisode };
 

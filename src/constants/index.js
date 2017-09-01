@@ -89,7 +89,7 @@ export const ROW_HEIGHT_PX = ROW_HEIGHT + 'px';
 export const MAX_WIDTH = {
   sm: '100%',
   md: '900px',
-  base: '1100px',
+  base: '1110px',
 };
 
 export const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(
