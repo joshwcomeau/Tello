@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'emotion/react';
 
-import { COLORS, HALF_UNIT_PX, UNITS_IN_PX } from '../../constants';
+import { COLORS, UNIT, HALF_UNIT_PX, UNITS_IN_PX } from '../../constants';
 import { episodesRequest, toggleEpisode } from '../../actions';
 import { truncateStringByWordCount } from '../../utils';
 import placeholderImage from '../../images/placeholder.png';
@@ -11,6 +11,7 @@ import { ShowProps } from '../../types';
 
 import Clearfix from '../Clearfix';
 import Heading from '../Heading';
+import Scrollable from '../Scrollable';
 import Tag from '../Tag';
 
 
@@ -53,16 +54,19 @@ class SummaryShow extends Component {
 
     return (
       <EpisodeGrid>
-        <Clearfix>
-          {episodes.map(episode => (
-            <Episode
-              key={episode.id}
-              isSeen={episode.isSeen}
-              onMouseEnter={this.hoverEpisode}
-              onMouseLeave={this.leaveEpisode}
-            />
-          ))}
-        </Clearfix>
+        <Scrollable>
+          <EpisodeGridContents>
+            {episodes.map(episode => (
+              <Episode
+                key={episode.id}
+                isSeen={episode.isSeen}
+                onMouseEnter={this.hoverEpisode}
+                onMouseLeave={this.leaveEpisode}
+              />
+            ))}
+          </EpisodeGridContents>
+        </Scrollable>
+        <EpisodeOverflowGradient />
       </EpisodeGrid>
     );
   }
@@ -92,11 +96,17 @@ class SummaryShow extends Component {
   }
 }
 
+const setBackgroundImage = ({ image }) => `url(${image})`;
+
+const EPISODE_DOT_SIZE = 8;
+const EPISODE_MARGIN = 1;
+const EPISODE_DOT_SIZE_PX = `${EPISODE_DOT_SIZE}px`;
+const EPISODE_ROW_HEIGHT = EPISODE_DOT_SIZE + EPISODE_MARGIN * 2;
+const MAX_EPISODE_ROWS = 10;
+
 const Wrapper = styled.div`
   background: ${COLORS.white};
 `;
-
-const setBackgroundImage = ({ image }) => `url(${image})`;
 
 const ImageHeader = styled.header`
   position: relative;
@@ -128,15 +138,33 @@ const Body = styled.div`
 `;
 
 const EpisodeGrid = styled.div`
+  position: relative;
+  height: ${UNIT * 2 + MAX_EPISODE_ROWS * EPISODE_ROW_HEIGHT + 'px'};
+`;
+
+const EpisodeGridContents = styled(Clearfix)`
   padding: ${UNITS_IN_PX[1]};
 `;
+
+const EpisodeOverflowGradient = styled.div`
+  position: absolute;
+  z-index: 10;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: ${UNITS_IN_PX[1]};
+  background: linear-gradient(
+    to top,
+    rgba(255,255,255,1),
+    rgba(255,255,255,0)
+  );
+`
 
 const Episode = styled.div`
   display: block;
   float: left;
-  width: 8px;
-  height: 8px;
-  line-height: 8px;
+  width: ${EPISODE_DOT_SIZE_PX};
+  height: ${EPISODE_DOT_SIZE_PX};
   background-color: ${props => props.isSeen
     ? COLORS.green.primary
     : COLORS.gray.light
