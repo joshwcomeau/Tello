@@ -14,32 +14,19 @@ import {
   ROW_HEIGHT_PX
 } from '../../constants';
 import { episodesRequest, markEpisodeAsSeen } from '../../actions';
+import { ShowProps } from '../../types';
 
 import BacklogEpisode from '../BacklogEpisode';
 import Heading from '../Heading';
 import Tag from '../Tag';
 
 
-const propTypes = {
-  show: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    image: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    status: PropTypes.string.isRequired,
-    episodes: PropTypes.arrayOf(PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      season: PropTypes.number.isRequired,
-      number: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-      airdate: PropTypes.string.isRequired,
-    })),
-  }),
-};
-
 const TOGGLE_ANIMATION_DURATION = 300;
 
 class BacklogRow extends Component {
-  static propTypes = propTypes
+  static propTypes = {
+    show: ShowProps,
+  }
 
   state = {
     isToggling: false,
@@ -89,7 +76,7 @@ class BacklogRow extends Component {
 
   renderEpisodes() {
     const {
-      show: { id, type, episodes, seenEpisodeIds },
+      show: { id, type, episodes },
     } = this.props;
 
     if (!episodes) {
@@ -98,9 +85,9 @@ class BacklogRow extends Component {
       return null;
     }
 
-    const unseenEpisodes = episodes.filter(episode => (
-      !seenEpisodeIds.includes(episode.id)
-    )).slice(0, 8);
+    const unseenEpisodes = episodes
+      .filter(episode => !episode.isSeen)
+      .slice(0, 8);
 
     return (
       <EpisodeWrapper>

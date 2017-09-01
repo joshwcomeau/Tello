@@ -188,7 +188,6 @@ export const getTrackedShowIds = createSelector(
   (shows) => Object.keys(shows)
 );
 
-
 export const getTrackedShowsArray = createSelector(
   getTrackedShows,
   getTrackedShowIds,
@@ -202,9 +201,10 @@ export const getTrackedShowsArray = createSelector(
 
     // If the show has episodes, though, we need to turn the episode map
     // into an array as well.
-    const episodes = Object.keys(show.episodes).map(episodeId => (
-      show.episodes[episodeId]
-    ));
+    const episodes = Object.keys(show.episodes).map(episodeId => ({
+      ...show.episodes[episodeId],
+      isSeen: show.seenEpisodeIds.includes(Number(episodeId)),
+    }));
 
     return {
       ...show,
