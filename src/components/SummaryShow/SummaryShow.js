@@ -113,7 +113,6 @@ const Body = styled.div`
   z-index: 2;
   padding: ${UNITS_IN_PX[1]};
   color: ${COLORS.gray.veryDark};
-  box-shadow: 0px 1px 6px rgba(0,0,0,0.15);
 `;
 
 const Summary = styled.div`

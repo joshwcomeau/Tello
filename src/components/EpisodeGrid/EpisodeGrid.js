@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import styled from 'emotion/react';
 
 import { COLORS, UNIT, UNITS_IN_PX } from '../../constants';
-import { isEmpty } from '../../utils';
+import { debounce, isEmpty } from '../../utils';
 
 import Clearfix from '../Clearfix';
 import Scrollable from '../Scrollable';
@@ -16,43 +16,92 @@ const MAX_EPISODE_ROWS = 10;
 const GRID_MAX_HEIGHT = UNIT * 2 + MAX_EPISODE_ROWS * EPISODE_ROW_HEIGHT;
 const GRID_MAX_HEIGHT_PX = GRID_MAX_HEIGHT + 'px';
 
-const EpisodeGrid = ({ seasons }) => {
-  if (!seasons || isEmpty(seasons)) {
-    // TODO: loading
-    return null;
+const HIGHLIGHT_FADE_DURATION = 500;
+
+class EpisodeGrid extends PureComponent {
+  state = {
+    highlightedEpisode: null,
+    isHighlighted: false,
   }
 
-  const episodesBySeason = Object.keys(seasons).map(id => seasons[id]);
+  hoverEpisode = (episode) => {
+    this.setState({
+      isHighlighted: true,
+      highlightedEpisode: episode,
+    });
+  }
 
-  return (
-    <Wrapper>
-      <Scrollable maxHeight={GRID_MAX_HEIGHT_PX}>
-        <EpisodeGridContents>
-          {episodesBySeason.map((season, index) => (
-            <Season key={index}>
-              {season.map(episode => (
-                <Episode
-                  key={episode.id}
-                  isSeen={episode.isSeen}
-                  onMouseEnter={this.hoverEpisode}
-                  onMouseLeave={this.leaveEpisode}
-                />
-              ))}
-            </Season>
-          ))}
+  leaveEpisode = () => {
+    this.setState({ isHighlighted: false })
+  }
 
-        </EpisodeGridContents>
-      </Scrollable>
-      <EpisodeOverflowGradient />
-    </Wrapper>
-  );
-};
+  unsetEpisode = () => {
+    this.setState({ highlightedEpisode: null })
+  }
+
+  renderHighlightedEpisode() {
+    const {
+      isHighlighted,
+      highlightedEpisode,
+    } = this.state;
+
+    if (!highlightedEpisode) {
+      return null;
+    }
+
+    const { name, number, season } = highlightedEpisode;
+
+    return (
+      <HighlightedEpisode isVisible={isHighlighted}>
+        <EpisodeName>{name}</EpisodeName>
+        <EpisodeNum>
+          Season {season}, Episode {number}
+        </EpisodeNum>
+      </HighlightedEpisode>
+    );
+  }
+
+  render() {
+    const { seasons } = this.props;
+
+    if (!seasons || isEmpty(seasons)) {
+      // TODO: loading
+      return null;
+    }
+
+    const episodesBySeason = Object.keys(seasons).map(id => seasons[id]);
+
+    return (
+      <Wrapper onMouseLeave={this.unsetEpisode}>
+        {this.state.highlightedEpisode && this.renderHighlightedEpisode()}
+
+        <Scrollable maxHeight={GRID_MAX_HEIGHT_PX}>
+          <EpisodeGridContents>
+            {episodesBySeason.map((season, index) => (
+              <Season key={index}>
+                {season.map(episode => (
+                  <Episode
+                    key={episode.id}
+                    isSeen={episode.isSeen}
+                    onMouseEnter={() => this.hoverEpisode(episode)}
+                  />
+                ))}
+              </Season>
+            ))}
+
+          </EpisodeGridContents>
+        </Scrollable>
+        <EpisodeOverflowGradient />
+      </Wrapper>
+    );
+  }
+}
 
 
 const Wrapper = styled.div`
   position: relative;
-  z-index: 1;
   max-height: ${GRID_MAX_HEIGHT_PX};
+  box-shadow: inset 0 5px 6px -5px rgba(0, 0, 0, 0.2);
 `;
 
 const EpisodeGridContents = styled.div`
@@ -100,13 +149,43 @@ const Episode = styled.div`
   transition: 250ms;
 
   &:hover {
-    transform: scale(${1 + 1/(EPISODE_DOT_SIZE / 2)});
-
+    transform: scale(${1 + 1/(EPISODE_DOT_SIZE / 4)});
+    transition: 0ms;
     background-color: ${props => props.isSeen
       ? COLORS.green.dark
       : COLORS.gray.light
     };
   }
+`;
+
+const HighlightedEpisode = styled.div`
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  left: ${UNITS_IN_PX[1]};
+  right: ${UNITS_IN_PX[1]};
+  margin: auto;
+  padding: ${UNITS_IN_PX[1]};
+  transform: translateY(-100%);
+  background-color: ${COLORS.white};
+  color: ${COLORS.gray.veryDark};
+  text-align: center;
+  opacity: ${props => props.isVisible ? 1 : 0};
+  transition: opacity ${HIGHLIGHT_FADE_DURATION + 'ms'};
+  transition-delay: ${props => !props.isVisible
+    ? HIGHLIGHT_FADE_DURATION / 2 + 'ms'
+    : '0ms'
+  };
+`;
+
+const EpisodeName = styled.div`
+  font-size: 18px;
+  font-weight: bold;
+`;
+
+const EpisodeNum = styled.div`
+  font-size: 13px;
+  color: ${COLORS.gray.primary};
 `;
 
 export default EpisodeGrid;
