@@ -2,9 +2,9 @@ import React from 'react';
 import styled from 'emotion/react';
 
 
-const Scrollable = ({ children }) => (
-  <ScrollableParent>
-    <ScrollableWrap>
+const Scrollable = ({ children, maxHeight }) => (
+  <ScrollableParent maxHeight={maxHeight}>
+    <ScrollableWrap maxHeight={maxHeight}>
       <ScrollableChild>
         {children}
       </ScrollableChild>
@@ -14,11 +14,13 @@ const Scrollable = ({ children }) => (
 
 const ScrollableParent = styled.div`
   height: 100%;
+  max-height: ${props => props.maxHeight};
   overflow: hidden;
 `;
 
 const ScrollableWrap = styled.div`
   height: 100%;
+  max-height: ${props => props.maxHeight};
   margin-right: -30px;
   padding-right: 30px;
   overflow-y: scroll;

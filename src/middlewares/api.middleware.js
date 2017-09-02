@@ -39,6 +39,7 @@ export default function createAPIMiddleware() {
             next(userDataReceive(json));
           })
           .catch(err => {
+            console.error("CAUGHT ERROR IN USER DATA", err)
             // If there was an error, let's delete the locally-stored
             // cookie. This forces the user to attempt to login again,
             // which should hopefully fix whatever caused the error.

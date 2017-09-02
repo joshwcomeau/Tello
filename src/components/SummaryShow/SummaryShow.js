@@ -3,13 +3,13 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'emotion/react';
 
-import { COLORS, UNIT, HALF_UNIT_PX, UNITS_IN_PX } from '../../constants';
+import { COLORS, HALF_UNIT_PX, UNITS_IN_PX } from '../../constants';
 import { episodesRequest, toggleEpisode } from '../../actions';
 import { truncateStringByWordCount } from '../../utils';
 import placeholderImage from '../../images/placeholder.png';
 import { ShowProps } from '../../types';
 
-import Clearfix from '../Clearfix';
+import EpisodeGrid from '../EpisodeGrid';
 import Heading from '../Heading';
 import Scrollable from '../Scrollable';
 import ShowStatus from '../ShowStatus';
@@ -45,44 +45,9 @@ class SummaryShow extends Component {
     });
   }
 
-  renderEpisodeGrid() {
-    const { seasons, episodes } = this.props.show;
-
-    if (!episodes) {
-      // TODO: loading
-      return null;
-    }
-
-    const episodesBySeason = Object.keys(seasons).map(id => seasons[id]);
-
-    return (
-      <EpisodeGrid>
-        <Scrollable>
-          <EpisodeGridContents>
-            {episodesBySeason.map((season, index) => (
-              <Season key={index}>
-                <SeasonTitle>Season {index + 1}</SeasonTitle>
-                {season.map(episode => (
-                  <Episode
-                    key={episode.id}
-                    isSeen={episode.isSeen}
-                    onMouseEnter={this.hoverEpisode}
-                    onMouseLeave={this.leaveEpisode}
-                  />
-                ))}
-              </Season>
-            ))}
-
-          </EpisodeGridContents>
-        </Scrollable>
-        <EpisodeOverflowGradient />
-      </EpisodeGrid>
-    );
-  }
-
   render() {
     const {
-      show: { id, name, image, type, status, summary },
+      show: { id, name, image, type, seasons, status, summary },
     } = this.props;
 
     return (
@@ -104,19 +69,13 @@ class SummaryShow extends Component {
           </Scrollable>
         </Body>
 
-        {this.renderEpisodeGrid()}
+        <EpisodeGrid seasons={seasons} />
       </Wrapper>
     );
   }
 }
 
 const setBackgroundImage = ({ image }) => `url(${image})`;
-
-const EPISODE_DOT_SIZE = 13;
-const EPISODE_MARGIN = 1;
-const EPISODE_DOT_SIZE_PX = `${EPISODE_DOT_SIZE}px`;
-const EPISODE_ROW_HEIGHT = EPISODE_DOT_SIZE + EPISODE_MARGIN * 2;
-const MAX_EPISODE_ROWS = 10;
 
 const Wrapper = styled.div`
   background: ${COLORS.white};
@@ -155,62 +114,6 @@ const Body = styled.div`
 const Summary = styled.div`
   margin-top: ${HALF_UNIT_PX};
   font-size: 14px;
-`
-
-const EpisodeGrid = styled.div`
-  position: relative;
-  z-index: 1;
-  height: ${UNIT * 2 + MAX_EPISODE_ROWS * EPISODE_ROW_HEIGHT + 'px'};
-`;
-
-const EpisodeGridContents = styled.div`
-  padding: ${UNITS_IN_PX[1]};
-`;
-
-const Season = styled(Clearfix)`
-  margin-bottom: ${UNITS_IN_PX[1]}
-`;
-
-const SeasonTitle = styled.h5`
-  font-size: 14px;
-  font-weight: bold;
-  color: ${COLORS.gray.primary};
-`
-
-const EpisodeOverflowGradient = styled.div`
-  position: absolute;
-  z-index: 10;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: ${UNITS_IN_PX[1]};
-  background: linear-gradient(
-    to top,
-    rgba(255,255,255,1),
-    rgba(255,255,255,0)
-  );
-`
-
-const Episode = styled.div`
-  display: block;
-  float: left;
-  width: ${EPISODE_DOT_SIZE_PX};
-  height: ${EPISODE_DOT_SIZE_PX};
-  background-color: ${props => props.isSeen
-    ? COLORS.green.primary
-    : '#E4E4E4'
-  };
-  margin: 1px;
-  transition: 250ms;
-
-  &:hover {
-    transform: scale(${1 + 1/(EPISODE_DOT_SIZE / 2)});
-
-    background-color: ${props => props.isSeen
-      ? COLORS.green.dark
-      : COLORS.gray.light
-    };
-  }
 `
 
 const mapDispatchToProps = { episodesRequest, toggleEpisode };
