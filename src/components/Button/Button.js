@@ -25,7 +25,10 @@ Button.defaultProps = defaultProps;
 const buttonColors = {
   red: {
     background: COLORS.red.primary,
-    backgroundHover: COLORS.red.dark,
+    backgroundHover: `linear-gradient(
+      ${COLORS.red.light},
+      ${COLORS.red.primary}
+    )`,
     borderColor: COLORS.red.dark,
   },
   blue: {
@@ -35,6 +38,14 @@ const buttonColors = {
       ${COLORS.deepPurple.primary}
     )`,
     borderColor: COLORS.deepPurple.dark,
+  },
+  gray: {
+    background: COLORS.gray.dark,
+    backgroundHover: `linear-gradient(
+      ${COLORS.gray.primary},
+      ${COLORS.gray.dark}
+    )`,
+    borderColor: COLORS.gray.veryDark,
   },
 };
 

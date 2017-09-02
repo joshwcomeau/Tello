@@ -16,6 +16,7 @@ export const COLORS = {
     primary: '#FF3D00',
   },
   red: {
+    light: '#FF5252',
     primary: '#FF1744',
     dark: '#D50000',
   },

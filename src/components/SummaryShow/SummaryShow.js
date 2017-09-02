@@ -9,6 +9,7 @@ import { truncateStringByWordCount } from '../../utils';
 import placeholderImage from '../../images/placeholder.png';
 import { ShowProps } from '../../types';
 
+import Button from '../Button';
 import EpisodeGrid from '../EpisodeGrid';
 import Heading from '../Heading';
 import Scrollable from '../Scrollable';
@@ -53,20 +54,20 @@ class SummaryShow extends Component {
     return (
       <Wrapper>
         <ImageHeader image={image || placeholderImage}>
-          <TagWrapper>
-            <Tag domain={type} />
-          </TagWrapper>
+          <Actions data-selector="actions">
+            <ToggleButton size="small" color="gray">
+              Manage Show
+            </ToggleButton>
+          </Actions>
         </ImageHeader>
 
         <Body>
-          <Scrollable>
-            <ShowName>{name}</ShowName>
-            <ShowStatus status={status} />
+          <ShowName>{name}</ShowName>
+          <ShowStatus status={status} />
 
-            <Summary>
-              {truncateStringByWordCount(summary, 20)}
-            </Summary>
-          </Scrollable>
+          <Summary>
+            {truncateStringByWordCount(summary, 20)}
+          </Summary>
         </Body>
 
         <EpisodeGrid seasons={seasons} />
@@ -78,7 +79,12 @@ class SummaryShow extends Component {
 const setBackgroundImage = ({ image }) => `url(${image})`;
 
 const Wrapper = styled.div`
+  position: relative;
   background: ${COLORS.white};
+
+  &:hover [data-selector="actions"] {
+    opacity: 1;
+  }
 `;
 
 const ImageHeader = styled.header`
@@ -99,6 +105,7 @@ const ShowName = styled.h3`
   font-size: 28px;
   letter-spacing: -1px;
   line-height: 28px;
+  margin-bottom: 4px;
 `;
 
 const Body = styled.div`
@@ -106,15 +113,37 @@ const Body = styled.div`
   z-index: 2;
   padding: ${UNITS_IN_PX[1]};
   color: ${COLORS.gray.veryDark};
-  height: 166px;
-  overflow: auto;
-  box-shadow: 0px 1px 6px rgba(0,0,0,0.4);
+  box-shadow: 0px 1px 6px rgba(0,0,0,0.15);
 `;
 
 const Summary = styled.div`
   margin-top: ${HALF_UNIT_PX};
   font-size: 14px;
-`
+`;
+
+const Flex = styled.div`
+  flex: 1;
+`;
+
+const EpisodeGridWrapper = styled.div`
+  position: relative;
+  z-index: 2;
+  background: ${COLORS.white};
+`;
+
+const Actions = styled.div`
+  position: absolute;
+  z-index: 1;
+  bottom: 0;
+  right: 0;
+  opacity: 0;
+  padding: ${UNITS_IN_PX[1]};
+  color: ${COLORS.gray.veryDark};
+  transition: opacity 600ms;
+`;
+
+const ToggleButton = styled(Button)`
+`;
 
 const mapDispatchToProps = { episodesRequest, toggleEpisode };
 
