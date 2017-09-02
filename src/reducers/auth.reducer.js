@@ -212,3 +212,19 @@ export const getTrackedShowsArray = createSelector(
     };
   })
 );
+
+export const getTrackedShowsArrayWithSeasons = createSelector(
+  getTrackedShowsArray,
+  (shows) => shows.map(show => ({
+    ...show,
+    seasons: (show.episodes || []).reduce((acc, episode) => {
+      if (!acc[episode.season]) {
+        acc[episode.season] = [];
+      }
+
+      acc[episode.season].push(episode);
+
+      return acc;
+    }, {}),
+  }))
+);

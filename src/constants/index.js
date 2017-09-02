@@ -45,6 +45,7 @@ export const COLORS = {
   },
   green: {
     primary: '#00C853',
+    dark: '#008e3b'
   },
   lime: {
     primary: '#C6FF00',
@@ -76,7 +77,7 @@ export const BREAKPOINTS = {
 };
 
 // Sizes
-export const UNIT = 15;
+export const UNIT = 16;
 
 export const UNITS_IN_PX = range(30).map(i => UNIT * i + 'px');
 
