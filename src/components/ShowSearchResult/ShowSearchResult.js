@@ -5,11 +5,10 @@ import PropTypes from 'prop-types';
 import { COLORS, UNITS_IN_PX } from '../../constants';
 import { ShowProps } from '../../types';
 
+import Checkbox from '../Checkbox';
 import Heading from '../Heading';
 import Subheading from '../Subheading';
-import Checkbox from '../Checkbox';
-
-import { getColorForStatus } from './ShowSearchResult.helpers';
+import ShowStatus from '../ShowStatus';
 
 
 const propTypes = {
@@ -63,9 +62,9 @@ class ShowSearchResult extends Component {
           )}
         </MainContent>
 
-        <DevelopmentStatus status={status}>
+        <ShowStatus status={status}>
           {status}
-        </DevelopmentStatus>
+        </ShowStatus>
       </Wrapper>
     );
   }
@@ -97,11 +96,6 @@ const Region = styled.span`
   font-weight: normal;
   font-size: 18px;
   opacity: 0.5;
-`;
-
-const DevelopmentStatus = styled.div`
-  font-size: 12px;
-  color: ${getColorForStatus};
 `;
 
 ShowSearchResult.propTypes = propTypes;
