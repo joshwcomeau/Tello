@@ -7,6 +7,7 @@ import { ROW_HEIGHT_PX, UNITS_IN_PX, COLORS } from '../../constants';
 
 const defaultProps = {
   color: 'blue',
+  size: 'medium',
   tag: 'button',
 };
 
@@ -25,7 +26,7 @@ const buttonColors = {
   red: {
     background: COLORS.red.primary,
     backgroundHover: COLORS.red.dark,
-    border: '5px solid ' + COLORS.red.dark,
+    borderColor: COLORS.red.dark,
   },
   blue: {
     background: COLORS.deepPurple.primary,
@@ -33,25 +34,46 @@ const buttonColors = {
       ${COLORS.blue.primary},
       ${COLORS.deepPurple.primary}
     )`,
-    border: '5px solid ' + COLORS.deepPurple.dark,
+    borderColor: COLORS.deepPurple.dark,
   },
 };
 
-const generateButtonGetter = attribute => props => (
-  buttonColors[props.color][attribute]
-);
+const buttonSizes = {
+  small: {
+    height: UNITS_IN_PX[2],
+    padding: UNITS_IN_PX[1],
+    font: '12px',
+    borderWidth: '2px',
+  },
+  medium: {
+    height: ROW_HEIGHT_PX,
+    padding: UNITS_IN_PX[3],
+    font: '18px',
+    borderWidth: '5px',
+  },
+};
 
-const getButtonBackground = generateButtonGetter('background');
-const getButtonHoverBackground = generateButtonGetter('backgroundHover');
-const getButtonBorder = generateButtonGetter('border');
-
-const buttonCSS = css`
-  padding: 0 ${UNITS_IN_PX[3]};
-  height: ${ROW_HEIGHT_PX};
+const generateElem = elem => styled(elem)`
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: ${props => props.fill ? '100%' : 'auto'};
+  height: ${props => buttonSizes[props.size].height};
+  padding: 0 ${props => buttonSizes[props.size].padding};
   color: ${COLORS.white};
-  font-size: 18px;
+  font-size: ${props => buttonSizes[props.size].font};
   font-weight: bold;
+  background: ${props => buttonColors[props.color].background};
+  border: none;
+  border-bottom-width: ${props => buttonSizes[props.size].borderWidth};
+  border-bottom-style: solid;
+  border-bottom-color: ${props => buttonColors[props.color].borderColor};
   cursor: pointer;
+  text-decoration: none;
+
+  &:hover {
+    background: ${props => buttonColors[props.color].backgroundHover};
+  }
 
   &:disabled {
     background: ${COLORS.gray.primary} !important;
@@ -60,35 +82,7 @@ const buttonCSS = css`
   }
 `;
 
-// TODO: Figure out how to dedupe the props-based styles.
-// Can't just have background/border in the `css` call, since it's dependent
-// on props.
-const ButtonElem = styled.button`
-  composes: ${buttonCSS};
-  width: ${props => props.fill ? '100%' : 'auto'};
-  background: ${getButtonBackground};
-  border: none;
-  border-bottom: ${getButtonBorder};
-
-  &:hover {
-    background: ${getButtonHoverBackground};
-  }
-`;
-
-const LinkButtonElem = styled.a`
-  composes: ${buttonCSS};
-  width: ${props => props.fill ? '100%' : 'auto'};
-  text-decoration: none;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  background: ${getButtonBackground};
-  border: none;
-  border-bottom: ${getButtonBorder};
-
-  &:hover {
-    background: ${getButtonHoverBackground};
-  }
-`;
+const ButtonElem = generateElem('button');
+const LinkButtonElem = generateElem('a');
 
 export default Button;
