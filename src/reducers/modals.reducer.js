@@ -14,7 +14,10 @@ export default function reducer(state = initialState, action) {
     case SHOW_MODAL: {
       return {
         ...state,
-        [action.side]: action.id,
+        [action.side]: {
+          id: action.id,
+          data: action.data,
+        },
       };
     }
 

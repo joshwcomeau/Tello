@@ -117,6 +117,7 @@ export default function trackedShowsReducer(state = initialState, action) {
 
 // Selectors
 export const getTrackedShows = state => state.trackedShows;
+export const getTrackedShow = (state, showId) => getTrackedShows(state)[showId];
 
 export const getTrackedShowIds = createSelector(
   getTrackedShows,

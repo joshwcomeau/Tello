@@ -12,6 +12,9 @@ export const MARK_EPISODE_AS_UNSEEN = 'MARK_EPISODE_AS_UNSEEN';
 export const USER_DATA_REQUEST = 'USER_DATA_REQUEST';
 export const USER_DATA_RECEIVE = 'USER_DATA_RECEIVE';
 export const USER_DATA_FAILURE = 'USER_DATA_FAILURE';
+export const EDIT_SHOW_REQUEST = 'EDIT_SHOW_REQUEST';
+export const EDIT_SHOW_RECEIVE = 'EDIT_SHOW_RECEIVE';
+export const EDIT_SHOW_FAILURE = 'EDIT_SHOW_FAILURE';
 export const EPISODES_REQUEST = 'EPISODES_REQUEST';
 export const EPISODES_RECEIVE = 'EPISODES_RECEIVE';
 export const EPISODES_FAILURE = 'EPISODES_FAILURE';
@@ -28,10 +31,11 @@ export const failureSyncingNewShows = ({ shows }) => ({
   shows,
 });
 
-export const showModal = ({ id, side }) => ({
+export const showModal = ({ id, side, data }) => ({
   type: SHOW_MODAL,
   id,
   side,
+  data,
 });
 
 export const hideModal = ({ side }) => ({
@@ -78,9 +82,12 @@ export const markEpisodeAsUnseen = ({
   episodeName
 });
 
-// Convenience wrapper around `showModal`
+// Convenience wrappers around `showModal`
 export const showAddShowModal = () => (
-  showModal({ id: MODAL_IDS.addShow, side: 'right' })
+  showModal({ id: MODAL_IDS.addShow, side: 'right', data: {} })
+);
+export const showEditShowModal = ({ showId }) => (
+  showModal({ id: MODAL_IDS.editShow, side: 'left', data: { showId } })
 );
 
 export const userDataRequest = () => ({
@@ -96,6 +103,21 @@ export const userDataFailure = (error) => ({
   type: USER_DATA_FAILURE,
   error,
 });
+
+export const editShowRequest = () => ({
+  type: EDIT_SHOW_REQUEST,
+});
+
+export const editShowReceive = (data) => ({
+  type: EDIT_SHOW_RECEIVE,
+  data,
+});
+
+export const editShowFailure = (error) => ({
+  type: EDIT_SHOW_FAILURE,
+  error,
+});
+
 
 export const episodesRequest = ({ showId }) => ({
   type: EPISODES_REQUEST,

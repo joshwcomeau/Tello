@@ -1,5 +1,10 @@
 import { spring } from 'react-motion';
 
+import { MODAL_IDS } from '../../constants';
+
+import AddShow from '../AddShow';
+import EditShow from '../EditShow';
+
 
 export const getSpring = (side, isVisible) => {
   // For right modals, we position them off-screen by translating x 100%.
@@ -7,4 +12,16 @@ export const getSpring = (side, isVisible) => {
   const offscreenValue = side === 'right' ? 100 : -100;
 
   return spring(isVisible ? 0 : offscreenValue);
-}
+};
+
+export const getModalChildComponent = selectedModal => {
+  if (!selectedModal) {
+    return null;
+  }
+
+  switch (selectedModal.id) {
+    case MODAL_IDS.editShow: return EditShow;
+    case MODAL_IDS.addShow: return AddShow;
+    default: return null;
+  }
+};

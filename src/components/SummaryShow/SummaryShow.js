@@ -3,8 +3,12 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'emotion/react';
 
+import {
+  episodesRequest,
+  toggleEpisode,
+  showEditShowModal
+} from '../../actions';
 import { COLORS, HALF_UNIT_PX, UNITS_IN_PX } from '../../constants';
-import { episodesRequest, toggleEpisode } from '../../actions';
 import { truncateStringByWordCount } from '../../utils';
 import placeholderImage from '../../images/placeholder.png';
 import { ShowProps } from '../../types';
@@ -46,6 +50,10 @@ class SummaryShow extends Component {
     });
   }
 
+  handleClickEditButton = () => {
+    this.props.showEditShowModal({ showId: this.props.show.id });
+  }
+
   render() {
     const {
       show: { id, name, image, type, seasons, status, summary },
@@ -55,9 +63,13 @@ class SummaryShow extends Component {
       <Wrapper>
         <ImageHeader image={image || placeholderImage}>
           <Actions data-selector="actions">
-            <ToggleButton size="small" color="gray">
+            <Button
+              size="small"
+              color="gray"
+              onClick={this.handleClickEditButton}
+            >
               Manage Show
-            </ToggleButton>
+            </Button>
           </Actions>
         </ImageHeader>
 
@@ -144,9 +156,10 @@ const Actions = styled.div`
   transition: opacity 600ms;
 `;
 
-const ToggleButton = styled(Button)`
-`;
-
-const mapDispatchToProps = { episodesRequest, toggleEpisode };
+const mapDispatchToProps = {
+  episodesRequest,
+  toggleEpisode,
+  showEditShowModal,
+};
 
 export default connect(null, mapDispatchToProps)(SummaryShow);

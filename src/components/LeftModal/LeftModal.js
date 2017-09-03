@@ -14,14 +14,14 @@ const propTypes = {
   hideModal: PropTypes.func.isRequired,
 };
 
-const RightModal = ({ selectedModal, hideModal }) => {
+const LeftModal = ({ selectedModal, hideModal }) => {
   const ModalChildComponent = getModalChildComponent(selectedModal);
 
   return (
     <Modal
-      side="right"
+      side="left"
       isVisible={!!selectedModal}
-      handleClose={() => hideModal({ side: 'right' })}
+      handleClose={() => hideModal({ side: 'left' })}
     >
       {selectedModal && (
         React.createElement(ModalChildComponent, selectedModal.data)
@@ -31,9 +31,9 @@ const RightModal = ({ selectedModal, hideModal }) => {
 };
 
 const mapStateToProps = state => ({
-  selectedModal: state.modals.right,
+  selectedModal: state.modals.left,
 });
 
-RightModal.propTypes = propTypes;
+LeftModal.propTypes = propTypes;
 
-export default connect(mapStateToProps, { hideModal })(RightModal);
+export default connect(mapStateToProps, { hideModal })(LeftModal);

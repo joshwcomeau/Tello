@@ -10,6 +10,7 @@ import { getIsLoggedIn } from '../../reducers/auth.reducer';
 
 import FlashMessage from '../FlashMessage';
 import Header from '../Header';
+import LeftModal from '../LeftModal';
 import RightModal from '../RightModal';
 import MaxWidthWrapper from '../MaxWidthWrapper';
 import Spacer from '../Spacer';
@@ -72,6 +73,7 @@ class App extends Component {
 
         <Header />
 
+        <LeftModal />
         <RightModal />
 
         <Body>

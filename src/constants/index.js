@@ -6,6 +6,7 @@ export const AUTH_TOKEN_KEY = 'tvAuthToken';
 
 export const MODAL_IDS = {
   addShow: 'addShow',
+  editShow: 'editShow',
 };
 
 export const COLORS = {
