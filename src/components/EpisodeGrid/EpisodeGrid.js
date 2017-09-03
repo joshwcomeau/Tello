@@ -145,7 +145,7 @@ const Episode = styled.div`
   width: ${EPISODE_DOT_SIZE_PX};
   height: ${EPISODE_DOT_SIZE_PX};
   background-color: ${props => props.isSeen
-    ? COLORS.green.primary
+    ? COLORS.blue.primary
     : '#E4E4E4'
   };
   margin: 1px;
@@ -155,7 +155,7 @@ const Episode = styled.div`
     transform: scale(${1 + 1/(EPISODE_DOT_SIZE / 4)});
     transition: 0ms;
     background-color: ${props => props.isSeen
-      ? COLORS.green.dark
+      ? COLORS.blue.dark
       : COLORS.gray.light
     };
   }
