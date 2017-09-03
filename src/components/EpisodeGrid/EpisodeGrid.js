@@ -31,12 +31,13 @@ class EpisodeGrid extends PureComponent {
     });
   }
 
-  leaveEpisode = () => {
+  leaveEpisodeGrid = () => {
     this.setState({ isHighlighted: false })
-  }
 
-  unsetEpisode = () => {
-    this.setState({ highlightedEpisode: null })
+    this.fadeTimeoutId = window.setTimeout(
+      this.unsetEpisode,
+      HIGHLIGHT_FADE_DURATION
+    );
   }
 
   renderHighlightedEpisode() {
@@ -72,7 +73,7 @@ class EpisodeGrid extends PureComponent {
     const episodesBySeason = Object.keys(seasons).map(id => seasons[id]);
 
     return (
-      <Wrapper onMouseLeave={this.unsetEpisode}>
+      <Wrapper onMouseLeave={this.leaveEpisodeGrid}>
         {this.state.highlightedEpisode && this.renderHighlightedEpisode()}
 
         <Scrollable maxHeight={GRID_MAX_HEIGHT_PX}>
@@ -134,6 +135,7 @@ const EpisodeOverflowGradient = styled.div`
     rgba(255,255,255,1),
     rgba(255,255,255,0)
   );
+  pointer-events: none;
 `;
 
 const Episode = styled.div`
@@ -172,10 +174,6 @@ const HighlightedEpisode = styled.div`
   text-align: center;
   opacity: ${props => props.isVisible ? 1 : 0};
   transition: opacity ${HIGHLIGHT_FADE_DURATION + 'ms'};
-  transition-delay: ${props => !props.isVisible
-    ? HIGHLIGHT_FADE_DURATION / 2 + 'ms'
-    : '0ms'
-  };
 `;
 
 const EpisodeName = styled.div`
