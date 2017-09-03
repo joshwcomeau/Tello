@@ -1,8 +1,10 @@
 import React from 'react';
 import styled from 'emotion/react';
+import { Motion } from 'react-motion';
 import PropTypes from 'prop-types';
 
 import { COLORS, UNITS_IN_PX } from '../../constants';
+import { getSpring } from './Modal.helpers';
 
 
 const propTypes = {
@@ -12,19 +14,26 @@ const propTypes = {
   children: PropTypes.node,
 };
 
-const Modal = ({ side, isVisible, handleClose, children }) => {
-  return (
-    <Wrapper isVisible={isVisible}>
-      <Backdrop isVisible={isVisible} onClick={handleClose} />
-      <ModalElem side={side} isVisible={isVisible}>
-        {children}
-      </ModalElem>
-    </Wrapper>
-  );
-};
-
-Modal.propTypes = propTypes;
-
+const Modal = ({ side, isVisible, handleClose, children }) => (
+  <Wrapper isVisible={isVisible}>
+    <Backdrop isVisible={isVisible} onClick={handleClose} />
+    <Motion
+      style={{ x: getSpring(side, isVisible) }}
+    >
+      {({ x }) => (
+        <ModalElem
+          side={side}
+          style={{
+            transform: `translateX(${x}%)`,
+            WebkitTransform: `translateX(${x}%)`,
+          }}
+        >
+          {children}
+        </ModalElem>
+      )}
+    </Motion>
+  </Wrapper>
+);
 
 const Wrapper = styled.div`
   position: fixed;
@@ -48,20 +57,6 @@ const Backdrop = styled.div`
   transition: opacity 750ms;
 `;
 
-const getTransform = ({ isVisible, side }) => {
-  if (isVisible) {
-    return 'translate(0)';
-  }
-
-  if (side === 'left') {
-    return 'translateX(-100%)';
-  }
-
-  if (side === 'right') {
-    return 'translateX(100%)';
-  }
-};
-
 const ModalElem = styled.div`
   position: absolute;
   z-index: 101;
@@ -75,8 +70,9 @@ const ModalElem = styled.div`
   background: ${COLORS.gray.veryLight};
   color: ${COLORS.gray.veryDark};
   box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.5);
-  transform: ${getTransform};
-  transition: transform 500ms;
+  will-change: transform;
 `
+
+Modal.propTypes = propTypes;
 
 export default Modal;
