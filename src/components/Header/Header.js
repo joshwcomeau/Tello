@@ -22,8 +22,8 @@ const Header = ({ isLoggedIn, showAddShowModal }) => {
         {isLoggedIn && (
           <AddShowButtonWrapper>
             <AddShowButton
-              color={COLORS.purple.dark}
-              hoverColor={COLORS.deepPurple.primary}
+              color={COLORS.deepPurple.primary}
+              hoverColor={COLORS.blue.dark}
               onClick={showAddShowModal}
             />
           </AddShowButtonWrapper>

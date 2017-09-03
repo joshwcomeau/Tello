@@ -8,10 +8,13 @@ import {
   MARK_EPISODE_AS_UNSEEN,
   MARK_SEASON_AS_SEEN,
   TOGGLE_EPISODE,
+  DELETE_SHOW_REQUEST,
   userDataReceive,
   userDataFailure,
   failureSyncingNewShows,
   episodesReceive,
+  deleteShowReceive,
+  deleteShowFailure,
 } from '../actions';
 import { AUTH_TOKEN_KEY } from '../constants';
 import { formatEpisodeResults } from '../helpers/tv-maze.helpers';
@@ -20,6 +23,7 @@ import {
   postNewlyTrackedShows,
   getEpisodesForShow,
   patchEpisodes,
+  deleteShow,
 } from '../services/api.service';
 
 
@@ -123,6 +127,16 @@ export default function createAPIMiddleware() {
           showId: action.showId,
           episodeIds: action.episodeIds,
         });
+
+        break;
+      }
+
+      case DELETE_SHOW_REQUEST: {
+        deleteShow({ token, showId: action.showId })
+          .then(({ showId }) => next(deleteShowReceive({ showId })))
+          .catch((error) => (
+            next(deleteShowFailure({ showId: action.showId, error }))
+          ));
 
         break;
       }

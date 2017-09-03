@@ -32,11 +32,11 @@ export const postNewlyTrackedShows = ({ token, shows }) => {
   };
 
   return fetch('/shows/create', options).then(unwrap);
-}
+};
 
 export const getEpisodesForShow = ({ showId }) => {
   return fetch(getEpisodesEndpoint(showId)).then(unwrap);
-}
+};
 
 export const patchEpisodes = ({ token, showId, episodeIds, markAs }) => {
   const headers = getAuthHeaders(token);
@@ -48,5 +48,14 @@ export const patchEpisodes = ({ token, showId, episodeIds, markAs }) => {
   };
 
   return fetch(`/shows/${showId}/episodes`, options)
+    .then(unwrap);
+};
+
+export const deleteShow = ({ token, showId }) => {
+  const headers = getAuthHeaders(token);
+
+  const options = { method: 'DELETE', headers };
+
+  return fetch(`/shows/${showId}`, options)
     .then(unwrap);
 }

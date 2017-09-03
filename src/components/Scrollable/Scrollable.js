@@ -28,7 +28,7 @@ const ScrollableWrap = styled.div`
 `;
 
 const ScrollableChild = styled.div`
-  margin-right: -15px;
+  margin-right: -8px;
 `;
 
 export default Scrollable;

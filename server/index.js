@@ -93,7 +93,20 @@ app.patch(
       return res.json({ ok: true });
     });
   }
-)
+);
+
+app.delete('/shows/:showId', authenticatedRoute, (req, res, next) => {
+  // Convert our URL param back to a number.
+  const showId = Number(req.params.showId);
+
+  req.user.deleteShow({ showId }, (err, result) => {
+    if (err) {
+      return next(err);
+    }
+
+    return res.json({ showId });
+  });
+});
 
 
 // Express only serves static assets in production

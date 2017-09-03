@@ -22,7 +22,10 @@ UserSchema.methods.addShows = function addShows(shows, cb) {
   this.save(cb);
 }
 
-UserSchema.methods.toggleEpisodes = function({ markAs, showId, episodeIds }, cb) {
+UserSchema.methods.toggleEpisodes = function(
+  { markAs, showId, episodeIds },
+  cb
+) {
   const showIndex = this.trackedShows.findIndex(show => show._id === showId);
   const show = this.trackedShows[showIndex];
 
@@ -37,10 +40,19 @@ UserSchema.methods.toggleEpisodes = function({ markAs, showId, episodeIds }, cb)
   this.save(cb);
 };
 
+UserSchema.methods.deleteShow = function({ showId }, cb) {
+  this.trackedShows = this.trackedShows.filter(show => show._id !== showId);
+
+  this.save(cb);
+};
+
+
+
 const User = mongoose.model('User', UserSchema);
 
 module.exports.UserSchema = UserSchema;
 module.exports.User = User;
+
 
 module.exports.getPublicUser = user => {
   const shows = user.trackedShows.map(getPublicShow);

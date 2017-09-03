@@ -13,6 +13,9 @@ import {
   USER_DATA_RECEIVE,
   USER_DATA_REQUEST,
   USER_DATA_FAILURE,
+  DELETE_SHOW_REQUEST,
+  DELETE_SHOW_RECEIVE,
+  DELETE_SHOW_FAILURE,
 } from '../actions';
 import { convertArrayToMap, toggleInArray, mergeUnique } from '../utils';
 
@@ -122,6 +125,42 @@ export default function trackedShowsReducer(state = initialState, action) {
       });
     }
 
+    case DELETE_SHOW_REQUEST: {
+      const { showId } = action;
+
+      return update(state, {
+        [showId]: {
+          attemptingDeletion: { $set: true },
+        },
+      });
+    }
+
+    case DELETE_SHOW_RECEIVE: {
+      const { showId } = action;
+
+      // Create a working copy, so that we aren't directly mutating state
+      const nextState = { ...state };
+
+      // The server has confirmed the show is deleted. Let's remove it!
+      delete nextState[showId];
+
+      return nextState;
+    }
+
+    case DELETE_SHOW_FAILURE: {
+      const { showId } = action;
+
+      // We don't have to worry about the error message or anything, the
+      // `flash` reducer will tackle that. We just need to unset the loading
+      // flag.
+
+      return update(state, {
+        [showId]: {
+          attemptingDeletion: { $set: false },
+        },
+      });
+    }
+
     default:
       return state;
   }
@@ -163,6 +202,11 @@ export const getTrackedShow = (state, showId) => getTrackedShows(state)[showId];
 
 export const getTrackedShowWithSeasons = (state, showId) => {
   const show = getTrackedShow(state, showId);
+
+  // The user can delete shows. Gotta guard against that.
+  if (!show) {
+    return null;
+  }
 
   // Initially, we won't have the episodes. They're fetched externally.
   if (!show.episodes) {

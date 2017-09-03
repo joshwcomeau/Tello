@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'emotion/react';
 
-import { deleteShowRequest, markSeasonAsSeen } from '../../actions';
+import { deleteShowRequest, markSeasonAsSeen, hideModal } from '../../actions';
 import { COLORS, UNITS_IN_PX } from '../../constants';
 import { getTrackedShowWithSeasons } from '../../reducers/tracked-shows.reducer';
 import { ShowProps } from '../../types';
@@ -13,16 +13,29 @@ import EditShowSeason from '../EditShowSeason';
 import Heading from '../Heading';
 
 
-class EditShow extends Component {
+class EditShow extends PureComponent {
   static propTypes = {
     show: ShowProps,
     markSeasonAsSeen: PropTypes.func.isRequired,
     deleteShowRequest: PropTypes.func.isRequired,
+    hideModal: PropTypes.func.isRequired,
+  }
+
+  componentDidUpdate() {
+    const { show, hideModal } = this.props;
+
+    if (!show) {
+      hideModal({ side: 'left' });
+    }
   }
 
   render() {
+    if (!this.props.show) {
+      return null;
+    }
+
     const {
-      show: { id, name, seasons },
+      show: { id, name, seasons, attemptingDeletion },
       markSeasonAsSeen,
       deleteShowRequest,
     } = this.props;
@@ -42,7 +55,11 @@ class EditShow extends Component {
             Deleting this show will remove it from your list of tracked shows. You can re-add it again later, but your progress will be lost forever.
           </Paragraph>
 
-          <Button color="red">
+          <Button
+            color="red"
+            disabled={attemptingDeletion}
+            onClick={() => deleteShowRequest({ showId: id })}
+          >
             Delete "{name}"
           </Button>
         </Section>
@@ -104,6 +121,6 @@ const mapStateToProps = (state, ownProps) => ({
   show: getTrackedShowWithSeasons(state, ownProps.showId),
 });
 
-const mapDispatchToProps = { deleteShowRequest, markSeasonAsSeen };
+const mapDispatchToProps = { deleteShowRequest, markSeasonAsSeen, hideModal };
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditShow);

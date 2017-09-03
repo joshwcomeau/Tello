@@ -94,7 +94,7 @@ const generateElem = elem => styled(elem)`
 
   &:disabled {
     background: ${COLORS.gray.primary} !important;
-    border-bottom: 5px solid rgba(0, 0, 0, 0.25) !important;
+    border-bottom-color: rgba(0, 0, 0, 0.25) !important;
     cursor: not-allowed;
   }
 `;
