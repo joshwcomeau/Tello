@@ -37,3 +37,16 @@ export const truncateStringByWordCount = (string, maxWords) => {
 };
 
 export const isEmpty = obj => Object.keys(obj).length === 0;
+
+export const convertArrayToMap = list => (
+  list.reduce((acc, item) => ({
+    ...acc,
+    [item.id]: item,
+  }), {})
+);
+
+export const toggleInArray = (arr, item) => (
+  arr.includes(item)
+    ? arr.filter(i => i !== item)
+    : [...arr, item]
+);

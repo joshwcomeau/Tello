@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import styled from 'emotion/react';
 import PropTypes from 'prop-types';
 
-import { getTrackedShowsArrayWithSeasons } from '../../reducers/auth.reducer';
+import { getTrackedShowsArrayWithSeasons } from '../../reducers/tracked-shows.reducer';
 import { UNITS_IN_PX } from '../../constants';
 import { ShowProps } from '../../types';
 
@@ -21,7 +21,7 @@ const SummaryView = ({ trackedShows }) => (
 const Wrapper = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: ${UNITS_IN_PX[1]}
+  grid-gap: ${UNITS_IN_PX[1]};
 `;
 
 const mapStateToProps = state => ({

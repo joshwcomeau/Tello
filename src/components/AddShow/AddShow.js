@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import styled from 'emotion/react';
 
 import { startTrackingNewShows, hideModal } from '../../actions';
-import { getTrackedShowIds } from '../../reducers/auth.reducer';
+import { getTrackedShowIds } from '../../reducers/tracked-shows.reducer';
 import {
   getSearchEndpoint,
   formatShowResults

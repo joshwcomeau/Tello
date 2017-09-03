@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { getTrackedShowsArray } from '../../reducers/auth.reducer';
+import { getTrackedShowsArray } from '../../reducers/tracked-shows.reducer';
 import { ShowProps } from '../../types';
 
 import BacklogRow from '../BacklogRow';
