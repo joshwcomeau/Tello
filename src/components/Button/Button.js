@@ -57,6 +57,12 @@ const buttonSizes = {
     borderWidth: '2px',
   },
   medium: {
+    height: UNITS_IN_PX[3],
+    padding: UNITS_IN_PX[2],
+    font: '16px',
+    borderWidth: '4px',
+  },
+  large: {
     height: ROW_HEIGHT_PX,
     padding: UNITS_IN_PX[3],
     font: '18px',

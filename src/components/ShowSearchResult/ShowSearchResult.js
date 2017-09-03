@@ -53,10 +53,10 @@ class ShowSearchResult extends Component {
         />
 
         <MainContent>
-          <Heading size="small">
+          <ShowNameAndRegion size="small">
             {name}
             {region && <Region>({region})</Region>}
-          </Heading>
+          </ShowNameAndRegion>
           {isAlreadyAdded && (
             <Subheading size="small">Already Tracking</Subheading>
           )}
@@ -88,6 +88,10 @@ const MainContent = styled.div`
   white-space: nowrap;
   margin-right: ${UNITS_IN_PX[1]};
   transform: translateY(-1px);
+`;
+
+const ShowNameAndRegion = styled(Heading)`
+  margin-bottom: 0;
 `;
 
 const Region = styled.span`

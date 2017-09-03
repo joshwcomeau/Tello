@@ -57,6 +57,7 @@ const HeadingSmall = styled.h6`
   composes: ${headingCSS};
   font-size: 22px;
   line-height: 18px;
+  margin-bottom: ${UNITS_IN_PX[1]};
   color: ${getFontColor};
 `;
 

@@ -112,6 +112,7 @@ class AddShow extends Component {
 
         <Button
           fill
+          size="large"
           disabled={numOfShowsSelected === 0}
           onClick={this.handleFinishButton}
         >
