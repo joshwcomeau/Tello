@@ -9,6 +9,8 @@ import Button from '../Button';
 
 
 const EditShowSeason = ({ episodes, seasonNum, handleToggleAll }) => {
+  const hasSeenEveryEpisode = episodes.every(episode => episode.isSeen);
+
   return (
       <Wrapper>
         <Info>
@@ -23,12 +25,15 @@ const EditShowSeason = ({ episodes, seasonNum, handleToggleAll }) => {
             ))}
           </span>
         </Info>
-        <Button size="small" onClick={handleToggleAll}>
-          Mark all as seen
+
+        <Button
+          size="small"
+          onClick={handleToggleAll}
+          disabled={hasSeenEveryEpisode}
+        >
+          {hasSeenEveryEpisode ? 'Season Completed' : 'Mark all as seen'}
         </Button>
       </Wrapper>
-
-
   );
 };
 

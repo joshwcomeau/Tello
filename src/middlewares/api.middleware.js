@@ -117,7 +117,14 @@ export default function createAPIMiddleware() {
       }
 
       case MARK_SEASON_AS_SEEN: {
+        patchEpisodes({
+          token,
+          markAs: 'seen',
+          showId: action.showId,
+          episodeIds: action.episodeIds,
+        });
 
+        break;
       }
 
       default:

@@ -13,9 +13,9 @@ export const MARK_SEASON_AS_SEEN = 'MARK_SEASON_AS_SEEN';
 export const USER_DATA_REQUEST = 'USER_DATA_REQUEST';
 export const USER_DATA_RECEIVE = 'USER_DATA_RECEIVE';
 export const USER_DATA_FAILURE = 'USER_DATA_FAILURE';
-export const EDIT_SHOW_REQUEST = 'EDIT_SHOW_REQUEST';
-export const EDIT_SHOW_RECEIVE = 'EDIT_SHOW_RECEIVE';
-export const EDIT_SHOW_FAILURE = 'EDIT_SHOW_FAILURE';
+export const DELETE_SHOW_REQUEST = 'DELETE_SHOW_REQUEST';
+export const DELETE_SHOW_RECEIVE = 'DELETE_SHOW_RECEIVE';
+export const DELETE_SHOW_FAILURE = 'DELETE_SHOW_FAILURE';
 export const EPISODES_REQUEST = 'EPISODES_REQUEST';
 export const EPISODES_RECEIVE = 'EPISODES_RECEIVE';
 export const EPISODES_FAILURE = 'EPISODES_FAILURE';
@@ -116,17 +116,17 @@ export const userDataFailure = (error) => ({
   error,
 });
 
-export const editShowRequest = () => ({
-  type: EDIT_SHOW_REQUEST,
+export const deleteShowRequest = () => ({
+  type: DELETE_SHOW_REQUEST,
 });
 
-export const editShowReceive = (data) => ({
-  type: EDIT_SHOW_RECEIVE,
+export const deleteShowReceive = (data) => ({
+  type: DELETE_SHOW_RECEIVE,
   data,
 });
 
-export const editShowFailure = (error) => ({
-  type: EDIT_SHOW_FAILURE,
+export const deleteShowFailure = (error) => ({
+  type: DELETE_SHOW_FAILURE,
   error,
 });
 

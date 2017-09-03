@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'emotion/react';
 
-import { editShowRequest, hideModal } from '../../actions';
+import { deleteShowRequest, markSeasonAsSeen } from '../../actions';
 import { COLORS, UNITS_IN_PX } from '../../constants';
 import { getTrackedShowWithSeasons } from '../../reducers/tracked-shows.reducer';
 import { ShowProps } from '../../types';
@@ -15,21 +15,17 @@ import Heading from '../Heading';
 
 class EditShow extends Component {
   static propTypes = {
-    initialShowData: ShowProps,
-    editShowRequest: PropTypes.func.isRequired,
-    hideModal: PropTypes.func.isRequired,
-  }
-
-  state = {
-    // Copy our store from redux into local component state.
-    // This is so we can do tentative mutations, without affecting the real
-    // data. When the user saves their changes, we send them to the server,
-    // and the server response updates the Redux store with the new data.
-    show: this.props.initialShowData,
+    show: ShowProps,
+    markSeasonAsSeen: PropTypes.func.isRequired,
+    deleteShowRequest: PropTypes.func.isRequired,
   }
 
   render() {
-    const { show: { name, seasons } } = this.state;
+    const {
+      show: { id, name, seasons },
+      markSeasonAsSeen,
+      deleteShowRequest,
+    } = this.props;
 
     const episodesBySeason = Object.keys(seasons).map(id => seasons[id]);
 
@@ -66,7 +62,11 @@ class EditShow extends Component {
                 key={index}
                 episodes={episodes}
                 seasonNum={index + 1}
-                handleToggleAll={function() {}}
+                handleToggleAll={() => markSeasonAsSeen({
+                  showId: id,
+                  showName: name,
+                  episodeIds: episodes.map(({ id }) => id),
+                })}
               />
             ))}
           </div>
@@ -101,9 +101,9 @@ const Paragraph = styled.p`
 `
 
 const mapStateToProps = (state, ownProps) => ({
-  initialShowData: getTrackedShowWithSeasons(state, ownProps.showId),
+  show: getTrackedShowWithSeasons(state, ownProps.showId),
 });
 
-const mapDispatchToProps = { editShowRequest, hideModal };
+const mapDispatchToProps = { deleteShowRequest, markSeasonAsSeen };
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditShow);
