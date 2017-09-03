@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import styled from 'emotion/react';
 import { Motion } from 'react-motion';
@@ -6,6 +6,8 @@ import PropTypes from 'prop-types';
 
 import { COLORS, UNITS_IN_PX } from '../../constants';
 import { getSpring, getModalChildComponent } from './Modal.helpers';
+
+import ScrollDisabler from '../ScrollDisabler';
 
 
 const propTypes = {
@@ -17,6 +19,8 @@ const propTypes = {
 
 export const Modal = ({ side, isVisible, handleClose, children }) => (
   <Wrapper isVisible={isVisible}>
+    {isVisible && <ScrollDisabler applyLightScrollTheme={side === 'right'} />}
+
     <Backdrop isVisible={isVisible} onClick={handleClose} />
     <Motion
       style={{ x: getSpring(side, isVisible) }}
