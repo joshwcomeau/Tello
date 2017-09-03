@@ -25,9 +25,6 @@ import {
 
 export default function createAPIMiddleware() {
   return store => next => action => {
-    // Pass the initial action along, for any optimistic or loading UI updates
-    next(action);
-
     // Fetch the user's token from the cookie. If no cookie is found, they
     // must be logged out, and shouldn't be interacting with our API.
     const token = Cookies.get(AUTH_TOKEN_KEY);
@@ -98,9 +95,32 @@ export default function createAPIMiddleware() {
         break;
       }
 
+      case TOGGLE_EPISODE: {
+        const { showId, episodeId } = action;
+
+        const state = store.getState();
+        const show = state.trackedShows[showId];
+
+        const isSeen = show.seenEpisodeIds.includes(episodeId);
+
+        patchEpisodeSeen({
+          token,
+          showId,
+          episodeId,
+          // Flip it, so that it becomes the opposite of what it is now.
+          isSeen: !isSeen,
+        });
+
+        break;
+      }
+
       default:
         // No action needed by default.
         break;
     }
+
+    // Regardless of what happens in the above `switch`, we always want to pass
+    // the initial action along, for any optimistic/loading UI states.
+    next(action);
   }
 }

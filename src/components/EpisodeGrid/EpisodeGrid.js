@@ -24,14 +24,14 @@ class EpisodeGrid extends PureComponent {
     isHighlighted: false,
   }
 
-  hoverEpisode = (episode) => {
+  handleHoverEpisode = (episode) => {
     this.setState({
       isHighlighted: true,
       highlightedEpisode: episode,
     });
   }
 
-  leaveEpisodeGrid = () => {
+  handleLeaveEpisodeGrid = () => {
     this.setState({ isHighlighted: false })
 
     this.fadeTimeoutId = window.setTimeout(
@@ -63,7 +63,7 @@ class EpisodeGrid extends PureComponent {
   }
 
   render() {
-    const { seasons } = this.props;
+    const { seasons, handleClickEpisode } = this.props;
 
     if (!seasons || isEmpty(seasons)) {
       // TODO: loading
@@ -73,7 +73,7 @@ class EpisodeGrid extends PureComponent {
     const episodesBySeason = Object.keys(seasons).map(id => seasons[id]);
 
     return (
-      <Wrapper onMouseLeave={this.leaveEpisodeGrid}>
+      <Wrapper onMouseLeave={this.handleLeaveEpisodeGrid}>
         {this.state.highlightedEpisode && this.renderHighlightedEpisode()}
 
         <Scrollable maxHeight={GRID_MAX_HEIGHT_PX}>
@@ -84,7 +84,8 @@ class EpisodeGrid extends PureComponent {
                   <Episode
                     key={episode.id}
                     isSeen={episode.isSeen}
-                    onMouseEnter={() => this.hoverEpisode(episode)}
+                    onMouseEnter={() => this.handleHoverEpisode(episode)}
+                    onClick={() => handleClickEpisode(episode)}
                   />
                 ))}
               </Season>

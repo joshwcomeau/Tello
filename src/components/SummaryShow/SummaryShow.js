@@ -35,7 +35,7 @@ class SummaryShow extends Component {
     }
   }
 
-  handleEpisodeClick = (episode) => {
+  handleClickEpisode = (episode) => {
     const { show, toggleEpisode } = this.props;
 
     toggleEpisode({
@@ -70,7 +70,10 @@ class SummaryShow extends Component {
           </Summary>
         </Body>
 
-        <EpisodeGrid seasons={seasons} />
+        <EpisodeGrid
+          handleClickEpisode={this.handleClickEpisode}
+          seasons={seasons}
+        />
       </Wrapper>
     );
   }
