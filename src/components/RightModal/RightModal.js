@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import styled from 'emotion/react';
 
 import { hideModal } from '../../actions';
 import { MODAL_IDS } from '../../constants';
@@ -26,6 +27,7 @@ const RightModal = ({ selectedModal, hideModal }) => {
 
   return (
     <Modal
+      side="right"
       isVisible={!!selectedModal}
       handleClose={() => hideModal({ side: 'right' })}
     >
@@ -36,7 +38,7 @@ const RightModal = ({ selectedModal, hideModal }) => {
 
 const mapStateToProps = state => ({
   selectedModal: state.modals.right,
-})
+});
 
 RightModal.propTypes = propTypes;
 

@@ -6,16 +6,17 @@ import { COLORS, UNITS_IN_PX } from '../../constants';
 
 
 const propTypes = {
+  side: PropTypes.oneOf(['left', 'right']),
   isVisible: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
   children: PropTypes.node,
 };
 
-const Modal = ({ isVisible, handleClose, children }) => {
+const Modal = ({ side, isVisible, handleClose, children }) => {
   return (
     <Wrapper isVisible={isVisible}>
       <Backdrop isVisible={isVisible} onClick={handleClose} />
-      <ModalElem isVisible={isVisible}>
+      <ModalElem side={side} isVisible={isVisible}>
         {children}
       </ModalElem>
     </Wrapper>
@@ -47,11 +48,26 @@ const Backdrop = styled.div`
   transition: opacity 750ms;
 `;
 
+const getTransform = ({ isVisible, side }) => {
+  if (isVisible) {
+    return 'translate(0)';
+  }
+
+  if (side === 'left') {
+    return 'translateX(-100%)';
+  }
+
+  if (side === 'right') {
+    return 'translateX(100%)';
+  }
+};
+
 const ModalElem = styled.div`
   position: absolute;
   z-index: 101;
   top: 0;
-  right: 0;
+  right: ${props => props.side === 'right' ? 0 : 'auto'};
+  left: ${props => props.side === 'left' ? 0 : 'auto'};
   bottom: 0;
   width: 800px;
   max-width: 85%;
@@ -59,7 +75,7 @@ const ModalElem = styled.div`
   background: ${COLORS.gray.veryLight};
   color: ${COLORS.gray.veryDark};
   box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.5);
-  transform: ${props => props.isVisible ? 'translateX(0)' : 'translateX(100%)'};
+  transform: ${getTransform};
   transition: transform 500ms;
 `
 
