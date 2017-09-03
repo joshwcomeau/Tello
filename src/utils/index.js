@@ -45,8 +45,19 @@ export const convertArrayToMap = list => (
   }), {})
 );
 
+// Either removes or adds an item to an array
+// EXAMPLE: toggleInArray([1, 2], 3) -> [1, 2, 3]
+// EXAMPLE: toggleInArray([1, 2], 2) -> [1]
 export const toggleInArray = (arr, item) => (
   arr.includes(item)
     ? arr.filter(i => i !== item)
     : [...arr, item]
+);
+
+// Combines 2 arrays, removing duplicates.
+// EXAMPLE: mergeUnique([1, 2], [2, 3]) -> [1, 2, 3]
+export const mergeUnique = (arr1, arr2) => (
+  arr1.concat(arr2.filter(item => (
+    arr1.indexOf(item) === -1
+  )))
 );

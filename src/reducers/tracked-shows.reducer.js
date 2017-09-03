@@ -9,11 +9,12 @@ import {
   TOGGLE_EPISODE,
   MARK_EPISODE_AS_SEEN,
   MARK_EPISODE_AS_UNSEEN,
+  MARK_SEASON_AS_SEEN,
   USER_DATA_RECEIVE,
   USER_DATA_REQUEST,
   USER_DATA_FAILURE,
 } from '../actions';
-import { convertArrayToMap, toggleInArray } from '../utils';
+import { convertArrayToMap, toggleInArray, mergeUnique } from '../utils';
 
 
 const initialState = {};
@@ -105,6 +106,19 @@ export default function trackedShowsReducer(state = initialState, action) {
         [showId]: {
           seenEpisodeIds: { $set: nextSeenEpisodeIds },
         },
+      });
+    }
+
+    case MARK_SEASON_AS_SEEN: {
+      const { showId, episodeIds } = action;
+      const show = state[showId];
+
+      const nextSeenEpisodeIds = mergeUnique(show.seenEpisodeIds, episodeIds);
+
+      return update(state, {
+        [showId]: {
+          seenEpisodeIds: { $set: nextSeenEpisodeIds },
+        }
       });
     }
 

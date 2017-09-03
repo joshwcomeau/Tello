@@ -38,15 +38,15 @@ export const getEpisodesForShow = ({ showId }) => {
   return fetch(getEpisodesEndpoint(showId)).then(unwrap);
 }
 
-export const patchEpisodeSeen = ({ token, showId, episodeId, isSeen }) => {
+export const patchEpisodes = ({ token, showId, episodeIds, markAs }) => {
   const headers = getAuthHeaders(token);
 
   const options = {
     method: 'PATCH',
-    body: JSON.stringify({ isSeen }),
+    body: JSON.stringify({ episodeIds, markAs }),
     headers,
   };
 
-  return fetch(`/shows/${showId}/episode/${episodeId}`, options)
+  return fetch(`/shows/${showId}/episodes`, options)
     .then(unwrap);
 }

@@ -9,6 +9,7 @@ export const HIDE_MODAL = 'HIDE_MODAL';
 export const TOGGLE_EPISODE = 'TOGGLE_EPISODE';
 export const MARK_EPISODE_AS_SEEN = 'MARK_EPISODE_AS_SEEN';
 export const MARK_EPISODE_AS_UNSEEN = 'MARK_EPISODE_AS_UNSEEN';
+export const MARK_SEASON_AS_SEEN = 'MARK_SEASON_AS_SEEN';
 export const USER_DATA_REQUEST = 'USER_DATA_REQUEST';
 export const USER_DATA_RECEIVE = 'USER_DATA_RECEIVE';
 export const USER_DATA_FAILURE = 'USER_DATA_FAILURE';
@@ -66,7 +67,7 @@ export const markEpisodeAsSeen = ({
   showId,
   showName,
   episodeId,
-  episodeName
+  episodeName,
 });
 
 export const markEpisodeAsUnseen = ({
@@ -79,7 +80,18 @@ export const markEpisodeAsUnseen = ({
   showId,
   showName,
   episodeId,
-  episodeName
+  episodeName,
+});
+
+export const markSeasonAsSeen = ({
+  showId,
+  showName,
+  episodeIds,
+}) => ({
+  type: MARK_SEASON_AS_SEEN,
+  showId,
+  showName,
+  episodeIds,
 });
 
 // Convenience wrappers around `showModal`

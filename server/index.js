@@ -77,16 +77,15 @@ app.post('/shows/create', authenticatedRoute, (req, res, next) => {
 });
 
 app.patch(
-  '/shows/:showId/episode/:episodeId',
+  '/shows/:showId/episodes',
   authenticatedRoute,
   (req, res, next) => {
-    const { isSeen } = req.body;
+    const { markAs, episodeIds } = req.body;
 
-    // Convert our URL params back to numbers.
+    // Convert our URL param back to a number.
     const showId = Number(req.params.showId);
-    const episodeId = Number(req.params.episodeId);
 
-    req.user.toggleEpisode({ isSeen, showId, episodeId }, (err, result) => {
+    req.user.toggleEpisodes({ markAs, showId, episodeIds }, (err, result) => {
       if (err) {
         return next(err);
       }

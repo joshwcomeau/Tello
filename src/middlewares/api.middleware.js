@@ -6,6 +6,7 @@ import {
   EPISODES_REQUEST,
   MARK_EPISODE_AS_SEEN,
   MARK_EPISODE_AS_UNSEEN,
+  MARK_SEASON_AS_SEEN,
   TOGGLE_EPISODE,
   userDataReceive,
   userDataFailure,
@@ -18,7 +19,7 @@ import {
   getAuthUserData,
   postNewlyTrackedShows,
   getEpisodesForShow,
-  patchEpisodeSeen,
+  patchEpisodes,
 } from '../services/api.service';
 
 
@@ -74,22 +75,22 @@ export default function createAPIMiddleware() {
       }
 
       case MARK_EPISODE_AS_SEEN: {
-        patchEpisodeSeen({
+        patchEpisodes({
           token,
+          markAs: 'seen',
           showId: action.showId,
-          episodeId: action.episodeId,
-          isSeen: true,
+          episodeIds: [action.episodeId],
         });
 
         break;
       }
 
       case MARK_EPISODE_AS_UNSEEN: {
-        patchEpisodeSeen({
+        patchEpisodes({
           token,
+          markAs: 'unseen',
           showId: action.showId,
-          episodeId: action.episodeId,
-          isSeen: false,
+          episodeIds: [action.episodeId],
         });
 
         break;
@@ -101,17 +102,22 @@ export default function createAPIMiddleware() {
         const state = store.getState();
         const show = state.trackedShows[showId];
 
-        const isSeen = show.seenEpisodeIds.includes(episodeId);
+        const markAs = show.seenEpisodeIds.includes(episodeId)
+          ? 'unseen'
+          : 'seen';
 
-        patchEpisodeSeen({
+        patchEpisodes({
           token,
+          markAs,
           showId,
-          episodeId,
-          // Flip it, so that it becomes the opposite of what it is now.
-          isSeen: !isSeen,
+          episodeIds: [episodeId],
         });
 
         break;
+      }
+
+      case MARK_SEASON_AS_SEEN: {
+
       }
 
       default:

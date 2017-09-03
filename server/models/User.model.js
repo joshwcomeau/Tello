@@ -1,4 +1,5 @@
-const mongoose = require('mongoose');;
+const mongoose = require('mongoose');
+const _ = require('lodash');
 
 const { ShowSchema, getPublicShow } = require('./Show.model');
 
@@ -21,22 +22,17 @@ UserSchema.methods.addShows = function addShows(shows, cb) {
   this.save(cb);
 }
 
-UserSchema.methods.toggleEpisode = function({ isSeen, showId, episodeId }, cb) {
-  // TODO: Convert `trackedShows` to a map. Move that logic from client to server.
-  // Will make it much simpler to do this method.
+UserSchema.methods.toggleEpisodes = function({ markAs, showId, episodeIds }, cb) {
   const showIndex = this.trackedShows.findIndex(show => show._id === showId);
   const show = this.trackedShows[showIndex];
 
-  const alreadySeen = show.seenEpisodeIds.includes(episodeId);
-
-  // If the status is already as intended, we can bail early.
-  if (isSeen === alreadySeen) {
-    return cb();
+  if (markAs === 'seen') {
+    show.seenEpisodeIds = _.uniq([...show.seenEpisodeIds, ...episodeIds]);
+  } else {
+    show.seenEpisodeIds = show.seenEpisodeIds.filter(id => (
+      !episodeIds.includes(id)
+    ));
   }
-
-  show.seenEpisodeIds = isSeen
-    ? [...show.seenEpisodeIds, episodeId]
-    : show.seenEpisodeIds.filter(id => id !== episodeId);
 
   this.save(cb);
 };
