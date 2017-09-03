@@ -27,16 +27,10 @@ const Checkbox = ({ highlighted, checked, disabled, handleClick }) => {
 Checkbox.propTypes = propTypes;
 
 
-const Wrapper = styled.div`
-  position: relative;
-  width: ${UNITS_IN_PX[1]};
-  height: ${UNITS_IN_PX[1]};
-  margin-right: ${UNITS_IN_PX[1]};
-`
-
-const borderWidth = 2;
-const cellPadding = 0;
-const dotSize = UNIT - (borderWidth * 2) - (cellPadding * 2);
+const SIZE = 14;
+const BORDER_WIDTH = 2;
+const CELL_PADDING = 0;
+const DOT_SIZE = SIZE - (BORDER_WIDTH * 2) - (CELL_PADDING * 2);
 
 const getColor = ({ colored }) => (
   colored
@@ -44,18 +38,25 @@ const getColor = ({ colored }) => (
     : COLORS.gray.dark
 );
 
+const Wrapper = styled.div`
+  position: relative;
+  width: ${SIZE};
+  height: ${SIZE};
+  margin-right: ${UNITS_IN_PX[1]};
+`;
+
 const CheckboxBorder = styled.div`
-  width: ${UNITS_IN_PX[1]};
-  height: ${UNITS_IN_PX[1]};
-  border-width: ${borderWidth + 'px'};
+  width: ${SIZE + 'px'};
+  height: ${SIZE + 'px'};
+  border-width: ${BORDER_WIDTH + 'px'};
   border-style: solid;
   border-color: ${getColor};
 `;
 
 const CheckboxDot = styled.div`
   position: absolute;
-  width: ${dotSize + 'px'};
-  height: ${dotSize + 'px'};
+  width: ${DOT_SIZE + 'px'};
+  height: ${DOT_SIZE + 'px'};
   top: 0;
   left: 0;
   right: 0;

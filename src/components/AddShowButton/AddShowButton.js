@@ -28,6 +28,7 @@ const ButtonElem = styled.button`
   height: ${ROW_HEIGHT_PX};
   line-height: ${ROW_HEIGHT_PX};
   border: none;
+  border-radius: 0;
   color: ${COLORS.white};
   background: ${props => props.color};
   font-family: 'Raleway';

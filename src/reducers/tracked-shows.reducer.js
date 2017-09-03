@@ -221,7 +221,7 @@ export const getTrackedShowWithSeasons = (state, showId) => {
 
 export const getTrackedShowIds = createSelector(
   getTrackedShows,
-  (shows) => Object.keys(shows)
+  (shows) => Object.keys(shows).map(Number)
 );
 
 export const getTrackedShowsArray = createSelector(

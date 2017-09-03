@@ -82,6 +82,7 @@ const generateElem = elem => styled(elem)`
   font-weight: bold;
   background: ${props => buttonColors[props.color].background};
   border: none;
+  border-radius: 0px;
   border-bottom-width: ${props => buttonSizes[props.size].borderWidth};
   border-bottom-style: solid;
   border-bottom-color: ${props => buttonColors[props.color].borderColor};

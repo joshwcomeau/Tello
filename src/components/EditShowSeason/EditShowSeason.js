@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'emotion/react';
 
-import { UNITS_IN_PX } from '../../constants';
+import { UNITS_IN_PX, HALF_UNIT_PX } from '../../constants';
 
 import Clearfix from '../Clearfix';
 import EpisodeDot from '../EpisodeDot';
@@ -26,13 +26,15 @@ const EditShowSeason = ({ episodes, seasonNum, handleToggleAll }) => {
           </span>
         </Info>
 
-        <Button
-          size="small"
-          onClick={handleToggleAll}
-          disabled={hasSeenEveryEpisode}
-        >
-          {hasSeenEveryEpisode ? 'Season Completed' : 'Mark all as seen'}
-        </Button>
+        <Actions>
+          <Button
+            size="small"
+            onClick={handleToggleAll}
+            disabled={hasSeenEveryEpisode}
+          >
+            {hasSeenEveryEpisode ? 'Season Completed' : 'Mark all as seen'}
+          </Button>
+        </Actions>
       </Wrapper>
   );
 };
@@ -40,7 +42,7 @@ const EditShowSeason = ({ episodes, seasonNum, handleToggleAll }) => {
 const Wrapper = styled(Clearfix)`
   display: flex;
   justify-content: space-between;
-  margin-bottom: ${UNITS_IN_PX[1]};
+  padding-right: ${HALF_UNIT_PX};
 `;
 
 const Info = styled.div`
@@ -48,7 +50,11 @@ const Info = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-`
+`;
+
+const Actions = styled.div`
+  margin-left: ${UNITS_IN_PX[2]};
+`;
 
 const SeasonTitle = styled.div`
   font-size: 14px;

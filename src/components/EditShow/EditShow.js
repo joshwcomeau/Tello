@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import styled from 'emotion/react';
 
 import { deleteShowRequest, markSeasonAsSeen, hideModal } from '../../actions';
-import { COLORS, UNITS_IN_PX } from '../../constants';
+import { COLORS, UNITS_IN_PX, HALF_UNIT_PX } from '../../constants';
 import { getTrackedShowWithSeasons } from '../../reducers/tracked-shows.reducer';
 import { ShowProps } from '../../types';
 
@@ -73,8 +73,8 @@ class EditShow extends PureComponent {
             Quickly mark all episodes in a season as watched.
           </Paragraph>
 
-          <div>
-            {episodesBySeason.map((episodes, index) => (
+          <SeasonList>
+            {episodesBySeason.map((episodes, index) => ([
               <EditShowSeason
                 key={index}
                 episodes={episodes}
@@ -84,9 +84,10 @@ class EditShow extends PureComponent {
                   showName: name,
                   episodeIds: episodes.map(({ id }) => id),
                 })}
-              />
-            ))}
-          </div>
+              />,
+              <BorderSpacer />
+            ]))}
+          </SeasonList>
 
         </Section>
       </EditShowWrapper>
@@ -109,8 +110,21 @@ const Section = styled.div`
 
   &:last-of-type {
     flex: 1;
-    overflow: auto;
+    display: flex;
+    flex-direction: column;
   }
+`;
+
+const SeasonList = styled.div`
+  flex: 1;
+  overflow: auto;
+`;
+
+const BorderSpacer = styled.div`
+  height: 1px;
+  background: rgba(0, 0, 0, 0.1);
+  margin-top: ${HALF_UNIT_PX};
+  margin-bottom: ${HALF_UNIT_PX};
 `
 
 const Paragraph = styled.p`

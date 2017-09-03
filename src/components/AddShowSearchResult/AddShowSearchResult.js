@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import styled from 'emotion/react';
 import PropTypes from 'prop-types';
 
-import { COLORS, UNITS_IN_PX } from '../../constants';
+import { COLORS, UNITS_IN_PX, HALF_UNIT_PX } from '../../constants';
 import { ShowProps } from '../../types';
 
 import Checkbox from '../Checkbox';
@@ -17,7 +17,7 @@ const propTypes = {
   onToggleShow: PropTypes.func.isRequired,
 };
 
-class ShowSearchResult extends Component {
+class AddShowSearchResult extends Component {
   state = {
     isHovering: false,
     isSelected: false,
@@ -77,21 +77,22 @@ const Wrapper = styled.div`
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
   opacity: ${props => props.deEmphasize ? 0.5 : 1};
   user-select: none;
+  padding-right: ${HALF_UNIT_PX};
 `;
 
 const MainContent = styled.div`
   flex: 1;
-  padding-top: ${UNITS_IN_PX[1]};
-  padding-bottom: ${UNITS_IN_PX[1]};
+  padding-top: ${HALF_UNIT_PX};
+  padding-bottom: ${HALF_UNIT_PX};
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   margin-right: ${UNITS_IN_PX[1]};
-  transform: translateY(-1px);
 `;
 
-const ShowNameAndRegion = styled(Heading)`
-  margin-bottom: 0;
+const ShowNameAndRegion = styled.div`
+  font-size: 18px;
+  font-weight: bold;
 `;
 
 const Region = styled.span`
@@ -102,6 +103,6 @@ const Region = styled.span`
   opacity: 0.5;
 `;
 
-ShowSearchResult.propTypes = propTypes;
+AddShowSearchResult.propTypes = propTypes;
 
-export default ShowSearchResult;
+export default AddShowSearchResult;

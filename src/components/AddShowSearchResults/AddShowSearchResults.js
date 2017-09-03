@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { UNITS_IN_PX } from '../../constants';
 import { ShowProps } from '../../types';
 
-import ShowSearchResult from '../ShowSearchResult';
+import AddShowSearchResult from '../AddShowSearchResult';
 
 
 const propTypes = {
@@ -15,7 +15,7 @@ const propTypes = {
   onToggleShow: PropTypes.func.isRequired,
 };
 
-const ShowSearchResults = ({
+const AddShowSearchResults = ({
   status,
   shows,
   previouslyTrackedShowIds,
@@ -24,7 +24,7 @@ const ShowSearchResults = ({
   return (
     <Wrapper>
       {shows.map(show => (
-        <ShowSearchResult
+        <AddShowSearchResult
           key={show.id}
           show={show}
           isAlreadyAdded={previouslyTrackedShowIds.includes(show.id)}
@@ -35,11 +35,10 @@ const ShowSearchResults = ({
   );
 };
 
-ShowSearchResults.propTypes = propTypes;
+AddShowSearchResults.propTypes = propTypes;
 
 const Wrapper = styled.div`
   position: relative;
-  margin-top: ${UNITS_IN_PX[4]};
 `
 
-export default ShowSearchResults;
+export default AddShowSearchResults;

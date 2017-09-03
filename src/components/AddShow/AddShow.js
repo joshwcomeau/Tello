@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import styled from 'emotion/react';
 
 import { startTrackingNewShows, hideModal } from '../../actions';
+import { UNITS_IN_PX } from '../../constants';
 import { getTrackedShowIds } from '../../reducers/tracked-shows.reducer';
 import {
   getSearchEndpoint,
@@ -13,7 +14,7 @@ import {
 import Button from '../Button';
 import Heading from '../Heading';
 import TextInput from '../TextInput';
-import ShowSearchResults from '../ShowSearchResults';
+import AddShowSearchResults from '../AddShowSearchResults';
 
 import { getButtonText } from './AddShow.helpers';
 
@@ -92,16 +93,18 @@ class AddShow extends Component {
 
     return (
       <Wrapper>
-        <Heading>Add New Show</Heading>
+        <Header>
+          <Heading>Add New Show</Heading>
 
-        <TextInput
-          placeholder="eg. Game of Thrones"
-          onChange={this.handleSearch}
-          changeDebounceTime={300}
-        />
+          <TextInput
+            placeholder="eg. Game of Thrones"
+            onChange={this.handleSearch}
+            changeDebounceTime={300}
+          />
+        </Header>
 
         <Flex>
-          <ShowSearchResults
+          <AddShowSearchResults
             status={this.state.status}
             shows={this.state.shows}
             previouslyTrackedShowIds={this.props.previouslyTrackedShowIds}
@@ -129,8 +132,14 @@ const Wrapper = styled.div`
   height: 100%;
 `;
 
+const Header = styled.header`
+  margin-bottom: ${UNITS_IN_PX[3]};
+`;
+
 const Flex = styled.div`
   flex: 1;
+  margin-bottom: ${UNITS_IN_PX[2]};
+  overflow: auto;
 `;
 
 const mapStateToProps = state => ({

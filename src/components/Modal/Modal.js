@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
+import { css } from 'emotion';
 import styled from 'emotion/react';
 import { Motion } from 'react-motion';
 import PropTypes from 'prop-types';
@@ -18,7 +19,7 @@ const propTypes = {
 };
 
 export const Modal = ({ side, isVisible, handleClose, children }) => (
-  <Wrapper isVisible={isVisible}>
+  <Wrapper isVisible={isVisible} className="light-scroll">
     {isVisible && <ScrollDisabler applyLightScrollTheme={side === 'right'} />}
 
     <Backdrop isVisible={isVisible} onClick={handleClose} />
@@ -40,6 +41,20 @@ export const Modal = ({ side, isVisible, handleClose, children }) => (
   </Wrapper>
 );
 
+const scrollbars = css`
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #000;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #F00;
+  }
+`;
+
 const Wrapper = styled.div`
   position: fixed;
   z-index: 100;
@@ -47,7 +62,7 @@ const Wrapper = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  pointer-events: ${props => props.isVisible ? 'normal' : 'none'};
+  pointer-events: ${props => props.isVisible ? 'auto' : 'none'};
 `;
 
 const Backdrop = styled.div`
