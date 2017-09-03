@@ -5,12 +5,12 @@ import { COLORS, UNIT, UNITS_IN_PX } from '../../constants';
 import { debounce, isEmpty } from '../../utils';
 
 import Clearfix from '../Clearfix';
+import EpisodeDot from '../EpisodeDot';
 import Scrollable from '../Scrollable';
 
 
 const EPISODE_DOT_SIZE = 10;
 const EPISODE_MARGIN = 1;
-const EPISODE_DOT_SIZE_PX = `${EPISODE_DOT_SIZE}px`;
 const EPISODE_ROW_HEIGHT = EPISODE_DOT_SIZE + EPISODE_MARGIN * 2;
 const MAX_EPISODE_ROWS = 10;
 const GRID_MAX_HEIGHT = UNIT * 2 + MAX_EPISODE_ROWS * EPISODE_ROW_HEIGHT;
@@ -81,8 +81,9 @@ class EpisodeGrid extends PureComponent {
             {episodesBySeason.map((season, index) => (
               <Season key={index}>
                 {season.map(episode => (
-                  <Episode
+                  <EpisodeDot
                     key={episode.id}
+                    size={EPISODE_DOT_SIZE}
                     isSeen={episode.isSeen}
                     onMouseEnter={() => this.handleHoverEpisode(episode)}
                     onClick={() => handleClickEpisode(episode)}
@@ -137,28 +138,6 @@ const EpisodeOverflowGradient = styled.div`
     rgba(255,255,255,0)
   );
   pointer-events: none;
-`;
-
-const Episode = styled.div`
-  display: block;
-  float: left;
-  width: ${EPISODE_DOT_SIZE_PX};
-  height: ${EPISODE_DOT_SIZE_PX};
-  background-color: ${props => props.isSeen
-    ? COLORS.blue.primary
-    : '#E4E4E4'
-  };
-  margin: 1px;
-  transition: 250ms;
-
-  &:hover {
-    transform: scale(${1 + 1/(EPISODE_DOT_SIZE / 4)});
-    transition: 0ms;
-    background-color: ${props => props.isSeen
-      ? COLORS.blue.dark
-      : COLORS.gray.light
-    };
-  }
 `;
 
 const HighlightedEpisode = styled.div`
