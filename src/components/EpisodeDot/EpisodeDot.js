@@ -17,7 +17,13 @@ const defaultProps = {
   hoverScale: 1.2,
 };
 
-const EpisodeDot = styled.div`
+const EpisodeDot = (props) => (
+  props.onClick
+    ? <EpisodeDotWithHover {...props} />
+    : <EpisodeDotRoot {...props} />
+)
+
+const EpisodeDotRoot = styled.div`
   display: block;
   float: left;
   width: ${props => props.size + 'px'};
@@ -28,7 +34,9 @@ const EpisodeDot = styled.div`
   };
   margin: 1px;
   transition: 250ms;
+`;
 
+const EpisodeDotWithHover = styled(EpisodeDotRoot)`
   &:hover {
     transform: scale(${props => props.hoverScale});
     transition: 0ms;
@@ -37,7 +45,7 @@ const EpisodeDot = styled.div`
       : COLORS.gray.light
     };
   }
-`
+`;
 
 EpisodeDot.propTypes = propTypes;
 EpisodeDot.defaultProps = defaultProps;

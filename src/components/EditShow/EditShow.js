@@ -4,10 +4,13 @@ import PropTypes from 'prop-types';
 import styled from 'emotion/react';
 
 import { editShowRequest, hideModal } from '../../actions';
-import { getTrackedShow } from '../../reducers/tracked-shows.reducer';
+import { COLORS, UNITS_IN_PX } from '../../constants';
+import { getTrackedShowWithSeasons } from '../../reducers/tracked-shows.reducer';
 import { ShowProps } from '../../types';
 
 import Button from '../Button';
+import EditShowSeason from '../EditShowSeason';
+import Heading from '../Heading';
 
 
 class EditShow extends Component {
@@ -26,18 +29,79 @@ class EditShow extends Component {
   }
 
   render() {
-    const { show } = this.state;
+    const { show: { name, seasons } } = this.state;
+
+    const episodesBySeason = Object.keys(seasons).map(id => seasons[id]);
 
     return (
-      <div>
-        Editing {show.name}
-      </div>
+      <EditShowWrapper>
+        <Heading>Manage "{name}"</Heading>
+
+        <Section>
+          <Heading size="small">
+            Delete Show
+          </Heading>
+
+          <Paragraph>
+            Deleting this show will remove it from your list of tracked shows. You can re-add it again later, but your progress will be lost forever.
+          </Paragraph>
+
+          <Button color="red">
+            Delete "{name}"
+          </Button>
+        </Section>
+
+        <Section>
+          <Heading size="small">
+            Bulk Toggle Episodes
+          </Heading>
+
+          <Paragraph>
+            Quickly mark all episodes in a season as watched.
+          </Paragraph>
+
+          <div>
+            {episodesBySeason.map((episodes, index) => (
+              <EditShowSeason
+                key={index}
+                episodes={episodes}
+                seasonNum={index + 1}
+                handleToggleAll={function() {}}
+              />
+            ))}
+          </div>
+
+        </Section>
+      </EditShowWrapper>
     );
   }
 }
 
+const EditShowWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+`;
+
+const Section = styled.div`
+  margin-top: ${UNITS_IN_PX[2]};
+
+  &:first-of-type {
+    margin-bottom: ${UNITS_IN_PX[2]};
+  }
+
+  &:last-of-type {
+    flex: 1;
+    overflow: auto;
+  }
+`
+
+const Paragraph = styled.p`
+  margin-bottom: ${UNITS_IN_PX[1]};
+`
+
 const mapStateToProps = (state, ownProps) => ({
-  initialShowData: getTrackedShow(state, ownProps.showId),
+  initialShowData: getTrackedShowWithSeasons(state, ownProps.showId),
 });
 
 const mapDispatchToProps = { editShowRequest, hideModal };

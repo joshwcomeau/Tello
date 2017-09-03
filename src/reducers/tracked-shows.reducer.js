@@ -115,9 +115,51 @@ export default function trackedShowsReducer(state = initialState, action) {
 
 
 
+// Helpers
+const convertEpisodeMapToArray = ({ episodes, seenEpisodeIds }) => (
+  Object.keys(episodes).map(episodeId => ({
+    ...episodes[episodeId],
+    isSeen: seenEpisodeIds.includes(Number(episodeId)),
+  }))
+);
+
+const organizeEpisodesBySeason = ({ episodes, seenEpisodeIds }) => {
+  if (!episodes) {
+    return {};
+  }
+
+  if (!Array.isArray(episodes)) {
+    episodes = convertEpisodeMapToArray({ episodes, seenEpisodeIds });
+  }
+
+  return episodes.reduce((acc, episode) => {
+    if (!acc[episode.season]) {
+      acc[episode.season] = [];
+    }
+
+    acc[episode.season].push(episode);
+
+    return acc;
+  }, {});
+};
+
 // Selectors
 export const getTrackedShows = state => state.trackedShows;
 export const getTrackedShow = (state, showId) => getTrackedShows(state)[showId];
+
+export const getTrackedShowWithSeasons = (state, showId) => {
+  const show = getTrackedShow(state, showId);
+
+  // Initially, we won't have the episodes. They're fetched externally.
+  if (!show.episodes) {
+    return show;
+  }
+
+  return {
+    ...show,
+    seasons: organizeEpisodesBySeason(show),
+  };
+}
 
 export const getTrackedShowIds = createSelector(
   getTrackedShows,
@@ -137,10 +179,7 @@ export const getTrackedShowsArray = createSelector(
 
     // If the show has episodes, though, we need to turn the episode map
     // into an array as well.
-    const episodes = Object.keys(show.episodes).map(episodeId => ({
-      ...show.episodes[episodeId],
-      isSeen: show.seenEpisodeIds.includes(Number(episodeId)),
-    }));
+    const episodes = convertEpisodeMapToArray(show);
 
     return {
       ...show,
@@ -153,14 +192,6 @@ export const getTrackedShowsArrayWithSeasons = createSelector(
   getTrackedShowsArray,
   (shows) => shows.map(show => ({
     ...show,
-    seasons: (show.episodes || []).reduce((acc, episode) => {
-      if (!acc[episode.season]) {
-        acc[episode.season] = [];
-      }
-
-      acc[episode.season].push(episode);
-
-      return acc;
-    }, {}),
+    seasons: organizeEpisodesBySeason(show),
   }))
 );
