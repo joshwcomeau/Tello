@@ -1,10 +1,11 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import styled from 'emotion/react';
 import { Motion } from 'react-motion';
 import PropTypes from 'prop-types';
 
 import { COLORS, UNITS_IN_PX } from '../../constants';
-import { getSpring } from './Modal.helpers';
+import { getSpring, getModalChildComponent } from './Modal.helpers';
 
 
 const propTypes = {
@@ -14,7 +15,7 @@ const propTypes = {
   children: PropTypes.node,
 };
 
-const Modal = ({ side, isVisible, handleClose, children }) => (
+export const Modal = ({ side, isVisible, handleClose, children }) => (
   <Wrapper isVisible={isVisible}>
     <Backdrop isVisible={isVisible} onClick={handleClose} />
     <Motion
@@ -52,7 +53,7 @@ const Backdrop = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.35);
+  background: rgba(0, 0, 0, 0.5);
   opacity: ${props => props.isVisible ? 1 : 0};
   transition: opacity 750ms;
 `;
@@ -75,4 +76,21 @@ const ModalElem = styled.div`
 
 Modal.propTypes = propTypes;
 
-export default Modal;
+const mapStateToProps = (state, ownProps) => {
+  const { side } = ownProps;
+
+  const selectedModal = state.modals[side];
+  const isVisible = !!selectedModal;
+
+  const selectedModalComponent = isVisible
+    ? getModalChildComponent(selectedModal.id)
+    : null;
+
+  const children = isVisible
+    ? React.createElement(selectedModalComponent, selectedModal.data)
+    : null;
+
+  return { isVisible, children };
+};
+
+export default connect(mapStateToProps)(Modal);

@@ -4,14 +4,13 @@ import { Route, Redirect, Switch, withRouter } from 'react-router-dom';
 import styled from 'emotion/react';
 import PropTypes from 'prop-types';
 
-import { userDataRequest } from '../../actions';
+import { userDataRequest, hideModal } from '../../actions';
 import { ROW_HEIGHT } from '../../constants';
 import { getIsLoggedIn } from '../../reducers/auth.reducer';
 
 import FlashMessage from '../FlashMessage';
 import Header from '../Header';
-import LeftModal from '../LeftModal';
-import RightModal from '../RightModal';
+import Modal from '../Modal';
 import MaxWidthWrapper from '../MaxWidthWrapper';
 import Spacer from '../Spacer';
 import NavigationHeadings from '../NavigationHeadings';
@@ -65,7 +64,7 @@ class App extends Component {
   }
 
   render() {
-    const { isLoggedIn } = this.props;
+    const { isLoggedIn, hideModal } = this.props;
 
     return (
       <div>
@@ -73,8 +72,8 @@ class App extends Component {
 
         <Header />
 
-        <LeftModal />
-        <RightModal />
+        <Modal side="left" handleClose={() => hideModal({ side: 'left' })} />
+        <Modal side="right" handleClose={() => hideModal({ side: 'right' })} />
 
         <Body>
           <Spacer size={ROW_HEIGHT} />
@@ -101,5 +100,7 @@ const mapStateToProps = state => ({
   isLoggedIn: getIsLoggedIn(state),
 });
 
+const mapDispatchToProps = { userDataRequest, hideModal };
+
 export default withRouter(
-  connect(mapStateToProps, { userDataRequest })(App));
+  connect(mapStateToProps, mapDispatchToProps)(App));

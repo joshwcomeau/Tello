@@ -14,12 +14,8 @@ export const getSpring = (side, isVisible) => {
   return spring(isVisible ? 0 : offscreenValue);
 };
 
-export const getModalChildComponent = selectedModal => {
-  if (!selectedModal) {
-    return null;
-  }
-
-  switch (selectedModal.id) {
+export const getModalChildComponent = selectedModalId => {
+  switch (selectedModalId) {
     case MODAL_IDS.editShow: return EditShow;
     case MODAL_IDS.addShow: return AddShow;
     default: return null;
