@@ -65,6 +65,12 @@ export const COLORS = {
   black: '#000000',
 };
 
+export const Z_INDICES = {
+  root: 1,
+  modal: 100,
+  alert: 1000,
+};
+
 // Media queries
 export const BREAKPOINT_SIZES = {
   xs: 320,

@@ -5,15 +5,16 @@ import styled from 'emotion/react';
 import PropTypes from 'prop-types';
 
 import { userDataRequest, hideModal } from '../../actions';
-import { ROW_HEIGHT } from '../../constants';
+import { Z_INDICES, ROW_HEIGHT } from '../../constants';
 import { getIsLoggedIn } from '../../reducers/auth.reducer';
 
+import Confirm from '../Confirm';
 import FlashMessage from '../FlashMessage';
 import Header from '../Header';
-import Modal from '../Modal';
 import MaxWidthWrapper from '../MaxWidthWrapper';
-import Spacer from '../Spacer';
+import Modal from '../Modal';
 import NavigationHeadings from '../NavigationHeadings';
+import Spacer from '../Spacer';
 
 import BacklogView from '../BacklogView';
 import CalendarView from '../CalendarView';
@@ -75,6 +76,10 @@ class App extends Component {
         <Modal side="left" handleClose={() => hideModal({ side: 'left' })} />
         <Modal side="right" handleClose={() => hideModal({ side: 'right' })} />
 
+        <Confirm isVisible title="Are you sure?">
+          Please be advised.
+        </Confirm>
+
         <Body>
           <Spacer size={ROW_HEIGHT} />
 
@@ -93,7 +98,7 @@ class App extends Component {
 
 const Body = styled.div`
   position: relative;
-  z-index: 1;
+  z-index: ${Z_INDICES.root};
 `
 
 const mapStateToProps = state => ({

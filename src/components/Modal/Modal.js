@@ -1,13 +1,13 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import { css } from 'emotion';
 import styled from 'emotion/react';
 import { Motion } from 'react-motion';
 import PropTypes from 'prop-types';
 
-import { COLORS, UNITS_IN_PX } from '../../constants';
+import { COLORS, Z_INDICES, UNITS_IN_PX } from '../../constants';
 import { getSpring, getModalChildComponent } from './Modal.helpers';
 
+import Backdrop from '../Backdrop';
 import ScrollDisabler from '../ScrollDisabler';
 
 
@@ -19,10 +19,11 @@ const propTypes = {
 };
 
 export const Modal = ({ side, isVisible, handleClose, children }) => (
-  <Wrapper isVisible={isVisible} className="light-scroll">
+  <ModalWrapper isVisible={isVisible} className="light-scroll">
     {isVisible && <ScrollDisabler applyLightScrollTheme={side === 'right'} />}
 
     <Backdrop isVisible={isVisible} onClick={handleClose} />
+
     <Motion
       style={{ x: getSpring(side, isVisible) }}
     >
@@ -38,26 +39,12 @@ export const Modal = ({ side, isVisible, handleClose, children }) => (
         </ModalElem>
       )}
     </Motion>
-  </Wrapper>
+  </ModalWrapper>
 );
 
-const scrollbars = css`
-  ::-webkit-scrollbar {
-    width: 8px;
-  }
-
-  ::-webkit-scrollbar-track {
-    background: #000;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: #F00;
-  }
-`;
-
-const Wrapper = styled.div`
+const ModalWrapper = styled.div`
   position: fixed;
-  z-index: 100;
+  z-index: ${Z_INDICES.modal};
   top: 0;
   left: 0;
   right: 0;
@@ -65,21 +52,9 @@ const Wrapper = styled.div`
   pointer-events: ${props => props.isVisible ? 'auto' : 'none'};
 `;
 
-const Backdrop = styled.div`
-  position: absolute;
-  z-index: 100;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
-  opacity: ${props => props.isVisible ? 1 : 0};
-  transition: opacity 750ms;
-`;
-
 const ModalElem = styled.div`
   position: absolute;
-  z-index: 101;
+  z-index: ${Z_INDICES.alert + 1};
   top: 0;
   right: ${props => props.side === 'right' ? 0 : 'auto'};
   left: ${props => props.side === 'left' ? 0 : 'auto'};
