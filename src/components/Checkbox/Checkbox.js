@@ -9,7 +9,7 @@ const propTypes = {
   highlighted: PropTypes.bool.isRequired,
   checked: PropTypes.bool.isRequired,
   disabled: PropTypes.bool.isRequired,
-  handleClick: PropTypes.func.isRequired,
+  handleClick: PropTypes.func,
 };
 
 const Checkbox = ({ highlighted, checked, disabled, handleClick }) => {

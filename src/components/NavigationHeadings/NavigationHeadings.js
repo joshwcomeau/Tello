@@ -3,7 +3,7 @@ import styled from 'emotion/react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import { UNITS_IN_PX } from '../../constants';
+import { COLORS, UNITS_IN_PX } from '../../constants';
 
 import Heading from '../Heading';
 
@@ -30,7 +30,7 @@ class NavigationHeadings extends Component {
               to={`/${headingSlug}`}
               data-active={isActive}
             >
-              <Heading theme="light">{heading}</Heading>
+              <NavigationHeading>{heading}</NavigationHeading>
             </HeadingLink>
           )
         })}
@@ -41,7 +41,7 @@ class NavigationHeadings extends Component {
 
 const Wrapper = styled.div`
   display: flex;
-  margin-bottom: ${UNITS_IN_PX[3]};
+  margin-bottom: ${UNITS_IN_PX[4]};
 `;
 
 const HeadingLink = styled(Link)`
@@ -49,6 +49,11 @@ const HeadingLink = styled(Link)`
   margin-right: ${UNITS_IN_PX[2]};
   opacity: ${props => props['data-active'] ? 1 : 0.4};
   transition: opacity ${props => props['data-active'] ? '750ms' : '250ms'};
-`
+`;
+
+const NavigationHeading = styled(Heading)`
+  margin-bottom: 0;
+  color: ${COLORS.white};
+`;
 
 export default NavigationHeadings;

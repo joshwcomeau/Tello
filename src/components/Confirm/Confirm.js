@@ -107,6 +107,7 @@ const actionButtonCSS = css`
   font-size: 18px;
   font-weight: bold;
   transition: background-color 400ms;
+  cursor: pointer;
 
   &:hover {
     background-color: ${COLORS.gray.veryLight};
