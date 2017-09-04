@@ -3,7 +3,8 @@ import { createSelector } from 'reselect';
 import {
   markEpisodeAsUnseen,
   HIDE_FLASH_MESSAGE,
-  START_TRACKING_NEW_SHOWS,
+  ADD_SHOWS_RECEIVE,
+  ADD_SHOWS_FAILURE,
   MARK_EPISODE_AS_SEEN,
   DELETE_SHOW_RECEIVE,
   DELETE_SHOW_FAILURE,
@@ -29,7 +30,7 @@ export default function reducer(state = initialState, action) {
       return null;
     }
 
-    case START_TRACKING_NEW_SHOWS: {
+    case ADD_SHOWS_RECEIVE: {
       const numOfShows = action.shows.length;
       const message = numOfShows === 1
         ? `Started tracking "${action.shows[0].name}".`
@@ -38,6 +39,13 @@ export default function reducer(state = initialState, action) {
       return {
         messageType: 'success',
         message: message,
+      };
+    }
+
+    case ADD_SHOWS_FAILURE: {
+      return {
+        messageType: 'error',
+        message: 'Sorry, new shows could not be created. Please try again later',
       };
     }
 

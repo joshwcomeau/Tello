@@ -8,12 +8,14 @@ import {
 } from '../../reducers/tracked-shows.reducer';
 import { UNITS_IN_PX } from '../../constants';
 import { ShowProps } from '../../types';
+import { sortShows } from '../../helpers/show.helpers';
 
 import SummaryShow from '../SummaryShow';
 import SortShows from '../SortShows';
 
 
 const SummaryView = ({ trackedShows }) => (
+  console.log('RERENDER') ||
   <div>
     <Header>
       <SortShows />
@@ -42,7 +44,13 @@ const Grid = styled.div`
 `
 
 const mapStateToProps = state => ({
-  trackedShows: getAiredTrackedShowsArrayWithSeasons(state),
+  trackedShows: sortShows({
+    shows: getAiredTrackedShowsArrayWithSeasons(state),
+    sorting: state.ui.sorting,
+  }),
+  // NOTE: we need to return `sorting` so that the component re-renders
+  // We don't actually need this prop though.
+  sorting: state.ui.sorting,
 });
 
 export default connect(mapStateToProps)(SummaryView);

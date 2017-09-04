@@ -1,6 +1,9 @@
 import { MODAL_IDS } from '../constants';
 
 
+export const ADD_SHOWS_REQUEST = 'ADD_SHOWS_REQUEST';
+export const ADD_SHOWS_RECEIVE = 'ADD_SHOWS_RECEIVE';
+export const ADD_SHOWS_FAILURE = 'ADD_SHOWS_FAILURE';
 export const START_TRACKING_NEW_SHOWS = 'START_TRACKING_NEW_SHOWS';
 export const FAILURE_SYNCING_NEW_SHOWS = 'FAILURE_SYNCING_NEW_SHOWS';
 export const REMOVE_SHOW = 'REMOVE_SHOW';
@@ -23,13 +26,19 @@ export const HIDE_FLASH_MESSAGE = 'HIDE_FLASH_MESSAGE';
 export const CHANGE_SORTING = 'CHANGE_SORTING';
 
 
-export const startTrackingNewShows = ({ shows }) => ({
-  type: START_TRACKING_NEW_SHOWS,
+export const addShowsRequest = ({ shows }) => ({
+  type: ADD_SHOWS_REQUEST,
   shows,
 });
 
-export const failureSyncingNewShows = ({ shows }) => ({
-  type: FAILURE_SYNCING_NEW_SHOWS,
+export const addShowsReceive = ({ shows }) => ({
+  type: ADD_SHOWS_RECEIVE,
+  shows,
+});
+
+export const addShowsFailure = ({ error, shows }) => ({
+  type: ADD_SHOWS_FAILURE,
+  error,
   shows,
 });
 

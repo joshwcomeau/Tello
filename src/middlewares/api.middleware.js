@@ -2,8 +2,8 @@ import Cookies from 'cookies-js';
 
 import {
   USER_DATA_REQUEST,
-  START_TRACKING_NEW_SHOWS,
   EPISODES_REQUEST,
+  ADD_SHOWS_REQUEST,
   MARK_EPISODE_AS_SEEN,
   MARK_EPISODE_AS_UNSEEN,
   MARK_SEASON_AS_SEEN,
@@ -11,8 +11,9 @@ import {
   DELETE_SHOW_REQUEST,
   userDataReceive,
   userDataFailure,
-  failureSyncingNewShows,
   episodesReceive,
+  addShowsReceive,
+  addShowsFailure,
   deleteShowReceive,
   deleteShowFailure,
 } from '../actions';
@@ -54,15 +55,16 @@ export default function createAPIMiddleware() {
         break;
       }
 
-      case START_TRACKING_NEW_SHOWS: {
+      case ADD_SHOWS_REQUEST: {
         // We don't actually care about the server response (the point of this
         // call is just to sync the server with what the user's selected on
         // the client). Only worry if the server bows up.
         postNewlyTrackedShows({ token, shows: action.shows })
-          .catch(err => {
-            console.error('Could not persist new tracked shows', err);
+          .then(response => next(addShowsReceive(response)))
+          .catch((response) => {
+            console.error('Could not persist new tracked shows', response);
 
-            next(failureSyncingNewShows({ shows: action.shows }));
+            next(addShowsFailure(response));
           })
 
         break;

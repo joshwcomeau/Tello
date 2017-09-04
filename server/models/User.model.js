@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const _ = require('lodash');
 
-const { ShowSchema, getPublicShow } = require('./Show.model');
+const { ShowSchema } = require('./Show.model');
 
 const UserSchema = new mongoose.Schema({
   token: String,
@@ -46,16 +46,8 @@ UserSchema.methods.deleteShow = function({ showId }, cb) {
   this.save(cb);
 };
 
-
-
-const User = mongoose.model('User', UserSchema);
-
-module.exports.UserSchema = UserSchema;
-module.exports.User = User;
-
-
-module.exports.getPublicUser = user => {
-  const shows = user.trackedShows.map(getPublicShow);
+UserSchema.methods.getPublic = function getPublic() {
+  const shows = this.trackedShows.map(show => show.getPublic());
 
   // Build up a 'map' type object.
   const showsMap = shows.reduce((acc, show) => (
@@ -67,9 +59,15 @@ module.exports.getPublicUser = user => {
   ), {});
 
   return {
-    id: user._id,
-    name: user.name,
-    email: user.email,
+    id: this._id,
+    name: this.name,
+    email: this.email,
     trackedShows: showsMap,
   };
-};
+}
+
+
+const User = mongoose.model('User', UserSchema);
+
+module.exports.UserSchema = UserSchema;
+module.exports.User = User;

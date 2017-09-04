@@ -67,12 +67,16 @@ app.get(
 );
 
 app.get('/users/me', authenticatedRoute, (req, res, next) => {
-  return res.json(getPublicUser(req.user));
+  return res.json(req.user.getPublic());
 });
 
 app.post('/shows/create', authenticatedRoute, (req, res, next) => {
-  req.user.addShows(req.body.shows, (err, result) => {
-    return res.json({ ok: true });
+  req.user.addShows(req.body.shows, (err, user) => {
+    const shows = user.trackedShows
+      .filter(show => req.body.shows.find(({id}) => id === show._id))
+      .map(show => show.getPublic());
+
+    return res.json({ shows });
   });
 });
 

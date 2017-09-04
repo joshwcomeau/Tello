@@ -9,20 +9,25 @@ const ShowSchema = new mongoose.Schema({
   summary: String,
   region: String,
   seenEpisodeIds: { type: [Number], default: [] },
+}, {
+  timestamps: true,
 });
+
+ShowSchema.methods.getPublic = function getPublic() {
+  return {
+    id: this._id,
+    createdAt: this.createdAt,
+    name: this.name,
+    image: this.image,
+    status: this.status,
+    type: this.type,
+    summary: this.summary,
+    region: this.region,
+    seenEpisodeIds: this.seenEpisodeIds,
+  };
+}
 
 const Show = mongoose.model('Show', ShowSchema);
 
 module.exports.ShowSchema = ShowSchema;
 module.exports.Show = Show;
-
-module.exports.getPublicShow = show => ({
-  id: show._id,
-  name: show.name,
-  image: show.image,
-  status: show.status,
-  type: show.type,
-  summary: show.summary,
-  region: show.region,
-  seenEpisodeIds: show.seenEpisodeIds,
-});

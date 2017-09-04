@@ -6,7 +6,7 @@ import compareAsc from 'date-fns/compare_asc';
 
 import {
   EPISODES_RECEIVE,
-  START_TRACKING_NEW_SHOWS,
+  ADD_SHOWS_RECEIVE,
   REMOVE_SHOW,
   TOGGLE_EPISODE,
   MARK_EPISODE_AS_SEEN,
@@ -31,18 +31,9 @@ export default function trackedShowsReducer(state = initialState, action) {
       return action.data.trackedShows;
     }
 
-    case START_TRACKING_NEW_SHOWS: {
-      // On the server, new shows have an empty `seenEpisodeIds` array added.
-      // Because we fetch straight from TV Maze and don't wait for server
-      // confirmation, we have to add this in manually here, so that the
-      // data is consistent.
-      const newShows = action.shows.map(show => ({
-        ...show,
-        seenEpisodeIds: [],
-      }));
-
+    case ADD_SHOWS_RECEIVE: {
       // Convert the state shape so that it's map-like, instead of an array.
-      const newShowsMap = convertArrayToMap(newShows);
+      const newShowsMap = convertArrayToMap(action.shows);
 
       return {
         ...state,

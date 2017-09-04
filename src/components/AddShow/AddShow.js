@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'emotion/react';
 
-import { startTrackingNewShows, hideModal } from '../../actions';
+import { addShowsRequest, hideModal } from '../../actions';
 import { UNITS_IN_PX } from '../../constants';
 import { getTrackedShowIds } from '../../reducers/tracked-shows.reducer';
 import {
@@ -22,7 +22,7 @@ import { getButtonText } from './AddShow.helpers';
 class AddShow extends Component {
   static propTypes = {
     previouslyTrackedShowIds: PropTypes.arrayOf(PropTypes.number),
-    startTrackingNewShows: PropTypes.func.isRequired,
+    addShowsRequest: PropTypes.func.isRequired,
   }
 
   state = {
@@ -77,7 +77,7 @@ class AddShow extends Component {
     ));
 
     // Dispatch the action which will persist this selection to the server.
-    this.props.startTrackingNewShows({ shows: selectedShows });
+    this.props.addShowsRequest({ shows: selectedShows });
 
     // Close and reset this modal.
     this.props.hideModal({ side: 'right' });
@@ -146,6 +146,6 @@ const mapStateToProps = state => ({
   previouslyTrackedShowIds: getTrackedShowIds(state),
 });
 
-const mapDispatchToProps = { startTrackingNewShows, hideModal };
+const mapDispatchToProps = { addShowsRequest, hideModal };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddShow);

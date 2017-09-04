@@ -9,6 +9,11 @@ export const MODAL_IDS = {
   editShow: 'editShow',
 };
 
+export const SORT_OPTIONS = {
+  alpha: 'alpha',
+  chrono: 'chrono',
+};
+
 export const COLORS = {
   orange: {
     primary: '#FF9100',
