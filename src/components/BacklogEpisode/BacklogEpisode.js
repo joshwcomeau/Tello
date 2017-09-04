@@ -17,7 +17,7 @@ class BacklogEpisode extends Component {
     season: PropTypes.number.isRequired,
     number: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
-    airDate: PropTypes.string.isRequired,
+    airstamp: PropTypes.string.isRequired,
   }
 
   render() {
@@ -27,7 +27,7 @@ class BacklogEpisode extends Component {
       season,
       number,
       name,
-      airDate,
+      airstamp,
       handleClick,
     } = this.props;
 
@@ -42,7 +42,7 @@ class BacklogEpisode extends Component {
       >
         <EpisodeHeader>
           <EpisodeAirDate>
-            {formatDate(airDate)}
+            {formatDate(airstamp)}
           </EpisodeAirDate>
 
           <EpisodeNum>

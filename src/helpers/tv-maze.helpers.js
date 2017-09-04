@@ -27,6 +27,6 @@ export const formatEpisodeResults = results => (
     name: episode.name,
     season: episode.season,
     number: episode.number,
-    airdate: episode.airdate,
+    airstamp: episode.airstamp,
   }))
 )

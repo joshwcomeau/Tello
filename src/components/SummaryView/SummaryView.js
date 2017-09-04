@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 import styled from 'emotion/react';
 import PropTypes from 'prop-types';
 
-import { getTrackedShowsArrayWithSeasons } from '../../reducers/tracked-shows.reducer';
+import {
+  getAiredTrackedShowsArrayWithSeasons
+} from '../../reducers/tracked-shows.reducer';
 import { UNITS_IN_PX } from '../../constants';
 import { ShowProps } from '../../types';
 
@@ -25,7 +27,7 @@ const Wrapper = styled.div`
 `;
 
 const mapStateToProps = state => ({
-  trackedShows: getTrackedShowsArrayWithSeasons(state),
+  trackedShows: getAiredTrackedShowsArrayWithSeasons(state),
 });
 
 export default connect(mapStateToProps)(SummaryView);

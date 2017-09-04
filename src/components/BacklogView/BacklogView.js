@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { getTrackedShowsArray } from '../../reducers/tracked-shows.reducer';
+import { getAiredTrackedShowsArray } from '../../reducers/tracked-shows.reducer';
 import { ShowProps } from '../../types';
 
 import BacklogRow from '../BacklogRow';
@@ -28,7 +28,7 @@ class BacklogView extends Component {
 }
 
 const mapStateToProps = state => ({
-  trackedShows: getTrackedShowsArray(state),
+  trackedShows: getAiredTrackedShowsArray(state),
 });
 
 export default connect(mapStateToProps)(BacklogView);

@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import { createSelector } from 'reselect';
 import update from 'immutability-helper';
+import isFuture from 'date-fns/is_future';
 
 import {
   EPISODES_RECEIVE,
@@ -170,10 +171,13 @@ export default function trackedShowsReducer(state = initialState, action) {
 
 // Helpers
 const convertEpisodeMapToArray = ({ episodes, seenEpisodeIds }) => (
-  Object.keys(episodes).map(episodeId => ({
-    ...episodes[episodeId],
-    isSeen: seenEpisodeIds.includes(Number(episodeId)),
-  }))
+  Object.keys(episodes)
+    .map(episodeId => ({
+      ...episodes[episodeId],
+      isSeen: seenEpisodeIds.includes(Number(episodeId)),
+    }))
+    .slice()
+    .sort((a, b) => a.airstamp > b.airstamp)
 );
 
 const organizeEpisodesBySeason = ({ episodes, seenEpisodeIds }) => {
@@ -197,6 +201,10 @@ const organizeEpisodesBySeason = ({ episodes, seenEpisodeIds }) => {
 };
 
 // Selectors
+// NOTE: These selectors are kind of a mess.
+// I should really normalize episodes from shows, which would clean up a lot
+// of this stuff, at the expense of having to do a lot of server-client
+// data munging.
 export const getTrackedShows = state => state.trackedShows;
 export const getTrackedShow = (state, showId) => getTrackedShows(state)[showId];
 
@@ -213,9 +221,20 @@ export const getTrackedShowWithSeasons = (state, showId) => {
     return show;
   }
 
-  return {
+  // Filter out any episodes that haven't aired yet.
+  // NOTE: I'm assuming for now that single-show views never care about
+  // future episodes, since the Calendar is the only view that should, and
+  // it deals with many shows... may need to be revisited though.
+  const showWithAiredEpisodes = {
     ...show,
-    seasons: organizeEpisodesBySeason(show),
+    episodes: show.episodes.filter(episode => (
+      !isFuture(episode.airstamp)
+    )),
+  };
+
+  return {
+    ...showWithAiredEpisodes,
+    seasons: organizeEpisodesBySeason(showWithAiredEpisodes),
   };
 }
 
@@ -246,8 +265,26 @@ export const getTrackedShowsArray = createSelector(
   })
 );
 
+export const getAiredTrackedShowsArray = createSelector(
+  getTrackedShowsArray,
+  (shows) => shows.map(show => ({
+    ...show,
+    episodes: show.episodes
+      ? show.episodes.filter(episode => !isFuture(episode.airstamp))
+      : undefined,
+  }))
+);
+
 export const getTrackedShowsArrayWithSeasons = createSelector(
   getTrackedShowsArray,
+  (shows) => shows.map(show => ({
+    ...show,
+    seasons: organizeEpisodesBySeason(show),
+  }))
+);
+
+export const getAiredTrackedShowsArrayWithSeasons = createSelector(
+  getAiredTrackedShowsArray,
   (shows) => shows.map(show => ({
     ...show,
     seasons: organizeEpisodesBySeason(show),

@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 
 export const Episode = PropTypes.shape({
   id: PropTypes.number.isRequired,
-  airdate: PropTypes.string.isRequired,
+  airstamp: PropTypes.string.isRequired,
   isSeen: PropTypes.bool,
   name: PropTypes.string.isRequired,
   number: PropTypes.number.isRequired,

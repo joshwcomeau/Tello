@@ -105,7 +105,7 @@ class BacklogRow extends Component {
               season={episode.season}
               number={episode.number}
               name={episode.name}
-              airDate={episode.airdate}
+              airstamp={episode.airstamp}
               handleClick={() => this.handleEpisodeClick(episode)}
             />
           ))}
