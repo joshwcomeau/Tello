@@ -9,8 +9,6 @@ import {
 
 
 const propTypes = {
-  color: PropTypes.string,
-  hoverColor: PropTypes.string,
   onClick: PropTypes.func.isRequired,
 };
 
@@ -30,15 +28,18 @@ const ButtonElem = styled.button`
   border: none;
   border-radius: 0;
   color: ${COLORS.white};
-  background: ${props => props.color};
+  background: ${COLORS.deepPurple.primary};
   font-family: 'Raleway';
-  transition: background 300ms;
   outline: none;
   cursor: pointer;
   overflow: hidden;
 
   &:hover {
-    background: ${props => props.hoverColor || props.color};
+    background: linear-gradient(
+      to top,
+      ${COLORS.deepPurple.primary},
+      ${COLORS.deepPurple.light}
+    );
   }
 `;
 

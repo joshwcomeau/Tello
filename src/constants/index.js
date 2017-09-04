@@ -30,6 +30,7 @@ export const COLORS = {
     dark: '#AA00FF',
   },
   deepPurple: {
+    light: '#7e44ff',
     primary: '#651FFF',
     dark: '#5000bf',
   },

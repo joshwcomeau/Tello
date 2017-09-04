@@ -6,7 +6,7 @@ import { ROW_HEIGHT_PX, UNITS_IN_PX, COLORS } from '../../constants';
 
 const Logo = () => {
   return (
-    <LogoContainer>
+    <LogoContainer href="/">
       <LogoElem>
         Tello
       </LogoElem>
@@ -37,51 +37,10 @@ const LogoElem = styled.h1`
   -webkit-text-fill-color: transparent;
 `;
 
-const LogoContainer = styled.div`
+const LogoContainer = styled.a`
   display: inline-block;
   background: ${COLORS.gray.veryDark};
+  text-decoration: none;
 `;
-
-// const LetterAUppercase = styled.span`
-//   letter-spacing: -6px;
-//   &:before {
-//     content: 'A';
-//   }
-// `;
-//
-// const LetterV = styled.span`
-//   letter-spacing: -1px;
-//   &:before {
-//     content: 'v';
-//   }
-// `;
-//
-// const LetterI = styled.span`
-//   letter-spacing: -1px;
-//   &:before {
-//     content: 'i';
-//   }
-// `;
-//
-// const LetterA = styled.span`
-//   letter-spacing: -2px;
-//   &:before {
-//     content: 'a';
-//   }
-// `;
-//
-// const LetterT = styled.span`
-//   letter-spacing: -2px;
-//   &:before {
-//     content: 't';
-//   }
-// `;
-//
-// const LetterO = styled.span`
-//   letter-spacing: -1px;
-//   &:before {
-//     content: 'o';
-//   }
-// `;
 
 export default Logo;
