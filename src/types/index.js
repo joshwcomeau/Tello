@@ -18,5 +18,10 @@ export const ShowProps = PropTypes.shape({
   status: PropTypes.string.isRequired,
   summary: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
-  episodes: PropTypes.arrayOf(Episode),
+  // Episodes can either be an array of episodes, or a map.
+  // We can't really type-check the map, so we'll just accept an object.
+  episodes: PropTypes.oneOfType([
+    PropTypes.arrayOf(Episode),
+    PropTypes.object,
+  ]),
 });

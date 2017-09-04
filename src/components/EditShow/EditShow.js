@@ -99,7 +99,7 @@ class EditShow extends PureComponent {
                   episodeIds: episodes.map(({ id }) => id),
                 })}
               />,
-              <BorderSpacer />
+              <BorderSpacer key="spacer" />
             ]))}
           </SeasonList>
 

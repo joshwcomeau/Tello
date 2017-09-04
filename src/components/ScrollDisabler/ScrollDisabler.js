@@ -7,7 +7,7 @@ class ScrollDisabler extends PureComponent {
     // When the right-side modal is open, the nice dark-themed scrollbar I have
     // stands out like a sore thumb. This prop allows us to apply a class to
     // `body`, which temporarily changes the scrollbar theme.
-    applyLightScrollTheme: PropTypes.bool.isRequired,
+    applyLightScrollTheme: PropTypes.bool,
   }
   componentDidMount() {
     this.oldOverflow = document.body.style.overflow;
