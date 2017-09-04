@@ -127,16 +127,6 @@ export default function trackedShowsReducer(state = initialState, action) {
       });
     }
 
-    case DELETE_SHOW_REQUEST: {
-      const { showId } = action;
-
-      return update(state, {
-        [showId]: {
-          attemptingDeletion: { $set: true },
-        },
-      });
-    }
-
     case DELETE_SHOW_RECEIVE: {
       const { showId } = action;
 
@@ -147,20 +137,6 @@ export default function trackedShowsReducer(state = initialState, action) {
       delete nextState[showId];
 
       return nextState;
-    }
-
-    case DELETE_SHOW_FAILURE: {
-      const { showId } = action;
-
-      // We don't have to worry about the error message or anything, the
-      // `flash` reducer will tackle that. We just need to unset the loading
-      // flag.
-
-      return update(state, {
-        [showId]: {
-          attemptingDeletion: { $set: false },
-        },
-      });
     }
 
     default:

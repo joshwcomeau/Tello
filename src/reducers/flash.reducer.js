@@ -52,15 +52,6 @@ export default function reducer(state = initialState, action) {
       };
     }
 
-    case DELETE_SHOW_RECEIVE: {
-      const { showName } = action;
-
-      return {
-        messageType: 'success',
-        message: `"${showName}" has been successfully deleted.`,
-      };
-    }
-
     case DELETE_SHOW_FAILURE: {
       const { showName } = action;
 

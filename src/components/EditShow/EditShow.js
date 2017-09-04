@@ -24,6 +24,10 @@ class EditShow extends PureComponent {
     hideModal: PropTypes.func.isRequired,
   }
 
+  state = {
+    attemptingDeletion: false,
+  }
+
   componentDidUpdate() {
     const { show, hideModal } = this.props;
 
@@ -48,12 +52,21 @@ class EditShow extends PureComponent {
     };
 
     confirm(confirmProps)
+      .then(result => {
+        this.setState({ attemptingDeletion: true });
+
+        return result;
+      })
+      .then(result => new Promise((resolve) => {
+        window.setTimeout(() => resolve(result), 500)
+      }))
       .then(result => deleteShowRequest({ showId: id, showName: name }));
   }
 
   renderDeleteSection() {
+    const { attemptingDeletion } = this.state;
     const {
-      show: { name, attemptingDeletion },
+      show: { name },
       deleteShowRequest,
     } = this.props;
 
