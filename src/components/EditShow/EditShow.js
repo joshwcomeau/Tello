@@ -31,16 +31,22 @@ class EditShow extends PureComponent {
   }
 
   handleDeleteClick = () => {
-    const { deleteShowRequest, show } = this.props;
+    const {
+      deleteShowRequest,
+      show: { id, name },
+    } = this.props;
 
-    confirm({
+    const confirmProps = {
       title: 'Are you sure?',
       children: (
         <span>
-          Deleting "{show.name}" means that you'll <strong>permanently lose</strong> the data about which episodes you've seen, even if you re-add the show.
+          Deleting "{name}" means that you'll <strong>permanently lose</strong> the data about which episodes you've seen, even if you re-add the show.
         </span>
       ),
-    }).then(result => deleteShowRequest({ showId: show.id }))
+    };
+
+    confirm(confirmProps)
+      .then(result => deleteShowRequest({ showId: id, showName: name }));
   }
 
   render() {

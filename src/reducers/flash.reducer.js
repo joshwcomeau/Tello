@@ -5,6 +5,8 @@ import {
   HIDE_FLASH_MESSAGE,
   START_TRACKING_NEW_SHOWS,
   MARK_EPISODE_AS_SEEN,
+  DELETE_SHOW_RECEIVE,
+  DELETE_SHOW_FAILURE,
 } from '../actions';
 
 /*
@@ -44,12 +46,27 @@ export default function reducer(state = initialState, action) {
 
       return {
         messageType: 'success',
-        message: `
-          You've marked "${episodeName}" of
-          <strong>${showName}</strong> as seen.
-        `,
+        message: `"${episodeName}" of <strong>${showName}</strong> has been marked as seen.`,
         action: markEpisodeAsUnseen({ showId, showName, episodeId, episodeName }),
         actionLabel: 'Undo',
+      };
+    }
+
+    case DELETE_SHOW_RECEIVE: {
+      const { showName } = action;
+
+      return {
+        messageType: 'success',
+        message: `"${showName}" has been successfully deleted.`,
+      };
+    }
+
+    case DELETE_SHOW_FAILURE: {
+      const { showName } = action;
+
+      return {
+        messageType: 'error',
+        message: `"${showName}" could not be deleted. Please try again later.`,
       };
     }
 

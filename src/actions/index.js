@@ -116,19 +116,22 @@ export const userDataFailure = (error) => ({
   error,
 });
 
-export const deleteShowRequest = ({ showId }) => ({
+export const deleteShowRequest = ({ showId, showName }) => ({
   type: DELETE_SHOW_REQUEST,
   showId,
+  showName,
 });
 
-export const deleteShowReceive = ({ showId }) => ({
+export const deleteShowReceive = ({ showId, showName }) => ({
   type: DELETE_SHOW_RECEIVE,
   showId,
+  showName,
 });
 
-export const deleteShowFailure = ({ showId, error }) => ({
+export const deleteShowFailure = ({ showId, showName, error }) => ({
   type: DELETE_SHOW_FAILURE,
   showId,
+  showName,
   error,
 });
 

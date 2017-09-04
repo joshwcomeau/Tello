@@ -132,10 +132,12 @@ export default function createAPIMiddleware() {
       }
 
       case DELETE_SHOW_REQUEST: {
-        deleteShow({ token, showId: action.showId })
-          .then(({ showId }) => next(deleteShowReceive({ showId })))
+        const { showId, showName } = action;
+
+        deleteShow({ token, showId })
+          .then(() => next(deleteShowReceive({ showId, showName })))
           .catch((error) => (
-            next(deleteShowFailure({ showId: action.showId, error }))
+            next(deleteShowFailure({ showId, showName, error }))
           ));
 
         break;
