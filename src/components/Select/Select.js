@@ -42,11 +42,14 @@ class Select extends PureComponent {
 
         <SelectPresentation>
           {selectedOptionLabel}
+          <Caret />
         </SelectPresentation>
       </SelectWrapper>
     );
   }
 }
+
+const accentColor = COLORS.blue.primary;
 
 const SelectWrapper = styled.div`
   display: block;
@@ -73,8 +76,20 @@ const SelectElem = styled.select`
 const SelectPresentation = styled.span`
   display: inline-block;
   padding: 6px;
-  border-bottom: 2px solid ${COLORS.deepPurple.primary};
+  padding-right: 26px;
+  border-bottom: 2px solid ${accentColor};
   pointer-events: none;
+`;
+
+const Caret = styled.div`
+  position: absolute;
+  right: 6px;
+  bottom: 12px;
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid ${accentColor};
 `;
 
 export default Select;

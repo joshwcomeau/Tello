@@ -1,4 +1,7 @@
+import format from 'date-fns/format';
+
 import { SORT_OPTIONS } from '../constants';
+
 
 export const sortShows = ({ shows, sorting }) => (
   shows.sort((show1, show2) => {
@@ -11,3 +14,5 @@ export const sortShows = ({ shows, sorting }) => (
     }
   })
 );
+
+export const getHumanizedAirDate = show => format(show.airstamp, 'MMM Do, YYYY');
