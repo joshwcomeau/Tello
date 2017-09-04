@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'emotion/react';
 import PropTypes from 'prop-types';
@@ -14,27 +14,20 @@ import SummaryShow from '../SummaryShow';
 import SortShows from '../SortShows';
 
 
-const SummaryView = ({ trackedShows }) => (
-  <div>
-    <Header>
-      <SortShows />
-    </Header>
+const propTypes = {
+  trackedShows: PropTypes.arrayOf(ShowProps),
+};
 
-    <Grid>
-      {trackedShows.map(show => (
-        <SummaryShow key={show.id} show={show} />
-      ))}
-    </Grid>
-  </div>
-);
+const SummaryView = ({ trackedShows }) => ([
+  <SortShows />,
 
+  <Grid>
+    {trackedShows.map(show => (
+      <SummaryShow key={show.id} show={show} />
+    ))}
+  </Grid>
+]);
 
-const Header = styled.header`
-  display: flex;
-  justify-content: flex-end;
-  padding-top: ${UNITS_IN_PX[1]};
-  padding-bottom: ${UNITS_IN_PX[1]};
-`;
 
 const Grid = styled.div`
   display: grid;
@@ -51,5 +44,7 @@ const mapStateToProps = state => ({
   // We don't actually need this prop though.
   sorting: state.ui.sorting,
 });
+
+SummaryView.propTypes = propTypes;
 
 export default connect(mapStateToProps)(SummaryView);

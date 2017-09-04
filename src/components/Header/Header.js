@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import styled from 'emotion/react';
 
 import { showAddShowModal } from '../../actions';
-import { COLORS, UNITS_IN_PX } from '../../constants';
+import { COLORS, UNITS_IN_PX, UNIT } from '../../constants';
 import { getIsLoggedIn, getUser } from '../../reducers/auth.reducer';
 
 import AddShowButton from '../AddShowButton';
@@ -68,7 +68,7 @@ const UserInfo = styled.div`
   position: absolute;
   top: 0;
   right: ${UNITS_IN_PX[2]};
-  line-height: ${UNITS_IN_PX[2]};
+  line-height: ${UNIT * 2.5 + 'px'};
   font-size: 13px;
   color: ${COLORS.gray.veryLight};
 `;

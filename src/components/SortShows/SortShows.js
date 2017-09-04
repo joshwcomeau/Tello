@@ -1,23 +1,33 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import styled from 'emotion/react';
 
 import { changeSorting } from '../../actions';
-import { SORT_OPTIONS } from '../../constants';
+import { UNITS_IN_PX, SORT_OPTIONS } from '../../constants';
 
 import Select from '../Select';
 
 
 const SortShows = ({ selectedOption, changeSorting }) => (
-  <Select
-    label="Sort"
-    options={{
-      [SORT_OPTIONS.alpha]: 'Alphabetical',
-      [SORT_OPTIONS.chrono]: 'Chronological',
-    }}
-    selectedOption={selectedOption}
-    handleChange={value => changeSorting({ sorting: value })}
-  />
+  <Header>
+    <Select
+      label="Sort"
+      options={{
+        [SORT_OPTIONS.alpha]: 'Alphabetical',
+        [SORT_OPTIONS.chrono]: 'Chronological',
+      }}
+      selectedOption={selectedOption}
+      handleChange={value => changeSorting({ sorting: value })}
+    />
+  </Header>
 );
+
+const Header = styled.header`
+  display: flex;
+  justify-content: flex-end;
+  padding-top: ${UNITS_IN_PX[1]};
+  padding-bottom: ${UNITS_IN_PX[1]};
+`;
 
 const mapStateToProps = state => ({
   selectedOption: state.ui.sorting,

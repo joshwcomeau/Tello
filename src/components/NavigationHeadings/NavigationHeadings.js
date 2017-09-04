@@ -41,7 +41,7 @@ class NavigationHeadings extends Component {
 
 const Wrapper = styled.div`
   display: flex;
-  margin-bottom: ${UNITS_IN_PX[4]};
+  margin-bottom: ${UNITS_IN_PX[1]};
 `;
 
 const HeadingLink = styled(Link)`

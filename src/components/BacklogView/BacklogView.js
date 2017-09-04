@@ -6,31 +6,33 @@ import {
   getTrackedShowsWithUnseenEpisodesArray,
 } from '../../reducers/tracked-shows.reducer';
 import { ShowProps } from '../../types';
+import { sortShows } from '../../helpers/show.helpers';
 
 import BacklogRow from '../BacklogRow';
 import Heading from '../Heading';
+import SortShows from '../SortShows';
 
 
-class BacklogView extends Component {
-  static propTypes = {
-    trackedShows: PropTypes.arrayOf(ShowProps),
-  }
-
-  render() {
-    const { trackedShows } = this.props;
-
-    return (
-      <span>
-        {trackedShows.map(show => (
-          <BacklogRow key={show.id} show={show} />
-        ))}
-      </span>
-    );
-  }
+const propTypes = {
+  trackedShows: PropTypes.arrayOf(ShowProps),
 }
 
+const BacklogView = ({ trackedShows }) => ([
+  <SortShows />,
+
+  trackedShows.map(show => (
+    <BacklogRow key={show.id} show={show} />
+  ))
+]);
+
 const mapStateToProps = state => ({
-  trackedShows: getTrackedShowsWithUnseenEpisodesArray(state),
+  trackedShows: sortShows({
+    shows: getTrackedShowsWithUnseenEpisodesArray(state),
+    sorting: state.ui.sorting,
+  }),
+  // NOTE: we need to return `sorting` so that the component re-renders
+  // We don't actually need this prop though.
+  sorting: state.ui.sorting,
 });
 
 export default connect(mapStateToProps)(BacklogView);
