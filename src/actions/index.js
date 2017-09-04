@@ -20,6 +20,7 @@ export const EPISODES_REQUEST = 'EPISODES_REQUEST';
 export const EPISODES_RECEIVE = 'EPISODES_RECEIVE';
 export const EPISODES_FAILURE = 'EPISODES_FAILURE';
 export const HIDE_FLASH_MESSAGE = 'HIDE_FLASH_MESSAGE';
+export const CHANGE_SORTING = 'CHANGE_SORTING';
 
 
 export const startTrackingNewShows = ({ shows }) => ({
@@ -154,4 +155,9 @@ export const episodesFailure = ({ error }) => ({
 
 export const hideFlashMessage = () => ({
   type: HIDE_FLASH_MESSAGE,
+});
+
+export const changeSorting = ({ sorting }) => ({
+  type: CHANGE_SORTING,
+  sorting,
 });

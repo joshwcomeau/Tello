@@ -10,21 +10,36 @@ import { UNITS_IN_PX } from '../../constants';
 import { ShowProps } from '../../types';
 
 import SummaryShow from '../SummaryShow';
+import SortShows from '../SortShows';
 
 
 const SummaryView = ({ trackedShows }) => (
-  <Wrapper>
-    {trackedShows.map(show => (
-      <SummaryShow key={show.id} show={show} />
-    ))}
-  </Wrapper>
+  <div>
+    <Header>
+      <SortShows />
+    </Header>
+
+    <Grid>
+      {trackedShows.map(show => (
+        <SummaryShow key={show.id} show={show} />
+      ))}
+    </Grid>
+  </div>
 );
 
-const Wrapper = styled.div`
+
+const Header = styled.header`
+  display: flex;
+  justify-content: flex-end;
+  padding-top: ${UNITS_IN_PX[1]};
+  padding-bottom: ${UNITS_IN_PX[1]};
+`;
+
+const Grid = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: ${UNITS_IN_PX[1]};
-`;
+`
 
 const mapStateToProps = state => ({
   trackedShows: getAiredTrackedShowsArrayWithSeasons(state),
