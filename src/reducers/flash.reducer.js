@@ -46,7 +46,7 @@ export default function reducer(state = initialState, action) {
 
       return {
         messageType: 'success',
-        message: `"${episodeName}" of <strong>${showName}</strong> has been marked as seen.`,
+        message: `"${episodeName}" of <strong>${showName}</strong> has been marked as seen. `,
         action: markEpisodeAsUnseen({ showId, showName, episodeId, episodeName }),
         actionLabel: 'Undo',
       };

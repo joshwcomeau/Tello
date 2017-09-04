@@ -5,7 +5,9 @@ import styled from 'emotion/react';
 
 import { deleteShowRequest, markSeasonAsSeen, hideModal } from '../../actions';
 import { COLORS, UNITS_IN_PX, HALF_UNIT_PX } from '../../constants';
-import { getTrackedShowWithSeasons } from '../../reducers/tracked-shows.reducer';
+import {
+  getTrackedShowsArrayWithSeasons,
+} from '../../reducers/tracked-shows.reducer';
 import { ShowProps } from '../../types';
 
 import Button from '../Button';
@@ -49,67 +51,88 @@ class EditShow extends PureComponent {
       .then(result => deleteShowRequest({ showId: id, showName: name }));
   }
 
+  renderDeleteSection() {
+    const {
+      show: { name, attemptingDeletion },
+      deleteShowRequest,
+    } = this.props;
+
+    return (
+      <DeleteSection>
+        <Heading size="small">
+          Delete Show
+        </Heading>
+
+        <Paragraph>
+          Deleting this show will remove it from your list of tracked shows. You can re-add it again later, but your progress will be lost forever.
+        </Paragraph>
+
+        <Button
+          color="red"
+          disabled={attemptingDeletion}
+          onClick={this.handleDeleteClick}
+        >
+          Delete "{name}"
+        </Button>
+      </DeleteSection>
+    );
+  }
+
+  renderBulkToggleSection() {
+    const {
+      show: { id, name, seasons },
+      markSeasonAsSeen,
+    } = this.props;
+
+    const episodesBySeason = Object.keys(seasons).map(id => seasons[id]);
+
+    // For pre-release shows, there are no episodes to toggle.
+    // Skip this section.
+    if (episodesBySeason.length === 0) {
+      return null;
+    }
+
+    return (
+      <BulkToggleSection>
+        <Heading size="small">
+          Bulk Toggle Episodes
+        </Heading>
+
+        <Paragraph>
+          Quickly mark all episodes in a season as watched.
+        </Paragraph>
+
+        <SeasonList>
+          {episodesBySeason.map((episodes, index) => ([
+            <EditShowSeason
+              key={index}
+              episodes={episodes}
+              seasonNum={index + 1}
+              handleToggleAll={() => markSeasonAsSeen({
+                showId: id,
+                showName: name,
+                episodeIds: episodes.map(({ id }) => id),
+              })}
+            />,
+            <BorderSpacer key="spacer" />
+          ]))}
+        </SeasonList>
+      </BulkToggleSection>
+    );
+  }
+
   render() {
     if (!this.props.show) {
       return null;
     }
 
-    const {
-      show: { id, name, seasons, attemptingDeletion },
-      markSeasonAsSeen,
-      deleteShowRequest,
-    } = this.props;
-
-    const episodesBySeason = Object.keys(seasons).map(id => seasons[id]);
-
     return (
       <EditShowWrapper>
-        <Heading>Manage "{name}"</Heading>
+        <Heading>Manage "{this.props.show.name}"</Heading>
 
-        <Section>
-          <Heading size="small">
-            Delete Show
-          </Heading>
+        {this.renderDeleteSection()}
 
-          <Paragraph>
-            Deleting this show will remove it from your list of tracked shows. You can re-add it again later, but your progress will be lost forever.
-          </Paragraph>
-
-          <Button
-            color="red"
-            disabled={attemptingDeletion}
-            onClick={this.handleDeleteClick}
-          >
-            Delete "{name}"
-          </Button>
-        </Section>
-
-        <Section>
-          <Heading size="small">
-            Bulk Toggle Episodes
-          </Heading>
-
-          <Paragraph>
-            Quickly mark all episodes in a season as watched.
-          </Paragraph>
-
-          <SeasonList>
-            {episodesBySeason.map((episodes, index) => ([
-              <EditShowSeason
-                key={index}
-                episodes={episodes}
-                seasonNum={index + 1}
-                handleToggleAll={() => markSeasonAsSeen({
-                  showId: id,
-                  showName: name,
-                  episodeIds: episodes.map(({ id }) => id),
-                })}
-              />,
-              <BorderSpacer key="spacer" />
-            ]))}
-          </SeasonList>
-
-        </Section>
+        {this.renderBulkToggleSection()}
       </EditShowWrapper>
     );
   }
@@ -121,18 +144,16 @@ const EditShowWrapper = styled.div`
   height: 100%;
 `;
 
-const Section = styled.div`
+const DeleteSection = styled.section`
   margin-top: ${UNITS_IN_PX[2]};
+  margin-bottom: ${UNITS_IN_PX[2]};
+`;
 
-  &:first-of-type {
-    margin-bottom: ${UNITS_IN_PX[2]};
-  }
-
-  &:last-of-type {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-  }
+const BulkToggleSection = styled.section`
+  margin-top: ${UNITS_IN_PX[2]};
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 `;
 
 const SeasonList = styled.div`
@@ -152,7 +173,9 @@ const Paragraph = styled.p`
 `
 
 const mapStateToProps = (state, ownProps) => ({
-  show: getTrackedShowWithSeasons(state, ownProps.showId),
+  show: getTrackedShowsArrayWithSeasons(state).find(show => (
+    show.id === ownProps.showId
+  )),
 });
 
 const mapDispatchToProps = { deleteShowRequest, markSeasonAsSeen, hideModal };

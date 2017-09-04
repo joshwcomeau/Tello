@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 import { createSelector } from 'reselect';
 import update from 'immutability-helper';
 import isFuture from 'date-fns/is_future';
+import compareAsc from 'date-fns/compare_asc';
 
 import {
   EPISODES_RECEIVE,
@@ -176,8 +177,6 @@ const convertEpisodeMapToArray = ({ episodes, seenEpisodeIds }) => (
       ...episodes[episodeId],
       isSeen: seenEpisodeIds.includes(Number(episodeId)),
     }))
-    .slice()
-    .sort((a, b) => a.airstamp > b.airstamp)
 );
 
 const organizeEpisodesBySeason = ({ episodes, seenEpisodeIds }) => {
@@ -188,6 +187,11 @@ const organizeEpisodesBySeason = ({ episodes, seenEpisodeIds }) => {
   if (!Array.isArray(episodes)) {
     episodes = convertEpisodeMapToArray({ episodes, seenEpisodeIds });
   }
+
+  // Sort the episodes by their season/episode number.
+  episodes = episodes.slice().sort((ep1, ep2) => (
+    compareAsc(ep1.airstamp, ep2.airstamp)
+  ));
 
   return episodes.reduce((acc, episode) => {
     if (!acc[episode.season]) {
@@ -206,37 +210,6 @@ const organizeEpisodesBySeason = ({ episodes, seenEpisodeIds }) => {
 // of this stuff, at the expense of having to do a lot of server-client
 // data munging.
 export const getTrackedShows = state => state.trackedShows;
-export const getTrackedShow = (state, showId) => getTrackedShows(state)[showId];
-
-export const getTrackedShowWithSeasons = (state, showId) => {
-  const show = getTrackedShow(state, showId);
-
-  // The user can delete shows. Gotta guard against that.
-  if (!show) {
-    return null;
-  }
-
-  // Initially, we won't have the episodes. They're fetched externally.
-  if (!show.episodes) {
-    return show;
-  }
-
-  // Filter out any episodes that haven't aired yet.
-  // NOTE: I'm assuming for now that single-show views never care about
-  // future episodes, since the Calendar is the only view that should, and
-  // it deals with many shows... may need to be revisited though.
-  const showWithAiredEpisodes = {
-    ...show,
-    episodes: show.episodes.filter(episode => (
-      !isFuture(episode.airstamp)
-    )),
-  };
-
-  return {
-    ...showWithAiredEpisodes,
-    seasons: organizeEpisodesBySeason(showWithAiredEpisodes),
-  };
-}
 
 export const getTrackedShowIds = createSelector(
   getTrackedShows,
@@ -274,6 +247,23 @@ export const getAiredTrackedShowsArray = createSelector(
       : undefined,
   }))
 );
+
+export const getTrackedShowsWithUnseenEpisodesArray = createSelector(
+  getAiredTrackedShowsArray,
+  (shows) => shows.filter(show => {
+    // If we don't yet have the episode data, we need to include this show.
+    if (!show.episodes) {
+      return true;
+    }
+
+    const numOfUnseenEpisodes = show.episodes.reduce((sum, episode) => (
+      sum + (episode.isSeen ? 0 : 1)
+    ), 0);
+
+    return numOfUnseenEpisodes > 0;
+  })
+);
+
 
 export const getTrackedShowsArrayWithSeasons = createSelector(
   getTrackedShowsArray,

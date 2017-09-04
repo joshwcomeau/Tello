@@ -22,7 +22,7 @@ class FlashMessage extends Component {
     duration: PropTypes.number.isRequired,
     message: PropTypes.string,
     messageType: PropTypes.oneOf(['alert', 'error', 'success']),
-    action: PropTypes.func,
+    action: PropTypes.object,
     actionLabel: PropTypes.string,
     dispatch: PropTypes.func.isRequired,
   }

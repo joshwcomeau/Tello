@@ -34,6 +34,7 @@ class BacklogRow extends Component {
 
   componentDidMount() {
     const { show, episodesRequest } = this.props;
+
     // If we don't yet have any `episodes` for this show, we have to fetch
     // them! We can make a few assumptions though:
     // - The list of episodes won't change externally in a given session,
@@ -115,7 +116,14 @@ class BacklogRow extends Component {
   }
 
   render() {
-    const { show: { type, name } } = this.props;
+    const { show: { type, name, episodes } } = this.props;
+
+    // We may or may not want to actually display this row.
+    // We won't know until the episodes are fetched from TV Maze.
+    // For now, just return null.
+    if (!episodes) {
+      return null;
+    }
 
     return (
       <Wrapper>

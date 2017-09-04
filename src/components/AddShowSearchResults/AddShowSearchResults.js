@@ -11,7 +11,7 @@ import AddShowSearchResult from '../AddShowSearchResult';
 const propTypes = {
   status: PropTypes.oneOf(['idle', 'loading', 'done']),
   shows: PropTypes.arrayOf(ShowProps),
-  previouslyTrackedShowIds: PropTypes.arrayOf(PropTypes.string),
+  previouslyTrackedShowIds: PropTypes.arrayOf(PropTypes.number),
   onToggleShow: PropTypes.func.isRequired,
 };
 
