@@ -2,6 +2,10 @@ import React, { PureComponent } from 'react';
 import styled from 'emotion/react';
 
 import { COLORS, UNIT, UNITS_IN_PX } from '../../constants';
+import {
+  getHumanizedEpisodeAirDate,
+  getEpisodeNumString
+} from '../../helpers/show.helpers';
 import { debounce, isEmpty } from '../../utils';
 
 import Clearfix from '../Clearfix';
@@ -55,9 +59,11 @@ class EpisodeGrid extends PureComponent {
     return (
       <HighlightedEpisode isVisible={isHighlighted}>
         <EpisodeName>{name}</EpisodeName>
-        <EpisodeNum>
-          Season {season}, Episode {number}
-        </EpisodeNum>
+        <EpisodeDetails>
+          {getEpisodeNumString(highlightedEpisode)}
+          &nbsp;-&nbsp;
+          {getHumanizedEpisodeAirDate(highlightedEpisode)}
+        </EpisodeDetails>
       </HighlightedEpisode>
     );
   }
@@ -161,7 +167,7 @@ const EpisodeName = styled.div`
   font-weight: bold;
 `;
 
-const EpisodeNum = styled.div`
+const EpisodeDetails = styled.div`
   font-size: 13px;
   color: ${COLORS.gray.primary};
 `;

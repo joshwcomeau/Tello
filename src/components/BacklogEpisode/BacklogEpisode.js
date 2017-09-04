@@ -4,8 +4,11 @@ import styled from 'emotion/react';
 
 import { COLORS, HALF_UNIT_PX, UNITS_IN_PX } from '../../constants';
 import getDomainColor from '../../helpers/domain-colors.helpers';
-
-import { formatDate, getEpisodeNumString } from './BacklogEpisode.helpers';
+import {
+  getHumanizedEpisodeAirDate,
+  getEpisodeNumString
+} from '../../helpers/show.helpers';
+import { EpisodeProps } from '../../types';
 
 
 // NOTE: Needs to be a class component because it's passed to FlipMove.
@@ -14,20 +17,14 @@ class BacklogEpisode extends Component {
   static propTypes = {
     height: PropTypes.number.isRequired,
     showType: PropTypes.string.isRequired,
-    season: PropTypes.number.isRequired,
-    number: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-    airstamp: PropTypes.string.isRequired,
+    episode: EpisodeProps,
   }
 
   render() {
     const {
       height,
       showType,
-      season,
-      number,
-      name,
-      airstamp,
+      episode,
       handleClick,
     } = this.props;
 
@@ -42,15 +39,15 @@ class BacklogEpisode extends Component {
       >
         <EpisodeHeader>
           <EpisodeAirDate>
-            {formatDate(airstamp)}
+            {getHumanizedEpisodeAirDate(episode)}
           </EpisodeAirDate>
 
           <EpisodeNum>
-            {getEpisodeNumString(season, number)}
+            {getEpisodeNumString(episode)}
           </EpisodeNum>
         </EpisodeHeader>
 
-        <EpisodeName>{name}</EpisodeName>
+        <EpisodeName>{episode.name}</EpisodeName>
       </Episode>
     );
   }

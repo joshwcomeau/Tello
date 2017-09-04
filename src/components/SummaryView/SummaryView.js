@@ -15,7 +15,6 @@ import SortShows from '../SortShows';
 
 
 const SummaryView = ({ trackedShows }) => (
-  console.log('RERENDER') ||
   <div>
     <Header>
       <SortShows />

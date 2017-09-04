@@ -15,4 +15,10 @@ export const sortShows = ({ shows, sorting }) => (
   })
 );
 
-export const getHumanizedAirDate = show => format(show.airstamp, 'MMM Do, YYYY');
+export const getHumanizedEpisodeAirDate = ({ airstamp }) => (
+  format(airstamp, 'MMM Do, YYYY')
+);
+
+export const getEpisodeNumString = ({ season, number }) => (
+  `S${String(season).padStart(2, '0')}E${String(number).padStart(2, '0')}`
+);

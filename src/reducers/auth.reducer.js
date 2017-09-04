@@ -13,6 +13,7 @@ import {
   USER_DATA_REQUEST,
   USER_DATA_FAILURE,
 } from '../actions';
+import { isEmpty } from '../utils';
 
 
 const initialState = {
@@ -26,9 +27,9 @@ function userReducer(state = initialState.user, action) {
   switch (action.type) {
     case USER_DATA_RECEIVE: {
       return {
-        id: action.id,
-        name: action.name,
-        email: action.email,
+        id: action.data.id,
+        name: action.data.name,
+        email: action.data.email,
       };
     }
 
@@ -71,7 +72,4 @@ export const getToken = state => state.auth.token;
 export const getIsFetching = state => state.auth.isFetching;
 export const getUser = state => state.auth.user;
 
-// This doesn't _really_ tell us if we're logged in;
-// It tells us if we're attempting a login, though, so it's safe to
-// use for things like redirecting from login-only areas.
-export const getIsLoggedIn = state => !!getToken(state);
+export const getIsLoggedIn = state => !isEmpty(getUser(state));

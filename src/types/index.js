@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-export const Episode = PropTypes.shape({
+export const EpisodeProps = PropTypes.shape({
   id: PropTypes.number.isRequired,
   airstamp: PropTypes.string.isRequired,
   isSeen: PropTypes.bool,
@@ -21,7 +21,7 @@ export const ShowProps = PropTypes.shape({
   // Episodes can either be an array of episodes, or a map.
   // We can't really type-check the map, so we'll just accept an object.
   episodes: PropTypes.oneOfType([
-    PropTypes.arrayOf(Episode),
+    PropTypes.arrayOf(EpisodeProps),
     PropTypes.object,
   ]),
 });

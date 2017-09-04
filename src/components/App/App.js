@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 
 import { userDataRequest, hideModal } from '../../actions';
 import { Z_INDICES, ROW_HEIGHT } from '../../constants';
-import { getIsLoggedIn } from '../../reducers/auth.reducer';
+import { getToken, getIsLoggedIn } from '../../reducers/auth.reducer';
 
 import FlashMessage from '../FlashMessage';
 import Header from '../Header';
@@ -25,13 +25,15 @@ import LoginView from '../LoginView';
 
 class App extends Component {
   static propTypes = {
+    hasToken: PropTypes.bool.isRequired,
+    isLoggedIn: PropTypes.bool.isRequired,
     userDataRequest: PropTypes.func.isRequired,
   }
 
   componentDidMount() {
-    const { isLoggedIn, userDataRequest } = this.props;
+    const { hasToken, userDataRequest } = this.props;
 
-    if (isLoggedIn) {
+    if (hasToken) {
       userDataRequest();
     }
   }
@@ -97,6 +99,7 @@ const Body = styled.div`
 `
 
 const mapStateToProps = state => ({
+  hasToken: !!getToken(state),
   isLoggedIn: getIsLoggedIn(state),
 });
 

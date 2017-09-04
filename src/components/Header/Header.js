@@ -1,37 +1,44 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import styled from 'emotion/react';
 
 import { showAddShowModal } from '../../actions';
 import { COLORS, UNITS_IN_PX } from '../../constants';
-import { getIsLoggedIn } from '../../reducers/auth.reducer';
+import { getIsLoggedIn, getUser } from '../../reducers/auth.reducer';
 
 import AddShowButton from '../AddShowButton';
 import Logo from '../Logo';
 import MaxWidthWrapper from '../MaxWidthWrapper';
 
 
-const Header = ({ isLoggedIn, showAddShowModal }) => {
-  return (
-    <HeaderElem>
-      <MaxWidthWrapper style={{ height: '100%' }}>
-        <LogoWrapper>
-          <Logo />
-        </LogoWrapper>
+const Header = ({ isLoggedIn, user, showAddShowModal }) => (
+  <HeaderElem>
+    <MaxWidthWrapper style={{ height: '100%' }}>
+      <LogoWrapper>
+        <Logo />
+      </LogoWrapper>
 
-        {isLoggedIn && (
-          <AddShowButtonWrapper>
-            <AddShowButton
-              color={COLORS.deepPurple.primary}
-              hoverColor={COLORS.blue.dark}
-              onClick={showAddShowModal}
-            />
-          </AddShowButtonWrapper>
-        )}
-      </MaxWidthWrapper>
-    </HeaderElem>
-  );
-};
+      {isLoggedIn && (
+        <UserInfo>
+          Logged in as {user.name}.
+          {' '}
+          <LogoutLink to="/logout">Logout</LogoutLink>
+        </UserInfo>
+      )}
+
+      {isLoggedIn && (
+        <AddShowButtonWrapper>
+          <AddShowButton
+            color={COLORS.deepPurple.primary}
+            hoverColor={COLORS.blue.dark}
+            onClick={showAddShowModal}
+          />
+        </AddShowButtonWrapper>
+      )}
+    </MaxWidthWrapper>
+  </HeaderElem>
+);
 
 const HeaderElem = styled.header`
   position: relative;
@@ -57,8 +64,23 @@ const AddShowButtonWrapper = styled.div`
   transform: translateY(50%);
 `;
 
+const UserInfo = styled.div`
+  position: absolute;
+  top: 0;
+  right: ${UNITS_IN_PX[2]};
+  line-height: ${UNITS_IN_PX[2]};
+  font-size: 13px;
+  color: ${COLORS.gray.veryLight};
+`;
+
+const LogoutLink = styled(Link)`
+  color: ${COLORS.white};
+  font-weight: bold;
+`;
+
 const mapStateToProps = state => ({
   isLoggedIn: getIsLoggedIn(state),
+  user: getUser(state),
 });
 
 export default connect(mapStateToProps, { showAddShowModal })(Header);

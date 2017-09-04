@@ -103,10 +103,7 @@ class BacklogRow extends Component {
               key={episode.id}
               showType={type}
               height={ROW_HEIGHT - UNIT}
-              season={episode.season}
-              number={episode.number}
-              name={episode.name}
-              airstamp={episode.airstamp}
+              episode={episode}
               handleClick={() => this.handleEpisodeClick(episode)}
             />
           ))}
