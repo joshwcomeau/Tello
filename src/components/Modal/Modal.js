@@ -24,9 +24,7 @@ export const Modal = ({ side, isVisible, handleClose, children }) => (
 
     <Backdrop isVisible={isVisible} onClick={handleClose} />
 
-    <Motion
-      style={{ x: getSpring(side, isVisible) }}
-    >
+    <Motion style={{ x: getSpring(side, isVisible) }}>
       {({ x }) => (
         <ModalElem
           side={side}

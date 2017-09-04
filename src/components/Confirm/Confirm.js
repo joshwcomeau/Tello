@@ -1,8 +1,9 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
+import { confirmable } from 'react-confirm';
 import { css } from 'emotion';
 import styled from 'emotion/react';
-import { Motion } from 'react-motion';
+import { Motion, spring } from 'react-motion';
 import PropTypes from 'prop-types';
 
 import { COLORS, Z_INDICES, UNITS_IN_PX, ROW_HEIGHT_PX } from '../../constants';
@@ -15,33 +16,53 @@ import ScrollDisabler from '../ScrollDisabler';
 const propTypes = {
   title: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
-  handleConfirm: PropTypes.func.isRequired,
-  handleCancel: PropTypes.func.isRequired,
-  isVisible: PropTypes.bool.isRequired,
+  // These props all come from react-confirm
+  show: PropTypes.bool,
+  proceed: PropTypes.func,
+  dismiss: PropTypes.func,
 };
 
-const Confirm = ({ title, children, handleConfirm, handleCancel, isVisible }) => (
+export const Confirm = ({
+  title,
+  children,
+  // Rename the `react-confirm` props to be more idiomatic with this codebase.
+  show: isVisible,
+  proceed: handleConfirm,
+  dismiss: handleDismiss,
+}) => (
   <ConfirmWrapper isVisible={isVisible}>
     {isVisible && <ScrollDisabler />}
 
-    <Backdrop isVisible={isVisible} onClick={handleCancel} />
+    <Backdrop isVisible={isVisible} onClick={handleDismiss} />
 
-    <ConfirmElem isVisible={isVisible}>
-      <Header>
-        <Heading>{title}</Heading>
+    <Motion
+      defaultStyle={{ visibleProgress: 0 }}
+      style={{ visibleProgress: spring(isVisible ? 1 : 0) }}
+    >
+      {({ visibleProgress }) => (
+        <ConfirmElem
+          style={{
+            opacity: visibleProgress,
+            transform: `translateY(${visibleProgress * -45}px)`,
+          }}
+        >
+          <Header>
+            <Heading>{title}</Heading>
 
-        {children}
-      </Header>
+            {children}
+          </Header>
 
-      <Actions>
-        <ConfirmButton onClick={handleConfirm}>
-          Confirm
-        </ConfirmButton>
-        <CancelButton onClick={handleCancel}>
-          Cancel
-        </CancelButton>
-      </Actions>
-    </ConfirmElem>
+          <Actions>
+            <CancelButton onClick={handleDismiss}>
+              Cancel
+            </CancelButton>
+            <ConfirmButton onClick={handleConfirm}>
+              Confirm
+            </ConfirmButton>
+          </Actions>
+        </ConfirmElem>
+      )}
+    </Motion>
   </ConfirmWrapper>
 );
 
@@ -88,17 +109,17 @@ const actionButtonCSS = css`
   transition: background-color 400ms;
 
   &:hover {
-    background-color: ${COLORS.gray.light};
+    background-color: ${COLORS.gray.veryLight};
   }
 `;
 
 const ConfirmButton = styled.button`
   ${actionButtonCSS};
-  border-right: 1px solid ${COLORS.gray.light};
 `;
 
 const CancelButton = styled.button`
   ${actionButtonCSS};
+  border-right: 1px solid ${COLORS.gray.light};
 `;
 
-export default Confirm;
+export default confirmable(Confirm);

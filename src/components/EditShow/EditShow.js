@@ -11,6 +11,7 @@ import { ShowProps } from '../../types';
 import Button from '../Button';
 import EditShowSeason from '../EditShowSeason';
 import Heading from '../Heading';
+import { confirm } from '../Confirm';
 
 
 class EditShow extends PureComponent {
@@ -27,6 +28,19 @@ class EditShow extends PureComponent {
     if (!show) {
       hideModal({ side: 'left' });
     }
+  }
+
+  handleDeleteClick = () => {
+    const { deleteShowRequest, show } = this.props;
+
+    confirm({
+      title: 'Are you sure?',
+      children: (
+        <span>
+          Deleting "{show.name}" means that you'll <strong>permanently lose</strong> the data about which episodes you've seen, even if you re-add the show.
+        </span>
+      ),
+    }).then(result => deleteShowRequest({ showId: show.id }))
   }
 
   render() {
@@ -58,7 +72,7 @@ class EditShow extends PureComponent {
           <Button
             color="red"
             disabled={attemptingDeletion}
-            onClick={() => deleteShowRequest({ showId: id })}
+            onClick={this.handleDeleteClick}
           >
             Delete "{name}"
           </Button>

@@ -8,7 +8,6 @@ import { userDataRequest, hideModal } from '../../actions';
 import { Z_INDICES, ROW_HEIGHT } from '../../constants';
 import { getIsLoggedIn } from '../../reducers/auth.reducer';
 
-import Confirm from '../Confirm';
 import FlashMessage from '../FlashMessage';
 import Header from '../Header';
 import MaxWidthWrapper from '../MaxWidthWrapper';
@@ -75,10 +74,6 @@ class App extends Component {
 
         <Modal side="left" handleClose={() => hideModal({ side: 'left' })} />
         <Modal side="right" handleClose={() => hideModal({ side: 'right' })} />
-
-        <Confirm isVisible title="Are you sure?">
-          Please be advised.
-        </Confirm>
 
         <Body>
           <Spacer size={ROW_HEIGHT} />

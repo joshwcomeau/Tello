@@ -57,6 +57,7 @@
     "promise": "8.0.1",
     "prop-types": "next",
     "react": "next",
+    "react-confirm": "^0.1.15",
     "react-dev-utils": "^3.1.0",
     "react-dom": "next",
     "react-error-overlay": "^1.0.10",
