@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'emotion/react';
 import format from 'date-fns/format';
+import isToday from 'date-fns/is_today';
 
 import { COLORS, HALF_UNIT_PX, UNITS_IN_PX } from '../../constants';
 
@@ -8,7 +9,11 @@ import Cell from '../Cell';
 
 
 const CalendarHeaderCell = ({ blank, date, row, col }) => (
-  <HeaderCell row={row} col={col}>
+  <HeaderCell
+    row={row}
+    col={col}
+    highlight={isToday(date)}
+  >
     {!blank && [
       <Weekday key={date}>{format(date, 'dddd')}</Weekday>,
       <CalendarDate key={date}>{format(date, 'MMM Do')}</CalendarDate>
@@ -20,6 +25,10 @@ const HeaderCell = styled(Cell)`
   position: relative;
   padding: ${HALF_UNIT_PX};
   border-bottom: 3px solid ${COLORS.gray.primary};
+  background: ${props => props.highlight
+    ? 'linear-gradient(to top, rgba(255,255,255,0.1), rgba(255,255,255,0))'
+    : 'transparent'
+  };
 
   &:before {
     content: '';

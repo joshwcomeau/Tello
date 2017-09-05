@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { css } from 'emotion';
 import styled from 'emotion/react';
 import differenceInDays from 'date-fns/difference_in_days';
+import addDays from 'date-fns/add_days';
+import isToday from 'date-fns/is_today';
 
 import { episodesRequest } from '../../actions';
 import { COLORS, UNIT, HALF_UNIT_PX, UNITS_IN_PX } from '../../constants';
@@ -44,9 +46,17 @@ class CalendarRow extends PureComponent {
 
       // Render out 7 empty cells, 1 for each day of the week.
       // Starting at 2 since our first column is the show name
-      [2, 3, 4, 5, 6, 7, 8].map(col => (
-        <CalendarCell row={row} col={col} />
-      )),
+      [2, 3, 4, 5, 6, 7, 8].map(col => {
+        const date = addDays(startDate, col - 2);
+
+        return (
+          <CalendarCell
+            highlight={isToday(date)}
+            row={row}
+            col={col}
+          />
+        );
+      }),
 
       episodes
         .filter(episode => (
@@ -81,6 +91,10 @@ const CalendarCell = styled(Cell)`
   border-right-width: ${props => props.col < 8 ? '0.5px' : 0};
   border-right-style: solid;
   border-right-color: ${COLORS.gray.dark};
+  background-color: ${props => props.highlight
+    ? 'rgba(255,255,255,0.1)' 
+    : 'transparent'
+  };
 `;
 
 
