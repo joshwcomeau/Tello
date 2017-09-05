@@ -6,7 +6,7 @@ import { COLORS, HALF_UNIT_PX, UNITS_IN_PX } from '../../constants';
 import getDomainColor from '../../helpers/domain-colors.helpers';
 import {
   getHumanizedEpisodeAirDate,
-  getEpisodeNumString
+  getEpisodeNumString,
 } from '../../helpers/show.helpers';
 import { EpisodeProps } from '../../types';
 

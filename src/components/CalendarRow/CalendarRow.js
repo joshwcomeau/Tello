@@ -5,9 +5,15 @@ import styled from 'emotion/react';
 import differenceInDays from 'date-fns/difference_in_days';
 
 import { episodesRequest } from '../../actions';
-import { COLORS, HALF_UNIT_PX, UNITS_IN_PX } from '../../constants';
+import { COLORS, UNIT, HALF_UNIT_PX, UNITS_IN_PX } from '../../constants';
+import getDomainColor from '../../helpers/domain-colors.helpers';
 import { isBetween } from '../../utils';
 
+import CalendarEpisode from '../CalendarEpisode';
+import Cell from '../Cell';
+
+
+const CALENDAR_ROW_HEIGHT = UNIT * 3.5;
 
 class CalendarRow extends PureComponent {
   componentDidMount() {
@@ -25,14 +31,22 @@ class CalendarRow extends PureComponent {
   }
 
   render() {
-    const { show, startDate, endDate, rowNum } = this.props;
+    const { show, startDate, endDate, row } = this.props;
+
+    const {baseColor, highlightColor} = getDomainColor(show.type);
 
     const episodes = show.episodes || [];
 
-    return ([
-      <ShowName key={show.name} row={rowNum} col={1}>
+    return [
+      <ShowName key={show.name} row={row} col={1}>
         {show.name}
       </ShowName>,
+
+      // Render out 7 empty cells, 1 for each day of the week.
+      // Starting at 2 since our first column is the show name
+      [2, 3, 4, 5, 6, 7, 8].map(col => (
+        <CalendarCell row={row} col={col} />
+      )),
 
       episodes
         .filter(episode => (
@@ -43,32 +57,38 @@ class CalendarRow extends PureComponent {
           const col = daysOffset + 1;
 
           return (
-            <EpisodeCell
+            <CalendarEpisode
               key={episode.id}
-              row={rowNum}
+              episode={episode}
+              row={row}
               col={col}
+              color1={baseColor}
+              color2={highlightColor}
+              height={CALENDAR_ROW_HEIGHT}
             >
               {episode.name}
-            </EpisodeCell>
+            </CalendarEpisode>
           )
         })
-    ])
+    ];
   }
 }
 
-const Cell = props => css`
-  grid-column-start: ${props.col};
-  grid-row-start: ${props.row};
+const CalendarCell = styled(Cell)`
+  height: ${CALENDAR_ROW_HEIGHT + 'px'};
+  padding: ${HALF_UNIT_PX};
+  border-bottom: 1px solid ${COLORS.gray.primary};
+  border-right-width: ${props => props.col < 8 ? '0.5px' : 0};
+  border-right-style: solid;
+  border-right-color: ${COLORS.gray.dark};
 `;
 
-const ShowName = styled.div`
-  ${Cell};
+
+const ShowName = styled(CalendarCell)`
   font-weight: bold;
+  border-right: 1px solid ${COLORS.gray.primary};
 `;
 
-const EpisodeCell = styled.div`
-  ${Cell};
-`
 
 
 export default connect(null, { episodesRequest })(CalendarRow);
