@@ -1,3 +1,6 @@
+import isBefore from 'date-fns/is_before';
+import isAfter from 'date-fns/is_after';
+
 export const range = n => Array(n).fill().map((_, i) => i);
 
 export const debounce = (callback, wait, context = this) => {
@@ -60,4 +63,8 @@ export const mergeUnique = (arr1, arr2) => (
   arr1.concat(arr2.filter(item => (
     arr1.indexOf(item) === -1
   )))
+);
+
+export const isBetween = ({ date, startDate, endDate }) => (
+  isAfter(date, startDate) && isBefore(date, endDate)
 );
