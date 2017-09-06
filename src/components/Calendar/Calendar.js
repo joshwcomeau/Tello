@@ -6,9 +6,10 @@ import addDays from 'date-fns/add_days';
 
 import { COLORS, HALF_UNIT_PX, UNITS_IN_PX } from '../../constants';
 
+import CalendarWeekPicker from '../CalendarWeekPicker';
 import CalendarRow from '../CalendarRow';
 import CalendarHeaderCell from '../CalendarHeaderCell';
-import CalendarWeekPicker from '../CalendarWeekPicker';
+import CalendarCornerCell from '../CalendarCornerCell';
 import Cell from '../Cell';
 
 
@@ -22,15 +23,13 @@ class Calendar extends PureComponent {
     const { shows } = this.props;
     const { startDate, endDate } = this.state;
 
-    console.log(startDate)
-
     return [
       <CalendarHeader key="header">
         <CalendarWeekPicker startDate={startDate} />
       </CalendarHeader>,
 
       <CalendarGrid key="grid">
-        <CalendarHeaderCell blank row={1} col={1} />
+        <CalendarCornerCell row={1} col={1} />
         <CalendarHeaderCell date={startDate} row={1} col={2} />
         <CalendarHeaderCell date={addDays(startDate, 1)} row={1} col={3} />
         <CalendarHeaderCell date={addDays(startDate, 2)} row={1} col={4} />
@@ -46,6 +45,7 @@ class Calendar extends PureComponent {
             row={index + 2 /* Account for zero-index + header row */}
             startDate={startDate}
             endDate={endDate}
+            isLastRow={index === shows.length - 1}
           />
         ))}
       </CalendarGrid>
@@ -62,7 +62,9 @@ const CalendarHeader = styled.div`
 
 const CalendarGrid = styled.div`
   display: grid;
-  grid-template-columns: 1.5fr repeat(7, 1fr) 0.35fr;
+  grid-template-columns: 1.5fr repeat(7, 1fr);
+  background: white;
+  padding: ${UNITS_IN_PX[1]}
 `;
 
 

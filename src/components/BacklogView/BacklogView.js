@@ -18,7 +18,7 @@ const propTypes = {
 }
 
 const BacklogView = ({ trackedShows }) => ([
-  <SortShows />,
+  <SortShows key="sorter" />,
 
   trackedShows.map(show => (
     <BacklogRow key={show.id} show={show} />

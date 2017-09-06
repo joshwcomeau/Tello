@@ -68,6 +68,10 @@ export const COLORS = {
   },
   white: '#FFFFFF',
   black: '#000000',
+  highlight: {
+    dark: 'rgba(0,0,0,0.06)',
+    light: 'rgba(255,255,255,0.15)',
+  },
 };
 
 export const Z_INDICES = {

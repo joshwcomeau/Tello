@@ -19,7 +19,7 @@ const propTypes = {
 };
 
 const SummaryView = ({ trackedShows }) => ([
-  <SortShows />,
+  <SortShows key="sorter" />,
 
   <Grid>
     {trackedShows.map(show => (

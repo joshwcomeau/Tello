@@ -5,11 +5,13 @@ import styled from 'emotion/react';
 import differenceInDays from 'date-fns/difference_in_days';
 import addDays from 'date-fns/add_days';
 import isToday from 'date-fns/is_today';
+import PropTypes from 'prop-types';
 
 import { episodesRequest } from '../../actions';
 import { COLORS, UNIT, HALF_UNIT_PX, UNITS_IN_PX } from '../../constants';
 import getDomainColor from '../../helpers/domain-colors.helpers';
 import { isBetween } from '../../utils';
+import { ShowProps } from '../../types';
 
 import CalendarEpisode from '../CalendarEpisode';
 import Cell from '../Cell';
@@ -18,6 +20,14 @@ import Cell from '../Cell';
 const CALENDAR_ROW_HEIGHT = UNIT * 3.5;
 
 class CalendarRow extends PureComponent {
+  static propTypes = {
+    show: ShowProps.isRequired,
+    row: PropTypes.number.isRequired,
+    startDate: PropTypes.string.isRequired,
+    endDate: PropTypes.string.isRequired,
+    isLastRow: PropTypes.bool.isRequired,
+  }
+
   componentDidMount() {
     const { show, episodesRequest } = this.props;
 
@@ -33,14 +43,19 @@ class CalendarRow extends PureComponent {
   }
 
   render() {
-    const { show, startDate, endDate, row } = this.props;
+    const { show, row, startDate, endDate, isLastRow } = this.props;
 
     const {baseColor, highlightColor} = getDomainColor(show.type);
 
     const episodes = show.episodes || [];
 
     return [
-      <ShowName key={show.name} row={row} col={1}>
+      <ShowName
+        key={show.name}
+        row={row}
+        col={1}
+        isLastRow={isLastRow}
+      >
         {show.name}
       </ShowName>,
 
@@ -53,6 +68,7 @@ class CalendarRow extends PureComponent {
           <CalendarCell
             key={col}
             highlight={isToday(date)}
+            isLastRow={isLastRow}
             row={row}
             col={col}
           />
@@ -87,19 +103,14 @@ class CalendarRow extends PureComponent {
 
 const CalendarCell = styled(Cell)`
   height: ${CALENDAR_ROW_HEIGHT + 'px'};
-  padding: ${HALF_UNIT_PX};
-  border-bottom: 1px solid ${COLORS.gray.dark};
-  border-bottom-width: 1px;
+  border-bottom-width: ${props => props.isLastRow ? 0 : '1px'};
   border-bottom-style: solid;
-  border-bottom-color: ${props => props.col === 1
-    ? COLORS.gray.primary
-    : COLORS.gray.dark
-  };
+  border-bottom-color: ${COLORS.gray.light};
   border-right-width: ${props => props.col < 8 ? '0.5px' : 0};
   border-right-style: solid;
-  border-right-color: ${COLORS.gray.dark};
+  border-right-color: ${COLORS.gray.light};
   background-color: ${props => props.highlight
-    ? 'rgba(255,255,255,0.06)'
+    ? COLORS.highlight.dark
     : 'transparent'
   };
 `;
@@ -107,7 +118,10 @@ const CalendarCell = styled(Cell)`
 
 const ShowName = styled(CalendarCell)`
   font-weight: bold;
-  border-right: 1px solid ${COLORS.gray.primary};
+  padding-top: ${HALF_UNIT_PX};
+  padding-right: ${HALF_UNIT_PX};
+  color: ${COLORS.gray.veryDark};
+  border-right-color: ${COLORS.gray.primary};
 `;
 
 

@@ -21,14 +21,15 @@ const CalendarHeaderCell = ({ blank, date, row, col }) => (
   </HeaderCell>
 );
 
+const getBackground = ({ highlight }) => highlight
+  ? `linear-gradient(to top, ${COLORS.highlight.dark}, rgba(0,0,0,0))`
+  : 'transparent'
+
 const HeaderCell = styled(Cell)`
   position: relative;
   padding: ${HALF_UNIT_PX};
   border-bottom: 3px solid ${COLORS.gray.primary};
-  background: ${props => props.highlight
-    ? 'linear-gradient(to top, rgba(255,255,255,0.06), rgba(255,255,255,0))'
-    : 'transparent'
-  };
+  background: ${getBackground};
 
   &:before {
     content: '';
@@ -39,21 +40,21 @@ const HeaderCell = styled(Cell)`
     bottom: 0;
     background: linear-gradient(
       to top,
-      ${COLORS.gray.dark},
-      ${COLORS.gray.veryDark}
+      ${COLORS.gray.light},
+      ${COLORS.white}
     );
   }
 `;
 
 const Weekday = styled.div`
   font-size: 12px;
-  color: ${COLORS.cyan.primary};
+  color: ${COLORS.purple.primary};
 `;
 
 const CalendarDate = styled.div`
   font-size: 14px;
   font-weight: bold;
-  color: ${COLORS.white};
+  color: ${COLORS.gray.veryDark};
 `;
 
 export default CalendarHeaderCell;

@@ -25,7 +25,7 @@ class CalendarView extends Component {
 }
 
 const Wrapper = styled.div`
-  margin-top: ${UNITS_IN_PX[5]};
+  margin-top: ${UNITS_IN_PX[3]};
 `
 
 const mapStateToProps = state => ({
