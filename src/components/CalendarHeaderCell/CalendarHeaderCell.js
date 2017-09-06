@@ -15,8 +15,8 @@ const CalendarHeaderCell = ({ blank, date, row, col }) => (
     highlight={isToday(date)}
   >
     {!blank && [
-      <Weekday key={date}>{format(date, 'dddd')}</Weekday>,
-      <CalendarDate key={date}>{format(date, 'MMM Do')}</CalendarDate>
+      <Weekday key="week">{format(date, 'dddd')}</Weekday>,
+      <CalendarDate key="date">{format(date, 'MMM Do')}</CalendarDate>
     ]}
   </HeaderCell>
 );
@@ -26,7 +26,7 @@ const HeaderCell = styled(Cell)`
   padding: ${HALF_UNIT_PX};
   border-bottom: 3px solid ${COLORS.gray.primary};
   background: ${props => props.highlight
-    ? 'linear-gradient(to top, rgba(255,255,255,0.1), rgba(255,255,255,0))'
+    ? 'linear-gradient(to top, rgba(255,255,255,0.06), rgba(255,255,255,0))'
     : 'transparent'
   };
 

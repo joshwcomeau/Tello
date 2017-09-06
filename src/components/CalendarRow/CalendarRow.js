@@ -51,6 +51,7 @@ class CalendarRow extends PureComponent {
 
         return (
           <CalendarCell
+            key={col}
             highlight={isToday(date)}
             row={row}
             col={col}
@@ -87,12 +88,18 @@ class CalendarRow extends PureComponent {
 const CalendarCell = styled(Cell)`
   height: ${CALENDAR_ROW_HEIGHT + 'px'};
   padding: ${HALF_UNIT_PX};
-  border-bottom: 1px solid ${COLORS.gray.primary};
+  border-bottom: 1px solid ${COLORS.gray.dark};
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: ${props => props.col === 1
+    ? COLORS.gray.primary
+    : COLORS.gray.dark
+  };
   border-right-width: ${props => props.col < 8 ? '0.5px' : 0};
   border-right-style: solid;
   border-right-color: ${COLORS.gray.dark};
   background-color: ${props => props.highlight
-    ? 'rgba(255,255,255,0.1)' 
+    ? 'rgba(255,255,255,0.06)'
     : 'transparent'
   };
 `;

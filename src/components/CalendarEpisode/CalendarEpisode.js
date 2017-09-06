@@ -1,4 +1,5 @@
 import React from 'react';
+import { keyframes } from 'emotion'
 import styled from 'emotion/react';
 
 import { COLORS, UNIT, HALF_UNIT_PX, UNITS_IN_PX } from '../../constants';
@@ -22,25 +23,37 @@ const CalendarEpisode = ({ episode, row, col, color1, color2, margin, height }) 
 );
 
 
+const slide = keyframes`
+  from {
+    transform: translateX(6px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+`;
+
 const EpisodeCell = styled(Cell)`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding: ${HALF_UNIT_PX};
-  height: ${props => props.height - 3 + 'px'};
-  margin-top: 1px;
-  margin-left: 1px;
-  margin-right: 2px;
+  height: ${props => props.height - 5 + 'px'};
+  margin-top: 2px;
+  margin-left: 2px;
+  margin-right: 3px;
   color: ${COLORS.white};
   background: linear-gradient(
     ${props => props.color1},
     ${props => props.color2}
   );
-  border: 1px solid ${COLORS.gray.veryDark};
+  animation: ${slide} 600ms ease-out;
 `;
 
 const Name = styled.div`
-  font-size: 14px;
+  font-size: 12px;
   font-weight: bold;
   max-width: 100%;
   overflow: hidden;
@@ -49,7 +62,7 @@ const Name = styled.div`
 `;
 
 const NumString = styled.div`
-  font-size: 12px;
+  font-size: 11px;
   opacity: 0.75;
 `;
 
