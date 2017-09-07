@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled from 'emotion/react';
 import PropTypes from 'prop-types';
+import addWeeks from 'date-fns/add_weeks';
 
 import { getTrackedShowsArray } from '../../reducers/tracked-shows.reducer';
 import { ShowProps } from '../../types';
@@ -18,7 +19,7 @@ class CalendarView extends Component {
   render() {
     return [
       <CalendarHeader key="header">
-        <CalendarWeekPicker />
+        <CalendarWeekPicker maxDate={addWeeks(new Date(), 2)} />
       </CalendarHeader>,
 
       <Calendar key="calendar" shows={this.props.trackedShows} />

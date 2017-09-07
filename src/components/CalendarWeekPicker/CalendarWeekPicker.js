@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'emotion/react';
 import format from 'date-fns/format';
+import isAfter from 'date-fns/is_after';
 import PropTypes from 'prop-types';
 import ChevronLeft from 'react-icons/lib/md/chevron-left';
 import ChevronRight from 'react-icons/lib/md/chevron-right';
@@ -11,8 +12,9 @@ import { COLORS, UNITS_IN_PX } from '../../constants';
 
 
 const propTypes = {
-  startDate: PropTypes.string.isRequired,
-  maxDate: PropTypes.string.isRequired,
+  startDate: PropTypes.instanceOf(Date).isRequired,
+  endDate: PropTypes.instanceOf(Date).isRequired,
+  maxDate: PropTypes.instanceOf(Date).isRequired,
   incrementWeek: PropTypes.func.isRequired,
   decrementWeek: PropTypes.func.isRequired,
 }
@@ -37,7 +39,10 @@ const CalendarWeekPicker = ({
       </CurrentWeek>
     </span>
 
-    <ToggleButton onClick={() => incrementWeek({ startDate, endDate })}>
+    <ToggleButton
+      onClick={() => incrementWeek({ startDate, endDate })}
+      disabled={isAfter(endDate, maxDate)}
+    >
       <ChevronRight />
     </ToggleButton>
   </Wrapper>
@@ -71,6 +76,11 @@ const ToggleButton = styled.button`
       rgba(255,255,255,0.06),
       rgba(255,255,255,0.12)
     );
+  }
+
+  &:disabled {
+    opacity: 0;
+    cursor: default;
   }
 `
 

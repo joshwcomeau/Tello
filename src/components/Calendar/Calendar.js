@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import styled from 'emotion/react';
+import FlipMove from 'react-flip-move';
 import addDays from 'date-fns/add_days';
 import PropTypes from 'prop-types';
 
@@ -37,6 +38,7 @@ class Calendar extends PureComponent {
 
         {shows.map((show, index) => (
           <CalendarRow
+            key={show.id}
             show={show}
             row={index + 2 /* Account for zero-index + header row */}
             startDate={startDate}

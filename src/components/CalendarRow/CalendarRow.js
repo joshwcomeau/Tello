@@ -22,8 +22,8 @@ class CalendarRow extends PureComponent {
   static propTypes = {
     show: ShowProps.isRequired,
     row: PropTypes.number.isRequired,
-    startDate: PropTypes.string.isRequired,
-    endDate: PropTypes.string.isRequired,
+    startDate: PropTypes.instanceOf(Date).isRequired,
+    endDate: PropTypes.instanceOf(Date).isRequired,
     isLastRow: PropTypes.bool.isRequired,
   }
 
