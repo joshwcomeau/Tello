@@ -8,6 +8,7 @@ import { getTrackedShowsArray } from '../../reducers/tracked-shows.reducer';
 import { ShowProps } from '../../types';
 
 import Calendar from '../Calendar';
+import CalendarWeekPicker from '../CalendarWeekPicker';
 
 
 class CalendarView extends Component {
@@ -16,17 +17,20 @@ class CalendarView extends Component {
   }
 
   render() {
-    return (
-      <Wrapper>
-        <Calendar shows={this.props.trackedShows} />
-      </Wrapper>
-    );
+    return [
+      <CalendarHeader key="header">
+        <CalendarWeekPicker />
+      </CalendarHeader>,
+
+      <Calendar key="calendar" shows={this.props.trackedShows} />
+    ];
   }
 }
 
-const Wrapper = styled.div`
-  margin-top: ${UNITS_IN_PX[3]};
-`
+const CalendarHeader = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
 
 const mapStateToProps = state => ({
   trackedShows: getTrackedShowsArray(state),

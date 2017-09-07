@@ -1,3 +1,5 @@
+import addWeeks from 'date-fns/add_weeks'
+
 import { MODAL_IDS } from '../constants';
 
 
@@ -24,6 +26,7 @@ export const EPISODES_RECEIVE = 'EPISODES_RECEIVE';
 export const EPISODES_FAILURE = 'EPISODES_FAILURE';
 export const HIDE_FLASH_MESSAGE = 'HIDE_FLASH_MESSAGE';
 export const CHANGE_SORTING = 'CHANGE_SORTING';
+export const UPDATE_CALENDAR_WEEK = 'UPDATE_CALENDAR_WEEK';
 
 
 export const addShowsRequest = ({ shows }) => ({
@@ -169,4 +172,22 @@ export const hideFlashMessage = () => ({
 export const changeSorting = ({ sorting }) => ({
   type: CHANGE_SORTING,
   sorting,
+});
+
+export const updateCalendarWeek = ({ startDate, endDate }) => ({
+  type: UPDATE_CALENDAR_WEEK,
+  startDate,
+  endDate,
+});
+
+export const incrementWeek = ({ startDate, endDate }) => ({
+  type: UPDATE_CALENDAR_WEEK,
+  startDate: addWeeks(startDate, 1),
+  endDate: addWeeks(endDate, 1),
+});
+
+export const decrementWeek = ({ startDate, endDate }) => ({
+  type: UPDATE_CALENDAR_WEEK,
+  startDate: addWeeks(startDate, -1),
+  endDate: addWeeks(endDate, -1),
 });

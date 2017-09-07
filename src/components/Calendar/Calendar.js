@@ -1,12 +1,12 @@
 import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
 import styled from 'emotion/react';
-import startOfWeek from 'date-fns/start_of_week';
-import endOfWeek from 'date-fns/end_of_week';
 import addDays from 'date-fns/add_days';
+import PropTypes from 'prop-types';
 
 import { COLORS, HALF_UNIT_PX, UNITS_IN_PX } from '../../constants';
+import { ShowProps } from '../../types';
 
-import CalendarWeekPicker from '../CalendarWeekPicker';
 import CalendarRow from '../CalendarRow';
 import CalendarHeaderCell from '../CalendarHeaderCell';
 import CalendarCornerCell from '../CalendarCornerCell';
@@ -14,21 +14,17 @@ import Cell from '../Cell';
 
 
 class Calendar extends PureComponent {
-  state = {
-    startDate: startOfWeek(new Date()),
-    endDate: endOfWeek(new Date()),
+  static PropTypes = {
+    shows: PropTypes.arrayOf(ShowProps),
+    startDate: PropTypes.string.isRequired,
+    endDate: PropTypes.string.isRequired,
   }
 
   render() {
-    const { shows } = this.props;
-    const { startDate, endDate } = this.state;
+    const { shows, startDate, endDate } = this.props;
 
-    return [
-      <CalendarHeader key="header">
-        <CalendarWeekPicker startDate={startDate} />
-      </CalendarHeader>,
-
-      <CalendarGrid key="grid">
+    return (
+      <CalendarGrid>
         <CalendarCornerCell row={1} col={1} />
         <CalendarHeaderCell date={startDate} row={1} col={2} />
         <CalendarHeaderCell date={addDays(startDate, 1)} row={1} col={3} />
@@ -49,16 +45,9 @@ class Calendar extends PureComponent {
           />
         ))}
       </CalendarGrid>
-    ];
+    );
   }
 }
-
-const CalendarHeader = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  margin-top: ${UNITS_IN_PX[1]};
-  margin-bottom: ${UNITS_IN_PX[1]};
-`;
 
 const CalendarGrid = styled.div`
   display: grid;
@@ -67,5 +56,9 @@ const CalendarGrid = styled.div`
   padding: ${UNITS_IN_PX[1]}
 `;
 
+const mapStateToProps = state => ({
+  startDate: state.calendar.startDate,
+  endDate: state.calendar.endDate,
+});
 
-export default Calendar;
+export default connect(mapStateToProps)(Calendar);

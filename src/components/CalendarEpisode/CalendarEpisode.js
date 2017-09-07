@@ -25,12 +25,10 @@ const CalendarEpisode = ({ episode, row, col, color1, color2, margin, height }) 
 
 const slide = keyframes`
   from {
-    transform: translateX(6px);
     opacity: 0;
   }
 
   to {
-    transform: translateX(0);
     opacity: 1;
   }
 `;

@@ -40,6 +40,7 @@ export const COLORS = {
     dark: '#5000bf',
   },
   blue: {
+    light: '#448AFF',
     primary: '#2979FF',
     dark: '#2962FF',
   },

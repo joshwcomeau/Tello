@@ -4,6 +4,8 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory'
 import Cookies from 'cookies-js';
+import startOfWeek from 'date-fns/start_of_week';
+import endOfWeek from 'date-fns/end_of_week';
 
 import configureStore from './store';
 import { AUTH_TOKEN_KEY } from './constants';
@@ -20,6 +22,10 @@ const history = createHistory();
 const initialState = {
   auth: {
     token: Cookies.get(AUTH_TOKEN_KEY),
+  },
+  calendar: {
+    startDate: startOfWeek(new Date()),
+    endDate: endOfWeek(new Date()),
   },
 }
 

@@ -25,6 +25,7 @@ const SortShows = ({ selectedOption, changeSorting }) => (
 const Header = styled.header`
   display: flex;
   justify-content: flex-end;
+  height: ${UNITS_IN_PX[4]};
   padding-top: ${UNITS_IN_PX[1]};
   padding-bottom: ${UNITS_IN_PX[1]};
 `;

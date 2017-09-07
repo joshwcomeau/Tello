@@ -62,6 +62,7 @@
     "react-dom": "next",
     "react-error-overlay": "^1.0.10",
     "react-flip-move": "2.9.15",
+    "react-icons": "^2.2.5",
     "react-motion": "^0.5.1",
     "react-redux": "^5.0.6",
     "react-router": "^4.1.2",
