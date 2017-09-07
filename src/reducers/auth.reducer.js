@@ -1,14 +1,6 @@
 import { combineReducers } from 'redux';
-import { createSelector } from 'reselect';
-import update from 'immutability-helper';
 
 import {
-  EPISODES_RECEIVE,
-  START_TRACKING_NEW_SHOWS,
-  REMOVE_SHOW,
-  TOGGLE_EPISODE,
-  MARK_EPISODE_AS_SEEN,
-  MARK_EPISODE_AS_UNSEEN,
   USER_DATA_RECEIVE,
   USER_DATA_REQUEST,
   USER_DATA_FAILURE,

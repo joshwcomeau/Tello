@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'emotion/react';
 
 const Cell = styled.div`

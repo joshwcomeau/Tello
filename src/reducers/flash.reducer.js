@@ -1,12 +1,9 @@
-import { createSelector } from 'reselect';
-
 import {
   markEpisodeAsUnseen,
   HIDE_FLASH_MESSAGE,
   ADD_SHOWS_RECEIVE,
   ADD_SHOWS_FAILURE,
   MARK_EPISODE_AS_SEEN,
-  DELETE_SHOW_RECEIVE,
   DELETE_SHOW_FAILURE,
 } from '../actions';
 
@@ -23,8 +20,6 @@ import {
 const initialState = null;
 
 export default function reducer(state = initialState, action) {
-  const { type, ...data } = action;
-
   switch (action.type) {
     case HIDE_FLASH_MESSAGE: {
       return null;

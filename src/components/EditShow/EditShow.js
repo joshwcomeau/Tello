@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import styled from 'emotion/react';
 
 import { deleteShowRequest, markSeasonAsSeen, hideModal } from '../../actions';
-import { COLORS, UNITS_IN_PX, HALF_UNIT_PX } from '../../constants';
+import { UNITS_IN_PX, HALF_UNIT_PX } from '../../constants';
 import {
   getTrackedShowsArrayWithSeasons,
 } from '../../reducers/tracked-shows.reducer';
@@ -65,10 +65,7 @@ class EditShow extends PureComponent {
 
   renderDeleteSection() {
     const { attemptingDeletion } = this.state;
-    const {
-      show: { name },
-      deleteShowRequest,
-    } = this.props;
+    const { show: { name } } = this.props;
 
     return (
       <DeleteSection>

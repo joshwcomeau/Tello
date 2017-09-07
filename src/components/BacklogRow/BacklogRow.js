@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import styled from 'emotion/react';
 import FlipMove from 'react-flip-move';
 
@@ -77,7 +76,7 @@ class BacklogRow extends Component {
 
   renderEpisodes() {
     const {
-      show: { id, type, episodes },
+      show: { type, episodes },
     } = this.props;
 
     if (!episodes) {

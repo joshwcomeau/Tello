@@ -1,4 +1,3 @@
-import { combineReducers } from 'redux';
 import { createSelector } from 'reselect';
 import update from 'immutability-helper';
 import isFuture from 'date-fns/is_future';
@@ -13,11 +12,7 @@ import {
   MARK_EPISODE_AS_UNSEEN,
   MARK_SEASON_AS_SEEN,
   USER_DATA_RECEIVE,
-  USER_DATA_REQUEST,
-  USER_DATA_FAILURE,
-  DELETE_SHOW_REQUEST,
   DELETE_SHOW_RECEIVE,
-  DELETE_SHOW_FAILURE,
 } from '../actions';
 import { convertArrayToMap, toggleInArray, mergeUnique } from '../utils';
 

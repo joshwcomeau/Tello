@@ -9,8 +9,6 @@ import ChevronRight from 'react-icons/lib/md/chevron-right';
 import { incrementWeek, decrementWeek } from '../../actions';
 import { COLORS, UNITS_IN_PX } from '../../constants';
 
-import Button from '../Button';
-
 
 const propTypes = {
   startDate: PropTypes.string.isRequired,
@@ -86,7 +84,9 @@ const CurrentWeek = styled.span`
   display: inline-block;
   font-size: 16px;
   font-weight: bold;
-`
+`;
+
+CalendarWeekPicker.propTypes = propTypes;
 
 const mapStateToProps = state => ({
   startDate: state.calendar.startDate,

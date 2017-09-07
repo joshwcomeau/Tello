@@ -12,6 +12,8 @@ export const sortShows = ({ shows, sorting }) => (
     if (sorting === SORT_OPTIONS.chrono) {
       return show1.createdAt > show2.createdAt ? -1 : 1;
     }
+
+    throw new Error('Unrecognized sorting!')
   })
 );
 

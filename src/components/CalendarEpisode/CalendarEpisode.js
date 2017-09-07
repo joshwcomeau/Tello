@@ -2,7 +2,7 @@ import React from 'react';
 import { keyframes } from 'emotion'
 import styled from 'emotion/react';
 
-import { COLORS, UNIT, HALF_UNIT_PX, UNITS_IN_PX } from '../../constants';
+import { COLORS, HALF_UNIT_PX } from '../../constants';
 import { getEpisodeNumString } from '../../helpers/show.helpers';
 
 import Cell from '../Cell';

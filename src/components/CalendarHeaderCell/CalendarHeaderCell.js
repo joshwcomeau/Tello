@@ -3,7 +3,7 @@ import styled from 'emotion/react';
 import format from 'date-fns/format';
 import isToday from 'date-fns/is_today';
 
-import { COLORS, HALF_UNIT_PX, UNITS_IN_PX } from '../../constants';
+import { COLORS, HALF_UNIT_PX } from '../../constants';
 
 import Cell from '../Cell';
 

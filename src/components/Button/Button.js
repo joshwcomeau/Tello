@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'emotion/react';
-import { css } from 'emotion';
 
 import { ROW_HEIGHT_PX, UNITS_IN_PX, COLORS } from '../../constants';
 

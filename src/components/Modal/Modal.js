@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'emotion/react';
 import { Motion } from 'react-motion';

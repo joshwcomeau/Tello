@@ -1,5 +1,4 @@
-import React, { PureComponent } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
 import { confirmable } from 'react-confirm';
 import { css } from 'emotion';
 import styled from 'emotion/react';
@@ -122,5 +121,7 @@ const CancelButton = styled.button`
   ${actionButtonCSS};
   border-right: 1px solid ${COLORS.gray.light};
 `;
+
+Confirm.propTypes = propTypes;
 
 export default confirmable(Confirm);

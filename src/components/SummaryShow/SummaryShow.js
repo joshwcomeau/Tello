@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import styled from 'emotion/react';
 
 import {
@@ -15,10 +14,7 @@ import { ShowProps } from '../../types';
 
 import Button from '../Button';
 import EpisodeGrid from '../EpisodeGrid';
-import Heading from '../Heading';
-import Scrollable from '../Scrollable';
 import ShowStatus from '../ShowStatus';
-import Tag from '../Tag';
 
 
 class SummaryShow extends Component {
@@ -56,7 +52,7 @@ class SummaryShow extends Component {
 
   render() {
     const {
-      show: { id, name, image, type, seasons, status, summary },
+      show: { name, image, seasons, status, summary },
     } = this.props;
 
     return (
@@ -110,12 +106,6 @@ const ImageHeader = styled.header`
   background-position: center center;
 `;
 
-const TagWrapper = styled.div`
-  position: absolute;
-  right: ${UNITS_IN_PX[1]};
-  top: ${UNITS_IN_PX[1]};
-`;
-
 const ShowName = styled.h3`
   font-size: 28px;
   letter-spacing: -1px;
@@ -133,16 +123,6 @@ const Body = styled.div`
 const Summary = styled.div`
   margin-top: ${HALF_UNIT_PX};
   font-size: 14px;
-`;
-
-const Flex = styled.div`
-  flex: 1;
-`;
-
-const EpisodeGridWrapper = styled.div`
-  position: relative;
-  z-index: 2;
-  background: ${COLORS.white};
 `;
 
 const Actions = styled.div`

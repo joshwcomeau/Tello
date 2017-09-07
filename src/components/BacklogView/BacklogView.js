@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -9,7 +9,6 @@ import { ShowProps } from '../../types';
 import { sortShows } from '../../helpers/show.helpers';
 
 import BacklogRow from '../BacklogRow';
-import Heading from '../Heading';
 import SortShows from '../SortShows';
 
 
@@ -24,6 +23,8 @@ const BacklogView = ({ trackedShows }) => ([
     <BacklogRow key={show.id} show={show} />
   ))
 ]);
+
+BacklogView.propTypes = propTypes;
 
 const mapStateToProps = state => ({
   trackedShows: sortShows({

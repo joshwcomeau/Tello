@@ -4,7 +4,7 @@ import styled from 'emotion/react';
 import addDays from 'date-fns/add_days';
 import PropTypes from 'prop-types';
 
-import { COLORS, HALF_UNIT_PX, UNITS_IN_PX } from '../../constants';
+import { UNITS_IN_PX } from '../../constants';
 import { ShowProps } from '../../types';
 
 import CalendarRow from '../CalendarRow';

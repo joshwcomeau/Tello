@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import { css } from 'emotion';
 import styled from 'emotion/react';
 import differenceInDays from 'date-fns/difference_in_days';
 import addDays from 'date-fns/add_days';
@@ -8,7 +7,7 @@ import isToday from 'date-fns/is_today';
 import PropTypes from 'prop-types';
 
 import { episodesRequest } from '../../actions';
-import { COLORS, UNIT, HALF_UNIT_PX, UNITS_IN_PX } from '../../constants';
+import { COLORS, UNIT, HALF_UNIT_PX } from '../../constants';
 import getDomainColor from '../../helpers/domain-colors.helpers';
 import { isBetween } from '../../utils';
 import { ShowProps } from '../../types';

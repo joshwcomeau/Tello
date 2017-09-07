@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import styled from 'emotion/react';
-import FlipMove from 'react-flip-move';
 import PropTypes from 'prop-types';
 
 import {
@@ -84,7 +82,6 @@ class FlashMessage extends Component {
       messageType,
       action,
       actionLabel,
-      hideFlashMessage
     } = this.props;
 
     return (
@@ -129,10 +126,6 @@ const Wrapper = styled.div`
   font-size: 15px;
   box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
   padding: 0 ${UNITS_IN_PX[2]};
-`;
-
-const Message = styled.div`
-  flex: 1;
 `;
 
 const Dismiss = styled.button`

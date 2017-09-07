@@ -6,7 +6,7 @@ import {
   getHumanizedEpisodeAirDate,
   getEpisodeNumString
 } from '../../helpers/show.helpers';
-import { debounce, isEmpty } from '../../utils';
+import { isEmpty } from '../../utils';
 
 import Clearfix from '../Clearfix';
 import EpisodeDot from '../EpisodeDot';
@@ -54,11 +54,9 @@ class EpisodeGrid extends PureComponent {
       return null;
     }
 
-    const { name, number, season } = highlightedEpisode;
-
     return (
       <HighlightedEpisode isVisible={isHighlighted}>
-        <EpisodeName>{name}</EpisodeName>
+        <EpisodeName>{highlightedEpisode.name}</EpisodeName>
         <EpisodeDetails>
           {getEpisodeNumString(highlightedEpisode)}
           &nbsp;-&nbsp;
@@ -123,12 +121,6 @@ const Season = styled(Clearfix)`
   &:last-of-type {
     margin-bottom: 0;
   }
-`;
-
-const SeasonTitle = styled.h5`
-  font-size: 12px;
-  font-weight: bold;
-  color: ${COLORS.gray.primary};
 `;
 
 const EpisodeOverflowGradient = styled.div`

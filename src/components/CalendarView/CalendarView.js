@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import styled from 'emotion/react';
 import PropTypes from 'prop-types';
 
-import { UNITS_IN_PX } from '../../constants';
 import { getTrackedShowsArray } from '../../reducers/tracked-shows.reducer';
 import { ShowProps } from '../../types';
 

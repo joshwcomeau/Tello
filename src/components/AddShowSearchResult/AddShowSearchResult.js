@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 import styled from 'emotion/react';
 import PropTypes from 'prop-types';
 
-import { COLORS, UNITS_IN_PX, HALF_UNIT_PX } from '../../constants';
+import { UNITS_IN_PX, HALF_UNIT_PX } from '../../constants';
 import { ShowProps } from '../../types';
 
 import Checkbox from '../Checkbox';
-import Heading from '../Heading';
 import Subheading from '../Subheading';
 import ShowStatus from '../ShowStatus';
 
