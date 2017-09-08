@@ -1,6 +1,11 @@
 import styled from 'emotion/react';
 
-import { BREAKPOINTS, UNITS_IN_PX, MAX_WIDTH } from '../../constants';
+import {
+  BREAKPOINTS,
+  BREAKPOINT_SIZES,
+  UNITS_IN_PX,
+  MAX_WIDTH
+} from '../../constants';
 
 
 export default styled.div`
@@ -13,10 +18,10 @@ export default styled.div`
   padding-right: ${UNITS_IN_PX[2]};
 
   @media ${BREAKPOINTS.sm} {
-    max-width: ${MAX_WIDTH.sm}
+    max-width: 100%;
   }
 
-  @media ${BREAKPOINTS.md} {
-    max-width: ${MAX_WIDTH.md}
+  @media ${BREAKPOINTS.lg} {
+    max-width: ${BREAKPOINT_SIZES.md + 'px'};
   }
 `;

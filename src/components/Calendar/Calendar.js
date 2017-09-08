@@ -5,7 +5,7 @@ import FlipMove from 'react-flip-move';
 import addDays from 'date-fns/add_days';
 import PropTypes from 'prop-types';
 
-import { UNITS_IN_PX } from '../../constants';
+import { HALF_UNIT_PX } from '../../constants';
 import { ShowProps } from '../../types';
 
 import CalendarRow from '../CalendarRow';
@@ -55,7 +55,7 @@ const CalendarGrid = styled.div`
   display: grid;
   grid-template-columns: 1.5fr repeat(7, 1fr);
   background: white;
-  padding: ${UNITS_IN_PX[1]}
+  padding: ${HALF_UNIT_PX};
 `;
 
 const mapStateToProps = state => ({

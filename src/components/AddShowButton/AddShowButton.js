@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'emotion/react';
+import AddIcon from 'react-icons/lib/md/add';
 
 import {
+  ROW_HEIGHT,
   ROW_HEIGHT_PX,
   COLORS
 } from '../../constants';
@@ -24,7 +26,7 @@ const ButtonElem = styled.button`
   font-size: 96px;
   width: ${ROW_HEIGHT_PX};
   height: ${ROW_HEIGHT_PX};
-  line-height: ${ROW_HEIGHT_PX};
+  line-height: ${ROW_HEIGHT - 2 + 'px'};
   border: none;
   border-radius: 0;
   color: ${COLORS.white};

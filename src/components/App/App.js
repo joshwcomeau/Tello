@@ -14,6 +14,7 @@ import MaxWidthWrapper from '../MaxWidthWrapper';
 import Modal from '../Modal';
 import NavigationHeadings from '../NavigationHeadings';
 import Spacer from '../Spacer';
+import HideOn from '../HideOn';
 
 import BacklogView from '../BacklogView';
 import CalendarView from '../CalendarView';
@@ -41,8 +42,8 @@ class App extends Component {
   renderLoggedInRoutes() {
     const activeSection = this.props.location.pathname.replace(/^\//, '');
 
-    return (
-      <div>
+    return [
+      <HideOn mobile key="desktop">
         <NavigationHeadings activeSection={activeSection} />
 
         <Switch>
@@ -52,8 +53,16 @@ class App extends Component {
           <Redirect from="/login" to="/summary" />
           <Redirect from="/" to="/summary" />
         </Switch>
-      </div>
-    )
+      </HideOn>,
+
+      <HideOn desktop key="mobile">
+        <Switch>
+          <Route path="/mobile" component={SummaryView} />
+          <Redirect from="/login" to="/mobile" />
+          <Redirect from="/" to="/mobile" />
+        </Switch>
+      </HideOn>,
+    ];
   }
 
   renderLoggedOutRoutes() {

@@ -48,7 +48,7 @@ const HeadingLink = styled(Link)`
   text-decoration: none;
   margin-right: ${UNITS_IN_PX[2]};
   opacity: ${props => props['data-active'] ? 1 : 0.4};
-  transition: opacity ${props => props['data-active'] ? '750ms' : '250ms'};
+  transition: ${props => props['data-active'] ? '750ms' : '250ms'};
 `;
 
 const NavigationHeading = styled(Heading)`

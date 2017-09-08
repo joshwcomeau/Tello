@@ -84,9 +84,9 @@ export const Z_INDICES = {
 // Media queries
 export const BREAKPOINT_SIZES = {
   xs: 320,
-  sm: 750,
-  md: 1100,
-  lg: 1600,
+  sm: 540,
+  md: 900,
+  lg: 1100,
 };
 export const BREAKPOINTS = {
   xs: `(max-width: ${BREAKPOINT_SIZES.xs}px)`,

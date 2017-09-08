@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import {
   getAiredTrackedShowsArrayWithSeasons
 } from '../../reducers/tracked-shows.reducer';
-import { UNITS_IN_PX } from '../../constants';
+import { UNITS_IN_PX, BREAKPOINTS } from '../../constants';
 import { ShowProps } from '../../types';
 import { sortShows } from '../../helpers/show.helpers';
 
@@ -33,6 +33,14 @@ const Grid = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: ${UNITS_IN_PX[1]};
+
+  @media ${BREAKPOINTS.md} {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media ${BREAKPOINTS.sm} {
+    grid-template-columns: 1fr;
+  }
 `
 
 const mapStateToProps = state => ({

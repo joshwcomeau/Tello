@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import styled from 'emotion/react';
 
 import { showAddShowModal } from '../../actions';
-import { COLORS, UNITS_IN_PX, UNIT } from '../../constants';
+import { BREAKPOINTS, COLORS, UNITS_IN_PX, UNIT } from '../../constants';
 import { getIsLoggedIn, getUser } from '../../reducers/auth.reducer';
 
 import AddShowButton from '../AddShowButton';
@@ -55,6 +55,12 @@ const LogoWrapper = styled.div`
   bottom: 0;
   margin-top: auto;
   margin-bottom: auto;
+
+  @media ${BREAKPOINTS.sm} {
+    left: 0;
+    right: 0;
+    text-align: center;
+  }
 `;
 
 const AddShowButtonWrapper = styled.div`
@@ -62,6 +68,13 @@ const AddShowButtonWrapper = styled.div`
   right: ${UNITS_IN_PX[2]};
   bottom: 0;
   transform: translateY(50%);
+
+  @media ${BREAKPOINTS.sm} {
+    position: fixed;
+    right: ${UNITS_IN_PX[1]};
+    bottom: ${UNITS_IN_PX[1]};
+    transform: translateY(0);
+  }
 `;
 
 const UserInfo = styled.div`
