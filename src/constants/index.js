@@ -112,6 +112,5 @@ export const MAX_WIDTH = {
   base: '1110px',
 };
 
-export const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(
-  navigator.userAgent
-);
+const mobileRegex = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i;
+export const isMobileUserAgent = mobileRegex.test(navigator.userAgent);

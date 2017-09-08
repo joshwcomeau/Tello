@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 
 import { userDataRequest, hideModal } from '../../actions';
 import { Z_INDICES, ROW_HEIGHT } from '../../constants';
+import { isMobile } from '../../helpers/responsive.helpers';
 import { getToken, getIsLoggedIn } from '../../reducers/auth.reducer';
 
 import FlashMessage from '../FlashMessage';
@@ -14,7 +15,7 @@ import MaxWidthWrapper from '../MaxWidthWrapper';
 import Modal from '../Modal';
 import NavigationHeadings from '../NavigationHeadings';
 import Spacer from '../Spacer';
-import HideOn from '../HideOn';
+import MediaQuery from '../MediaQuery';
 
 import BacklogView from '../BacklogView';
 import CalendarView from '../CalendarView';
@@ -39,66 +40,77 @@ class App extends Component {
     }
   }
 
-  renderLoggedInRoutes() {
+  renderMobileRoutes() {
+    return (
+      <Switch>
+        <Route path="/mobile" component={SummaryView} />
+        <Redirect from="/login" to="/mobile" />
+        <Redirect from="/" to="/mobile" />
+      </Switch>
+    );
+  }
+
+  renderDesktopRoutes() {
     const activeSection = this.props.location.pathname.replace(/^\//, '');
 
     return [
-      <HideOn mobile key="desktop">
-        <NavigationHeadings activeSection={activeSection} />
+      <NavigationHeadings key="nav" activeSection={activeSection} />,
 
-        <Switch>
-          <Route path="/summary" component={SummaryView} />
-          <Route path="/backlog" component={BacklogView} />
-          <Route path="/calendar" component={CalendarView} />
-          <Redirect from="/login" to="/summary" />
-          <Redirect from="/" to="/summary" />
-        </Switch>
-      </HideOn>,
-
-      <HideOn desktop key="mobile">
-        <Switch>
-          <Route path="/mobile" component={SummaryView} />
-          <Redirect from="/login" to="/mobile" />
-          <Redirect from="/" to="/mobile" />
-        </Switch>
-      </HideOn>,
+      <Switch key="switch">
+        <Route path="/summary" component={SummaryView} />
+        <Route path="/backlog" component={BacklogView} />
+        <Route path="/calendar" component={CalendarView} />
+        <Redirect from="/login" to="/summary" />
+        <Redirect from="/" to="/summary" />
+      </Switch>,
     ];
-  }
-
-  renderLoggedOutRoutes() {
-    return (
-      <Switch>
-        <Route exact path="/" component={LoggedOutView} />
-        <Route path="/login" component={LoginView} />
-      </Switch>
-    )
   }
 
   render() {
     const { isLoggedIn, hideModal } = this.props;
 
-    return (
-      <div>
-        <FlashMessage />
+    // If we're not logged in, we pretty much only care about our marketing
+    // page.
+    if (!isLoggedIn) {
+      return (
+        <Switch>
+          <Route path="/login" component={LoginView} />
+          <Route path="/" component={LoggedOutView} />
+        </Switch>
+      )
+    }
 
-        <Header />
+    // The real magic happens in the logged-in section.
+    return [
+      <FlashMessage key="flash" />,
 
-        <Modal side="left" handleClose={() => hideModal({ side: 'left' })} />
-        <Modal side="right" handleClose={() => hideModal({ side: 'right' })} />
+      <Header key="header" />,
 
-        <Body>
-          <Spacer size={ROW_HEIGHT} />
+      <Modal
+        key="left-modal"
+        side="left"
+        handleClose={() => hideModal({ side: 'left' })}
+      />,
+      <Modal
+        key="right-modal"
+        side="right"
+        handleClose={() => hideModal({ side: 'right' })}
+      />,
 
-          <MaxWidthWrapper>
-            {
-              isLoggedIn
-                ? this.renderLoggedInRoutes()
-                : this.renderLoggedOutRoutes()
-            }
-          </MaxWidthWrapper>
-        </Body>
-      </div>
-    );
+      <Body key="body">
+        <Spacer size={ROW_HEIGHT} />
+
+        <MaxWidthWrapper>
+          <MediaQuery>
+            {(breakpoint) => (
+              isMobile(breakpoint)
+                ? this.renderMobileRoutes()
+                : this.renderDesktopRoutes()
+            )}
+          </MediaQuery>
+        </MaxWidthWrapper>
+      </Body>,
+    ];
   }
 }
 

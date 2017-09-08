@@ -21,7 +21,7 @@ const propTypes = {
 const SummaryView = ({ trackedShows }) => ([
   <SortShows key="sorter" />,
 
-  <Grid>
+  <Grid key="grid">
     {trackedShows.map(show => (
       <SummaryShow key={show.id} show={show} />
     ))}

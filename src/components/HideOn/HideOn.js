@@ -6,6 +6,8 @@ import { BREAKPOINT_SIZES } from '../../constants';
 const HideOn = ({ mobile, desktop, children }) => {
   const isMobileScreenSize = window.innerWidth < BREAKPOINT_SIZES.sm;
 
+  console.log({isMobileScreenSize})
+
   if (mobile && isMobileScreenSize) {
     return null;
   }

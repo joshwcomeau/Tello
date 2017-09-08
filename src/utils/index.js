@@ -68,3 +68,7 @@ export const mergeUnique = (arr1, arr2) => (
 export const isBetween = ({ date, startDate, endDate }) => (
   isAfter(date, startDate) && isBefore(date, endDate)
 );
+
+export const findRight = (arr, predicate) => (
+  arr.slice().reverse().find(predicate)
+);
