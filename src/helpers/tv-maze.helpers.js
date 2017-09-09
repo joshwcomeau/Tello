@@ -2,11 +2,11 @@ import { stripHTMLFromString } from '../utils';
 
 
 export const getSearchEndpoint = query => (
-  `http://api.tvmaze.com/search/shows?q=${query}`
+  `https://api.tvmaze.com/search/shows?q=${query}`
 );
 
 export const getEpisodesEndpoint = showId => (
-  `http://api.tvmaze.com/shows/${showId}/episodes`
+  `https://api.tvmaze.com/shows/${showId}/episodes`
 );
 
 export const formatShowResults = results => (
