@@ -15,19 +15,21 @@ const propTypes = {
 };
 
 const NavigationHeading = ({ name, href, isActive }) => (
-  <HeadingLink
-    to={href}
-    data-active={isActive}
-  >
-    <NavHeading>{name}</NavHeading>
+  <HeadingLink to={href} isActive={isActive}>
+    <NavHeading>
+      {name}
+    </NavHeading>
   </HeadingLink>
 );
 
 const HeadingLink = styled(Link)`
   text-decoration: none;
   margin-right: ${UNITS_IN_PX[2]};
-  opacity: ${props => props['data-active'] ? 1 : 0.4};
-  transition: ${props => props['data-active'] ? '750ms' : '250ms'};
+  opacity: ${props => props.isActive ? 1 : 0.4};
+  transition: 400ms;
+  transform: ${props => props.isActive ? 'scale(1)' : 'scale(0.9)'};
+  transform-origin: bottom;
+  will-change: transform, opacity;
 `;
 
 const NavHeading = styled(Heading)`
