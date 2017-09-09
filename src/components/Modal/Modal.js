@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import styled from 'emotion/react';
 import { Motion } from 'react-motion';
@@ -18,27 +18,50 @@ const propTypes = {
   children: PropTypes.node,
 };
 
-export const Modal = ({ side, isVisible, handleClose, children }) => (
-  <ModalWrapper isVisible={isVisible} className="light-scroll">
-    {isVisible && <ScrollDisabler applyLightScrollTheme={side === 'right'} />}
+export class Modal extends PureComponent {
+  componentDidMount() {
+    window.addEventListener('keyup', this.handleKeyup);
+  }
 
-    <Backdrop isVisible={isVisible} onClick={handleClose} />
+  componentWillUnmount() {
+    window.removeEventListener('keyup', this.handleKeyup);
+  }
 
-    <Motion style={{ x: getSpring(side, isVisible) }}>
-      {({ x }) => (
-        <ModalElem
-          side={side}
-          style={{
-            transform: `translateX(${x}%)`,
-            WebkitTransform: `translateX(${x}%)`,
-          }}
-        >
-          {children}
-        </ModalElem>
-      )}
-    </Motion>
-  </ModalWrapper>
-);
+  handleKeyup = (ev) => {
+    const { isVisible, handleClose } = this.props;
+    const isEscapeKey = ev.keyCode === 27;
+
+    if (isVisible && isEscapeKey) {
+      handleClose();
+    }
+  }
+
+  render() {
+    const { side, isVisible, handleClose, children } = this.props;
+
+    return (
+      <ModalWrapper isVisible={isVisible} className="light-scroll">
+        {isVisible && <ScrollDisabler applyLightScrollTheme={side === 'right'} />}
+
+        <Backdrop isVisible={isVisible} onClick={handleClose} />
+
+        <Motion style={{ x: getSpring(side, isVisible) }}>
+          {({ x }) => (
+            <ModalElem
+              side={side}
+              style={{
+                transform: `translateX(${x}%)`,
+                WebkitTransform: `translateX(${x}%)`,
+              }}
+            >
+              {children}
+            </ModalElem>
+          )}
+        </Motion>
+      </ModalWrapper>
+    )
+  }
+}
 
 const ModalWrapper = styled.div`
   position: fixed;
