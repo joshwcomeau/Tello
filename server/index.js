@@ -1,4 +1,5 @@
 const fs = require('fs');
+const path = require('path');
 
 const nconf = require('nconf');
 const express = require('express');
@@ -15,6 +16,8 @@ const { authenticatedRoute, jwtAuthentication } = require('./middleware');
 
 const app = express();
 
+const rootDir = path.join(__dirname, '../');
+
 app.set('port', nconf.get('PORT') || 3005);
 
 app.use(passport.initialize());
@@ -24,6 +27,10 @@ require('./config/passport')(passport);
 app.use(bodyParser.json({ limit: '1mb' }));
 app.use(bodyParser.urlencoded({ extended: false }));
 
+// Express only serves static assets in production
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(rootDir, 'build')));
+}
 
 // This middleware looks for an `Authentication` header, and turns it into
 // a User object (stored on req.user).
@@ -113,12 +120,11 @@ app.delete('/shows/:showId', authenticatedRoute, (req, res, next) => {
   });
 });
 
-
-// Express only serves static assets in production
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('build'));
-}
+app.get('*', (req, res) => {
+  res.sendFile(path.join(rootDir, 'build/index.html'));
+})
 
 app.listen(nconf.get('PORT'), () => {
   console.info(`==> 🌎  Listening on port ${nconf.get('PORT')}.`);
+  console.info(`Running in ${process.env.NODE_ENV}`)
 });
