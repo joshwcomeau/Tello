@@ -27,11 +27,6 @@ require('./config/passport')(passport);
 app.use(bodyParser.json({ limit: '1mb' }));
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// Express only serves static assets in production
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(rootDir, 'build')));
-}
-
 // This middleware looks for an `Authentication` header, and turns it into
 // a User object (stored on req.user).
 app.use(jwtAuthentication);
@@ -119,6 +114,11 @@ app.delete('/shows/:showId', authenticatedRoute, (req, res, next) => {
     return res.json({ showId });
   });
 });
+
+// Express only serves static assets in production
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(rootDir, 'build')));
+}
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(rootDir, 'build/index.html'));

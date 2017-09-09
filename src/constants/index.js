@@ -2,7 +2,7 @@ import { range } from '../utils';
 
 
 // TODO: Dedupe with the value in server/config/defaults.json
-export const AUTH_TOKEN_KEY = 'tvAuthToken';
+export const AUTH_TOKEN_KEY = 'tello';
 
 export const MODAL_IDS = {
   addShow: 'addShow',
