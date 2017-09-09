@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const passport = require('passport');
 
 require('./initialize');
+require('./db');
 
 const { getPublicUser } = require('./models/User.model');
 const { authenticatedRoute, jwtAuthentication } = require('./middleware');

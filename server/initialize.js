@@ -1,7 +1,6 @@
 const fs = require('fs');
 
 const nconf = require('nconf');
-const mongoose = require('mongoose');
 
 
 if ( typeof process.env.NODE_ENV === 'undefined' ) {
@@ -22,7 +21,7 @@ const PRIVATE_CONFIG  = './server/config/private.json';
 // so the PRIVATE_CONFIG line just won't do anything in production.
 
 let ENV_CONFIG = process.env.NODE_ENV === 'production'
-  ? '/home/deploy/config/aviato/production.json'
+  ? '/home/deploy/config/tello/production.json'
   : `./server/config/${process.env.NODE_ENV}.json`;
 
 // Setup nconf to use (in-order):
@@ -38,5 +37,3 @@ nconf
   .file('private', PRIVATE_CONFIG)
   .file('environment', ENV_CONFIG)
   .file('defaults', DEFAULT_CONFIG);
-
-mongoose.connect(nconf.get('MONGO_URL'));

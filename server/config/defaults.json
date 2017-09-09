@@ -1,6 +1,8 @@
 {
   "WEB_URL": "http://localhost:3000",
   "MONGO_URL": "mongodb://localhost:27017/tello",
+  "MONGO_USERNAME": null,
+  "MONGO_PASSWORD": null,
   "AUTH_TOKEN_KEY": "tvAuthToken",
   "PORT": 3005,
   "JWT_SECRET": "test"
