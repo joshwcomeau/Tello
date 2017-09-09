@@ -13,13 +13,14 @@ import FlashMessage from '../FlashMessage';
 import Header from '../Header';
 import MaxWidthWrapper from '../MaxWidthWrapper';
 import Modal from '../Modal';
-import NavigationHeadings from '../NavigationHeadings';
+import DesktopNavigation from '../DesktopNavigation';
 import Spacer from '../Spacer';
 import MediaQuery from '../MediaQuery';
 
 import BacklogView from '../BacklogView';
 import CalendarView from '../CalendarView';
 import SummaryView from '../SummaryView';
+import MobileView from '../MobileView';
 
 import LoggedOutView from '../LoggedOutView';
 import LoginView from '../LoginView';
@@ -43,7 +44,7 @@ class App extends Component {
   renderMobileRoutes() {
     return (
       <Switch>
-        <Route path="/mobile" component={SummaryView} />
+        <Route path="/mobile" component={MobileView} />
         <Redirect from="/login" to="/mobile" />
         <Redirect from="/" to="/mobile" />
       </Switch>
@@ -53,25 +54,28 @@ class App extends Component {
   renderDesktopRoutes() {
     const activeSection = this.props.location.pathname.replace(/^\//, '');
 
-    return [
-      <NavigationHeadings key="nav" activeSection={activeSection} />,
+    return (
+      <MaxWidthWrapper>
+        <DesktopNavigation activeSection={activeSection} />
 
-      <Switch key="switch">
-        <Route path="/summary" component={SummaryView} />
-        <Route path="/backlog" component={BacklogView} />
-        <Route path="/calendar" component={CalendarView} />
-        <Redirect from="/login" to="/summary" />
-        <Redirect from="/" to="/summary" />
-      </Switch>,
-    ];
+        <Switch>
+          <Route path="/summary" component={SummaryView} />
+          <Route path="/backlog" component={BacklogView} />
+          <Route path="/calendar" component={CalendarView} />
+          <Redirect from="/login" to="/summary" />
+          <Redirect from="/" to="/summary" />
+        </Switch>
+      </MaxWidthWrapper>
+    );
   }
 
   render() {
-    const { isLoggedIn, hideModal } = this.props;
+    const { hasToken, hideModal } = this.props;
 
     // If we're not logged in, we pretty much only care about our marketing
-    // page.
-    if (!isLoggedIn) {
+    // page. We use `hasToken` instead of `isLoggedIn` to avoid showing
+    // the logged-out routes while validating the auth token.
+    if (!hasToken) {
       return (
         <Switch>
           <Route path="/login" component={LoginView} />
@@ -100,15 +104,13 @@ class App extends Component {
       <Body key="body">
         <Spacer size={ROW_HEIGHT} />
 
-        <MaxWidthWrapper>
-          <MediaQuery>
-            {(breakpoint) => (
-              isMobile(breakpoint)
-                ? this.renderMobileRoutes()
-                : this.renderDesktopRoutes()
-            )}
-          </MediaQuery>
-        </MaxWidthWrapper>
+        <MediaQuery>
+          {(breakpoint) => (
+            isMobile(breakpoint)
+              ? this.renderMobileRoutes()
+              : this.renderDesktopRoutes()
+          )}
+        </MediaQuery>
       </Body>,
     ];
   }

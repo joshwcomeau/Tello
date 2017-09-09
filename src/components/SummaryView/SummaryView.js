@@ -18,15 +18,17 @@ const propTypes = {
   trackedShows: PropTypes.arrayOf(ShowProps),
 };
 
-const SummaryView = ({ trackedShows }) => ([
-  <SortShows key="sorter" />,
+const SummaryView = ({ trackedShows }) => (
+  <div id="summary">
+    <SortShows />
 
-  <Grid key="grid">
-    {trackedShows.map(show => (
-      <SummaryShow key={show.id} show={show} />
-    ))}
-  </Grid>
-]);
+    <Grid>
+      {trackedShows.map(show => (
+        <SummaryShow key={show.id} show={show} />
+      ))}
+    </Grid>
+  </div>
+);
 
 
 const Grid = styled.div`

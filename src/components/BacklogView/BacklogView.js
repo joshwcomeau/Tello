@@ -16,13 +16,15 @@ const propTypes = {
   trackedShows: PropTypes.arrayOf(ShowProps),
 }
 
-const BacklogView = ({ trackedShows }) => ([
-  <SortShows key="sorter" />,
+const BacklogView = ({ trackedShows }) => (
+  <div id="backlog">
+    <SortShows />
 
-  trackedShows.map(show => (
-    <BacklogRow key={show.id} show={show} />
-  ))
-]);
+    {trackedShows.map(show => (
+      <BacklogRow key={show.id} show={show} />
+    ))}
+  </div>
+);
 
 BacklogView.propTypes = propTypes;
 

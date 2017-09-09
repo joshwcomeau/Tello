@@ -17,13 +17,15 @@ class CalendarView extends Component {
   }
 
   render() {
-    return [
-      <CalendarHeader key="header">
-        <CalendarWeekPicker maxDate={addWeeks(new Date(), 2)} />
-      </CalendarHeader>,
+    return (
+      <div id="calendar">
+        <CalendarHeader>
+          <CalendarWeekPicker maxDate={addWeeks(new Date(), 2)} />
+        </CalendarHeader>
 
-      <Calendar key="calendar" shows={this.props.trackedShows} />
-    ];
+        <Calendar shows={this.props.trackedShows} />
+      </div>
+    );
   }
 }
 
