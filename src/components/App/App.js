@@ -23,7 +23,6 @@ import SummaryView from '../SummaryView';
 import MobileView from '../MobileView';
 
 import LoggedOutView from '../LoggedOutView';
-import LoginView from '../LoginView';
 
 
 class App extends Component {
@@ -78,7 +77,6 @@ class App extends Component {
     if (!hasToken) {
       return (
         <Switch>
-          <Route path="/login" component={LoginView} />
           <Route path="/" component={LoggedOutView} />
         </Switch>
       )
