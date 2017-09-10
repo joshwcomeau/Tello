@@ -7,7 +7,7 @@ import { COLORS, UNITS_IN_PX } from '../../constants';
 
 const propTypes = {
   size: PropTypes.oneOf(['small', 'medium', 'large']).isRequired,
-  theme: PropTypes.oneOf(['light', 'dark']).isRequired,
+  theme: PropTypes.oneOf(['light', 'dark', 'vibrant']).isRequired,
   children: PropTypes.node,
 };
 
@@ -27,9 +27,17 @@ const Heading = ({ size, children, ...delegated }) => (
 Heading.propTypes = propTypes;
 Heading.defaultProps = defaultProps;
 
-const getFontColor = props => (
-  props.theme === 'light' ? COLORS.white : COLORS.gray.veryDark
-);
+const getFontColor = ({ theme }) => {
+  switch (theme) {
+    case 'light':
+      return COLORS.white;
+    case 'vibrant':
+      return COLORS.pink.primary;
+    case 'dark':
+    default:
+      return COLORS.gray.veryDark;
+  }
+};
 
 const headingCSS = css`
   display: block;

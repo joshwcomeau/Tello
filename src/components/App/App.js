@@ -7,7 +7,8 @@ import PropTypes from 'prop-types';
 import { userDataRequest, hideModal } from '../../actions';
 import { Z_INDICES, ROW_HEIGHT } from '../../constants';
 import { isMobile } from '../../helpers/responsive.helpers';
-import { getToken, getIsLoggedIn } from '../../reducers/auth.reducer';
+import { getToken, getIsFetching } from '../../reducers/auth.reducer';
+import { getNoShowsYet } from '../../reducers/tracked-shows.reducer';
 
 import FlashMessage from '../FlashMessage';
 import Header from '../Header';
@@ -16,6 +17,7 @@ import Modal from '../Modal';
 import DesktopNavigation from '../DesktopNavigation';
 import Spacer from '../Spacer';
 import MediaQuery from '../MediaQuery';
+import NoShowsYet from '../NoShowsYet';
 
 import BacklogView from '../BacklogView';
 import CalendarView from '../CalendarView';
@@ -28,7 +30,8 @@ import LoggedOutView from '../LoggedOutView';
 class App extends Component {
   static propTypes = {
     hasToken: PropTypes.bool.isRequired,
-    isLoggedIn: PropTypes.bool.isRequired,
+    isFetching: PropTypes.bool.isRequired,
+    noShowsYet: PropTypes.bool.isRequired,
     userDataRequest: PropTypes.func.isRequired,
   }
 
@@ -51,6 +54,19 @@ class App extends Component {
   }
 
   renderDesktopRoutes() {
+    const { isFetching, noShowsYet } = this.props;
+
+    if (isFetching) {
+      // TODO: Spinner
+    }
+
+    if (noShowsYet) {
+      return (
+        <MaxWidthWrapper>
+          <NoShowsYet />
+        </MaxWidthWrapper>
+      );
+    }
 
     return (
       <MaxWidthWrapper>
@@ -120,7 +136,8 @@ const Body = styled.div`
 
 const mapStateToProps = state => ({
   hasToken: !!getToken(state),
-  isLoggedIn: getIsLoggedIn(state),
+  isFetching: getIsFetching(state),
+  noShowsYet: getNoShowsYet(state),
 });
 
 const mapDispatchToProps = { userDataRequest, hideModal };

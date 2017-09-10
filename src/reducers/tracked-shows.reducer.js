@@ -15,6 +15,7 @@ import {
   DELETE_SHOW_RECEIVE,
 } from '../actions';
 import { convertArrayToMap, toggleInArray, mergeUnique } from '../utils';
+import { getIsFetching } from './auth.reducer';
 
 
 const initialState = {};
@@ -176,6 +177,12 @@ export const getTrackedShows = state => state.trackedShows;
 export const getTrackedShowIds = createSelector(
   getTrackedShows,
   (shows) => Object.keys(shows).map(Number)
+);
+
+export const getNoShowsYet = createSelector(
+  getTrackedShowIds,
+  getIsFetching,
+  (showIds, isFetching) => !isFetching && showIds.length === 0
 );
 
 export const getTrackedShowsArray = createSelector(
