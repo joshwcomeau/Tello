@@ -85,7 +85,6 @@ const ModalElem = styled.div`
   padding: ${UNITS_IN_PX[3]} ${UNITS_IN_PX[4]};
   background: ${COLORS.gray.veryLight};
   color: ${COLORS.gray.veryDark};
-  box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.5);
   will-change: transform;
 `
 

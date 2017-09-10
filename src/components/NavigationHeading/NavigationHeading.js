@@ -42,7 +42,9 @@ const NavHeading = styled(Heading)`
 `;
 
 const mapStateToProps = state => ({
-  pathname: state.router.locationBeforeTransitions.pathname,
+  pathname: state.router.location
+    ? state.router.location.pathname
+    : '',
 });
 
 NavigationHeading.propTypes = propTypes;
