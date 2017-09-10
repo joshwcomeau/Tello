@@ -6,6 +6,7 @@ const express = require('express');
 const request = require('request');
 const bodyParser = require('body-parser');
 const passport = require('passport');
+const compression = require('compression');
 
 require('./initialize');
 require('./db');
@@ -21,6 +22,7 @@ const rootDir = path.join(__dirname, '../');
 app.set('port', nconf.get('PORT') || 3005);
 
 app.use(passport.initialize());
+app.use(compression());
 
 require('./config/passport')(passport);
 
