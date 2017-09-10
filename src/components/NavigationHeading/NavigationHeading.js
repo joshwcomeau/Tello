@@ -29,22 +29,21 @@ const NavigationHeading = ({ value, pathname }) => {
 
 const HeadingLink = styled(Link)`
   text-decoration: none;
-  margin-right: ${UNITS_IN_PX[2]};
-  transition: 400ms;
-  will-change: transform, opacity;
 `;
 
 const NavHeading = styled(Heading)`
+  margin-right: ${UNITS_IN_PX[2]};
   margin-bottom: 0;
   text-transform: capitalize;
   color: ${COLORS.white};
   opacity: ${props => props.isActive ? 1 : 0.4};
+  transition: 400ms;
+  will-change: transform, opacity;
 `;
 
 const mapStateToProps = state => ({
   pathname: state.router.locationBeforeTransitions.pathname,
-})
-
+});
 
 NavigationHeading.propTypes = propTypes;
 
