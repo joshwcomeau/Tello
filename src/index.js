@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
+import { ConnectedRouter } from 'react-router-redux'
+
 import createHistory from 'history/createBrowserHistory'
 import Cookies from 'cookies-js';
 import startOfWeek from 'date-fns/start_of_week';
@@ -33,12 +34,12 @@ const store = configureStore(history, initialState);
 
 ReactDOM.render(
   <Provider store={store}>
-    <BrowserRouter>
+    <ConnectedRouter history={history}>
       <div>
         <App />
         <DevTools />
       </div>
-    </BrowserRouter>
+    </ConnectedRouter>
   </Provider>,
   document.getElementById('root')
 );

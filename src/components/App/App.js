@@ -51,11 +51,12 @@ class App extends Component {
   }
 
   renderDesktopRoutes() {
-    const activeSection = this.props.location.pathname.replace(/^\//, '');
 
     return (
       <MaxWidthWrapper>
-        <DesktopNavigation activeSection={activeSection} />
+        <Spacer size={ROW_HEIGHT} />
+
+        <DesktopNavigation />
 
         <Switch>
           <Route path="/summary" component={SummaryView} />
@@ -100,8 +101,6 @@ class App extends Component {
       />,
 
       <Body key="body">
-        <Spacer size={ROW_HEIGHT} />
-
         <MediaQuery>
           {(breakpoint) => (
             isMobile(breakpoint)

@@ -2,6 +2,8 @@ import React, { PureComponent } from 'react';
 import styled from 'emotion/react';
 import ReactSwipe from 'react-swipe';
 
+import { ROW_HEIGHT_PX, HALF_UNIT_PX } from '../../constants';
+
 import BacklogView from '../BacklogView';
 import CalendarView from '../CalendarView';
 import SummaryView from '../SummaryView';
@@ -32,6 +34,7 @@ const ViewWrapper = styled.div`
   right: 0;
   bottom: 0;
   overflow: auto;
-`
+  padding: ${ROW_HEIGHT_PX} ${HALF_UNIT_PX};
+`;
 
 export default MobileView;

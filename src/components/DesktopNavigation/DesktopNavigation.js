@@ -8,29 +8,13 @@ import {  UNITS_IN_PX } from '../../constants';
 import NavigationHeading from '../NavigationHeading';
 
 
-class DesktopNavigation extends Component {
-  static propTypes = {
-    activeSection: PropTypes.oneOf(['summary', 'backlog', 'calendar']),
-  }
-
-  render() {
-    const { activeSection } = this.props;
-
-    const headings = ['Summary', 'Backlog', 'Calendar'];
-
-    return (
-      <Wrapper>
-        {headings.map(heading => (
-          <NavigationHeading
-            name={heading}
-            href={`/${heading.toLowerCase()}`}
-            isActive={activeSection === heading.toLowerCase()}
-          />
-        ))}
-      </Wrapper>
-    )
-  }
-}
+const DesktopNavigation = () => (
+  <Wrapper>
+    {['summary', 'backlog', 'calendar', 'settings'].map(heading => (
+      <NavigationHeading key={heading} value={heading} />
+    ))}
+  </Wrapper>
+);
 
 const Wrapper = styled.div`
   display: flex;
