@@ -20,13 +20,14 @@ class MobileView extends PureComponent {
     return (
       <ReactSwipe>
         <ViewWrapper>
-          <MobileHeading>Backlog</MobileHeading>
-          <BacklogView />
-        </ViewWrapper>
-
-        <ViewWrapper>
           <MobileHeading>Calendar</MobileHeading>
           <CalendarView />
+        </ViewWrapper>
+
+
+        <ViewWrapper>
+          <MobileHeading>Backlog</MobileHeading>
+          <BacklogView />
         </ViewWrapper>
 
         <ViewWrapper>
