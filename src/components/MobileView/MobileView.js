@@ -16,24 +16,31 @@ import Heading from '../Heading';
 
 
 class MobileView extends PureComponent {
+  state = {
+    activeViewIndex: 0,
+  }
+
+  handleSwipe = index => {
+    this.setState({ activeViewIndex: index });
+  }
+
   render() {
+    const { activeViewIndex } = this.state;
+
+    const views = [
+      { name: 'calendar', View: CalendarView },
+      { name: 'summary', View: SummaryView },
+      { name: 'backlog', View: BacklogView },
+    ];
+
     return (
-      <ReactSwipe>
-        <ViewWrapper>
-          <MobileHeading>Calendar</MobileHeading>
-          <CalendarView />
-        </ViewWrapper>
-
-
-        <ViewWrapper>
-          <MobileHeading>Backlog</MobileHeading>
-          <BacklogView />
-        </ViewWrapper>
-
-        <ViewWrapper>
-          <MobileHeading>Summary</MobileHeading>
-          <SummaryView />
-        </ViewWrapper>
+      <ReactSwipe swipeOptions={{ callback: this.handleSwipe }}>
+        {views.map(({ name, View }, index) => (
+          <ViewWrapper key={name} isActive={index === activeViewIndex}>
+            <MobileHeading>{name}</MobileHeading>
+            <View />
+          </ViewWrapper>
+        ))}
       </ReactSwipe>
     );
   }
@@ -47,10 +54,12 @@ const ViewWrapper = styled.div`
   bottom: 0;
   overflow: auto;
   padding: ${ROW_HEIGHT_PX} ${UNITS_IN_PX[1]};
+  height: ${props => props.isActive ? 'auto' : '100vh'};
 `;
 
 const MobileHeading = styled(Heading)`
   margin-bottom: ${UNITS_IN_PX[1]};
+  text-transform: capitalize;
   color: COLORS.white;
 `;
 
