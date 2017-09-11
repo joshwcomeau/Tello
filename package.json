@@ -10,7 +10,8 @@
     "flow": "flow",
     "deploy": "NODE_ENV=production fly deploy:production",
     "deploy:no-build": "yarn deploy -- --skip-build",
-    "restart:server": "fly restart:production"
+    "restart:server": "fly restart:production",
+    "stats": "NODE_ENV=production webpack --config config/webpack.config.prod.js --json > stats.json"
   },
   "proxy": "http://localhost:3005",
   "dependencies": {
