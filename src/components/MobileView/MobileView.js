@@ -28,9 +28,9 @@ class MobileView extends PureComponent {
     const { activeViewIndex } = this.state;
 
     const views = [
+      { name: 'backlog', View: BacklogView },
       { name: 'calendar', View: CalendarView },
       { name: 'summary', View: SummaryView },
-      { name: 'backlog', View: BacklogView },
     ];
 
     return (

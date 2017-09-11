@@ -14,6 +14,7 @@ import CalendarRow from '../CalendarRow';
 import CalendarHeaderCell from '../CalendarHeaderCell';
 import CalendarCornerCell from '../CalendarCornerCell';
 import Cell from '../Cell';
+import StopTouchPropagation from '../StopTouchPropagation';
 
 
 class Calendar extends PureComponent {
@@ -21,16 +22,6 @@ class Calendar extends PureComponent {
     shows: PropTypes.arrayOf(ShowProps),
     startDate: PropTypes.string.isRequired,
     endDate: PropTypes.string.isRequired,
-  }
-
-  componentDidMount() {
-    // NOTE: We need to stop propagation on the touch events, so that the
-    // parent container's swipe doesn't make the calendar unusable on mobile.
-    // Sadly, we can't just use React events like `onTouchStart` because of
-    // React's synthetic event system; it fires too late.
-    // Need to use the native event system.
-    this.elem.addEventListener('touchstart', ev => ev.stopPropagation());
-    this.elem.addEventListener('touchmove', ev => ev.stopPropagation());
   }
 
   render() {
@@ -48,29 +39,31 @@ class Calendar extends PureComponent {
     });
 
     return (
-      <Wrapper innerRef={elem => this.elem = elem}>
-        <CalendarGrid>
-          <CalendarCornerCell row={1} col={1} />
-          <CalendarHeaderCell date={startDate} row={1} col={2} />
-          <CalendarHeaderCell date={addDays(startDate, 1)} row={1} col={3} />
-          <CalendarHeaderCell date={addDays(startDate, 2)} row={1} col={4} />
-          <CalendarHeaderCell date={addDays(startDate, 3)} row={1} col={5} />
-          <CalendarHeaderCell date={addDays(startDate, 4)} row={1} col={6} />
-          <CalendarHeaderCell date={addDays(startDate, 5)} row={1} col={7} />
-          <CalendarHeaderCell date={addDays(startDate, 6)} row={1} col={8} />
-          <Cell row={1} col={9} />
+      <Wrapper>
+        <StopTouchPropagation>
+          <CalendarGrid>
+            <CalendarCornerCell row={1} col={1} />
+            <CalendarHeaderCell date={startDate} row={1} col={2} />
+            <CalendarHeaderCell date={addDays(startDate, 1)} row={1} col={3} />
+            <CalendarHeaderCell date={addDays(startDate, 2)} row={1} col={4} />
+            <CalendarHeaderCell date={addDays(startDate, 3)} row={1} col={5} />
+            <CalendarHeaderCell date={addDays(startDate, 4)} row={1} col={6} />
+            <CalendarHeaderCell date={addDays(startDate, 5)} row={1} col={7} />
+            <CalendarHeaderCell date={addDays(startDate, 6)} row={1} col={8} />
+            <Cell row={1} col={9} />
 
-          {relevantShows.map((show, index) => (
-            <CalendarRow
-              key={show.id}
-              show={show}
-              row={index + 2 /* Account for zero-index + header row */}
-              startDate={startDate}
-              endDate={endDate}
-              isLastRow={index === shows.length - 1}
-            />
-          ))}
-        </CalendarGrid>
+            {relevantShows.map((show, index) => (
+              <CalendarRow
+                key={show.id}
+                show={show}
+                row={index + 2 /* Account for zero-index + header row */}
+                startDate={startDate}
+                endDate={endDate}
+                isLastRow={index === shows.length - 1}
+              />
+            ))}
+          </CalendarGrid>
+        </StopTouchPropagation>
       </Wrapper>
     );
   }

@@ -4,6 +4,7 @@ import styled from 'emotion/react';
 import FlipMove from 'react-flip-move';
 
 import {
+  BREAKPOINTS,
   COLORS,
   UNIT,
   HALF_UNIT,
@@ -17,6 +18,7 @@ import { ShowProps } from '../../types';
 
 import BacklogEpisode from '../BacklogEpisode';
 import Heading from '../Heading';
+import StopTouchPropagation from '../StopTouchPropagation';
 import Tag from '../Tag';
 
 
@@ -65,47 +67,35 @@ class BacklogRow extends Component {
       show: { type, episodes },
     } = this.props;
 
-    if (!episodes) {
-      // TODO: Loading? Also add some sort of isFetching flag to shows,
-      // so that we can distinguish "this show has no episodes".
-      return null;
-    }
-
     const unseenEpisodes = episodes
       .filter(episode => !episode.isSeen)
       .slice(0, 8);
 
     return (
       <EpisodeWrapper>
-        <EpisodeGradient />
-        <FlipMove
-          duration={TOGGLE_ANIMATION_DURATION}
-          enterAnimation={false}
-          leaveAnimation="fade"
-        >
-          {unseenEpisodes.map(episode => (
-            <BacklogEpisode
-              key={episode.id}
-              showType={type}
-              height={ROW_HEIGHT - UNIT}
-              episode={episode}
-              handleClick={() => this.handleEpisodeClick(episode)}
-            />
-          ))}
-        </FlipMove>
+        <StopTouchPropagation>
+          <FlipMove
+            duration={TOGGLE_ANIMATION_DURATION}
+            enterAnimation={false}
+            leaveAnimation="fade"
+          >
+            {unseenEpisodes.map(episode => (
+              <BacklogEpisode
+                key={episode.id}
+                showType={type}
+                height={ROW_HEIGHT - UNIT}
+                episode={episode}
+                handleClick={() => this.handleEpisodeClick(episode)}
+              />
+            ))}
+          </FlipMove>
+        </StopTouchPropagation>
       </EpisodeWrapper>
     );
   }
 
   render() {
     const { show: { type, name, episodes } } = this.props;
-
-    // We may or may not want to actually display this row.
-    // We won't know until the episodes are fetched from TV Maze.
-    // For now, just return null.
-    if (!episodes) {
-      return null;
-    }
 
     return (
       <Wrapper>
@@ -134,30 +124,51 @@ const Wrapper = styled.div`
 const Row = styled.div`
   display: flex;
   height: ${ROW_HEIGHT_PX};
+
+  @media ${BREAKPOINTS.sm} {
+    flex-direction: column;
+    height: auto;
+  }
 `;
 
 const ShowDetails = styled.div`
   display: block;
   position: relative;
+  z-index: 2;
   padding: ${HALF_UNIT_PX};
   width: ${UNITS_IN_PX[15]};
   box-shadow: 0px 1px 6px rgba(0,0,0,0.4);
+
+  @media ${BREAKPOINTS.sm} {
+    width: 100%;
+  }
 `;
 
 const TagWrapper = styled.div`
   position: absolute;
   left: ${HALF_UNIT_PX};
   bottom: ${HALF_UNIT_PX};
+
+  @media ${BREAKPOINTS.sm} {
+    position: relative;
+    left: auto;
+    bottom: auto;
+  }
 `
 
 const EpisodeWrapper = styled.div`
   position: relative;
+  z-index: 1;
   flex: 1;
   padding: ${HALF_UNIT_PX};
   margin-right: ${HALF_UNIT_PX};
   overflow: hidden;
   white-space: nowrap;
   padding-left: ${HALF_UNIT + 2 + 'px'};
+
+  @media ${BREAKPOINTS.sm} {
+    overflow: auto;
+  }
 `;
 
 const EpisodeGradient = styled.div`

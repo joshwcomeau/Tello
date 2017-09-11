@@ -21,7 +21,9 @@ const BacklogView = ({ trackedShows }) => (
     <SortShows />
 
     {trackedShows.map(show => (
-      <BacklogRow key={show.id} show={show} />
+      show.episodes
+        ? <BacklogRow key={show.id} show={show} />
+        : null
     ))}
   </div>
 );
