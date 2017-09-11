@@ -12,7 +12,7 @@ import {
   ROW_HEIGHT,
   ROW_HEIGHT_PX
 } from '../../constants';
-import { episodesRequest, markEpisodeAsSeen } from '../../actions';
+import { markEpisodeAsSeen } from '../../actions';
 import { ShowProps } from '../../types';
 
 import BacklogEpisode from '../BacklogEpisode';
@@ -29,20 +29,6 @@ class BacklogRow extends Component {
 
   state = {
     isToggling: false,
-  }
-
-  componentDidMount() {
-    const { show, episodesRequest } = this.props;
-
-    // If we don't yet have any `episodes` for this show, we have to fetch
-    // them! We can make a few assumptions though:
-    // - The list of episodes won't change externally in a given session,
-    //   so if we already have them, we don't need to fetch them.
-    // - We only have to do this check on mount, because a given BacklogRow
-    //   will never change shows after mount.
-    if (!show.episodes) {
-      episodesRequest({ showId: show.id });
-    }
   }
 
   componentWillUnmount() {
@@ -189,6 +175,4 @@ const EpisodeGradient = styled.div`
   );
 `;
 
-const mapDispatchToProps = { episodesRequest, markEpisodeAsSeen };
-
-export default connect(null, mapDispatchToProps)(BacklogRow);
+export default connect(null, { markEpisodeAsSeen })(BacklogRow);

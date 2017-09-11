@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { Route, Redirect, Switch, withRouter } from 'react-router-dom';
 import styled from 'emotion/react';
@@ -19,16 +19,16 @@ import Spacer from '../Spacer';
 import Spinner from '../Spinner';
 import MediaQuery from '../MediaQuery';
 import NoShowsYet from '../NoShowsYet';
+import FetchEpisodes from '../FetchEpisodes';
 
 import BacklogView from '../BacklogView';
 import CalendarView from '../CalendarView';
 import SummaryView from '../SummaryView';
 import MobileView from '../MobileView';
-
 import LoggedOutView from '../LoggedOutView';
 
 
-class App extends Component {
+class App extends PureComponent {
   static propTypes = {
     hasToken: PropTypes.bool.isRequired,
     isFetching: PropTypes.bool.isRequired,
@@ -75,6 +75,8 @@ class App extends Component {
 
     return (
       <MaxWidthWrapper>
+        <FetchEpisodes />
+
         <Spacer size={ROW_HEIGHT} />
 
         <DesktopNavigation />

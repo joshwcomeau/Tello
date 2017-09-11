@@ -2,11 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled from 'emotion/react';
 
-import {
-  episodesRequest,
-  toggleEpisode,
-  showEditShowModal
-} from '../../actions';
+import { toggleEpisode, showEditShowModal } from '../../actions';
 import { COLORS, HALF_UNIT_PX, UNITS_IN_PX } from '../../constants';
 import { truncateStringByWordCount } from '../../utils';
 import placeholderImage from '../../images/placeholder.png';
@@ -20,19 +16,6 @@ import ShowStatus from '../ShowStatus';
 class SummaryShow extends Component {
   static propTypes = {
     show: ShowProps,
-  }
-
-  componentDidMount() {
-    const { show, episodesRequest } = this.props;
-    // If we don't yet have any `episodes` for this show, we have to fetch
-    // them! We can make a few assumptions though:
-    // - The list of episodes won't change externally in a given session,
-    //   so if we already have them, we don't need to fetch them.
-    // - We only have to do this check on mount, because a given BacklogRow
-    //   will never change shows after mount.
-    if (!show.episodes) {
-      episodesRequest({ showId: show.id });
-    }
   }
 
   handleClickEpisode = (episode) => {
@@ -137,7 +120,6 @@ const Actions = styled.div`
 `;
 
 const mapDispatchToProps = {
-  episodesRequest,
   toggleEpisode,
   showEditShowModal,
 };

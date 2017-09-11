@@ -24,8 +24,6 @@ class Calendar extends PureComponent {
   }
 
   componentDidMount() {
-    const { shows, episodesRequest } = this.props;
-
     // NOTE: We need to stop propagation on the touch events, so that the
     // parent container's swipe doesn't make the calendar unusable on mobile.
     // Sadly, we can't just use React events like `onTouchStart` because of
@@ -33,17 +31,6 @@ class Calendar extends PureComponent {
     // Need to use the native event system.
     this.elem.addEventListener('touchstart', ev => ev.stopPropagation());
     this.elem.addEventListener('touchmove', ev => ev.stopPropagation());
-
-    // We also need to fetch all the episodes for all the shows, if we haven't
-    // already. While other views do this on a per-show basis, we need to know
-    // in this parent component which rows to render; initially no shows have
-    // any episodes, which means no shows would be rendered... but we still
-    // need to do that initial request!
-    shows.forEach(show => {
-      if (!show.episodes) {
-        episodesRequest({ showId: show.id });
-      }
-    });
   }
 
   render() {
