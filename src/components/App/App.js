@@ -27,7 +27,7 @@ import CalendarView from '../CalendarView';
 import SettingsView from '../SettingsView';
 import MobileView from '../MobileView';
 import LogoutView from '../LogoutView';
-import LoggedOutView from '../LoggedOutView';
+import LandingPageView from '../LandingPageView';
 
 
 class App extends PureComponent {
@@ -86,6 +86,7 @@ class App extends PureComponent {
           <Route path="/backlog" component={BacklogView} />
           <Route path="/calendar" component={CalendarView} />
           <Route path="/settings" component={SettingsView} />
+          <Route path="/logout" component={LogoutView} />,
           <Redirect from="/login" to="/summary" />
           <Redirect from="/" to="/summary" />
         </Switch>
@@ -131,7 +132,7 @@ class App extends PureComponent {
 
       hasToken
         ? this.renderLoggedInRoutes()
-        : <Route path="/" component={LoggedOutView} />,
+        : <Route path="/" component={LandingPageView} />,
 
       <Route key="logout" path="/logout" component={LogoutView} />,
     ]
