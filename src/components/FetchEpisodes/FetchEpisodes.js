@@ -6,11 +6,26 @@ import { getTrackedShowsArray } from '../../reducers/tracked-shows.reducer';
 
 
 class FetchEpisodes extends PureComponent {
+  static showIds = {};
+
   componentDidMount() {
+    this.fetch();
+  }
+
+  componentDidUpdate(prevProps) {
+    this.fetch();
+  }
+
+  fetch() {
     const { shows, episodesRequest } = this.props;
 
     shows.forEach(show => {
-      if (!show.episodes) {
+      // Don't fetch shows that we've already fetched!
+      const requiresFetching = !FetchEpisodes.showIds[show.id];
+
+      if (requiresFetching) {
+        FetchEpisodes.showIds[show.id] = true;
+
         episodesRequest({ showId: show.id });
       }
     });

@@ -45,13 +45,14 @@ class App extends PureComponent {
   }
 
   renderMobileRoutes() {
-    return (
-      <Switch>
+    return [
+      <FetchEpisodes key="fetch" />,
+      <Switch key="switch">
         <Route path="/mobile" component={MobileView} />
         <Redirect from="/login" to="/mobile" />
         <Redirect from="/" to="/mobile" />
       </Switch>
-    );
+    ];
   }
 
   renderDesktopRoutes() {
