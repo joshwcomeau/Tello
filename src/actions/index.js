@@ -27,6 +27,7 @@ export const EPISODES_FAILURE = 'EPISODES_FAILURE';
 export const HIDE_FLASH_MESSAGE = 'HIDE_FLASH_MESSAGE';
 export const CHANGE_SORTING = 'CHANGE_SORTING';
 export const UPDATE_CALENDAR_WEEK = 'UPDATE_CALENDAR_WEEK';
+export const LOGOUT = 'LOGOUT';
 
 
 export const addShowsRequest = ({ shows }) => ({
@@ -190,4 +191,8 @@ export const decrementWeek = ({ startDate, endDate }) => ({
   type: UPDATE_CALENDAR_WEEK,
   startDate: addWeeks(startDate, -1),
   endDate: addWeeks(endDate, -1),
+});
+
+export const logout = () => ({
+  type: LOGOUT,
 });

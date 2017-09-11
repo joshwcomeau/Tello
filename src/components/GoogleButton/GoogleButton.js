@@ -12,7 +12,7 @@ const hrefPrefix = process.env.NODE_ENV !== 'production'
 const authHref = `${hrefPrefix}/auth/google`;
 
 const GoogleButton = () => (
-  <Button color="red" tag="a" href={authHref}>
+  <Button color="red" tag="a" external href={authHref}>
     Sign into Google
   </Button>
 );

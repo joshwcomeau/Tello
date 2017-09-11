@@ -1,25 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { css } from 'emotion';
 import styled from 'emotion/react';
+import { Link } from 'react-router-dom';
 
 import { ROW_HEIGHT_PX, UNITS_IN_PX, COLORS } from '../../constants';
 
-
-const defaultProps = {
-  color: 'blue',
-  size: 'medium',
-  tag: 'button',
-};
-
-const Button = (props) => {
-  const {tag, ...delegatedProps} = props;
-
-  return React.createElement(
-    tag === 'button' ? ButtonElem : LinkButtonElem,
-    delegatedProps
-  );
-};
-
-Button.defaultProps = defaultProps;
 
 const buttonColors = {
   red: {
@@ -69,27 +55,56 @@ const buttonSizes = {
   },
 };
 
-const generateElem = elem => styled(elem)`
+const propTypes = {
+  color: PropTypes.oneOf(Object.keys(buttonColors)).isRequired,
+  size: PropTypes.oneOf(Object.keys(buttonSizes)).isRequired,
+  href: PropTypes.string,
+  external: PropTypes.bool,
+}
+
+const defaultProps = {
+  color: 'blue',
+  size: 'medium',
+};
+
+const Button = (props) => {
+  const {href, external, ...delegatedProps} = props;
+
+  // If no href is given, it's a <button>.
+  if (!href) {
+    return <ButtonElem {...delegatedProps} />;
+  }
+
+  // If we have an href, we want to make a link that looks like a button.
+  if (href) {
+    // Unless the `external` flag is provided, use a Link for fast SPA routing
+    return external
+      ? <AnchorButtonElem href={href} {...delegatedProps} />
+      : <LinkButtonElem to={href} {...delegatedProps} />;
+  }
+};
+
+const buttonStyles = props => css`
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  width: ${props => props.fill ? '100%' : 'auto'};
-  height: ${props => buttonSizes[props.size].height};
-  padding: 0 ${props => buttonSizes[props.size].padding};
+  width: ${props.fill ? '100%' : 'auto'};
+  height: ${buttonSizes[props.size].height};
+  padding: 0 ${buttonSizes[props.size].padding};
   color: ${COLORS.white};
-  font-size: ${props => buttonSizes[props.size].font};
+  font-size: ${buttonSizes[props.size].font};
   font-weight: bold;
-  background: ${props => buttonColors[props.color].background};
+  background: ${buttonColors[props.color].background};
   border: none;
   border-radius: 0px;
-  border-bottom-width: ${props => buttonSizes[props.size].borderWidth};
+  border-bottom-width: ${buttonSizes[props.size].borderWidth};
   border-bottom-style: solid;
-  border-bottom-color: ${props => buttonColors[props.color].borderColor};
+  border-bottom-color: ${buttonColors[props.color].borderColor};
   cursor: pointer;
   text-decoration: none;
 
   &:hover {
-    background: ${props => buttonColors[props.color].backgroundHover};
+    background: ${buttonColors[props.color].backgroundHover};
   }
 
   &:disabled {
@@ -99,7 +114,17 @@ const generateElem = elem => styled(elem)`
   }
 `;
 
-const ButtonElem = generateElem('button');
-const LinkButtonElem = generateElem('a');
+const ButtonElem = styled.button`
+  ${buttonStyles};
+`;
+const AnchorButtonElem = styled.a`
+  ${buttonStyles};
+`;
+const LinkButtonElem = styled(Link)`
+${buttonStyles};
+`;
+
+Button.propTypes = propTypes;
+Button.defaultProps = defaultProps;
 
 export default Button;

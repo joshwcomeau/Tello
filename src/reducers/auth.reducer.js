@@ -4,6 +4,7 @@ import {
   USER_DATA_RECEIVE,
   USER_DATA_REQUEST,
   USER_DATA_FAILURE,
+  LOGOUT,
 } from '../actions';
 import { isEmpty } from '../utils';
 
@@ -17,6 +18,10 @@ const initialState = {
 
 function userReducer(state = initialState.user, action) {
   switch (action.type) {
+    case LOGOUT: {
+      return {};
+    }
+
     case USER_DATA_RECEIVE: {
       return {
         id: action.data.id,
@@ -46,10 +51,16 @@ function isFetchingReducer(state = initialState.isFetching, action) {
 }
 
 function tokenReducer(state = initialState.token, action) {
-  // At the moment, our token doesn't change throughout the session.
-  // It's loaded on instantiation, if available.
-  // We just store it in a reducer for convenience (and to derive things).
-  return state;
+  // We handle login with Google OAuth, and so the login is not part of this app.
+  // As such, when Google forwards them back, the redux store is _initialized_
+  // with the login token. So there is no action for adding a token.
+  switch (action.type) {
+    case LOGOUT:
+      return null;
+
+    default:
+      return state;
+  }
 }
 
 export default combineReducers({

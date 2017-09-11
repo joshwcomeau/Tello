@@ -5,6 +5,7 @@ import {
   ADD_SHOWS_FAILURE,
   MARK_EPISODE_AS_SEEN,
   DELETE_SHOW_FAILURE,
+  LOGOUT,
 } from '../actions';
 
 /*
@@ -62,6 +63,13 @@ export default function reducer(state = initialState, action) {
         messageType: 'error',
         message: `"${showName}" could not be deleted. Please try again later.`,
       };
+    }
+
+    case LOGOUT: {
+      return {
+        messageType: 'success',
+        message: "You've successfully logged out! Thanks for using Tello 📺"
+      }
     }
 
     default:

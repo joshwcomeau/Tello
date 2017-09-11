@@ -2,15 +2,17 @@ import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'emotion/react';
 
-import { UNITS_IN_PX } from '../../constants';
+import { UNIT, UNITS_IN_PX } from '../../constants';
 import { getUser } from '../../reducers/auth.reducer';
 
 import Button from '../Button';
 import Heading from '../Heading';
+import Spacer from '../Spacer';
 
 
 const SettingsView = ({ user }) => {
   return [
+    <Spacer key="spacer" size={UNIT * 2} />,
     <Section key="account">
       <Heading theme="vibrant" size="small">Account Settings</Heading>
       <Paragraph>
@@ -19,7 +21,7 @@ const SettingsView = ({ user }) => {
         (<em>{user.email}</em>).
       </Paragraph>
 
-      <Button color="red" size="small">
+      <Button href="/logout" color="red" size="small">
         Log Out
       </Button>
     </Section>,

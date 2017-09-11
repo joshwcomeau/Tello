@@ -26,6 +26,7 @@ import BacklogView from '../BacklogView';
 import CalendarView from '../CalendarView';
 import SettingsView from '../SettingsView';
 import MobileView from '../MobileView';
+import LogoutView from '../LogoutView';
 import LoggedOutView from '../LoggedOutView';
 
 
@@ -46,14 +47,13 @@ class App extends PureComponent {
   }
 
   renderMobileRoutes() {
-    return [
-      <FetchEpisodes key="fetch" />,
-      <Switch key="switch">
+    return (
+      <Switch>
         <Route path="/mobile" component={MobileView} />
         <Redirect from="/login" to="/mobile" />
         <Redirect from="/" to="/mobile" />
       </Switch>
-    ];
+    );
   }
 
   renderDesktopRoutes() {
@@ -77,8 +77,6 @@ class App extends PureComponent {
 
     return (
       <MaxWidthWrapper>
-        <FetchEpisodes />
-
         <Spacer size={ROW_HEIGHT} />
 
         <DesktopNavigation />
@@ -95,24 +93,8 @@ class App extends PureComponent {
     );
   }
 
-  render() {
-    const { hasToken, hideModal } = this.props;
-
-    // If we're not logged in, we pretty much only care about our marketing
-    // page. We use `hasToken` instead of `isLoggedIn` to avoid showing
-    // the logged-out routes while validating the auth token.
-    if (!hasToken) {
-      return (
-        <Switch>
-          <Route path="/" component={LoggedOutView} />
-        </Switch>
-      )
-    }
-
-    // The real magic happens in the logged-in section.
+  renderLoggedInRoutes() {
     return [
-      <FlashMessage key="flash" />,
-
       <Header key="header" />,
 
       <Modal
@@ -135,7 +117,24 @@ class App extends PureComponent {
           )}
         </MediaQuery>
       </Body>,
+
+      // Logged-in data component
+      <FetchEpisodes key="fetch" />,
     ];
+  }
+
+  render() {
+    const { hasToken, hideModal } = this.props;
+
+    return [
+      <FlashMessage key="flash" />,
+
+      hasToken
+        ? this.renderLoggedInRoutes()
+        : <Route path="/" component={LoggedOutView} />,
+
+      <Route key="logout" path="/logout" component={LogoutView} />,
+    ]
   }
 }
 
