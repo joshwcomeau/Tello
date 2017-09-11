@@ -20,14 +20,6 @@ const Header = ({ isLoggedIn, user, showAddShowModal }) => (
       </LogoWrapper>
 
       {isLoggedIn && (
-        <UserInfo>
-          Logged in as {user.name}.
-          {' '}
-          <LogoutLink to="/logout">Logout</LogoutLink>
-        </UserInfo>
-      )}
-
-      {isLoggedIn && (
         <AddShowButtonWrapper>
           <AddShowButton
             color={COLORS.deepPurple.primary}
@@ -75,20 +67,6 @@ const AddShowButtonWrapper = styled.div`
     bottom: ${UNITS_IN_PX[1]};
     transform: translateY(0);
   }
-`;
-
-const UserInfo = styled.div`
-  position: absolute;
-  top: 0;
-  right: ${UNITS_IN_PX[2]};
-  line-height: ${UNIT * 2.5 + 'px'};
-  font-size: 13px;
-  color: ${COLORS.gray.veryLight};
-`;
-
-const LogoutLink = styled(Link)`
-  color: ${COLORS.white};
-  font-weight: bold;
 `;
 
 const mapStateToProps = state => ({

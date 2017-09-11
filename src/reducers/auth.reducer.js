@@ -64,4 +64,6 @@ export const getToken = state => state.auth.token;
 export const getIsFetching = state => state.auth.isFetching;
 export const getUser = state => state.auth.user;
 
+export const getUserFullName = state => state.auth.user.name;
+
 export const getIsLoggedIn = state => !isEmpty(getUser(state));

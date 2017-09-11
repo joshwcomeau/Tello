@@ -21,9 +21,10 @@ import MediaQuery from '../MediaQuery';
 import NoShowsYet from '../NoShowsYet';
 import FetchEpisodes from '../FetchEpisodes';
 
+import SummaryView from '../SummaryView';
 import BacklogView from '../BacklogView';
 import CalendarView from '../CalendarView';
-import SummaryView from '../SummaryView';
+import SettingsView from '../SettingsView';
 import MobileView from '../MobileView';
 import LoggedOutView from '../LoggedOutView';
 
@@ -86,6 +87,7 @@ class App extends PureComponent {
           <Route path="/summary" component={SummaryView} />
           <Route path="/backlog" component={BacklogView} />
           <Route path="/calendar" component={CalendarView} />
+          <Route path="/settings" component={SettingsView} />
           <Redirect from="/login" to="/summary" />
           <Redirect from="/" to="/summary" />
         </Switch>

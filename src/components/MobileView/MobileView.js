@@ -9,9 +9,10 @@ import {
   UNITS_IN_PX
 } from '../../constants';
 
+import SummaryView from '../SummaryView';
 import BacklogView from '../BacklogView';
 import CalendarView from '../CalendarView';
-import SummaryView from '../SummaryView';
+import SettingsView from '../SettingsView';
 import Heading from '../Heading';
 
 
@@ -28,9 +29,10 @@ class MobileView extends PureComponent {
     const { activeViewIndex } = this.state;
 
     const views = [
+      { name: 'summary', View: SummaryView },
       { name: 'backlog', View: BacklogView },
       { name: 'calendar', View: CalendarView },
-      { name: 'summary', View: SummaryView },
+      { name: 'settings', View: SettingsView },
     ];
 
     return (
