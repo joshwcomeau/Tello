@@ -5,7 +5,7 @@ import styled from 'emotion/react';
 import PropTypes from 'prop-types';
 
 import { userDataRequest, hideModal } from '../../actions';
-import { Z_INDICES, ROW_HEIGHT } from '../../constants';
+import { Z_INDICES, ROW_HEIGHT, UNITS_IN_PX } from '../../constants';
 import { isMobile } from '../../helpers/responsive.helpers';
 import { getToken, getIsFetching } from '../../reducers/auth.reducer';
 import { getNoShowsYet } from '../../reducers/tracked-shows.reducer';
@@ -16,6 +16,7 @@ import MaxWidthWrapper from '../MaxWidthWrapper';
 import Modal from '../Modal';
 import DesktopNavigation from '../DesktopNavigation';
 import Spacer from '../Spacer';
+import Spinner from '../Spinner';
 import MediaQuery from '../MediaQuery';
 import NoShowsYet from '../NoShowsYet';
 
@@ -57,7 +58,11 @@ class App extends Component {
     const { isFetching, noShowsYet } = this.props;
 
     if (isFetching) {
-      // TODO: Spinner
+      return (
+        <SpinnerWrapper>
+          <Spinner size="lg" />
+        </SpinnerWrapper>
+      )
     }
 
     if (noShowsYet) {
@@ -132,6 +137,13 @@ class App extends Component {
 const Body = styled.div`
   position: relative;
   z-index: ${Z_INDICES.root};
+`;
+
+const SpinnerWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: ${UNITS_IN_PX[3]} 0;
 `
 
 const mapStateToProps = state => ({
