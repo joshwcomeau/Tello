@@ -28,7 +28,7 @@ const Paragraph = styled.p`
   font-size: 22px;
 `
 
-const MiniAddShowButton = styled.div`
+const MiniAddShowButton = styled.span`
   display: inline-flex;
   justify-content: center;
   align-items: center;

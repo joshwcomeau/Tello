@@ -75,11 +75,14 @@ class Spinner extends PureComponent {
               // Using inline styles here instead of emotion/react for perf
               // reasons (a new element is created every time if I use them
               // :/)
-              <div style={{
-                width: sizeInPx,
-                height: sizeInPx,
-                background: 'rgba(128, 128, 128, 0.15)',
-              }}>
+              <div
+                key={i}
+                style={{
+                  width: sizeInPx,
+                  height: sizeInPx,
+                  background: 'rgba(128, 128, 128, 0.15)',
+                }}
+              >
                 <div style={{
                   width: sizeInPx,
                   height: sizeInPx,
