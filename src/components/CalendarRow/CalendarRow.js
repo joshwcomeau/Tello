@@ -1,12 +1,10 @@
 import React, { PureComponent } from 'react';
-import { connect } from 'react-redux';
 import styled from 'emotion/react';
 import differenceInDays from 'date-fns/difference_in_days';
 import addDays from 'date-fns/add_days';
 import isToday from 'date-fns/is_today';
 import PropTypes from 'prop-types';
 
-import { episodesRequest } from '../../actions';
 import { COLORS, UNIT, HALF_UNIT_PX } from '../../constants';
 import getDomainColor from '../../helpers/domain-colors.helpers';
 import { isBetween } from '../../utils';
@@ -27,26 +25,10 @@ class CalendarRow extends PureComponent {
     isLastRow: PropTypes.bool.isRequired,
   }
 
-  componentDidMount() {
-    const { show, episodesRequest } = this.props;
-
-    // If we don't yet have any `episodes` for this show, we have to fetch
-    // them! We can make a few assumptions though:
-    // - The list of episodes won't change externally in a given session,
-    //   so if we already have them, we don't need to fetch them.
-    // - We only have to do this check on mount, because a given BacklogRow
-    //   will never change shows after mount.
-    if (!show.episodes) {
-      episodesRequest({ showId: show.id });
-    }
-  }
-
   render() {
     const { show, row, startDate, endDate, isLastRow } = this.props;
 
     const {baseColor, highlightColor} = getDomainColor(show.type);
-
-    const episodes = show.episodes || [];
 
     return [
       <ShowName
@@ -74,9 +56,9 @@ class CalendarRow extends PureComponent {
         );
       }),
 
-      episodes
+      show.episodes
         .filter(episode => (
-          isBetween({ date: episode.airstamp,  startDate, endDate})
+          isBetween({ date: episode.airstamp,  startDate, endDate })
         ))
         .map(episode => {
           const daysOffset = differenceInDays(episode.airstamp, startDate) + 1;
@@ -123,6 +105,4 @@ const ShowName = styled(CalendarCell)`
   border-right-color: ${COLORS.gray.primary};
 `;
 
-
-
-export default connect(null, { episodesRequest })(CalendarRow);
+export default CalendarRow;

@@ -5,7 +5,9 @@ import FlipMove from 'react-flip-move';
 import addDays from 'date-fns/add_days';
 import PropTypes from 'prop-types';
 
+import { episodesRequest } from '../../actions';
 import { HALF_UNIT_PX } from '../../constants';
+import { isBetween } from '../../utils';
 import { ShowProps } from '../../types';
 
 import CalendarRow from '../CalendarRow';
@@ -22,6 +24,8 @@ class Calendar extends PureComponent {
   }
 
   componentDidMount() {
+    const { shows, episodesRequest } = this.props;
+
     // NOTE: We need to stop propagation on the touch events, so that the
     // parent container's swipe doesn't make the calendar unusable on mobile.
     // Sadly, we can't just use React events like `onTouchStart` because of
@@ -29,14 +33,36 @@ class Calendar extends PureComponent {
     // Need to use the native event system.
     this.elem.addEventListener('touchstart', ev => ev.stopPropagation());
     this.elem.addEventListener('touchmove', ev => ev.stopPropagation());
+
+    // We also need to fetch all the episodes for all the shows, if we haven't
+    // already. While other views do this on a per-show basis, we need to know
+    // in this parent component which rows to render; initially no shows have
+    // any episodes, which means no shows would be rendered... but we still
+    // need to do that initial request!
+    shows.forEach(show => {
+      if (!show.episodes) {
+        episodesRequest({ showId: show.id });
+      }
+    });
   }
 
   render() {
     const { shows, startDate, endDate } = this.props;
 
+    // Filter out any shows that don't have episodes yet.
+    const relevantShows = shows.filter(show => {
+      if (!show.episodes) {
+        return false;
+      }
+
+      return show.episodes.some(episode => (
+        isBetween({ date: episode.airstamp,  startDate, endDate })
+      ));
+    });
+
     return (
-      <Wrapper>
-        <CalendarGrid innerRef={elem => this.elem = elem}>
+      <Wrapper innerRef={elem => this.elem = elem}>
+        <CalendarGrid>
           <CalendarCornerCell row={1} col={1} />
           <CalendarHeaderCell date={startDate} row={1} col={2} />
           <CalendarHeaderCell date={addDays(startDate, 1)} row={1} col={3} />
@@ -47,7 +73,7 @@ class Calendar extends PureComponent {
           <CalendarHeaderCell date={addDays(startDate, 6)} row={1} col={8} />
           <Cell row={1} col={9} />
 
-          {shows.map((show, index) => (
+          {relevantShows.map((show, index) => (
             <CalendarRow
               key={show.id}
               show={show}
@@ -65,12 +91,12 @@ class Calendar extends PureComponent {
 
 const Wrapper = styled.div`
   width: 100%;
+  min-width: 800px;
   padding: ${HALF_UNIT_PX};
   background: white;
   overflow: auto;
 `
 const CalendarGrid = styled.div`
-  min-width: 800px;
   display: grid;
   grid-template-columns: 1.5fr repeat(7, 1fr);
 `;
@@ -80,4 +106,4 @@ const mapStateToProps = state => ({
   endDate: state.calendar.endDate,
 });
 
-export default connect(mapStateToProps)(Calendar);
+export default connect(mapStateToProps, { episodesRequest })(Calendar);
