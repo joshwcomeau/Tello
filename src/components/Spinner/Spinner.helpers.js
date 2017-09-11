@@ -31,3 +31,18 @@ export const getSizeInPx = sizeString => {
       return getSizeInPx('md');
   }
 };
+
+export const getTransformOrigin = index => {
+  switch (index) {
+    case 0:
+      return 'right center';
+    case 1:
+      return '75% center';
+    case 2:
+      return 'center center';
+    case 3:
+      return '25% center';
+    case 4:
+      return 'left center';
+  }
+}

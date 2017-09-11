@@ -78,7 +78,6 @@ class Calendar extends PureComponent {
 
 const Wrapper = styled.div`
   width: 100%;
-  min-width: 800px;
   padding: ${HALF_UNIT_PX};
   background: white;
   overflow: auto;
@@ -86,6 +85,7 @@ const Wrapper = styled.div`
 const CalendarGrid = styled.div`
   display: grid;
   grid-template-columns: 1.5fr repeat(7, 1fr);
+  min-width: 800px;
 `;
 
 const mapStateToProps = state => ({

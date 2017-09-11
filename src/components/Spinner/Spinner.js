@@ -8,6 +8,7 @@ import {
   getBackgroundForNode,
   getScaleValues,
   getSizeInPx,
+  getTransformOrigin,
 } from './Spinner.helpers';
 
 
@@ -80,14 +81,13 @@ class Spinner extends PureComponent {
                 style={{
                   width: sizeInPx,
                   height: sizeInPx,
-                  background: 'rgba(128, 128, 128, 0.15)',
                 }}
               >
                 <div style={{
                   width: sizeInPx,
                   height: sizeInPx,
                   transform: `scale(${x}, ${y})`,
-                  transformOrigin: 'bottom right',
+                  transformOrigin: getTransformOrigin(i),
                   background: getBackgroundForNode(i),
                 }} />
               </div>

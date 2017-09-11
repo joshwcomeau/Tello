@@ -145,7 +145,7 @@ const SpinnerWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: ${UNITS_IN_PX[3]} 0;
+  padding: ${UNITS_IN_PX[6]} 0;
 `
 
 const mapStateToProps = state => ({
