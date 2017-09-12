@@ -140,7 +140,7 @@ class App extends PureComponent {
 
       hasToken
         ? this.renderLoggedInRoutes()
-        : <Route path="/" component={LandingPageView} />,
+        : <Route key="landing" path="/" component={LandingPageView} />,
 
       <Footer key="footer" />,
 
