@@ -106,6 +106,9 @@ export const HALF_UNIT_PX = HALF_UNIT + 'px';
 export const ROW_HEIGHT = UNIT * 5;
 export const ROW_HEIGHT_PX = ROW_HEIGHT + 'px';
 
+export const HEADER_HEIGHT = UNIT * 10;
+export const HEADER_HEIGHT_PX = HEADER_HEIGHT + 'px';
+
 export const MAX_WIDTH = {
   sm: '100%',
   md: '900px',

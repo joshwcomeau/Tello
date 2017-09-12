@@ -5,7 +5,12 @@ import styled from 'emotion/react';
 import PropTypes from 'prop-types';
 
 import { userDataRequest, hideModal } from '../../actions';
-import { Z_INDICES, ROW_HEIGHT, UNITS_IN_PX } from '../../constants';
+import {
+  Z_INDICES,
+  ROW_HEIGHT,
+  UNITS_IN_PX,
+  HEADER_HEIGHT_PX,
+} from '../../constants';
 import { isMobile } from '../../helpers/responsive.helpers';
 import { getToken, getIsFetching } from '../../reducers/auth.reducer';
 import { getNoShowsYet } from '../../reducers/tracked-shows.reducer';
@@ -20,6 +25,7 @@ import Spinner from '../Spinner';
 import MediaQuery from '../MediaQuery';
 import NoShowsYet from '../NoShowsYet';
 import FetchEpisodes from '../FetchEpisodes';
+import Footer from '../Footer';
 
 import SummaryView from '../SummaryView';
 import BacklogView from '../BacklogView';
@@ -136,6 +142,8 @@ class App extends PureComponent {
         ? this.renderLoggedInRoutes()
         : <Route path="/" component={LandingPageView} />,
 
+      <Footer key="footer" />,
+
       <Route key="logout" path="/logout" component={LogoutView} />,
     ]
   }
@@ -144,6 +152,7 @@ class App extends PureComponent {
 const Body = styled.div`
   position: relative;
   z-index: ${Z_INDICES.root};
+  min-height: calc(100vh - ${HEADER_HEIGHT_PX});
 `;
 
 const SpinnerWrapper = styled.div`

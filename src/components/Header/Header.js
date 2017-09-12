@@ -4,7 +4,12 @@ import { Link } from 'react-router-dom';
 import styled from 'emotion/react';
 
 import { showAddShowModal } from '../../actions';
-import { BREAKPOINTS, COLORS, UNITS_IN_PX, UNIT } from '../../constants';
+import {
+  BREAKPOINTS,
+  COLORS,
+  UNITS_IN_PX,
+  HEADER_HEIGHT_PX,
+} from '../../constants';
 import { getIsLoggedIn, getUser } from '../../reducers/auth.reducer';
 
 import AddShowButton from '../AddShowButton';
@@ -35,7 +40,7 @@ const Header = ({ isLoggedIn, user, showAddShowModal }) => (
 const HeaderElem = styled.header`
   position: relative;
   z-index: 5;
-  height: ${UNITS_IN_PX[10]};
+  height: ${HEADER_HEIGHT_PX};
   background: linear-gradient(${COLORS.pink.primary}, ${COLORS.purple.primary});
 `;
 
