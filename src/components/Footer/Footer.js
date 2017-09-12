@@ -41,6 +41,7 @@ const FooterElem = styled.footer`
   padding: ${UNITS_IN_PX[2]};
   background: ${COLORS.purple.dark};
   color: ${COLORS.white};
+  text-align: center;
 
   @media ${BREAKPOINTS.sm} {
     text-align: left;

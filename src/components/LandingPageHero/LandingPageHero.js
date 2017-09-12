@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'emotion/react';
 
-import { COLORS, UNITS_IN_PX } from '../../constants';
+import { BREAKPOINTS, COLORS, UNITS_IN_PX } from '../../constants';
 import { random, range } from '../../utils';
 
 import Drift from '../Drift';
@@ -74,20 +74,58 @@ const LogoWrapper = styled.div`
 const MainContent = styled.div`
   position: relative;
   z-index: 3;
+
+  @media ${BREAKPOINTS.sm} {
+    margin-top: 15%;
+  }
 `;
 
 const Tagline = styled.h3`
   position: relative;
-  font-size: 48px;
-  line-height: 72px;
+  font-size: 56px;
+  line-height: 80px;
   text-shadow: 2px 2px rgba(0, 0, 0, 0.1);
   margin-bottom: ${UNITS_IN_PX[1]};
+
+  @media ${BREAKPOINTS.xl} {
+    font-size: 48px;
+    line-height: 72px;
+  }
+  @media ${BREAKPOINTS.md} {
+    font-size: 36px;
+    line-height: 54px;
+  }
+
+  @media ${BREAKPOINTS.sm} {
+    font-size: 32px;
+    line-height: 50px;
+  }
+
+  @media ${BREAKPOINTS.xs} {
+    font-size: 28px;
+    line-height: 50px;
+  }
 `;
 
 const SubTagline = styled.h5`
   position: relative;
-  font-size: 32px;
+  font-size: 38px;
   font-weight: normal;
+
+  @media ${BREAKPOINTS.xl} {
+    font-size: 32px;
+  }
+  @media ${BREAKPOINTS.md} {
+    font-size: 28px;
+  }
+
+  @media ${BREAKPOINTS.sm} {
+    font-size: 22px;
+  }
+
+  @media ${BREAKPOINTS.xs} {
+    font-size: 18px;
+  }
 `
 
 const Emoji = styled.div`
@@ -97,14 +135,37 @@ const Emoji = styled.div`
   right: 0;
   margin-left: auto;
   margin-right: auto;
-  font-size: 72px;
+  font-size: 96px;
   transform: translateY(-125%);
+
+  @media ${BREAKPOINTS.xl} {
+    font-size: 72px;
+  }
 `;
 
 const Raleway = styled.span`
   font-family: 'Raleway';
-  font-size: 54px;
+  font-size: 62px;
   letter-spacing: -1px;
+
+  @media ${BREAKPOINTS.xl} {
+    font-size: 56px;
+    line-height: 72px;
+  }
+  @media ${BREAKPOINTS.md} {
+    font-size: 42px;
+    line-height: 54px;
+  }
+
+  @media ${BREAKPOINTS.sm} {
+    font-size: 36px;
+    line-height: 54px;
+  }
+
+  @media ${BREAKPOINTS.xs} {
+    font-size: 32px;
+    line-height: 54px;
+  }
 `;
 
 export default LandingPageHero;

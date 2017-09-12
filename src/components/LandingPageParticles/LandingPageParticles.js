@@ -7,6 +7,8 @@ import Drift from '../Drift';
 import Particle from '../Particle';
 
 const QUADRANT_SIZE = 300;
+const STAGGER_LENGTH = 150;
+const SHAPES = ['zigzag', 'square', 'triangle', 'pyramid'];
 
 class LandingPageParticles extends PureComponent {
   generateParticlesForQuadrants() {
@@ -16,6 +18,8 @@ class LandingPageParticles extends PureComponent {
     // box. In this way, we ensure mobile responsiveness.
     let xQuadrantStart = 0;
     let yQuadrantStart = 0;
+
+    let index = 0;
 
     let particles = [];
 
@@ -32,10 +36,16 @@ class LandingPageParticles extends PureComponent {
             isFrozen={isFrozen}
             initialX={random(xQuadrantStart, xQuadrantStart + QUADRANT_SIZE)}
             initialY={random(yQuadrantStart, yQuadrantStart + QUADRANT_SIZE)}
+            initialRotation={random(-40, 40)}
           >
-            <Particle />
+            <Particle
+              shape={SHAPES[index % 4]}
+              drawDelay={index * STAGGER_LENGTH}
+            />
           </Drift>
         );
+
+        index += 1;
 
         yQuadrantStart += QUADRANT_SIZE;
       }

@@ -11,7 +11,7 @@ const PATHS = {
   zigzag: 'M 0 40 L 40 160 L 80 40 L 120 160 L 160 40 L 200 160',
   square: 'M 0 200 V 0 H 200 V 200 H 66 V 66 H 132 V 132',
   triangle: 'M 0 200 L 100 27 L 200 200 L 50 200',
-  triangleSolid: `
+  pyramid: `
     M 0 200  L 100 27
     M 50 200 L 125 70
     M 100 200 L 150 113
@@ -26,22 +26,27 @@ class Particle extends PureComponent {
     color: PropTypes.string.isRequired,
     size: PropTypes.number.isRequired,
     rotation: PropTypes.number,
-    animationDelay: PropTypes.number,
+    drawDelay: PropTypes.number,
+    drawSpeed: PropTypes.number,
   }
 
   static defaultProps = {
-    color: 'rgba(255, 255, 255, 0.15)',
-    size: 80,
-    rotation: 0,
+    color: 'rgba(255, 255, 255, 0.2)',
+    size: 50,
   }
 
   // Choose a random shape and rotation if not provided via props.
   // Can't happen in `defaultProps` since we want each instance to have its own
   // randomized shape.
   shape = this.props.shape || sample(Object.keys(PATHS))
-  rotation = this.props.rotation || random(0, 360)
-  delay = this.props.delay || random(500, 5000)
-  speed = this.props.speed || random(1000, 4000)
+
+  drawDelay = typeof this.props.drawDelay === 'number'
+    ? this.props.drawDelay
+    : random(500, 5000)
+
+  drawSpeed = typeof this.props.drawSpeed === 'number'
+    ? this.props.drawSpeed
+    : random(1000, 4000)
 
   componentDidMount() {
     const pathLength = this.pathElem.getTotalLength();
@@ -50,9 +55,9 @@ class Particle extends PureComponent {
     this.pathElem.style.strokeDashoffset = pathLength;
 
     this.initialAnimationTimeoutId = window.setTimeout(() => {
-      this.pathElem.style.transition = `stroke-dashoffset ${this.speed}ms`;
+      this.pathElem.style.transition = `stroke-dashoffset ${this.drawSpeed}ms`;
       this.pathElem.style.strokeDashoffset = 0;
-    }, this.delay)
+    }, this.drawDelay)
   }
 
   render() {
@@ -68,7 +73,6 @@ class Particle extends PureComponent {
         viewBox="0 0 200 200"
         style={{
           overflow: 'visible',
-          transform: `rotateZ(${rotation}deg)`,
         }}
       >
         <path
