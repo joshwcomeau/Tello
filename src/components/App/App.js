@@ -95,6 +95,8 @@ class App extends PureComponent {
   }
 
   renderLoggedInRoutes() {
+     const { hideModal } = this.props;
+
     return [
       <Header key="header" />,
 
@@ -125,7 +127,7 @@ class App extends PureComponent {
   }
 
   render() {
-    const { hasToken, hideModal } = this.props;
+    const { hasToken } = this.props;
 
     return [
       <FlashMessage key="flash" />,

@@ -10,7 +10,7 @@ import {
   getActionLabel,
 } from '../../reducers/flash.reducer';
 import { hideFlashMessage } from '../../actions';
-import { COLORS, UNIT, UNITS_IN_PX } from '../../constants';
+import { COLORS, UNIT, UNITS_IN_PX, HALF_UNIT_PX } from '../../constants';
 
 import { getColorForMessageType } from './FlashMessage.helpers';
 
@@ -118,14 +118,14 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: ${FLASH_HEIGHT};
+  min-height: ${FLASH_HEIGHT};
   background: #FFF;
   color: ${getColorForMessageType};
   transform: ${props => props.isVisible ? `translateY(0)` : `translateY(-100%)`};
   transition: 850ms;
   font-size: 15px;
   box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
-  padding: 0 ${UNITS_IN_PX[2]};
+  padding: ${HALF_UNIT_PX} ${UNITS_IN_PX[2]};
 `;
 
 const Dismiss = styled.button`
