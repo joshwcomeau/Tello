@@ -2,8 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'emotion/react';
 
-import { COLORS, HALF_UNIT_PX, UNITS_IN_PX } from '../../constants';
-import getDomainColor from '../../helpers/domain-colors.helpers';
+import {
+  COLORS,
+  EPISODE_COLOR,
+  HALF_UNIT_PX,
+  UNITS_IN_PX,
+} from '../../constants';
 import {
   getHumanizedEpisodeAirDate,
   getEpisodeNumString,
@@ -28,13 +32,9 @@ class BacklogEpisode extends Component {
       handleClick,
     } = this.props;
 
-    const {baseColor, highlightColor} = getDomainColor(showType);
-
     return (
       <Episode
         height={height}
-        color1={baseColor}
-        color2={highlightColor}
         onClick={handleClick}
       >
         <EpisodeHeader>
@@ -63,8 +63,8 @@ const Episode = styled.div`
   margin-right: ${HALF_UNIT_PX};
   padding: ${HALF_UNIT_PX};
   background: linear-gradient(
-    ${props => props.color1},
-    ${props => props.color2}
+    ${EPISODE_COLOR.base},
+    ${EPISODE_COLOR.highlight}
   );
   color: ${COLORS.white};
   cursor: pointer;

@@ -2,18 +2,16 @@ import React from 'react';
 import { keyframes } from 'emotion'
 import styled from 'emotion/react';
 
-import { COLORS, HALF_UNIT_PX } from '../../constants';
+import { COLORS, EPISODE_COLOR, HALF_UNIT_PX } from '../../constants';
 import { getEpisodeNumString } from '../../helpers/show.helpers';
 
 import Cell from '../Cell';
 
 
-const CalendarEpisode = ({ episode, row, col, color1, color2, margin, height }) => (
+const CalendarEpisode = ({ episode, row, col, margin, height }) => (
   <EpisodeCell
     row={row}
     col={col}
-    color1={color1}
-    color2={color2}
     margin={margin}
     height={height}
   >
@@ -44,8 +42,8 @@ const EpisodeCell = styled(Cell)`
   margin-right: 3px;
   color: ${COLORS.white};
   background: linear-gradient(
-    ${props => props.color1},
-    ${props => props.color2}
+    ${EPISODE_COLOR.base},
+    ${EPISODE_COLOR.highlight}
   );
   animation: ${slide} 600ms ease-out;
 `;

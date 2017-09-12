@@ -75,6 +75,11 @@ export const COLORS = {
   },
 };
 
+export const EPISODE_COLOR = {
+  base: COLORS.blue.primary,
+  highlight: COLORS.deepPurple.primary,
+};
+
 export const Z_INDICES = {
   root: 1,
   modal: 100,

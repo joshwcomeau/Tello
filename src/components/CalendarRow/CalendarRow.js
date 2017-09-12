@@ -6,7 +6,6 @@ import isToday from 'date-fns/is_today';
 import PropTypes from 'prop-types';
 
 import { COLORS, UNIT, HALF_UNIT_PX } from '../../constants';
-import getDomainColor from '../../helpers/domain-colors.helpers';
 import { isBetween } from '../../utils';
 import { ShowProps } from '../../types';
 
@@ -27,8 +26,6 @@ class CalendarRow extends PureComponent {
 
   render() {
     const { show, row, startDate, endDate, isLastRow } = this.props;
-
-    const {baseColor, highlightColor} = getDomainColor(show.type);
 
     return [
       <ShowName
@@ -70,8 +67,6 @@ class CalendarRow extends PureComponent {
               episode={episode}
               row={row}
               col={col}
-              color1={baseColor}
-              color2={highlightColor}
               height={CALENDAR_ROW_HEIGHT}
             >
               {episode.name}
