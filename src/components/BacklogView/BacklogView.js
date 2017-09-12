@@ -1,7 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import styled from 'emotion/react';
 
+import { showAddShowModal } from '../../actions';
+import { COLORS } from '../../constants';
 import {
   getTrackedShowsWithUnseenEpisodesArray,
 } from '../../reducers/tracked-shows.reducer';
@@ -9,26 +12,45 @@ import { ShowProps } from '../../types';
 import { sortShows } from '../../helpers/show.helpers';
 
 import BacklogRow from '../BacklogRow';
+import NotificationView from '../NotificationView';
 import SortShows from '../SortShows';
 
 
 const propTypes = {
   trackedShows: PropTypes.arrayOf(ShowProps),
-}
+};
 
-const BacklogView = ({ trackedShows }) => (
-  <div id="backlog">
-    <SortShows />
+const BacklogView = ({ trackedShows, showAddShowModal }) => {
+  if (trackedShows.length === 0) {
+    return (
+      <NotificationView heading="All episodes seen.">
+        You've seen all the episodes in your backlog. Maybe it's time to
+        {' '}
+        <AddNewShowLink onClick={showAddShowModal}>
+          add a new show
+        </AddNewShowLink>
+        ?
+      </NotificationView>
+    );
+  }
 
-    {trackedShows.map(show => (
-      show.episodes
-        ? <BacklogRow key={show.id} show={show} />
-        : null
-    ))}
-  </div>
-);
+  return (
+    <div id="backlog">
+      <SortShows />
 
-BacklogView.propTypes = propTypes;
+      {trackedShows.map(show => (
+        show.episodes
+          ? <BacklogRow key={show.id} show={show} />
+          : null
+      ))}
+    </div>
+  )
+};
+
+const AddNewShowLink = styled.a`
+  cursor: pointer;
+  color: ${COLORS.purple.primary};
+`
 
 const mapStateToProps = state => ({
   trackedShows: sortShows({
@@ -40,4 +62,6 @@ const mapStateToProps = state => ({
   sorting: state.ui.sorting,
 });
 
-export default connect(mapStateToProps)(BacklogView);
+BacklogView.propTypes = propTypes;
+
+export default connect(mapStateToProps, { showAddShowModal })(BacklogView);

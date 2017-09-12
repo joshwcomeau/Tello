@@ -6,7 +6,8 @@ import addDays from 'date-fns/add_days';
 import PropTypes from 'prop-types';
 
 import { episodesRequest } from '../../actions';
-import { HALF_UNIT_PX } from '../../constants';
+import { COLORS, UNIT, HALF_UNIT_PX, UNITS_IN_PX } from '../../constants';
+import { getIsFetchingAnyEpisodes } from '../../reducers/tracked-shows.reducer';
 import { isBetween } from '../../utils';
 import { ShowProps } from '../../types';
 
@@ -14,6 +15,7 @@ import CalendarRow from '../CalendarRow';
 import CalendarHeaderCell from '../CalendarHeaderCell';
 import CalendarCornerCell from '../CalendarCornerCell';
 import Cell from '../Cell';
+import Spinner from '../Spinner';
 import StopTouchPropagation from '../StopTouchPropagation';
 
 
@@ -25,7 +27,16 @@ class Calendar extends PureComponent {
   }
 
   render() {
-    const { shows, startDate, endDate } = this.props;
+    const { shows, startDate, endDate, isFetchingEpisodes } = this.props;
+
+    // If we're still fetching episodes, show a spinner.
+    if (isFetchingEpisodes) {
+      return (
+        <SpinnerWrapper>
+          <Spinner />
+        </SpinnerWrapper>
+      )
+    }
 
     // Filter out any shows that don't have episodes yet.
     const relevantShows = shows.filter(show => {
@@ -50,7 +61,6 @@ class Calendar extends PureComponent {
             <CalendarHeaderCell date={addDays(startDate, 4)} row={1} col={6} />
             <CalendarHeaderCell date={addDays(startDate, 5)} row={1} col={7} />
             <CalendarHeaderCell date={addDays(startDate, 6)} row={1} col={8} />
-            <Cell row={1} col={9} />
 
             {relevantShows.map((show, index) => (
               <CalendarRow
@@ -62,6 +72,12 @@ class Calendar extends PureComponent {
                 isLastRow={index === shows.length - 1}
               />
             ))}
+            {relevantShows.length === 0 && [
+              <NoShowSpacer key="spacer" />,
+              <NoShowsThisWeek key="message">
+                Sorry, no new shows airing this week!
+              </NoShowsThisWeek>
+            ]}
           </CalendarGrid>
         </StopTouchPropagation>
       </Wrapper>
@@ -74,16 +90,42 @@ const Wrapper = styled.div`
   padding: ${HALF_UNIT_PX};
   background: white;
   overflow: auto;
-`
+`;
+
+const SpinnerWrapper = styled(Wrapper)`
+  padding: ${UNITS_IN_PX[2]};
+  display: flex;
+  justify-content: center;
+`;
+
 const CalendarGrid = styled.div`
   display: grid;
   grid-template-columns: 1.5fr repeat(7, 1fr);
   min-width: 800px;
 `;
 
+const NoShowSpacer = styled.div`
+  grid-column-start: 1;
+  grid-row-start: 2;
+  border-right: 1px solid ${COLORS.gray.primary};
+  background: ${COLORS.highlight.dark};
+`;
+
+const NoShowsThisWeek = styled.div`
+  grid-column-start: 2;
+  grid-column-end: 9;
+  grid-row-start: 2;
+  height: ${UNIT * 3.5}px;
+  line-height: ${UNIT * 3.5}px;
+  text-align: center;
+  color: ${COLORS.gray.dark};
+  font-size: 22px;
+`
+
 const mapStateToProps = state => ({
   startDate: state.calendar.startDate,
   endDate: state.calendar.endDate,
+  isFetchingEpisodes: getIsFetchingAnyEpisodes(state),
 });
 
 export default connect(mapStateToProps, { episodesRequest })(Calendar);

@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'emotion/react';
 
-import { UNIT, UNITS_IN_PX } from '../../constants';
+import { COLORS, UNIT, UNITS_IN_PX } from '../../constants';
 import { getUser } from '../../reducers/auth.reducer';
 
 import Button from '../Button';
@@ -12,7 +12,7 @@ import Spacer from '../Spacer';
 
 const SettingsView = ({ user }) => {
   return [
-    <Spacer key="spacer" size={UNIT * 2} />,
+    <Spacer key="spacer" size={UNIT * 4} />,
     <Section key="account">
       <Heading theme="vibrant" size="small">Account Settings</Heading>
       <Paragraph>
@@ -36,8 +36,10 @@ const SettingsView = ({ user }) => {
 };
 
 const Section = styled.div`
-  padding-top: ${UNITS_IN_PX[2]};
-  padding-bottom: ${UNITS_IN_PX[2]};
+  padding: ${UNITS_IN_PX[1]};
+  margin-bottom: ${UNITS_IN_PX[1]};
+  background: ${COLORS.white};
+  color: ${COLORS.gray.veryDark};
 `;
 
 const Paragraph = styled.p`

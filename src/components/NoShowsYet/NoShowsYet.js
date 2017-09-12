@@ -1,32 +1,16 @@
 import React from 'react';
 import styled from 'emotion/react';
 
-import { COLORS, UNITS_IN_PX, ROW_HEIGHT_PX } from '../../constants';
+import { COLORS } from '../../constants';
 
-import Heading from '../Heading';
+import NotificationView from '../NotificationView';
 
 
-const NoShowsYet = () => {
-  return (
-    <Wrapper>
-      <Heading theme="vibrant">
-        No shows yet.
-      </Heading>
-      <Paragraph>
-        Use the <MiniAddShowButton>+</MiniAddShowButton> icon to add your first show!
-      </Paragraph>
-    </Wrapper>
-  );
-};
-
-const Wrapper = styled.div`
-  padding-top: ${ROW_HEIGHT_PX};
-  text-align: center;
-`;
-
-const Paragraph = styled.p`
-  font-size: 22px;
-`
+const NoShowsYet = () => (
+  <NotificationView heading="No shows yet.">
+    Use the <MiniAddShowButton>+</MiniAddShowButton> icon to add your first show!
+  </NotificationView>
+);
 
 const MiniAddShowButton = styled.span`
   display: inline-flex;

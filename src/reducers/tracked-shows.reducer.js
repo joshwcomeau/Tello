@@ -4,6 +4,7 @@ import isFuture from 'date-fns/is_future';
 import compareAsc from 'date-fns/compare_asc';
 
 import {
+  EPISODES_REQUEST,
   EPISODES_RECEIVE,
   ADD_SHOWS_RECEIVE,
   REMOVE_SHOW,
@@ -248,4 +249,11 @@ export const getAiredTrackedShowsArrayWithSeasons = createSelector(
     ...show,
     seasons: organizeEpisodesBySeason(show),
   }))
+);
+
+export const getIsFetchingAnyEpisodes = createSelector(
+  getTrackedShowsArray,
+  (shows) => shows.some(show => (
+    !Array.isArray(show.episodes)
+  ))
 );
