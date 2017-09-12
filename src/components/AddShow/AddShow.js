@@ -97,6 +97,7 @@ class AddShow extends Component {
           <Heading>Add New Show</Heading>
 
           <TextInput
+            focusOnMount
             placeholder="eg. Game of Thrones"
             onChange={this.handleSearch}
             changeDebounceTime={300}

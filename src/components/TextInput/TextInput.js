@@ -6,23 +6,27 @@ import { COLORS, UNITS_IN_PX } from '../../constants';
 import { debounce } from '../../utils';
 
 
-const propTypes = {
-  onChange: PropTypes.func,
-  changeDebounceTime: PropTypes.number.isRequired,
-  placeholder: PropTypes.string,
-};
-
-const defaultProps = {
-  onChange: function() { /* no-op */ },
-  changeDebounceTime: 0,
-};
-
 class TextInput extends Component {
-  static propTypes = propTypes
-  static defaultProps = defaultProps
+  static propTypes = {
+    onChange: PropTypes.func,
+    changeDebounceTime: PropTypes.number.isRequired,
+    placeholder: PropTypes.string,
+    focusOnMount: PropTypes.bool,
+  }
+
+  static defaultProps = {
+    onChange: function() { /* no-op */ },
+    changeDebounceTime: 0,
+  }
 
   state = {
     focused: false,
+  }
+
+  componentDidMount() {
+    if (this.props.focusOnMount) {
+      this.elem.focus();
+    }
   }
 
   handleFocus = () => this.setState({ focused: true });
@@ -35,6 +39,7 @@ class TextInput extends Component {
     return (
       <Wrapper>
         <Input
+          innerRef={elem => this.elem = elem}
           type="text"
           placeholder={placeholder}
           onFocus={this.handleFocus}
@@ -90,51 +95,5 @@ const BottomBorderHighlight = styled.div`
   transform-origin: left bottom;
   transition: transform 400ms;
 `;
-
-// {/* <div className={css(styles.bottomBorder)} />
-// <div
-//   className={css(
-//     styles.bottomBorderHighlight,
-//     this.state.focused && styles.bottomBorderHighlightActive,
-//     hasError && styles.bottomBorderHighlightError
-//   )}
-// /> */}
-
-// input: {
-//   background: 'transparent',
-//   border: 'none',
-//   padding: '12px 0',
-//   marginTop: '10px',
-//   outline: 'none',
-//   fontSize: '14px',
-//   color: gray800,
-//   width: '100%',
-// },
-// bottomBorder: {
-//   position: 'absolute',
-//   zIndex: 1,
-//   left: 0,
-//   right: 0,
-//   bottom: 0,
-//   height: '1px',
-//   backgroundColor: gray500,
-// },
-// bottomBorderHighlight: {
-//   position: 'absolute',
-//   zIndex: 2,
-//   left: 0,
-//   right: 0,
-//   bottom: 0,
-//   height: '2px',
-//   backgroundColor: gray900,
-//   transform: 'scaleX(0)',
-// },
-// bottomBorderHighlightActive: {
-//   animationName: borderBottomHorizontalAnimation,
-//   animationDuration: '500ms',
-//   animationFillMode: 'forwards',
-//   animationTimingFunction: 'cubic-bezier(.24,.75,.5,1.08)',
-//   transformOrigin: 'left bottom',
-// },
 
 export default TextInput;
