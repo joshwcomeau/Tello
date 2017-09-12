@@ -24,7 +24,7 @@ class LandingPageParticles extends PureComponent {
       while (yQuadrantStart < window.innerHeight) {
         // Some of our particles will move around onscreen, but most won't.
         // This is to reduce the number of simultaneous transforms.
-        const isFrozen = Math.random() > 0.25;
+        const isFrozen = false;
 
         particles.push(
           <Drift

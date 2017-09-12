@@ -26,11 +26,12 @@ class Particle extends PureComponent {
     color: PropTypes.string.isRequired,
     size: PropTypes.number.isRequired,
     rotation: PropTypes.number,
+    animationDelay: PropTypes.number,
   }
 
   static defaultProps = {
-    color: 'rgba(255, 255, 255, 0.25)',
-    size: 50,
+    color: 'rgba(255, 255, 255, 0.15)',
+    size: 80,
     rotation: 0,
   }
 
@@ -39,6 +40,20 @@ class Particle extends PureComponent {
   // randomized shape.
   shape = this.props.shape || sample(Object.keys(PATHS))
   rotation = this.props.rotation || random(0, 360)
+  delay = this.props.delay || random(500, 5000)
+  speed = this.props.speed || random(1000, 4000)
+
+  componentDidMount() {
+    const pathLength = this.pathElem.getTotalLength();
+
+    this.pathElem.style.strokeDasharray = pathLength;
+    this.pathElem.style.strokeDashoffset = pathLength;
+
+    this.initialAnimationTimeoutId = window.setTimeout(() => {
+      this.pathElem.style.transition = `stroke-dashoffset ${this.speed}ms`;
+      this.pathElem.style.strokeDashoffset = 0;
+    }, this.delay)
+  }
 
   render() {
     const { size, color } = this.props;
@@ -57,10 +72,11 @@ class Particle extends PureComponent {
         }}
       >
         <path
+          ref={elem => this.pathElem = elem}
           d={path}
           fill="none"
           stroke={color}
-          strokeWidth={Math.round(size * 0.4)}
+          strokeWidth={20}
           strokeLinecap="square"
         />
       </svg>
