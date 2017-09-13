@@ -8,6 +8,7 @@ import Particle from '../Particle';
 
 const QUADRANT_SIZE = 300;
 const STAGGER_LENGTH = 150;
+const INITIAL_STAGGER_DELAY = 350;
 const SHAPES = ['zigzag', 'square', 'triangle', 'pyramid'];
 
 class LandingPageParticles extends PureComponent {
@@ -40,7 +41,7 @@ class LandingPageParticles extends PureComponent {
           >
             <Particle
               shape={SHAPES[index % 4]}
-              drawDelay={index * STAGGER_LENGTH}
+              drawDelay={index * STAGGER_LENGTH + INITIAL_STAGGER_DELAY}
             />
           </Drift>
         );

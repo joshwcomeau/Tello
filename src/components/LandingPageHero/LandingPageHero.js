@@ -5,9 +5,10 @@ import { BREAKPOINTS, COLORS, UNITS_IN_PX, Z_INDICES } from '../../constants';
 import { random, range } from '../../utils';
 
 import Drift from '../Drift';
+import GoogleButton from '../GoogleButton';
 import Logo from '../Logo';
 import LandingPageParticles from '../LandingPageParticles';
-import GoogleButton from '../GoogleButton';
+import MaxWidthWrapper from '../MaxWidthWrapper';
 
 
 const GRADIENT_ANGLE = '-15deg';
@@ -15,22 +16,26 @@ const GRADIENT_ANGLE = '-15deg';
 const LandingPageHero = () => [
   <FixedWrapper key="fixed">
     <HeroElem>
-      <LogoWrapper>
-        <Logo
-          boxColor={COLORS.white}
-          background={`linear-gradient(
-            ${GRADIENT_ANGLE},
-            #b019fa,
-            ${COLORS.pink.primary}
-          )`}
-        />
-      </LogoWrapper>
+      <Header>
+        <MaxWidthWrapper noPadding>
+          <LogoWrapper>
+            <Logo
+              boxColor={COLORS.white}
+              background={`linear-gradient(
+                ${GRADIENT_ANGLE},
+                #b019fa,
+                ${COLORS.pink.primary}
+              )`}
+            />
+          </LogoWrapper>
 
-      <Actions>
-        <GoogleButton color="blue">
-          Login
-        </GoogleButton>
-      </Actions>
+          <Actions>
+            <GoogleButton color="blue">
+              Login
+            </GoogleButton>
+          </Actions>
+        </MaxWidthWrapper>
+      </Header>
 
       <MainContent>
         <Tagline>
@@ -63,7 +68,7 @@ const HeroSpacer = styled.div`
   position: relative;
   height: 100vh;
   z-index: -2;
-`
+`;
 
 const HeroElem = styled.div`
   display: flex;
@@ -82,13 +87,27 @@ const HeroElem = styled.div`
   );
 `;
 
+const Header = styled.header`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+`;
+
 const LogoWrapper = styled.div`
   position: absolute;
   z-index: 1;
   top: ${UNITS_IN_PX[2]};
-  left: ${UNITS_IN_PX[2]};
+  left: 0;
   transform: scale(0.75);
   transform-origin: left top;
+`;
+
+const Actions = styled.div`
+  position: absolute;
+  z-index: 3;
+  top: ${UNITS_IN_PX[2]};
+  right: 0;
 `;
 
 const MainContent = styled.div`
@@ -182,13 +201,6 @@ const Raleway = styled.span`
     font-size: 32px;
     line-height: 54px;
   }
-`;
-
-const Actions = styled.div`
-  position: absolute;
-  z-index: 3;
-  top: ${UNITS_IN_PX[2]};
-  right: ${UNITS_IN_PX[2]};
 `;
 
 export default LandingPageHero;

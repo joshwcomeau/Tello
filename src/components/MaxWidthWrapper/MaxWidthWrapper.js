@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import styled from 'emotion/react';
 
 import {
@@ -8,14 +9,18 @@ import {
 } from '../../constants';
 
 
-export default styled.div`
+const propTypes = {
+  noPadding: PropTypes.bool,
+};
+
+const MaxWidthWrapper = styled.div`
   position: relative;
   width: 100%;
   max-width: ${MAX_WIDTH.base};
   margin-left: auto;
   margin-right: auto;
-  padding-left: ${UNITS_IN_PX[2]};
-  padding-right: ${UNITS_IN_PX[2]};
+  padding-left: ${props => props.noPadding ? 0 : UNITS_IN_PX[2]};
+  padding-right: ${props => props.noPadding ? 0 : UNITS_IN_PX[2]};
 
   @media ${BREAKPOINTS.sm} {
     max-width: 100%;
@@ -25,3 +30,7 @@ export default styled.div`
     max-width: ${BREAKPOINT_SIZES.md + 'px'};
   }
 `;
+
+MaxWidthWrapper.propTypes = propTypes;
+
+export default MaxWidthWrapper

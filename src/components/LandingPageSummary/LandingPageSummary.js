@@ -4,6 +4,7 @@ import styled from 'emotion/react';
 import { COLORS } from '../../constants';
 
 import Heading from '../Heading';
+import MaxWidthWrapper from '../MaxWidthWrapper';
 import Paragraph from '../Paragraph';
 
 
@@ -22,7 +23,7 @@ const LandingPageSummary = () => {
   );
 };
 
-const LandingPageSummaryElem = styled.div`
+const LandingPageSummaryElem = styled(MaxWidthWrapper)`
   background: ${COLORS.gray.veryDark};
   min-height: 100vh;
 `;

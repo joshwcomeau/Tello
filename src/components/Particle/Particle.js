@@ -48,16 +48,48 @@ class Particle extends PureComponent {
     ? this.props.drawSpeed
     : random(1000, 4000)
 
+  undrawDelay = typeof this.props.undrawDelay === 'number'
+    ? this.props.undrawDelay
+    : random(2000, 7000)
+
   componentDidMount() {
     const pathLength = this.pathElem.getTotalLength();
 
     this.pathElem.style.strokeDasharray = pathLength;
     this.pathElem.style.strokeDashoffset = pathLength;
 
-    this.initialAnimationTimeoutId = window.setTimeout(() => {
+    this.drawTimeoutId = window.setTimeout(() => {
+      // Set our initial transition. We need to do this dynamically,
+      // otherwise it'll animate the initial hide.
       this.pathElem.style.transition = `stroke-dashoffset ${this.drawSpeed}ms`;
-      this.pathElem.style.strokeDashoffset = 0;
-    }, this.drawDelay)
+      this.drawCycle();
+    }, this.drawDelay);
+  }
+
+  componentWillUnmount() {
+    window.clearTimeout(this.drawTimeoutId);
+    window.clearTimeout(this.undrawTimeoutId);
+  }
+
+  // TODO: This method is gross and callback-y. Use promises?
+  drawCycle = () => {
+    const pathLength = this.pathElem.getTotalLength();
+
+    // Start by drawing the line
+    this.pathElem.style.strokeDashoffset = 0;
+
+    // We want to wait for the draw animation to complete + the undraw delay
+    // time.
+    const undrawAfter = this.drawSpeed + this.undrawDelay;
+
+    this.undrawTimeoutId = window.setTimeout(() => {
+      this.pathElem.style.strokeDashoffset = pathLength;
+
+      // After the undraw is completed, wait another 'drawDelay'.
+      // Then, re-invoke this method, so that the cycle restarts.
+      const drawAfter = this.drawSpeed + this.drawDelay;
+      this.drawTimeoutId = window.setTimeout(this.drawCycle, drawAfter)
+    }, undrawAfter);
   }
 
   render() {
