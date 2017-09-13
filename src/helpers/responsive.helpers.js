@@ -6,8 +6,12 @@ export const getBreakpointFor = (windowWidth) => (
   ))
 );
 
-export const isMobile = (breakpoint) => (
-  breakpoint === 'xs' ||
+export const isMobile = (breakpoint) => {
+  if (!breakpoint) {
+    breakpoint = getBreakpointFor(window.innerWidth);
+  }
+
+  return breakpoint === 'xs' ||
   breakpoint === 'sm' ||
   isMobileUserAgent
-);
+};

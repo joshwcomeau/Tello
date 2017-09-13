@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'emotion/react';
 
 import { toggleEpisode, showEditShowModal } from '../../actions';
 import { COLORS, HALF_UNIT_PX, UNITS_IN_PX } from '../../constants';
+import { isMobile } from '../../helpers/responsive.helpers';
 import { truncateStringByWordCount } from '../../utils';
 import placeholderImage from '../../images/placeholder.png';
 import { ShowProps } from '../../types';
@@ -13,9 +15,12 @@ import EpisodeGrid from '../EpisodeGrid';
 import ShowStatus from '../ShowStatus';
 
 
-class SummaryShow extends Component {
+export class SummaryShow extends Component {
   static propTypes = {
     show: ShowProps,
+    noManage: PropTypes.bool,
+    toggleEpisode: PropTypes.func.isRequired,
+    showEditShowModal: PropTypes.func.isRequired,
   }
 
   handleClickEpisode = (episode) => {
@@ -35,21 +40,29 @@ class SummaryShow extends Component {
 
   render() {
     const {
+      noManage,
       show: { name, image, seasons, status, summary },
     } = this.props;
+
+    // We want to show a "manage" button on hover, unless we've explicitly
+    // disabled it (which we do for the landing page widget), or unles we're
+    // on mobile (TODO: Mobile solution).
+    const showActions = !noManage && !isMobile()
 
     return (
       <Wrapper>
         <ImageHeader image={image || placeholderImage}>
-          <Actions data-selector="actions">
-            <Button
-              size="small"
-              color="dark"
-              onClick={this.handleClickEditButton}
-            >
-              Manage Show
-            </Button>
-          </Actions>
+          {showActions && (
+            <Actions data-selector="actions">
+              <Button
+                size="small"
+                color="dark"
+                onClick={this.handleClickEditButton}
+              >
+                Manage Show
+              </Button>
+            </Actions>
+          )}
         </ImageHeader>
 
         <Body>

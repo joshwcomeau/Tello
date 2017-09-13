@@ -1,1 +1,1 @@
-export { default } from './SummaryShow';
+export { SummaryShow, default } from './SummaryShow';

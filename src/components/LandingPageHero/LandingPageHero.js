@@ -17,7 +17,7 @@ const LandingPageHero = () => [
   <FixedWrapper key="fixed">
     <HeroElem>
       <Header>
-        <MaxWidthWrapper noPadding>
+        <MaxWidthWrapper>
           <LogoWrapper>
             <Logo
               boxColor={COLORS.white}
@@ -98,7 +98,7 @@ const LogoWrapper = styled.div`
   position: absolute;
   z-index: 1;
   top: ${UNITS_IN_PX[2]};
-  left: 0;
+  left: ${UNITS_IN_PX[2]};
   transform: scale(0.75);
   transform-origin: left top;
 `;
@@ -107,7 +107,7 @@ const Actions = styled.div`
   position: absolute;
   z-index: 3;
   top: ${UNITS_IN_PX[2]};
-  right: 0;
+  right: ${UNITS_IN_PX[2]};
 `;
 
 const MainContent = styled.div`
