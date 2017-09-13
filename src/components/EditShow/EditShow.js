@@ -13,6 +13,7 @@ import { ShowProps } from '../../types';
 import Button from '../Button';
 import EditShowSeason from '../EditShowSeason';
 import Heading from '../Heading';
+import Paragraph from '../Paragraph';
 import { confirm } from '../Confirm';
 
 
@@ -176,10 +177,6 @@ const BorderSpacer = styled.div`
   background: rgba(0, 0, 0, 0.1);
   margin-top: ${HALF_UNIT_PX};
   margin-bottom: ${HALF_UNIT_PX};
-`
-
-const Paragraph = styled.p`
-  margin-bottom: ${UNITS_IN_PX[1]};
 `
 
 const mapStateToProps = (state, ownProps) => ({

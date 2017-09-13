@@ -4,6 +4,7 @@ import styled from 'emotion/react';
 import { ROW_HEIGHT_PX } from '../../constants';
 
 import Heading from '../Heading';
+import Paragraph from '../Paragraph';
 
 const NotificationView = ({ heading, children }) => (
   <Wrapper>
@@ -11,7 +12,7 @@ const NotificationView = ({ heading, children }) => (
       {heading}
     </Heading>
 
-    <Paragraph>
+    <Paragraph size="large">
       {children}
     </Paragraph>
   </Wrapper>
@@ -22,9 +23,6 @@ const Wrapper = styled.div`
   text-align: center;
 `;
 
-const Paragraph = styled.p`
-  font-size: 22px;
-`;
 
 
 export default NotificationView;

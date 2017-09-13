@@ -44,7 +44,7 @@ class SummaryShow extends Component {
           <Actions data-selector="actions">
             <Button
               size="small"
-              color="gray"
+              color="dark"
               onClick={this.handleClickEditButton}
             >
               Manage Show

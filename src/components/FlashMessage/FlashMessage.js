@@ -85,7 +85,7 @@ class FlashMessage extends Component {
     } = this.props;
 
     return (
-      <Wrapper
+      <FlashMessageElem
         duration={duration}
         isVisible={!!message}
         type={messageType}
@@ -102,14 +102,14 @@ class FlashMessage extends Component {
         <Dismiss onClick={this.handleCloseClick}>
           <DismissIcon />
         </Dismiss>
-      </Wrapper>
+      </FlashMessageElem>
     );
   }
 }
 
 const FLASH_HEIGHT = Math.round(UNIT * 2.5) + 'px';
 
-const Wrapper = styled.div`
+const FlashMessageElem = styled.div`
   position: fixed;
   z-index: 1000;
   top: 0;

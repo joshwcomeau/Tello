@@ -24,13 +24,19 @@ const buttonColors = {
     )`,
     borderColor: COLORS.deepPurple.dark,
   },
-  gray: {
+  dark: {
     background: COLORS.gray.dark,
     backgroundHover: `linear-gradient(
       ${COLORS.gray.primary},
       ${COLORS.gray.dark}
     )`,
     borderColor: COLORS.gray.veryDark,
+  },
+  light: {
+    textColor: COLORS.teal.primary,
+    background: COLORS.gray.veryLight,
+    backgroundHover: COLORS.white,
+    borderColor: COLORS.gray.light,
   },
 };
 
@@ -91,7 +97,7 @@ const buttonStyles = props => css`
   width: ${props.fill ? '100%' : 'auto'};
   height: ${buttonSizes[props.size].height};
   padding: 0 ${buttonSizes[props.size].padding};
-  color: ${COLORS.white};
+  color: ${buttonColors[props.color].textColor || COLORS.white};
   font-size: ${buttonSizes[props.size].font};
   font-weight: bold;
   background: ${buttonColors[props.color].background};

@@ -49,7 +49,7 @@ const BacklogView = ({ trackedShows, showAddShowModal }) => {
 
 const AddNewShowLink = styled.a`
   cursor: pointer;
-  color: ${COLORS.purple.primary};
+  color: ${COLORS.cyan.dark};
 `
 
 const mapStateToProps = state => ({

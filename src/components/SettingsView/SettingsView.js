@@ -8,6 +8,7 @@ import { getUser } from '../../reducers/auth.reducer';
 import Button from '../Button';
 import Heading from '../Heading';
 import Spacer from '../Spacer';
+import Paragraph from '../Paragraph';
 
 
 const SettingsView = ({ user }) => {
@@ -42,10 +43,6 @@ const Section = styled.div`
   color: ${COLORS.gray.veryDark};
 `;
 
-const Paragraph = styled.p`
-  font-size: 17px;
-  margin-bottom: ${UNITS_IN_PX[1]};
-`;
 
 const mapStateToProps = state => ({
   user: getUser(state),

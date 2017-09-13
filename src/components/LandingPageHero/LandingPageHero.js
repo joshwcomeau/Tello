@@ -1,51 +1,71 @@
 import React from 'react';
 import styled from 'emotion/react';
 
-import { BREAKPOINTS, COLORS, UNITS_IN_PX } from '../../constants';
+import { BREAKPOINTS, COLORS, UNITS_IN_PX, Z_INDICES } from '../../constants';
 import { random, range } from '../../utils';
 
 import Drift from '../Drift';
 import Logo from '../Logo';
 import LandingPageParticles from '../LandingPageParticles';
+import GoogleButton from '../GoogleButton';
 
-
-const getInitialDriftPosition = () => ({
-  initialX: random(0, window.innerWidth),
-  initialY: random(0, window.innerHeight),
-});
 
 const GRADIENT_ANGLE = '-15deg';
 
-const LandingPageHero = () => (
-  <Wrapper>
-    <LogoWrapper>
-      <Logo
-        boxColor={COLORS.white}
-        background={`linear-gradient(
-          ${GRADIENT_ANGLE},
-          #b019fa,
-          ${COLORS.pink.primary}
-        )`}
-      />
-    </LogoWrapper>
+const LandingPageHero = () => [
+  <FixedWrapper key="fixed">
+    <HeroElem>
+      <LogoWrapper>
+        <Logo
+          boxColor={COLORS.white}
+          background={`linear-gradient(
+            ${GRADIENT_ANGLE},
+            #b019fa,
+            ${COLORS.pink.primary}
+          )`}
+        />
+      </LogoWrapper>
 
-    <MainContent>
-      <Tagline>
-        <Emoji>🐣</Emoji>
-        Introducing <Raleway>Tello</Raleway>
-      </Tagline>
-      <SubTagline>
-        A <strong>simple</strong> and <strong>delightful</strong> way
-        <br />
-        to track and manage TV shows.
-      </SubTagline>
-    </MainContent>
+      <Actions>
+        <GoogleButton color="blue">
+          Login
+        </GoogleButton>
+      </Actions>
 
-    <LandingPageParticles />
-  </Wrapper>
-)
+      <MainContent>
+        <Tagline>
+          <Emoji>🐣</Emoji>
+          Introducing <Raleway>Tello</Raleway>
+        </Tagline>
+        <SubTagline>
+          A <strong>simple</strong> and <strong>delightful</strong> way
+          <br />
+          to track and manage TV shows.
+        </SubTagline>
+      </MainContent>
 
-const Wrapper = styled.div`
+      <LandingPageParticles />
+    </HeroElem>
+  </FixedWrapper>,
+  <HeroSpacer key="spacer" />
+];
+
+const FixedWrapper = styled.div`
+  position: fixed;
+  z-index: ${Z_INDICES.root};
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+`;
+
+const HeroSpacer = styled.div`
+  position: relative;
+  height: 100vh;
+  z-index: -2;
+`
+
+const HeroElem = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -135,12 +155,8 @@ const Emoji = styled.div`
   right: 0;
   margin-left: auto;
   margin-right: auto;
-  font-size: 96px;
+  font-size: 72px;
   transform: translateY(-125%);
-
-  @media ${BREAKPOINTS.xl} {
-    font-size: 72px;
-  }
 `;
 
 const Raleway = styled.span`
@@ -166,6 +182,13 @@ const Raleway = styled.span`
     font-size: 32px;
     line-height: 54px;
   }
+`;
+
+const Actions = styled.div`
+  position: absolute;
+  z-index: 3;
+  top: ${UNITS_IN_PX[2]};
+  right: ${UNITS_IN_PX[2]};
 `;
 
 export default LandingPageHero;

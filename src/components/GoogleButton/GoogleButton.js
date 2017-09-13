@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Button from '../Button';
 
@@ -11,10 +12,24 @@ const hrefPrefix = process.env.NODE_ENV !== 'production'
   : '';
 const authHref = `${hrefPrefix}/auth/google`;
 
-const GoogleButton = () => (
-  <Button color="red" tag="a" external href={authHref}>
-    Sign into Google
+const propTypes = {
+  color: PropTypes.string.isRequired,
+  children: PropTypes.node,
+};
+
+const defaultProps = {
+  color: 'red',
+  size: 'medium',
+  children: 'Login With Google',
+};
+
+const GoogleButton = ({ color, size, children }) => (
+  <Button external href={authHref} color={color} size={size}>
+    {children}
   </Button>
 );
+
+GoogleButton.propTypes = propTypes;
+GoogleButton.defaultProps = defaultProps;
 
 export default GoogleButton;
