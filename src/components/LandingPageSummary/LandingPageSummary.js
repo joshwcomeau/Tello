@@ -91,7 +91,7 @@ class LandingPageSummary extends PureComponent {
               </Paragraph>
 
               <Paragraph size="large">
-                Toggle an episode by clicking on the square <Pointer />.
+                Give it a shot, try toggling an episode <ArrowForward />
               </Paragraph>
             </Col>
 
@@ -164,10 +164,6 @@ const Glow = styled.div`
   filter: blur(50px);
   opacity: 0.75;
   z-index: -1;
-`;
-
-const Pointer = styled(ArrowForward)`
-  transform: rotate(-45deg);
 `;
 
 const mapStateToProps = state => ({

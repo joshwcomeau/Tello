@@ -9,6 +9,10 @@ export const random = (min, max) => (
   Math.floor(Math.random() * (max - min)) + min
 );
 
+export const clamp = (val, min = 0, max = 1) => (
+  Math.max(min, Math.min(max, val))
+)
+
 export const debounce = (callback, wait, context = this) => {
   let timeout = null
   let callbackArgs = null
