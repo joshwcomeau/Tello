@@ -35,9 +35,10 @@ export const addShowsRequest = ({ shows }) => ({
   shows,
 });
 
-export const addShowsReceive = ({ shows }) => ({
+export const addShowsReceive = ({ shows, showNotification = true }) => ({
   type: ADD_SHOWS_RECEIVE,
   shows,
+  showNotification,
 });
 
 export const addShowsFailure = ({ error, shows }) => ({
@@ -59,12 +60,14 @@ export const hideModal = ({ side }) => ({
 });
 
 export const toggleEpisode = ({
+  demo = false,
   showId,
   showName,
   episodeId,
   episodeName
 }) => ({
   type: TOGGLE_EPISODE,
+  demo,
   showId,
   showName,
   episodeId,

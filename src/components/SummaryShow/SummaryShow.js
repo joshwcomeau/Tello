@@ -18,15 +18,16 @@ import ShowStatus from '../ShowStatus';
 export class SummaryShow extends Component {
   static propTypes = {
     show: ShowProps,
-    noManage: PropTypes.bool,
+    demo: PropTypes.bool,
     toggleEpisode: PropTypes.func.isRequired,
     showEditShowModal: PropTypes.func,
   }
 
   handleClickEpisode = (episode) => {
-    const { show, toggleEpisode } = this.props;
+    const { show, toggleEpisode, demo } = this.props;
 
     toggleEpisode({
+      demo,
       showId: show.id,
       showName: show.name,
       episodeId: episode.id,
@@ -40,14 +41,14 @@ export class SummaryShow extends Component {
 
   render() {
     const {
-      noManage,
+      demo,
       show: { name, image, seasons, status, summary },
     } = this.props;
 
     // We want to show a "manage" button on hover, unless we've explicitly
-    // disabled it (which we do for the landing page widget), or unles we're
-    // on mobile (TODO: Mobile solution).
-    const showActions = !noManage && !isMobile()
+    // disabled it (which we do for demo units), or unles we're on mobile
+    // (TODO: Mobile solution).
+    const showActions = !demo && !isMobile()
 
     return (
       <Wrapper>

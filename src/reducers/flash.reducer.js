@@ -21,6 +21,12 @@ import {
 const initialState = null;
 
 export default function reducer(state = initialState, action) {
+  // All actions can choose to disable notifications.
+  // if this flag is applied, ignore this action.
+  if (action.showNotification === false) {
+    return state;
+  }
+
   switch (action.type) {
     case HIDE_FLASH_MESSAGE: {
       return null;

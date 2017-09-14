@@ -1,25 +1,78 @@
 import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import styled from 'emotion/react';
 import { Motion, spring } from 'react-motion';
 import ArrowForward from 'react-icons/lib/md/arrow-forward';
 
 import { COLORS, UNITS_IN_PX } from '../../constants';
+import {
+  getAiredTrackedShowsArrayWithSeasons,
+} from '../../reducers/tracked-shows.reducer'
+import { ShowProps } from '../../types';
 
 import Heading from '../Heading';
 import MaxWidthWrapper from '../MaxWidthWrapper';
 import Paragraph from '../Paragraph';
-import LandingPageSummaryManager from '../LandingPageSummaryManager';
-
-import { SHOWS } from './LandingPageSummary.data.js'
+import SummaryShow from '../SummaryShow';
 
 
 class LandingPageSummary extends PureComponent {
+  static propTypes = {
+    shows: PropTypes.arrayOf(ShowProps)
+  }
+
   state = {
     isHoveringCard: false,
   }
 
   updateHover = (newValue) => () => {
     this.setState({ isHoveringCard: newValue })
+  }
+
+  renderSummaryDemo() {
+    // For the first render, our show won't yet be in state.
+    if (this.props.shows.length === 0) {
+      return null;
+    }
+
+    return (
+      <Motion
+        style={{
+          rotation: spring(this.state.isHoveringCard ? 0 : -20),
+          placeholderOpacity: spring(this.state.isHoveringCard ? 0 : 1),
+        }}
+      >
+        {({ rotation, placeholderOpacity }) => (
+          <ShowWrapper
+            style={{
+              transform: `perspective(600px) rotateY(${rotation}deg)`,
+            }}
+          >
+            <ShowPlaceholder
+              left
+              style={{ opacity: placeholderOpacity }}
+            />
+
+            <span
+              onMouseEnter={this.updateHover(true)}
+              onMouseLeave={this.updateHover(false)}
+            >
+              <SummaryShow
+                demo
+                show={this.props.shows[0]}
+              />
+            </span>
+
+            <ShowPlaceholder
+              right
+              style={{ opacity: placeholderOpacity }}
+            />
+            <Glow />
+          </ShowWrapper>
+        )}
+      </Motion>
+    )
   }
 
   render() {
@@ -43,37 +96,7 @@ class LandingPageSummary extends PureComponent {
             </Col>
 
             <Col colWidth={1}>
-              <Motion
-                style={{
-                  rotation: spring(this.state.isHoveringCard ? 0 : -20),
-                  placeholderOpacity: spring(this.state.isHoveringCard ? 0 : 1),
-                }}
-              >
-                {({ rotation, placeholderOpacity }) => (
-                  <ShowWrapper
-                    style={{
-                      transform: `perspective(600px) rotateY(${rotation}deg)`,
-                    }}
-                  >
-                    <ShowPlaceholder
-                      left
-                      style={{ opacity: placeholderOpacity }}
-                    />
-
-                    <LandingPageSummaryManager
-                      handleMouseEnter={this.updateHover(true)}
-                      handleMouseLeave={this.updateHover(false)}
-                      show={SHOWS.strangerThings}
-                    />
-
-                    <ShowPlaceholder
-                      right
-                      style={{ opacity: placeholderOpacity }}
-                    />
-                    <Glow />
-                  </ShowWrapper>
-                )}
-              </Motion>
+              {this.renderSummaryDemo()}
             </Col>
           </Row>
         </MaxWidthWrapper>
@@ -147,4 +170,8 @@ const Pointer = styled(ArrowForward)`
   transform: rotate(-45deg);
 `;
 
-export default LandingPageSummary;
+const mapStateToProps = state => ({
+  shows: getAiredTrackedShowsArrayWithSeasons(state),
+});
+
+export default connect(mapStateToProps)(LandingPageSummary);
