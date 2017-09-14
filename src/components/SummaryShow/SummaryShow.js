@@ -20,7 +20,7 @@ export class SummaryShow extends Component {
     show: ShowProps,
     noManage: PropTypes.bool,
     toggleEpisode: PropTypes.func.isRequired,
-    showEditShowModal: PropTypes.func.isRequired,
+    showEditShowModal: PropTypes.func,
   }
 
   handleClickEpisode = (episode) => {

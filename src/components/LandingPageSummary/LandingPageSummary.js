@@ -1,13 +1,14 @@
 import React, { PureComponent } from 'react';
 import styled from 'emotion/react';
 import { Motion, spring } from 'react-motion';
+import ArrowForward from 'react-icons/lib/md/arrow-forward';
 
 import { COLORS, UNITS_IN_PX } from '../../constants';
 
 import Heading from '../Heading';
 import MaxWidthWrapper from '../MaxWidthWrapper';
 import Paragraph from '../Paragraph';
-import { SummaryShow } from '../SummaryShow';
+import LandingPageSummaryManager from '../LandingPageSummaryManager';
 
 import { SHOWS } from './LandingPageSummary.data.js'
 
@@ -33,7 +34,11 @@ class LandingPageSummary extends PureComponent {
               </Paragraph>
 
               <Paragraph size="large">
-                Each square at the bottom of the cards represent an episode, and its colour indicates whether or not it's been viewed. Hover for more info!
+                Each square at the bottom of the cards represent an episode, and its colour indicates whether or not it's been viewed.
+              </Paragraph>
+
+              <Paragraph size="large">
+                Toggle an episode by clicking on the square <Pointer />.
               </Paragraph>
             </Col>
 
@@ -54,12 +59,13 @@ class LandingPageSummary extends PureComponent {
                       left
                       style={{ opacity: placeholderOpacity }}
                     />
-                    <span
-                      onMouseEnter={this.updateHover(true)}
-                      onMouseLeave={this.updateHover(false)}
-                    >
-                      <SummaryShow noManage show={SHOWS.strangerThings} />
-                    </span>
+
+                    <LandingPageSummaryManager
+                      handleMouseEnter={this.updateHover(true)}
+                      handleMouseLeave={this.updateHover(false)}
+                      show={SHOWS.strangerThings}
+                    />
+
                     <ShowPlaceholder
                       right
                       style={{ opacity: placeholderOpacity }}
@@ -135,6 +141,10 @@ const Glow = styled.div`
   filter: blur(50px);
   opacity: 0.75;
   z-index: -1;
-`
+`;
+
+const Pointer = styled(ArrowForward)`
+  transform: rotate(-45deg);
+`;
 
 export default LandingPageSummary;
