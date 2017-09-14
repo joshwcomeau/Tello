@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import styled from 'emotion/react';
+import { Motion, spring } from 'react-motion';
 
 import { COLORS, UNITS_IN_PX } from '../../constants';
 
@@ -11,33 +12,69 @@ import { SummaryShow } from '../SummaryShow';
 import { SHOWS } from './LandingPageSummary.data.js'
 
 
-const LandingPageSummary = () => {
-  return (
-    <LandingPageSummaryElem>
-      <MaxWidthWrapper>
-        <Row>
-          <Col colWidth={2}>
-            <Heading theme="vibrant">Summary View</Heading>
-            <Paragraph size="large">
-              Your home screen in Tello is an overview of the shows you're tracking. An at-a-glance summary of how many episodes are left for your favourite shows.
-            </Paragraph>
+class LandingPageSummary extends PureComponent {
+  state = {
+    isHoveringCard: false,
+  }
 
-            <Paragraph size="large">
-              Each square at the bottom of the cards represent an episode, and its colour indicates whether or not it's been viewed. Hover for more info!
-            </Paragraph>
-          </Col>
+  updateHover = (newValue) => () => {
+    this.setState({ isHoveringCard: newValue })
+  }
 
-          <Col colWidth={1}>
-            <ShowWrapper>
-              <SummaryShow noManage show={SHOWS.strangerThings} />
-              <Starburst />
-            </ShowWrapper>
-          </Col>
-        </Row>
-      </MaxWidthWrapper>
-    </LandingPageSummaryElem>
-  );
-};
+  render() {
+    return (
+      <LandingPageSummaryElem>
+        <MaxWidthWrapper>
+          <Row>
+            <Col colWidth={2}>
+              <Heading theme="vibrant">Summary View</Heading>
+              <Paragraph size="large">
+                Your home screen in Tello is an overview of the shows you're tracking. An at-a-glance summary of how many episodes are left for your favourite shows.
+              </Paragraph>
+
+              <Paragraph size="large">
+                Each square at the bottom of the cards represent an episode, and its colour indicates whether or not it's been viewed. Hover for more info!
+              </Paragraph>
+            </Col>
+
+            <Col colWidth={1}>
+              <Motion
+                style={{
+                  rotation: spring(this.state.isHoveringCard ? 0 : -20),
+                  placeholderOpacity: spring(this.state.isHoveringCard ? 0 : 1),
+                }}
+              >
+                {({ rotation, placeholderOpacity }) => (
+                  <ShowWrapper
+                    style={{
+                      transform: `perspective(600px) rotateY(${rotation}deg)`,
+                    }}
+                  >
+                    <ShowPlaceholder
+                      left
+                      style={{ opacity: placeholderOpacity }}
+                    />
+                    <span
+                      onMouseEnter={this.updateHover(true)}
+                      onMouseLeave={this.updateHover(false)}
+                    >
+                      <SummaryShow noManage show={SHOWS.strangerThings} />
+                    </span>
+                    <ShowPlaceholder
+                      right
+                      style={{ opacity: placeholderOpacity }}
+                    />
+                    <Glow />
+                  </ShowWrapper>
+                )}
+              </Motion>
+            </Col>
+          </Row>
+        </MaxWidthWrapper>
+      </LandingPageSummaryElem>
+    );
+  }
+}
 
 const LandingPageSummaryElem = styled.div`
   padding-top: ${UNITS_IN_PX[5]};
@@ -51,24 +88,44 @@ const Row = styled.div`
 `;
 
 const Col = styled.div`
+  position: relative;
+  z-index: 1;
   flex: ${props => props.colWidth};
 
   &:first-of-type {
-    margin-right: ${UNITS_IN_PX[5]};
+    z-index: 2;
+    margin-right: ${UNITS_IN_PX[8]};
   }
 `;
 
 const ShowWrapper = styled.div`
   position: relative;
-  transform: perspective(600) rotateY(-20deg);
-  transition: transform 350ms;
-
-  &:hover {
-    transform: rotateY(0deg);
-  }
 `;
 
-const Starburst = styled.div`
+const ShowPlaceholder = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255,255, 0.1);
+  transform: ${props => props.left ? 'translateX(-106%)' : 'translateX(106%)'};
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: ${props => props.left
+      ? 'linear-gradient(to left, rgba(31, 29, 29, 0), rgba(31, 29, 29, 1) 70%)'
+      : 'linear-gradient(to right, rgba(31, 29, 29, 0), rgba(31, 29, 29, 1) 70%)'
+    }
+  }
+`
+
+const Glow = styled.div`
   position: absolute;
   top: 0;
   left: 0;

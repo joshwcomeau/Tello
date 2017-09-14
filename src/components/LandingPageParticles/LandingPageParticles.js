@@ -74,6 +74,11 @@ const ParticlesWrapper = styled.div`
   right: 0;
   bottom: 0;
   /*
+    We want the particles to float in front of some elements, but they shouldn't
+    interfere with clickability.
+  */
+  pointer-events: none;
+  /*
     Hiding overflow since we have particles flying around, and we want to
     ignore them once they go off-screen.
   */

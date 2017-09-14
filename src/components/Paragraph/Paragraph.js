@@ -31,6 +31,7 @@ const defaultProps = {
 const Paragraph = styled.p`
   margin-bottom: ${getBottomMargin};
   font-size: ${getFontSize};
+  line-height: 1.5;
 `;
 
 Paragraph.propTypes = propTypes;

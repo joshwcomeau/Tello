@@ -39,7 +39,7 @@ const LandingPageHero = () => [
 
       <MainContent>
         <Tagline>
-          <Emoji>🐣</Emoji>
+          <ChickEmoji />
           Introducing <Raleway>Tello</Raleway>
         </Tagline>
         <SubTagline>
@@ -167,15 +167,25 @@ const SubTagline = styled.h5`
   }
 `
 
-const Emoji = styled.div`
+const ChickEmoji = styled.div`
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
+  width: 72px;
+  height: 72px;
   margin-left: auto;
   margin-right: auto;
   font-size: 72px;
   transform: translateY(-125%);
+
+  &:after {
+    content: '🐣'
+  }
+
+  &:hover:after {
+    content: '🐥'
+  }
 `;
 
 const Raleway = styled.span`
