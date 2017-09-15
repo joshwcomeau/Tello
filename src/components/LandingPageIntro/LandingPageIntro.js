@@ -64,15 +64,11 @@ class LandingPageIntro extends PureComponent {
         </Paragraph>
 
         <Paragraph size="xlarge">
-          If you stream shows online, it's hard to know if/when your favourite shows are back for another season. Many streaming services don't track episodes, or let you know when new episodes air.
+          Tello is a fun, easy way to track your favourite TV shows, so you always have something to watch.
         </Paragraph>
 
         <Paragraph size="xlarge">
-          Tello is a simple web app designed to make it quick and easy to find something to watch.
-        </Paragraph>
-
-        <Paragraph size="xlarge">
-          Other TV tracking services exist, but they're bloated, boring,  cumbersome, and complicated. I built Tello because I knew I could build a focused service that would be quicker and more enjoyable to use.
+          Unlike other TV tracking services, Tello doesn't aspire to be a social network. Tello does 1 thing, and it does it very well.
         </Paragraph>
 
         <Paragraph size="xlarge">
