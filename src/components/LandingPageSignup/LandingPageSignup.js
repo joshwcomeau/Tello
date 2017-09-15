@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import styled from 'emotion/react';
 
-import { UNIT, UNITS_IN_PX } from '../../constants';
+import { COLORS, UNIT, UNITS_IN_PX } from '../../constants';
 
 import Heading from '../Heading';
 import Paragraph from '../Paragraph';
@@ -15,9 +15,9 @@ class LandingPageSignup extends PureComponent {
     return (
       <LandingPageSignupElem>
         <MaxWidthWrapper maxWidth="800px">
-          <Heading theme="light">
+          <RegisterHeading>
             Register and start tracking!
-          </Heading>
+          </RegisterHeading>
 
           <Spacer size={UNIT * 2} />
 
@@ -37,6 +37,13 @@ class LandingPageSignup extends PureComponent {
     );
   }
 };
+
+const RegisterHeading = styled(Heading)`
+  font-size: 52px;
+  color: ${COLORS.white};
+  letter-spacing: -0.5px;
+  text-shadow: 0px 2px 0px rgba(0, 0, 0, 0.1);
+`
 
 const LandingPageSignupElem = styled.div`
   position: relative;

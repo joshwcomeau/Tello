@@ -15,6 +15,8 @@ import CalendarWeekPicker from '../CalendarWeekPicker';
 import Hover from '../Hover';
 
 
+const CALENDAR_3D_WIDTH = '15px';
+
 class LandingPageCalendar extends PureComponent {
   state = {
     isHoveringCalendar: false,
@@ -35,7 +37,7 @@ class LandingPageCalendar extends PureComponent {
         }}
       >
         {({ rotation, opacity }) => (
-          <CalendarWrapper
+          <CalendarDemo
             onMouseEnter={this.updateHover(true)}
             onMouseLeave={this.updateHover(false)}
           >
@@ -49,12 +51,21 @@ class LandingPageCalendar extends PureComponent {
                 <CalendarWeekPicker maxDate={addWeeks(new Date(), 2)} />
               </CalendarHeader>
 
-              <Calendar shows={this.props.shows} />
+              <CalendarWrapper>
+                <Calendar shows={this.props.shows} />
+                <CalendarSide
+                  style={{ transform: `
+                    perspective(500px)
+                    rotateY(${rotation + 90}deg)
+                  `}}
+                />
+              </CalendarWrapper>
+
               <Disclaimer style={{ opacity }}>
                 <strong>Note:</strong> This is just a demo. These episode dates are wrong.
               </Disclaimer>
             </CalendarTransform>
-          </CalendarWrapper>
+          </CalendarDemo>
         )}
       </Motion>
     );
@@ -87,7 +98,7 @@ const LandingPageCalendarElem = styled.div`
   padding-bottom: ${UNITS_IN_PX[5]};
 `;
 
-const CalendarWrapper = styled.div`
+const CalendarDemo = styled.div`
   position: absolute;
   top: -57px;
   right: ${UNITS_IN_PX[2]};
@@ -108,16 +119,37 @@ const CalendarTransform = styled.div`
   will-change: transform;
 `;
 
+const CalendarWrapper = styled.div`
+  position: relative;
+`
+
+const CalendarSide = styled.div`
+  position: absolute;
+  top: 0;
+  right: -${CALENDAR_3D_WIDTH};
+  bottom: 0;
+  width: ${CALENDAR_3D_WIDTH};
+  background: #999;
+  transform-origin: left center;
+  will-change: transform;
+`;
+
 const CalendarHeader = styled.div`
   display: flex;
   justify-content: flex-end;
 `;
 
 const Disclaimer = styled.div`
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -40px;
+  height: 40px;
+  line-height: 40px;
   font-size: 12px;
   text-align: center;
-  margin-top: 30px;
-`
+`;
+
 
 
 
