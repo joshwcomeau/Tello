@@ -20,7 +20,6 @@ class LandingPageBacklog extends PureComponent {
   render() {
     const { shows } = this.props;
 
-    console.log(shows);
     if (!shows) {
       return null;
     }
@@ -35,7 +34,7 @@ class LandingPageBacklog extends PureComponent {
 
           <SortShows />
 
-          {shows.map(show => (
+          {shows.slice(0, 2).map(show => (
             show.episodes
               ? <BacklogRow demo key={show.id} show={show} />
               : null
@@ -51,8 +50,6 @@ class LandingPageBacklog extends PureComponent {
 const LandingPageBacklogElem = styled.div`
   padding-top: ${UNITS_IN_PX[5]};
   padding-bottom: ${UNITS_IN_PX[5]};
-  /* Hide the Glow from overlapping the Hero */
-  overflow: hidden;
 `;
 
 const FakeBacklogItem = styled.div`

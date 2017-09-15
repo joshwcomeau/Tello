@@ -7,6 +7,7 @@ import {
   UNIT,
   UNITS_IN_PX,
   ROW_HEIGHT,
+  Z_INDICES,
 } from '../../constants';
 
 
@@ -37,7 +38,8 @@ const Footer = () => {
 };
 
 const FooterElem = styled.footer`
-  margin-top: ${UNITS_IN_PX[4]};
+  position: relative;
+  z-index: ${Z_INDICES.root + 1};
   padding: ${UNITS_IN_PX[2]};
   background: ${COLORS.purple.dark};
   color: ${COLORS.white};

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import styled from 'emotion/react';
 
 import { showAddShowModal } from '../../actions';
-import { COLORS } from '../../constants';
+import { COLORS, UNIT } from '../../constants';
 import {
   getTrackedShowsWithUnseenEpisodesArray,
 } from '../../reducers/tracked-shows.reducer';
@@ -14,6 +14,7 @@ import { sortShows } from '../../helpers/show.helpers';
 import BacklogRow from '../BacklogRow';
 import NotificationView from '../NotificationView';
 import SortShows from '../SortShows';
+import Spacer from '../Spacer';
 
 
 const propTypes = {
@@ -43,6 +44,8 @@ const BacklogView = ({ trackedShows, showAddShowModal }) => {
           ? <BacklogRow key={show.id} show={show} />
           : null
       ))}
+
+      <Spacer size={UNIT * 6}/>
     </div>
   )
 };

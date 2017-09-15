@@ -6,12 +6,13 @@ import PropTypes from 'prop-types';
 import {
   getAiredTrackedShowsArrayWithSeasons
 } from '../../reducers/tracked-shows.reducer';
-import { UNITS_IN_PX, BREAKPOINTS } from '../../constants';
+import { BREAKPOINTS, UNITS_IN_PX, UNIT } from '../../constants';
 import { ShowProps } from '../../types';
 import { sortShows } from '../../helpers/show.helpers';
 
 import SummaryShow from '../SummaryShow';
 import SortShows from '../SortShows';
+import Spacer from '../Spacer';
 
 
 const propTypes = {
@@ -27,6 +28,7 @@ const SummaryView = ({ trackedShows }) => (
         <SummaryShow key={show.id} show={show} />
       ))}
     </Grid>
+    <Spacer size={UNIT * 6}/>
   </div>
 );
 

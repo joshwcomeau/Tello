@@ -69,11 +69,9 @@ class LandingPageIntro extends PureComponent {
           </Paragraph>
 
           <br />
-          <Paragraph centered size="large">
+          <Paragraph align="center" size="large">
             Sign up now, or continue reading to see what Tello has to offer.
           </Paragraph>
-
-          <br /><br />
 
           <SignupButtons />
         </MaxWidthWrapper>

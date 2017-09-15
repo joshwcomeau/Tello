@@ -46,6 +46,7 @@ const EpisodeCell = styled(Cell)`
     ${EPISODE_COLOR.highlight}
   );
   animation: ${slide} 600ms ease-out;
+  cursor: default;
 `;
 
 const Name = styled.div`

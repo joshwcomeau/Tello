@@ -4,11 +4,13 @@ import styled from 'emotion/react';
 import PropTypes from 'prop-types';
 import addWeeks from 'date-fns/add_weeks';
 
+import { UNIT } from '../../constants';
 import { getTrackedShowsArray } from '../../reducers/tracked-shows.reducer';
 import { ShowProps } from '../../types';
 
 import Calendar from '../Calendar';
 import CalendarWeekPicker from '../CalendarWeekPicker';
+import Spacer from '../Spacer';
 
 
 class CalendarView extends Component {
@@ -24,6 +26,8 @@ class CalendarView extends Component {
         </CalendarHeader>
 
         <Calendar shows={this.props.trackedShows} />
+
+        <Spacer size={UNIT * 6}/>
       </div>
     );
   }

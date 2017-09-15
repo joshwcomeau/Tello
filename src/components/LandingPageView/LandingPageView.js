@@ -11,6 +11,8 @@ import LandingPageHero from '../LandingPageHero';
 import LandingPageIntro from '../LandingPageIntro';
 import LandingPageSummary from '../LandingPageSummary';
 import LandingPageBacklog from '../LandingPageBacklog';
+import LandingPageCalendar from '../LandingPageCalendar';
+import LandingPageSignup from '../LandingPageSignup';
 
 import { SHOWS } from './LandingPageView.data';
 
@@ -59,7 +61,10 @@ class LandingPageView extends PureComponent {
         <LandingPageSummary />
         <Divider />
         <LandingPageBacklog />
+        <Divider />
+        <LandingPageCalendar />
       </MainContent>,
+      <LandingPageSignup key="signup" />
     ];
   }
 }

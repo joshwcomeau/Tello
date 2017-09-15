@@ -24,17 +24,18 @@ const getFontSize = ({ size }) => {
 
 const propTypes = {
   size: PropTypes.oneOf(['small', 'medium', 'large']).isRequired,
-  centered: PropTypes.bool,
+  align: PropTypes.oneOf(['left', 'center', 'right']),
 };
 
 const defaultProps = {
   size: 'medium',
+  align: 'left',
 };
 
 const Paragraph = styled.p`
   margin-bottom: ${getBottomMargin};
   font-size: ${getFontSize};
-  text-align: ${props => props.centered ? 'center' : 'left'};
+  text-align: ${props => props.align};
   line-height: 1.5;
 `;
 
