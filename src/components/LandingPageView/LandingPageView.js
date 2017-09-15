@@ -64,7 +64,7 @@ class LandingPageView extends PureComponent {
         <Divider />
         <LandingPageCalendar />
       </MainContent>,
-      <LandingPageSignup key="signup" />
+      <LandingPageSignup key="signup" />,
     ];
   }
 }

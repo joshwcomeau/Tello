@@ -97,6 +97,10 @@ const Wrapper = styled.div`
 
 const ImageHeader = styled.header`
   position: relative;
+  top: 2px;
+  left: 2px;
+  right: 2px;
+  width: calc(100% - 4px);
   height: ${UNITS_IN_PX[6]};
   background-image: ${setBackgroundImage};
   background-size: cover;

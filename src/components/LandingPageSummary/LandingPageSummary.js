@@ -17,6 +17,8 @@ import Paragraph from '../Paragraph';
 import SummaryShow from '../SummaryShow';
 
 
+const SHOW_3D_WIDTH = '8px';
+
 class LandingPageSummary extends PureComponent {
   static propTypes = {
     shows: PropTypes.arrayOf(ShowProps)
@@ -49,7 +51,7 @@ class LandingPageSummary extends PureComponent {
         }}
       >
         {({ rotation, placeholderOpacity }) => (
-          <ShowWrapper
+          <ShowDemo
             style={{
               transform: `perspective(600px) rotateY(${rotation}deg)`,
             }}
@@ -59,7 +61,7 @@ class LandingPageSummary extends PureComponent {
               style={{ opacity: placeholderOpacity }}
             />
 
-            <span
+            <ShowWrapper
               onMouseEnter={this.updateHover(true)}
               onMouseLeave={this.updateHover(false)}
             >
@@ -67,14 +69,20 @@ class LandingPageSummary extends PureComponent {
                 demo
                 show={show}
               />
-            </span>
+              <ShowEdge
+                style={{ transform: `
+                  perspective(600px)
+                  rotateY(${rotation + 90}deg)
+                `}}
+              />
+            </ShowWrapper>
 
             <ShowPlaceholder
               right
               style={{ opacity: placeholderOpacity }}
             />
             <Glow />
-          </ShowWrapper>
+          </ShowDemo>
         )}
       </Motion>
     )
@@ -128,16 +136,31 @@ const Col = styled.div`
   }
 `;
 
+const ShowDemo = styled.div`
+  position: relative;
+`;
+
 const ShowWrapper = styled.div`
   position: relative;
 `;
 
-const ShowPlaceholder = styled.div`
+const ShowEdge = styled.div`
   position: absolute;
   top: 0;
+  right: -${SHOW_3D_WIDTH};
+  bottom: 0;
+  width: ${SHOW_3D_WIDTH};
+  background: rgba(255, 255, 255, 0.6);
+  transform-origin: left center;
+  will-change: transform;
+`;
+
+const ShowPlaceholder = styled.div`
+  position: absolute;
+  top: 2px;
   left: 0;
   right: 0;
-  bottom: 0;
+  bottom: -2px;
   background: rgba(255, 255,255, 0.1);
   transform: ${props => props.left ? 'translateX(-106%)' : 'translateX(106%)'};
 
@@ -163,7 +186,7 @@ const Glow = styled.div`
   bottom: 0;
   background: ${COLORS.pink.primary};
   filter: blur(50px);
-  opacity: 0.75;
+  opacity: 0.35;
   z-index: -1;
 `;
 

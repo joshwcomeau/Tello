@@ -53,11 +53,14 @@ class LandingPageCalendar extends PureComponent {
 
               <CalendarWrapper>
                 <Calendar shows={this.props.shows} />
-                <CalendarSide
+                <CalendarEdge
                   style={{ transform: `
                     perspective(500px)
                     rotateY(${rotation + 90}deg)
                   `}}
+                />
+                <Glow
+                  style={{ opacity: 1 - (opacity * 0.5) }}
                 />
               </CalendarWrapper>
 
@@ -123,7 +126,7 @@ const CalendarWrapper = styled.div`
   position: relative;
 `
 
-const CalendarSide = styled.div`
+const CalendarEdge = styled.div`
   position: absolute;
   top: 0;
   right: -${CALENDAR_3D_WIDTH};
@@ -149,6 +152,22 @@ const Disclaimer = styled.div`
   font-size: 12px;
   text-align: center;
 `;
+
+const Glow = styled.div`
+  position: absolute;
+  top: 10px;
+  left: 0;
+  right: 0;
+  bottom: 10px;
+  width: 65%;
+  border-radius: 100%;
+  margin: auto;
+  background: ${COLORS.pink.primary};
+  filter: blur(50px);
+  opacity: 0.75;
+  z-index: -1;
+`;
+
 
 
 

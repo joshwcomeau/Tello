@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'emotion/react';
 
-import { UNITS_IN_PX } from '../../constants';
+import { COLORS, UNITS_IN_PX } from '../../constants';
 
 import GoogleButton from '../GoogleButton';
 import Link from '../Link';
@@ -14,7 +14,7 @@ const SignupButtons = () => {
         Sign up with Google
       </GoogleButton>
       <SmallText>
-        Sorry, only Google signup is available. Want to use a different provider, like Facebook or Twitter? <Link strong white to="/contact">Email me</Link> and let me know!
+        Sorry, only Google signup is available. Want to use a different provider, like Facebook or Twitter? <Link strong color={COLORS.white} to="/contact">Email me</Link> and let me know!
       </SmallText>
     </SignupButtonsWrapper>
   );

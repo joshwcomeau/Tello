@@ -1,14 +1,22 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { css } from 'emotion';
 import styled from 'emotion/react';
 
 import { COLORS } from '../../constants';
 
-export default styled(Link)`
+
+export default (props) => (
+  props.external
+    ? <ExternalLink {...props} />
+    : <InternalLink {...props} />
+);
+
+const linkStyles = props => css`
   position: relative;
   text-decoration: none;
-  color: ${props => props.white ? COLORS.white : COLORS.blue.light};
-  font-weight: ${props => props.strong ? 'bold' : 'inherit'};
+  color: ${props.color || COLORS.blue.light};
+  font-weight: ${props.strong ? 'bold' : 'inherit'};
 
   &:after {
     content: '';
@@ -17,7 +25,7 @@ export default styled(Link)`
     right: 0;
     bottom: -2px;
     height: 2px;
-    background: ${props => props.white ? COLORS.white : COLORS.blue.light};
+    background: ${props.color || COLORS.blue.light};
     opacity: 0;
     transition: opacity 500ms;
   }
@@ -26,4 +34,12 @@ export default styled(Link)`
     opacity: 1;
     transition: opacity 150ms;
   }
+`
+
+const InternalLink = styled(Link)`
+  ${linkStyles};
+`;
+
+const ExternalLink = styled.a`
+  ${linkStyles};
 `;
