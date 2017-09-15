@@ -68,7 +68,7 @@ const GoogleButton = (props) => (
 );
 
 const GoogleImage = styled.img`
-  width: 191px;
+  width: 230px;
 `;
 
 GoogleButton.propTypes = propTypes;

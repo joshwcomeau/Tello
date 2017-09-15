@@ -14,7 +14,7 @@ const SignupButtons = () => {
         Sign up with Google
       </GoogleButton>
       <SmallText>
-        Currently, only Google signup exists. Want to be able to sign up with Twitter or Facebook? <Link strong white to="/contact">Email me</Link> and let me know!
+        Sorry, only Google signup is available. Want to use a different provider, like Facebook or Twitter? <Link strong white to="/contact">Email me</Link> and let me know!
       </SmallText>
     </SignupButtonsWrapper>
   );
@@ -28,12 +28,13 @@ const SignupButtonsWrapper = styled.div`
 `;
 
 const SmallText = styled.p`
-  max-width: 400px;
+  max-width: 440px;
   margin-top: ${UNITS_IN_PX[2]};
   margin-left: auto;
   margin-right: auto;
   font-size: 14px;
   line-height: 1.6;
+  font-style: italic;
 `;
 
 export default SignupButtons;

@@ -24,11 +24,11 @@ const DividerElem = styled.div`
 `;
 
 const Dot = styled.div`
-  width: ${HALF_UNIT_PX};
-  height: ${HALF_UNIT_PX};
+  width: 12px;
+  height: 12px;
   background-color: ${props => props.color};
-  margin-left: ${UNITS_IN_PX[1]};
-  margin-right: ${UNITS_IN_PX[1]};
+  margin-left: 7px;
+  margin-right: 7px;
 `;
 
 export default Divider;

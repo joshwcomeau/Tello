@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import styled from 'emotion/react';
 
-import { COLORS, UNITS_IN_PX } from '../../constants';
+import { COLORS, UNITS_IN_PX, ROW_HEIGHT_PX } from '../../constants';
 import {
   getTrackedShowsWithUnseenEpisodesArray,
 } from '../../reducers/tracked-shows.reducer';
@@ -40,6 +40,8 @@ class LandingPageBacklog extends PureComponent {
               ? <BacklogRow demo key={show.id} show={show} />
               : null
           ))}
+
+          <FakeBacklogItem />
         </MaxWidthWrapper>
       </LandingPageBacklogElem>
     );
@@ -53,6 +55,26 @@ const LandingPageBacklogElem = styled.div`
   overflow: hidden;
 `;
 
+const FakeBacklogItem = styled.div`
+  position: relative;
+  height: ${ROW_HEIGHT_PX};
+  background: linear-gradient(
+    rgba(255, 255, 255, 0.3),
+    rgba(255, 255, 255, 0)
+  );
+  /* hide :after shadow */
+  overflow: hidden;
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: ${UNITS_IN_PX[15]};
+    height: ${ROW_HEIGHT_PX};
+    box-shadow: 0px 1px 6px rgba(0,0,0,0.4);
+  }
+`;
 
 const mapStateToProps = state => ({
   shows: sortShows({

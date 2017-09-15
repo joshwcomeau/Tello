@@ -84,7 +84,7 @@ class LandingPageIntro extends PureComponent {
 
 const LandingPageIntroWrapper = styled.div`
   position: relative;
-  padding: ${UNITS_IN_PX[6]} 0;
+  padding: ${UNITS_IN_PX[6]} 0 ${UNITS_IN_PX[8]};
   background: linear-gradient(
     rgba(109, 0, 185, 0.35),
     rgba(109, 0, 185, 0.65)
