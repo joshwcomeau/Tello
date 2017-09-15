@@ -9,50 +9,52 @@ import GoogleButton from '../GoogleButton';
 import Logo from '../Logo';
 import LandingPageParticles from '../LandingPageParticles';
 import MaxWidthWrapper from '../MaxWidthWrapper';
+import LandingPageIntro from '../LandingPageIntro';
 
 
 const GRADIENT_ANGLE = '-15deg';
 
 const LandingPageHero = () => [
   <FixedWrapper key="fixed">
-    <HeroElem>
-      <Header>
-        <MaxWidthWrapper>
-          <LogoWrapper>
-            <Logo
-              boxColor={COLORS.white}
-              background={`linear-gradient(
-                ${GRADIENT_ANGLE},
-                #b019fa,
-                ${COLORS.pink.primary}
-              )`}
-            />
-          </LogoWrapper>
-
-          <Actions>
-            <GoogleButton color="blue">
-              Login
-            </GoogleButton>
-          </Actions>
-        </MaxWidthWrapper>
-      </Header>
-
-      <MainContent>
-        <Tagline>
-          <ChickEmoji />
-          Introducing <Raleway>Tello</Raleway>
-        </Tagline>
-        <SubTagline>
-          A <strong>simple</strong> and <strong>delightful</strong> way
-          <br />
-          to track and manage TV shows.
-        </SubTagline>
-      </MainContent>
-
-      <LandingPageParticles />
-    </HeroElem>
+    <LandingPageParticles />
   </FixedWrapper>,
-  <HeroSpacer key="spacer" />
+  <HeroElem key="hero">
+    <Header>
+      <MaxWidthWrapper>
+        <LogoWrapper>
+          <Logo
+            boxColor={COLORS.white}
+            background={`linear-gradient(
+              ${GRADIENT_ANGLE},
+              #b019fa,
+              ${COLORS.pink.primary}
+            )`}
+          />
+        </LogoWrapper>
+
+        <Actions>
+          <GoogleButton color="blue">
+            Login
+          </GoogleButton>
+        </Actions>
+      </MaxWidthWrapper>
+    </Header>
+
+    <MainContent>
+      <Tagline>
+        <ChickEmoji />
+        Introducing <Raleway>Tello</Raleway>
+      </Tagline>
+      <SubTagline>
+        A <strong>simple</strong> and <strong>delightful</strong> way
+        <br />
+        to track and manage TV shows.
+      </SubTagline>
+    </MainContent>
+  </HeroElem>,
+  <Intro>
+    <LandingPageIntro />
+  </Intro>,
 ];
 
 const FixedWrapper = styled.div`
@@ -62,7 +64,19 @@ const FixedWrapper = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
+  background: linear-gradient(
+    -15deg,
+    ${COLORS.cyan.primary},
+    ${COLORS.blue.primary} 35%,
+    ${COLORS.purple.primary} 90%,
+    ${COLORS.pink.primary} 110%
+  );
 `;
+
+const Intro = styled.div`
+  position: relative;
+  z-index: 2;
+`
 
 const HeroSpacer = styled.div`
   position: relative;
@@ -71,6 +85,8 @@ const HeroSpacer = styled.div`
 `;
 
 const HeroElem = styled.div`
+  position: relative;
+  z-index: 2;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -78,13 +94,6 @@ const HeroElem = styled.div`
   width: 100%;
   height: 100vh;
   color: ${COLORS.white};
-  background: linear-gradient(
-    -15deg,
-    ${COLORS.cyan.primary},
-    ${COLORS.blue.primary} 35%,
-    ${COLORS.purple.primary} 90%,
-    ${COLORS.pink.primary} 110%
-  );
 `;
 
 const Header = styled.header`

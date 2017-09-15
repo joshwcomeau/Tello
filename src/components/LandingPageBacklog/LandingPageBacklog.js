@@ -28,9 +28,9 @@ class LandingPageBacklog extends PureComponent {
     return (
       <LandingPageBacklogElem>
         <MaxWidthWrapper>
-          <Heading theme="vibrant">Backlog View</Heading>
+          <Heading theme="vibrant">Unseen Episodes</Heading>
           <Paragraph size="large">
-            Need something to watch? The backlog displays shows with unseen episodes in rows, so you can quickly pick up where you left off.
+            Need something to watch? The Backlog displays shows with unseen episodes in rows, so you can quickly pick up where you left off.
           </Paragraph>
 
           <SortShows />

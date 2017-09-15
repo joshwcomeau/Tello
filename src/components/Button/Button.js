@@ -24,6 +24,14 @@ const buttonColors = {
     )`,
     borderColor: COLORS.deepPurple.dark,
   },
+  lightBlue: {
+    background: COLORS.blue.primary,
+    backgroundHover: `linear-gradient(
+      #00c6ff,
+      ${COLORS.blue.primary}
+    )`,
+    borderColor: COLORS.blue.dark,
+  },
   dark: {
     background: COLORS.gray.dark,
     backgroundHover: `linear-gradient(
@@ -108,6 +116,7 @@ const buttonStyles = props => css`
   border-bottom-color: ${buttonColors[props.color].borderColor};
   cursor: pointer;
   text-decoration: none;
+  text-shadow: 0px 1px 0px ${buttonColors[props.color].background};
 
   &:hover {
     background: ${buttonColors[props.color].backgroundHover};

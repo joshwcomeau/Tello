@@ -29,6 +29,7 @@ export const COLORS = {
   pink: {
     light: '#FF4081',
     primary: '#ee0079',
+    dark: '#C51162',
   },
   purple: {
     primary: '#D500F9',
@@ -45,6 +46,7 @@ export const COLORS = {
     dark: '#2962FF',
   },
   cyan: {
+    light: '#18FFFF',
     primary: '#00E5FF',
     dark: '#00B8D4',
   },

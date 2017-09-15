@@ -86,7 +86,7 @@ class LandingPageSummary extends PureComponent {
         <MaxWidthWrapper>
           <Row>
             <Col colWidth={2}>
-              <Heading theme="vibrant">Summary View</Heading>
+              <Heading theme="vibrant">Bird's Eye View</Heading>
               <Paragraph size="large">
                 Your home screen in Tello is an overview of the shows you're tracking. An at-a-glance summary of how many episodes are left for your favourite shows.
               </Paragraph>

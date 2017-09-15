@@ -14,9 +14,6 @@ import LandingPageBacklog from '../LandingPageBacklog';
 
 import { SHOWS } from './LandingPageView.data';
 
-// TEMP
-import GoogleButton from '../GoogleButton';
-
 
 class LandingPageView extends PureComponent {
   state = {
@@ -33,7 +30,7 @@ class LandingPageView extends PureComponent {
 
     this.props.changeSorting({ sorting: 'chrono' });
 
-    window.addEventListener('scroll', this.handleScroll)
+    // window.addEventListener('scroll', this.handleScroll)
   }
 
   handleScroll = () => {
@@ -59,13 +56,9 @@ class LandingPageView extends PureComponent {
         <LandingPageHero />
       </HeroOpacityWrapper>,
       <MainContent key="content">
-        <LandingPageIntro />
         <LandingPageSummary />
         <Divider />
         <LandingPageBacklog />
-
-        {/* TEMP */}
-        <GoogleButton />
       </MainContent>,
     ];
   }

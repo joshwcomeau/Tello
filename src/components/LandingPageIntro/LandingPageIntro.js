@@ -27,12 +27,8 @@ const HEADING_COLOURS = [
   [COLORS.teal.primary, "#00aa48"],
 ];
 
-const getHeadingBackground = ({ tick }) => (
-  `linear-gradient(
-    to bottom,
-    ${HEADING_COLOURS[tick][0]},
-    ${HEADING_COLOURS[tick][1]}
-  )`
+const getHeadingBackground = () => (
+  ``
 );
 
 const FADE_DELAY = 4000;
@@ -53,45 +49,60 @@ class LandingPageIntro extends PureComponent {
 
     return (
       <LandingPageIntroWrapper>
-        <FadeOnChange>
-          <Question tick={tick}>
-            {HEADINGS[tick]}
-          </Question>
-        </FadeOnChange>
+        <MaxWidthWrapper maxWidth="800px">
+          <FadeOnChange>
+            <Question tick={tick}>
+              {HEADINGS[tick]}
+            </Question>
+          </FadeOnChange>
 
-        <Paragraph size="xlarge">
-          Watching television is a leisure activity, but often <em>finding</em> something to watch is anything but leisurely.
-        </Paragraph>
+          <Paragraph size="xlarge">
+            Watching television is a leisure activity, but <em>finding</em> something to watch can be very un-leisurely.
+          </Paragraph>
 
-        <Paragraph size="xlarge">
-          Tello is a fun, easy way to track your favourite TV shows, so you always have something to watch.
-        </Paragraph>
+          <Paragraph size="xlarge">
+            Tello is a fun, easy way to track your favourite TV shows, so you always have something to watch.
+          </Paragraph>
 
-        <Paragraph size="xlarge">
-          Unlike other TV tracking services, Tello doesn't aspire to be a social network. Tello does 1 thing, and it does it very well.
-        </Paragraph>
+          <Paragraph size="xlarge">
+            Unlike other TV tracking services, Tello doesn't aspire to be a social network. Tello does 1 thing, and it does it very well.
+          </Paragraph>
 
-        <Paragraph size="xlarge">
-          Sign up now, or continue reading to see what Tello has to offer.
-        </Paragraph>
+          <br />
+          <Paragraph centered size="large">
+            Sign up now, or continue reading to see what Tello has to offer.
+          </Paragraph>
 
-        <SignupButtons />
+          <br /><br />
+
+          <SignupButtons />
+        </MaxWidthWrapper>
       </LandingPageIntroWrapper>
     )
   }
 }
 
-const LandingPageIntroWrapper = styled(MaxWidthWrapper)`
+const LandingPageIntroWrapper = styled.div`
   position: relative;
-  padding: ${UNITS_IN_PX[5]};
+  padding: ${UNITS_IN_PX[6]} 0;
+  background: linear-gradient(
+    rgba(109, 0, 185, 0.35),
+    rgba(109, 0, 185, 0.65)
+  );
 `;
 
 const Question = styled.h1`
-  background: ${getHeadingBackground};
+  background: linear-gradient(
+    to bottom,
+    ${COLORS.white},
+    ${COLORS.cyan.light}
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  font-size: 48px;
-  margin-bottom: ${UNITS_IN_PX[2]};
+  font-size: 36px;
+  margin-bottom: ${UNITS_IN_PX[3]};
+  /* Move back a few px so that we discount the width of the open-quote */
+  transform: translateX(-4px);
 `;
 
 const Glow = styled.div`

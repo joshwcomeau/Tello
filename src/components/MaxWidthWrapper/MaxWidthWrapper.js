@@ -16,7 +16,7 @@ const propTypes = {
 const MaxWidthWrapper = styled.div`
   position: relative;
   width: 100%;
-  max-width: ${MAX_WIDTH.base};
+  max-width: ${props => props.maxWidth || MAX_WIDTH.base};
   margin-left: auto;
   margin-right: auto;
   padding-left: ${props => props.noPadding ? 0 : UNITS_IN_PX[2]};

@@ -10,9 +10,11 @@ import Link from '../Link';
 const SignupButtons = () => {
   return (
     <SignupButtonsWrapper>
-      <GoogleButton size="large" />
+      <GoogleButton official>
+        Sign up with Google
+      </GoogleButton>
       <SmallText>
-        Currently, only Google signup exists. Want to be able to sign up with Twitter or Facebook? <Link to="/contact">Email me</Link> and let me know!
+        Currently, only Google signup exists. Want to be able to sign up with Twitter or Facebook? <Link strong white to="/contact">Email me</Link> and let me know!
       </SmallText>
     </SignupButtonsWrapper>
   );
@@ -26,9 +28,12 @@ const SignupButtonsWrapper = styled.div`
 `;
 
 const SmallText = styled.p`
-  max-width: 350px;
-  margin: ${UNITS_IN_PX[1]} auto;
-  font-size: 12px;
+  max-width: 400px;
+  margin-top: ${UNITS_IN_PX[2]};
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 14px;
+  line-height: 1.6;
 `;
 
 export default SignupButtons;

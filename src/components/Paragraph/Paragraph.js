@@ -18,7 +18,7 @@ const getFontSize = ({ size }) => {
     case 'small': return '14px';
     case 'medium': return '17px';
     case 'large': return '22px';
-    case 'xlarge': return '26px';
+    case 'xlarge': return '28px';
   }
 }
 
