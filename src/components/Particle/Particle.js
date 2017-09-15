@@ -113,7 +113,6 @@ class Particle extends PureComponent {
           fill="none"
           stroke={color}
           strokeWidth={20}
-          strokeLinecap="square"
         />
       </svg>
     );

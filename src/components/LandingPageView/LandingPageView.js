@@ -2,12 +2,15 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import styled from 'emotion/react';
 
-import { addShowsReceive } from '../../actions';
-import { Z_INDICES } from '../../constants';
+import { addShowsReceive, changeSorting } from '../../actions';
+import { COLORS, Z_INDICES } from '../../constants';
 import { clamp } from '../../utils';
 
+import Divider from '../Divider';
 import LandingPageHero from '../LandingPageHero';
+import LandingPageIntro from '../LandingPageIntro';
 import LandingPageSummary from '../LandingPageSummary';
+import LandingPageBacklog from '../LandingPageBacklog';
 
 import { SHOWS } from './LandingPageView.data';
 
@@ -27,6 +30,8 @@ class LandingPageView extends PureComponent {
       shows: SHOWS,
       showNotification: false,
     });
+
+    this.props.changeSorting({ sorting: 'chrono' });
 
     window.addEventListener('scroll', this.handleScroll)
   }
@@ -54,7 +59,10 @@ class LandingPageView extends PureComponent {
         <LandingPageHero />
       </HeroOpacityWrapper>,
       <MainContent key="content">
+        <LandingPageIntro />
         <LandingPageSummary />
+        <Divider />
+        <LandingPageBacklog />
 
         {/* TEMP */}
         <GoogleButton />
@@ -69,7 +77,8 @@ const HeroOpacityWrapper = styled.div`
 
 const MainContent = styled.div`
   position: relative;
+  background: ${COLORS.gray.veryDark};
   z-index: ${Z_INDICES.root + 1};
 `;
 
-export default connect(null, { addShowsReceive })(LandingPageView);
+export default connect(null, { addShowsReceive, changeSorting })(LandingPageView);

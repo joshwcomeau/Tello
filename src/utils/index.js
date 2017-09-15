@@ -82,3 +82,15 @@ export const isBetween = ({ date, startDate, endDate }) => (
 export const findRight = (arr, predicate) => (
   arr.slice().reverse().find(predicate)
 );
+
+export function requestAnimationFramePromise() {
+  return new Promise(resolve => (
+    window.requestAnimationFrame(resolve)
+  ));
+}
+
+export function setTimeoutPromise(duration) {
+  return new Promise(resolve => (
+    window.setTimeout(resolve, duration)
+  ));
+}

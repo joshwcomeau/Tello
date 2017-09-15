@@ -31,10 +31,15 @@ class LandingPageSummary extends PureComponent {
   }
 
   renderSummaryDemo() {
+    const { shows } = this.props;
+
     // For the first render, our show won't yet be in state.
-    if (this.props.shows.length === 0) {
+    if (shows.length === 0) {
       return null;
     }
+
+    // We only want to show Stranger Things for the demo.
+    const show = shows.find(show => show.name === 'Stranger Things');
 
     return (
       <Motion
@@ -60,7 +65,7 @@ class LandingPageSummary extends PureComponent {
             >
               <SummaryShow
                 demo
-                show={this.props.shows[0]}
+                show={show}
               />
             </span>
 
@@ -89,10 +94,6 @@ class LandingPageSummary extends PureComponent {
               <Paragraph size="large">
                 Each square at the bottom of the cards represent an episode, and its colour indicates whether or not it's been viewed.
               </Paragraph>
-
-              <Paragraph size="large">
-                Give it a shot, try toggling an episode <ArrowForward />
-              </Paragraph>
             </Col>
 
             <Col colWidth={1}>
@@ -107,8 +108,8 @@ class LandingPageSummary extends PureComponent {
 
 const LandingPageSummaryElem = styled.div`
   padding-top: ${UNITS_IN_PX[5]};
-  background: ${COLORS.gray.veryDark};
-  min-height: 100vh;
+  padding-bottom: ${UNITS_IN_PX[5]};
+  /* Hide the Glow from overlapping the Hero */
   overflow: hidden;
 `;
 

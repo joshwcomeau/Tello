@@ -27,7 +27,14 @@ const Heading = ({ size, children, ...delegated }) => (
 Heading.propTypes = propTypes;
 Heading.defaultProps = defaultProps;
 
-const getFontColor = ({ theme }) => {
+const getFontColor = ({ color, theme }) => {
+  // I try not to use explicit colors, to ensure consistency, but in special places
+  // it doesn't make sense to use one of the 3 main themes. A color override can
+  // be provided.
+  if (color) {
+    return color;
+  }
+
   switch (theme) {
     case 'light':
       return COLORS.white;

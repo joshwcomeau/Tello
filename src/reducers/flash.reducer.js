@@ -52,12 +52,18 @@ export default function reducer(state = initialState, action) {
     }
 
     case MARK_EPISODE_AS_SEEN: {
-      const { showId, showName, episodeId, episodeName } = action;
+      const { demo, showId, showName, episodeId, episodeName } = action;
 
       return {
         messageType: 'success',
         message: `"${episodeName}" of <strong>${showName}</strong> has been marked as seen. `,
-        action: markEpisodeAsUnseen({ showId, showName, episodeId, episodeName }),
+        action: markEpisodeAsUnseen({
+          demo,
+          showId,
+          showName,
+          episodeId,
+          episodeName
+        }),
         actionLabel: 'Undo',
       };
     }

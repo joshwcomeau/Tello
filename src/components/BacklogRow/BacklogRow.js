@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'emotion/react';
 import FlipMove from 'react-flip-move';
@@ -26,6 +27,7 @@ const TOGGLE_ANIMATION_DURATION = 300;
 
 class BacklogRow extends Component {
   static propTypes = {
+    demo: PropTypes.bool,
     show: ShowProps,
   }
 
@@ -38,7 +40,7 @@ class BacklogRow extends Component {
   }
 
   handleEpisodeClick = (episode) => {
-    const { show, markEpisodeAsSeen } = this.props;
+    const { demo, show, markEpisodeAsSeen } = this.props;
 
     // Episodes take some time to disappear, and bad things happen if the user
     // tries toggling other things in that time.
@@ -48,6 +50,7 @@ class BacklogRow extends Component {
 
     this.setState({ isToggling: true }, () => {
       markEpisodeAsSeen({
+        demo,
         showId: show.id,
         showName: show.name,
         episodeId: episode.id,

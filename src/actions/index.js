@@ -75,12 +75,14 @@ export const toggleEpisode = ({
 });
 
 export const markEpisodeAsSeen = ({
+  demo,
   showId,
   showName,
   episodeId,
   episodeName
 }) => ({
   type: MARK_EPISODE_AS_SEEN,
+  demo,
   showId,
   showName,
   episodeId,
@@ -88,12 +90,14 @@ export const markEpisodeAsSeen = ({
 });
 
 export const markEpisodeAsUnseen = ({
+  demo,
   showId,
   showName,
   episodeId,
   episodeName
 }) => ({
   type: MARK_EPISODE_AS_UNSEEN,
+  demo,
   showId,
   showName,
   episodeId,

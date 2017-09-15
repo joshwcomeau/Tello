@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import styled from 'emotion/react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import {  UNITS_IN_PX } from '../../constants';

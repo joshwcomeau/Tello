@@ -24,9 +24,9 @@ class LandingPageParticles extends PureComponent {
 
     let particles = [];
 
-    while (xQuadrantStart < window.innerWidth) {
-      yQuadrantStart = 0;
-      while (yQuadrantStart < window.innerHeight) {
+    while (yQuadrantStart < window.innerHeight) {
+      xQuadrantStart = 0;
+      while (xQuadrantStart < window.innerWidth) {
         // Some of our particles will move around onscreen, but most won't.
         // This is to reduce the number of simultaneous transforms.
         const isFrozen = false;
@@ -48,10 +48,10 @@ class LandingPageParticles extends PureComponent {
 
         index += 1;
 
-        yQuadrantStart += QUADRANT_SIZE;
+        xQuadrantStart += QUADRANT_SIZE;
       }
 
-      xQuadrantStart += QUADRANT_SIZE;
+      yQuadrantStart += QUADRANT_SIZE;
     }
 
     return particles;
