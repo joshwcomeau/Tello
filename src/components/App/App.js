@@ -6,10 +6,11 @@ import PropTypes from 'prop-types';
 
 import { userDataRequest, hideModal } from '../../actions';
 import {
-  Z_INDICES,
+  COLORS,
   ROW_HEIGHT,
   UNITS_IN_PX,
   HEADER_HEIGHT_PX,
+  Z_INDICES,
 } from '../../constants';
 import { isMobile } from '../../helpers/responsive.helpers';
 import { getToken, getIsFetching } from '../../reducers/auth.reducer';
@@ -26,6 +27,7 @@ import MediaQuery from '../MediaQuery';
 import NoShowsYet from '../NoShowsYet';
 import FetchEpisodes from '../FetchEpisodes';
 import Footer from '../Footer';
+import Scrollbars from '../Scrollbars';
 
 import SummaryView from '../SummaryView';
 import BacklogView from '../BacklogView';
@@ -130,6 +132,13 @@ class App extends PureComponent {
 
       // Logged-in data component
       <FetchEpisodes key="fetch" />,
+
+      // Make our scrollbars nice and pink
+      <Scrollbars
+        scrollbarStyles={{ width: '8px' }}
+        scrollbarTrackStyles={{ background: COLORS.gray.veryDark }}
+        scrollbarThumbStyles={{ background: COLORS.purple.primary }}
+      />
     ];
   }
 
@@ -147,7 +156,12 @@ class App extends PureComponent {
 
       hasToken
         ? this.renderLoggedInRoutes()
-        : <Route key="landing" exact path="/" component={LandingPageView} />,
+        : <Route
+          key="landing"
+          exact
+          path="/"
+          component={LandingPageView}
+        />,
 
       <Footer key="footer" />,
 

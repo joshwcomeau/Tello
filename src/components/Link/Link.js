@@ -23,7 +23,7 @@ const linkStyles = props => css`
     position: absolute;
     left: 0;
     right: 0;
-    bottom: -2px;
+    bottom: -1px;
     height: 2px;
     background: ${props.color || COLORS.blue.light};
     opacity: 0;
