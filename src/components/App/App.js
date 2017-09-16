@@ -34,6 +34,7 @@ import SettingsView from '../SettingsView';
 import MobileView from '../MobileView';
 import LogoutView from '../LogoutView';
 import LandingPageView from '../LandingPageView';
+import PrivacyPolicyView from '../PrivacyPolicyView';
 
 
 class App extends PureComponent {
@@ -138,9 +139,15 @@ class App extends PureComponent {
     return [
       <FlashMessage key="flash" />,
 
+      <Route
+        key="privacy"
+        path="/privacy"
+        component={PrivacyPolicyView}
+      />,
+
       hasToken
         ? this.renderLoggedInRoutes()
-        : <Route key="landing" path="/" component={LandingPageView} />,
+        : <Route key="landing" exact path="/" component={LandingPageView} />,
 
       <Footer key="footer" />,
 

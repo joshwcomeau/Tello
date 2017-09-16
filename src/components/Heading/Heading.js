@@ -7,7 +7,12 @@ import { COLORS, UNITS_IN_PX } from '../../constants';
 
 const propTypes = {
   size: PropTypes.oneOf(['small', 'medium', 'large']).isRequired,
-  theme: PropTypes.oneOf(['light', 'dark', 'vibrant']).isRequired,
+  theme: PropTypes.oneOf([
+    'light',
+    'dark',
+    'vibrant',
+    'vibrantAlt',
+  ]).isRequired,
   children: PropTypes.node,
 };
 
@@ -40,6 +45,8 @@ const getFontColor = ({ color, theme }) => {
       return COLORS.white;
     case 'vibrant':
       return COLORS.pink.primary;
+    case 'vibrantAlt':
+      return COLORS.purple.primary;
     case 'dark':
     default:
       return COLORS.gray.veryDark;
