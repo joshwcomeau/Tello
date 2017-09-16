@@ -2,9 +2,7 @@ import React from 'react';
 import styled from 'emotion/react';
 
 import { BREAKPOINTS, COLORS, UNITS_IN_PX, Z_INDICES } from '../../constants';
-import { random, range } from '../../utils';
 
-import Drift from '../Drift';
 import GoogleButton from '../GoogleButton';
 import Logo from '../Logo';
 import LandingPageParticles from '../LandingPageParticles';
@@ -52,7 +50,7 @@ const LandingPageHero = () => [
       </SubTagline>
     </MainContent>
   </HeroElem>,
-  <Intro>
+  <Intro key="intro">
     <LandingPageIntro />
   </Intro>,
 ];
@@ -77,12 +75,6 @@ const Intro = styled.div`
   position: relative;
   z-index: 2;
 `
-
-const HeroSpacer = styled.div`
-  position: relative;
-  height: 100vh;
-  z-index: -2;
-`;
 
 const HeroElem = styled.div`
   position: relative;

@@ -1,5 +1,4 @@
 import addWeeks from 'date-fns/add_weeks';
-import subWeeks from 'date-fns/sub_weeks';
 import getDay from 'date-fns/get_day';
 import setDay from 'date-fns/set_day';
 

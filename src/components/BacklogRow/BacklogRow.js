@@ -98,7 +98,7 @@ class BacklogRow extends Component {
   }
 
   render() {
-    const { show: { type, name, episodes } } = this.props;
+    const { show: { type, name } } = this.props;
 
     return (
       <Wrapper>
@@ -172,21 +172,6 @@ const EpisodeWrapper = styled.div`
   @media ${BREAKPOINTS.sm} {
     overflow: auto;
   }
-`;
-
-const EpisodeGradient = styled.div`
-  position: absolute;
-  z-index: 10;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  width: 50px;
-  pointer-events: none;
-  background: linear-gradient(
-    to right,
-    rgba(255,255,255,0),
-    rgba(255,255,255,0.8)
-  );
 `;
 
 export default connect(null, { markEpisodeAsSeen })(BacklogRow);

@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import warning from 'warning';
 
@@ -37,6 +37,7 @@ class Scrollbars extends PureComponent {
   }
 
   componentDidUpdate() {
+    console.log('UPDATE')
     // Start by clearing the styles so we get a clean slate.
     const stylesheet = Scrollbars.styleDOMNode.sheet;
     clearStyles(stylesheet);
@@ -51,8 +52,6 @@ class Scrollbars extends PureComponent {
   }
 
   updateScrollbars() {
-    const { scrollbar, scrollbarTrack, scrollbarThumb } = this.props;
-
     const stylesheet = Scrollbars.styleDOMNode.sheet;
 
     Object.entries(this.props).forEach(([styleName, styles]) => {

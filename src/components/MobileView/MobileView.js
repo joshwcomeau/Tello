@@ -3,9 +3,7 @@ import styled from 'emotion/react';
 import ReactSwipe from 'react-swipe';
 
 import {
-  COLORS,
   ROW_HEIGHT_PX,
-  HALF_UNIT_PX,
   UNITS_IN_PX
 } from '../../constants';
 

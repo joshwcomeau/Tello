@@ -1,6 +1,6 @@
 // Utility component that computes the current breakpoint and passes it down
 // to children.
-import React, { PureComponent } from 'react';
+import { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
 import { debounce } from '../../utils';

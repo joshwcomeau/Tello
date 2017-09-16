@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
-import { COLORS } from '../../constants';
 import { random, sample } from '../../utils';
 
 
@@ -94,7 +93,7 @@ class Particle extends PureComponent {
 
   render() {
     const { size, color } = this.props;
-    const { shape, rotation } = this;
+    const { shape } = this;
 
     const path = PATHS[shape];
 

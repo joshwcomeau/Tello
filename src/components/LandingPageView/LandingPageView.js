@@ -8,7 +8,6 @@ import { clamp } from '../../utils';
 
 import Divider from '../Divider';
 import LandingPageHero from '../LandingPageHero';
-import LandingPageIntro from '../LandingPageIntro';
 import LandingPageSummary from '../LandingPageSummary';
 import LandingPageBacklog from '../LandingPageBacklog';
 import LandingPageCalendar from '../LandingPageCalendar';

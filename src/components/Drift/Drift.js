@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import styled from 'emotion/react';
 
 import { random } from '../../utils';
 

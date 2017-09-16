@@ -11,6 +11,7 @@ import {
   Z_INDICES,
 } from '../../constants';
 
+import Emoji from '../Emoji';
 import Link from '../Link';
 import Logo from '../Logo';
 import MaxWidthWrapper from '../MaxWidthWrapper';
@@ -77,7 +78,7 @@ const Footer = () => {
               {' '}
               for their amazing API
               {' '}
-              <Emoji>💖</Emoji>.
+              <Emoji name="heart" size={18}>💖</Emoji>.
             </Acknowledgements>
           </Right>
         </FlexParent>
@@ -173,9 +174,5 @@ const Acknowledgements = styled.div`
   line-height: ${UNITS_IN_PX[1]};
   color: ${COLORS.gray.primary};
 `;
-
-const Emoji = styled.span`
-  font-size: 18px;
-`
 
 export default Footer;

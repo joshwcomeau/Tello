@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { css, keyframes } from 'emotion';
+import { keyframes } from 'emotion';
 import styled from 'emotion/react';
 import { StaggeredMotion, spring } from 'react-motion';
 

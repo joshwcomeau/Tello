@@ -11,6 +11,7 @@ const getBottomMargin = ({ size }) => {
     case 'medium': return UNITS_IN_PX[1];
     case 'large': return UNITS_IN_PX[2];
     case 'xlarge': return UNITS_IN_PX[2];
+    default: getBottomMargin('medium');
   }
 }
 const getFontSize = ({ size }) => {
@@ -19,11 +20,12 @@ const getFontSize = ({ size }) => {
     case 'medium': return '17px';
     case 'large': return '22px';
     case 'xlarge': return '28px';
+    default: getFontSize('medium');
   }
 }
 
 const propTypes = {
-  size: PropTypes.oneOf(['small', 'medium', 'large']).isRequired,
+  size: PropTypes.oneOf(['small', 'medium', 'large', 'xlarge']).isRequired,
   align: PropTypes.oneOf(['left', 'center', 'right']),
 };
 

@@ -27,7 +27,6 @@ class BacklogEpisode extends Component {
   render() {
     const {
       height,
-      showType,
       episode,
       handleClick,
     } = this.props;

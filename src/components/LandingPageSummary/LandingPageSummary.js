@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'emotion/react';
 import { Motion, spring } from 'react-motion';
-import ArrowForward from 'react-icons/lib/md/arrow-forward';
 
 import { COLORS, UNITS_IN_PX } from '../../constants';
 import {

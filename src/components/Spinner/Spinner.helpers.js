@@ -1,3 +1,4 @@
+/* eslint-disable default-case */
 import { COLORS } from '../../constants';
 
 export const getBackgroundForNode = index => {

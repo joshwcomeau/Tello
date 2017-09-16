@@ -1,5 +1,4 @@
 import { PureComponent } from 'react';
-import PropTypes from 'prop-types';
 
 
 class ScrollDisabler extends PureComponent {

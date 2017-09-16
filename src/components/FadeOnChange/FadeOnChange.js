@@ -13,7 +13,6 @@ import {
 class FadeOnChange extends PureComponent {
   static propTypes = {
     children: PropTypes.node,
-    className: PropTypes.string,
     duration: PropTypes.number,
   }
 
@@ -60,7 +59,7 @@ class FadeOnChange extends PureComponent {
   }
 
   render() {
-    const { className, duration } = this.props;
+    const { duration } = this.props;
 
     const transition = `opacity ${duration}ms`;
 

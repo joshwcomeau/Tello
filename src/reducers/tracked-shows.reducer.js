@@ -4,7 +4,6 @@ import isFuture from 'date-fns/is_future';
 import compareAsc from 'date-fns/compare_asc';
 
 import {
-  EPISODES_REQUEST,
   EPISODES_RECEIVE,
   ADD_SHOWS_RECEIVE,
   REMOVE_SHOW,

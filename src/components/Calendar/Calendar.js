@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import styled from 'emotion/react';
-import FlipMove from 'react-flip-move';
 import addDays from 'date-fns/add_days';
 import PropTypes from 'prop-types';
 
@@ -14,7 +13,6 @@ import { ShowProps } from '../../types';
 import CalendarRow from '../CalendarRow';
 import CalendarHeaderCell from '../CalendarHeaderCell';
 import CalendarCornerCell from '../CalendarCornerCell';
-import Cell from '../Cell';
 import Spinner from '../Spinner';
 import StopTouchPropagation from '../StopTouchPropagation';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'emotion/react';
 
-import { COLORS, UNITS_IN_PX, HALF_UNIT_PX } from '../../constants';
+import { COLORS, UNITS_IN_PX } from '../../constants';
 
 
 const Divider = () => {

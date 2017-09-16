@@ -6,17 +6,27 @@ import styled from 'emotion/react';
 import { COLORS } from '../../constants';
 
 
-export default (props) => (
-  props.external
-    ? <ExternalLink {...props} />
-    : <InternalLink {...props} />
+// For some weird reason, passing `strong` directly to Link makes React complain
+// about invalid props on DOM Nodes. Probably because I'm wrapping a third-party
+// component? Using a wrapper is a quick fix.
+export default ({ strong, ...props}) => (
+  <LinkWrapper strong={strong}>
+    {props.external
+      ? <ExternalLink {...props} />
+      : <InternalLink {...props} />
+    }
+  </LinkWrapper>
 );
+
+const LinkWrapper = styled.span`
+  font-weight: ${props => props.strong ? 'bold' : 'inherit'};
+`;
 
 const linkStyles = props => css`
   position: relative;
   text-decoration: none;
   color: ${props.color || COLORS.blue.light};
-  font-weight: ${props.strong ? 'bold' : 'inherit'};
+  font-weight: ${props.bold ? 'bold' : 'inherit'};
 
   &:after {
     content: '';

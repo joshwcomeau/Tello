@@ -3,7 +3,6 @@ import styled from 'emotion/react';
 
 import { COLORS, UNITS_IN_PX } from '../../constants';
 
-import Heading from '../Heading';
 import Paragraph from '../Paragraph';
 import FadeOnChange from '../FadeOnChange';
 import MaxWidthWrapper from '../MaxWidthWrapper';
@@ -12,24 +11,14 @@ import SignupButtons from '../SignupButtons';
 
 const ShowNamePlaceholder = () => (
   <span style={{ letterSpacing: -3 }}>__________</span>
-)
+);
+
 const HEADINGS = [
   <span>"I wonder when <ShowNamePlaceholder /> comes back..."</span>,
   <span>"I need something to watch."</span>,
   <span>"Has the new season of <ShowNamePlaceholder /> started?"</span>,
   <span>"What episode of <ShowNamePlaceholder /> am I at?"</span>,
 ];
-
-const HEADING_COLOURS = [
-  [COLORS.cyan.primary, '#00ccb2'],
-  [COLORS.lime.primary, '#6ac202'],
-  [COLORS.green.primary, "#11b100"],
-  [COLORS.teal.primary, "#00aa48"],
-];
-
-const getHeadingBackground = () => (
-  ``
-);
 
 const FADE_DELAY = 4000;
 
@@ -102,19 +91,5 @@ const Question = styled.h1`
   /* Move back a few px so that we discount the width of the open-quote */
   transform: translateX(-4px);
 `;
-
-const Glow = styled.div`
-  position: absolute;
-  z-index: -1;
-  top: 0;
-  left: 0;
-  right: 0;
-  margin-left: auto;
-  margin-right: auto;
-  width: 50%;
-  height: 50%;
-  filter: blur(100px);
-  background: rgba(68,138,255,0.15);
-`
 
 export default LandingPageIntro;

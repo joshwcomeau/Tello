@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { keyframes } from 'emotion';
 import styled from 'emotion/react';
-import AddIcon from 'react-icons/lib/md/add';
 
 import {
   ROW_HEIGHT,

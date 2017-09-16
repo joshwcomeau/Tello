@@ -2,7 +2,10 @@ import PropTypes from 'prop-types';
 
 export const EpisodeProps = PropTypes.shape({
   id: PropTypes.number.isRequired,
-  airstamp: PropTypes.string.isRequired,
+  airstamp: PropTypes.oneOfType([
+    PropTypes.string.isRequired,
+    PropTypes.instanceOf(Date).isRequired,
+  ]),
   isSeen: PropTypes.bool,
   name: PropTypes.string.isRequired,
   number: PropTypes.number.isRequired,

@@ -4,15 +4,15 @@ import styled from 'emotion/react';
 import { Motion, spring } from 'react-motion';
 import addWeeks from 'date-fns/add_weeks';
 
-import { COLORS, UNITS_IN_PX, ROW_HEIGHT_PX } from '../../constants';
+import { COLORS, UNITS_IN_PX } from '../../constants';
 import { getTrackedShowsArray } from '../../reducers/tracked-shows.reducer';
 
+import Emoji from '../Emoji';
 import Heading from '../Heading';
 import MaxWidthWrapper from '../MaxWidthWrapper';
 import Paragraph from '../Paragraph';
 import Calendar from '../Calendar';
 import CalendarWeekPicker from '../CalendarWeekPicker';
-import Hover from '../Hover';
 
 
 const CALENDAR_3D_WIDTH = '15px';
@@ -37,11 +37,10 @@ class LandingPageCalendar extends PureComponent {
         }}
       >
         {({ rotation, opacity }) => (
-          <CalendarDemo
-            onMouseEnter={this.updateHover(true)}
-            onMouseLeave={this.updateHover(false)}
-          >
+          <CalendarDemo>
             <CalendarTransform
+              onMouseEnter={this.updateHover(true)}
+              onMouseLeave={this.updateHover(false)}
               style={{ transform: `
                 perspective(500px)
                 rotateY(${rotation}deg)
@@ -80,7 +79,9 @@ class LandingPageCalendar extends PureComponent {
           <DescriptionWrapper faded={this.state.isHoveringCalendar}>
             <Heading theme="vibrant">The Calendar</Heading>
             <Paragraph size="large">
-              One of Tello's most powerful features is the Calendar view. See what you missed last week, or what's coming up this week. ✨
+              One of Tello's most powerful features is the Calendar view. See what you missed last week, or what's coming up this week.
+              {' '}
+              <Emoji name="sparkles">✨</Emoji>
             </Paragraph>
 
             <Paragraph size="large">
