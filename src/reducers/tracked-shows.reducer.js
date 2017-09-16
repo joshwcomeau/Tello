@@ -14,6 +14,7 @@ import {
   MARK_SEASON_AS_SEEN,
   USER_DATA_RECEIVE,
   DELETE_SHOW_RECEIVE,
+  LOGOUT,
 } from '../actions';
 import { convertArrayToMap, toggleInArray, mergeUnique } from '../utils';
 import { getIsFetching } from './auth.reducer';
@@ -125,6 +126,10 @@ export default function trackedShowsReducer(state = initialState, action) {
       delete nextState[showId];
 
       return nextState;
+    }
+
+    case LOGOUT: {
+      return initialState;
     }
 
     default:
