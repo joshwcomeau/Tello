@@ -28,7 +28,7 @@ const Footer = () => {
     <FooterElem>
       <MaxWidthWrapper>
         <FlexParent>
-          <Left>
+          <FirstCol>
             <LogoWrapper>
               <Logo
                 boxColor={COLORS.gray.dark}
@@ -43,8 +43,8 @@ const Footer = () => {
                 )
               ])}
             </FooterLinks>
-          </Left>
-          <Right>
+          </FirstCol>
+          <SecondCol>
             <Credit>
               A <VibrantLink1 strong color={COLORS.deepPurple.primary} to="/about">
                 side project
@@ -80,7 +80,7 @@ const Footer = () => {
               {' '}
               <Emoji name="heart" size={18}>💖</Emoji>.
             </Acknowledgements>
-          </Right>
+          </SecondCol>
         </FlexParent>
       </MaxWidthWrapper>
     </FooterElem>
@@ -90,38 +90,53 @@ const Footer = () => {
 const FooterElem = styled.footer`
   position: relative;
   z-index: ${Z_INDICES.root + 1};
-  padding: ${UNITS_IN_PX[2]};
+  padding: ${UNITS_IN_PX[2]} 0;
   background: ${COLORS.gray.veryLight};
   color: ${COLORS.gray.veryDark};
 
   @media ${BREAKPOINTS.sm} {
-    text-align: left;
-    padding: ${UNITS_IN_PX[1]};
-    /* Add space for the floating add-show button on mobile */
-    padding-right: ${ROW_HEIGHT + UNIT * 2 + 'px'};
+    text-align: center;
   }
+
 `;
 
 const FlexParent = styled.div`
   display: flex;
   justify-content: space-between;
+
+  @media ${BREAKPOINTS.sm} {
+    flex-direction: column;
+  }
 `
-const Left = styled.div`
+const FirstCol = styled.div`
 
 `;
 
-const Right = styled.div`
+const SecondCol = styled.div`
   text-align: right;
+
+  @media ${BREAKPOINTS.sm} {
+    text-align: center;
+    margin-top: ${UNITS_IN_PX[3]}
+  }
 `;
 
 const LogoWrapper = styled.div`
   transform: scale(0.8);
   transform-origin: left top;
+
+  @media ${BREAKPOINTS.sm} {
+    transform-origin: center center;
+  }
 `
 
 const FooterLinks = styled.div`
   font-size: 13px;
   line-height: ${UNITS_IN_PX[1]};
+
+  @media ${BREAKPOINTS.sm} {
+    margin-top: ${UNITS_IN_PX[1]};
+  }
 `;
 
 const LinkDot = styled.span`

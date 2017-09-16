@@ -4,7 +4,8 @@ import styled from 'emotion/react';
 import { Motion, spring } from 'react-motion';
 import addWeeks from 'date-fns/add_weeks';
 
-import { COLORS, UNITS_IN_PX } from '../../constants';
+import { BREAKPOINTS, COLORS, UNITS_IN_PX } from '../../constants';
+import { isLargeScreen, isMobile } from '../../helpers/responsive.helpers';
 import { getTrackedShowsArray } from '../../reducers/tracked-shows.reducer';
 
 import Emoji from '../Emoji';
@@ -19,32 +20,36 @@ const CALENDAR_3D_WIDTH = '15px';
 
 class LandingPageCalendar extends PureComponent {
   state = {
-    isHoveringCalendar: false,
+    rotateCalendar: isLargeScreen(),
   }
 
-  updateHover = val => () => {
-    this.setState({ isHoveringCalendar: val })
+  updateCalendarRotation = val => () => {
+    if (isLargeScreen()) {
+      this.setState({ rotateCalendar: val })
+    }
   }
 
   renderCalendarDemo() {
-    const { isHoveringCalendar } = this.state;
+    const { rotateCalendar } = this.state;
 
     return (
       <Motion
         style={{
-          rotation: spring(isHoveringCalendar ? 0 : -20),
-          opacity: spring(isHoveringCalendar ? 1 : 0),
+          rotation: spring(rotateCalendar ? -20 : 0),
+          opacity: spring(rotateCalendar ? 0 : 1),
         }}
       >
         {({ rotation, opacity }) => (
           <CalendarDemo>
             <CalendarTransform
-              onMouseEnter={this.updateHover(true)}
-              onMouseLeave={this.updateHover(false)}
-              style={{ transform: `
-                perspective(500px)
-                rotateY(${rotation}deg)
-              `}}
+              onMouseEnter={this.updateCalendarRotation(false)}
+              onMouseLeave={this.updateCalendarRotation(true)}
+              style={{
+                transform: `
+                  perspective(500px)
+                  rotateY(${rotation}deg)
+                `,
+              }}
             >
               <CalendarHeader>
                 <CalendarWeekPicker maxDate={addWeeks(new Date(), 2)} />
@@ -53,10 +58,12 @@ class LandingPageCalendar extends PureComponent {
               <CalendarWrapper>
                 <Calendar shows={this.props.shows} />
                 <CalendarEdge
-                  style={{ transform: `
-                    perspective(500px)
-                    rotateY(${rotation + 90}deg)
-                  `}}
+                  style={{
+                    transform: `
+                      perspective(500px)
+                      rotateY(${rotation + 90}deg)
+                    `,
+                  }}
                 />
                 <Glow
                   style={{ opacity: 1 - (opacity * 0.5) }}
@@ -64,7 +71,7 @@ class LandingPageCalendar extends PureComponent {
               </CalendarWrapper>
 
               <Disclaimer style={{ opacity }}>
-                <strong>Note:</strong> This is just a demo. These episode dates are wrong.
+                <strong>Note:</strong> This is just a demo, the data is fake.
               </Disclaimer>
             </CalendarTransform>
           </CalendarDemo>
@@ -76,15 +83,15 @@ class LandingPageCalendar extends PureComponent {
     return (
       <LandingPageCalendarElem>
         <MaxWidthWrapper>
-          <DescriptionWrapper faded={this.state.isHoveringCalendar}>
+          <DescriptionWrapper faded={!this.state.rotateCalendar}>
             <Heading theme="vibrant">The Calendar</Heading>
-            <Paragraph size="large">
+            <Paragraph align={isMobile() ? 'justify' : 'left'} size="large">
               One of Tello's most powerful features is the Calendar view. See what you missed last week, or what's coming up this week.
               {' '}
               <Emoji name="sparkles">✨</Emoji>
             </Paragraph>
 
-            <Paragraph size="large">
+            <Paragraph align={isMobile() ? 'justify' : 'left'} size="large">
               Each row represents a show, and shows are omitted when they don't have any
               episodes this week, so it's quick to use even with lots of tracked shows.
             </Paragraph>
@@ -103,19 +110,32 @@ const LandingPageCalendarElem = styled.div`
 `;
 
 const CalendarDemo = styled.div`
-  position: absolute;
-  top: -57px;
-  right: ${UNITS_IN_PX[2]};
-  width: 80%;
+  @media ${BREAKPOINTS.mdMin} {
+    position: absolute;
+    top: -57px;
+    right: ${UNITS_IN_PX[2]};
+    width: 90%;
+  }
+
+  @media ${BREAKPOINTS.xlMin} {
+    width: 80%;
+  }
 `;
 
 const DescriptionWrapper = styled.div`
-  position: relative;
-  top: 0;
-  right: 0;
-  margin-right: 60%;
-  opacity: ${props => props.faded ? 0.2 : 1};
-  transition: opacity 700ms;
+  @media ${BREAKPOINTS.mdMin} {
+    position: relative;
+    top: 0;
+    right: 0;
+    margin-right: 65%;
+    opacity: ${props => props.faded ? 0.2 : 1};
+    transition: opacity 700ms;
+  }
+
+  @media ${BREAKPOINTS.xlMin} {
+    margin-right: 60%;
+  }
+
 `;
 
 const CalendarTransform = styled.div`
@@ -147,9 +167,7 @@ const Disclaimer = styled.div`
   position: absolute;
   left: 0;
   right: 0;
-  bottom: -40px;
-  height: 40px;
-  line-height: 40px;
+  bottom: -35px;
   font-size: 12px;
   text-align: center;
 `;

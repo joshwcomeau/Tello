@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { css } from 'emotion';
 import styled from 'emotion/react';
 
-import { COLORS } from '../../constants';
+import { BREAKPOINTS, COLORS } from '../../constants';
 
 
 // For some weird reason, passing `strong` directly to Link makes React complain
@@ -28,21 +28,23 @@ const linkStyles = props => css`
   color: ${props.color || COLORS.blue.light};
   font-weight: ${props.bold ? 'bold' : 'inherit'};
 
-  &:after {
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: -1px;
-    height: 2px;
-    background: ${props.color || COLORS.blue.light};
-    opacity: 0;
-    transition: opacity 500ms;
-  }
+  @media ${BREAKPOINTS.desktop} {
+    &:after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -1px;
+      height: 2px;
+      background: ${props.color || COLORS.blue.light};
+      opacity: 0;
+      transition: opacity 500ms;
+    }
 
-  &:hover:after {
-    opacity: 1;
-    transition: opacity 150ms;
+    &:hover:after {
+      opacity: 1;
+      transition: opacity 150ms;
+    }
   }
 `
 

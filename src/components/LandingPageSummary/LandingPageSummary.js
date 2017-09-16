@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import styled from 'emotion/react';
 import { Motion, spring } from 'react-motion';
 
-import { COLORS, UNITS_IN_PX } from '../../constants';
+import { BREAKPOINTS, COLORS, UNITS_IN_PX } from '../../constants';
+import { isMobile } from '../../helpers/responsive.helpers';
 import {
   getAiredTrackedShowsArrayWithSeasons,
 } from '../../reducers/tracked-shows.reducer'
@@ -18,17 +19,24 @@ import SummaryShow from '../SummaryShow';
 
 const SHOW_3D_WIDTH = '8px';
 
+
+// NOTE: defining a custom breakpoint here, because the existing ones don't
+// handle this edge-case well.
+const SPECIAL_BREAKPOINT_WIDTH = 700;
+
 class LandingPageSummary extends PureComponent {
   static propTypes = {
     shows: PropTypes.arrayOf(ShowProps)
   }
 
   state = {
-    isHoveringCard: false,
+    rotateCard: window.innerWidth > SPECIAL_BREAKPOINT_WIDTH,
   }
 
-  updateHover = (newValue) => () => {
-    this.setState({ isHoveringCard: newValue })
+  updateCardRotation = (newValue) => () => {
+    if (window.innerWidth > SPECIAL_BREAKPOINT_WIDTH) {
+      this.setState({ rotateCard: newValue });
+    }
   }
 
   renderSummaryDemo() {
@@ -45,8 +53,8 @@ class LandingPageSummary extends PureComponent {
     return (
       <Motion
         style={{
-          rotation: spring(this.state.isHoveringCard ? 0 : -20),
-          placeholderOpacity: spring(this.state.isHoveringCard ? 0 : 1),
+          rotation: spring(this.state.rotateCard ? -20 : 0),
+          placeholderOpacity: spring(this.state.rotateCard ? 1 : 0),
         }}
       >
         {({ rotation, placeholderOpacity }) => (
@@ -61,8 +69,8 @@ class LandingPageSummary extends PureComponent {
             />
 
             <ShowWrapper
-              onMouseEnter={this.updateHover(true)}
-              onMouseLeave={this.updateHover(false)}
+              onMouseEnter={this.updateCardRotation(false)}
+              onMouseLeave={this.updateCardRotation(true)}
             >
               <SummaryShow
                 demo
@@ -122,6 +130,10 @@ const LandingPageSummaryElem = styled.div`
 
 const Row = styled.div`
   display: flex;
+
+  @media (max-width: ${SPECIAL_BREAKPOINT_WIDTH}px) {
+    flex-direction: column;
+  }
 `;
 
 const Col = styled.div`
@@ -129,14 +141,24 @@ const Col = styled.div`
   z-index: 1;
   flex: ${props => props.colWidth};
 
+
   &:first-of-type {
-    z-index: 2;
-    margin-right: ${UNITS_IN_PX[8]};
+    @media (min-width: ${SPECIAL_BREAKPOINT_WIDTH + 1}px) {
+      z-index: 2;
+      margin-right: ${UNITS_IN_PX[8]};
+    }
+
+    @media ${BREAKPOINTS.lg} {
+      z-index: 2;
+      margin-right: ${UNITS_IN_PX[3]};
+    }
   }
 `;
 
 const ShowDemo = styled.div`
   position: relative;
+  max-width: 400px;
+  margin: auto;
 `;
 
 const ShowWrapper = styled.div`

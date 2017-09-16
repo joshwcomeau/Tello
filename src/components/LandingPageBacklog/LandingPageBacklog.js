@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import styled from 'emotion/react';
 
-import { UNITS_IN_PX, ROW_HEIGHT_PX } from '../../constants';
+import { BREAKPOINTS, UNITS_IN_PX, ROW_HEIGHT_PX } from '../../constants';
 import {
   getTrackedShowsWithUnseenEpisodesArray,
 } from '../../reducers/tracked-shows.reducer';
@@ -62,14 +62,16 @@ const FakeBacklogItem = styled.div`
   /* hide :after shadow */
   overflow: hidden;
 
-  &:after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: ${UNITS_IN_PX[15]};
-    height: ${ROW_HEIGHT_PX};
-    box-shadow: 0px 1px 6px rgba(0,0,0,0.4);
+  @media ${BREAKPOINTS.desktop} {
+    &:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: ${UNITS_IN_PX[15]};
+      height: ${ROW_HEIGHT_PX};
+      box-shadow: 0px 1px 6px rgba(0,0,0,0.4);
+    }
   }
 `;
 

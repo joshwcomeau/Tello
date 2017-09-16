@@ -104,6 +104,12 @@ export const BREAKPOINTS = {
   md: `(max-width: ${BREAKPOINT_SIZES.md}px)`,
   lg: `(max-width: ${BREAKPOINT_SIZES.lg}px)`,
   xl: `(max-width: ${BREAKPOINT_SIZES.xl}px)`,
+  xsMin: `(min-width: ${BREAKPOINT_SIZES.xs}px)`,
+  smMin: `(min-width: ${BREAKPOINT_SIZES.sm}px)`,
+  mdMin: `(min-width: ${BREAKPOINT_SIZES.md}px)`,
+  lgMin: `(min-width: ${BREAKPOINT_SIZES.lg}px)`,
+  xlMin: `(min-width: ${BREAKPOINT_SIZES.xl}px)`,
+  desktop: `(min-width: ${BREAKPOINT_SIZES.sm + 1}px)`,
 };
 
 // Sizes

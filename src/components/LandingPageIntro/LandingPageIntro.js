@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import styled from 'emotion/react';
 
-import { COLORS, UNITS_IN_PX } from '../../constants';
+import { BREAKPOINTS, COLORS, UNITS_IN_PX } from '../../constants';
 
 import Paragraph from '../Paragraph';
 import FadeOnChange from '../FadeOnChange';
@@ -9,9 +9,12 @@ import MaxWidthWrapper from '../MaxWidthWrapper';
 import SignupButtons from '../SignupButtons';
 
 
-const ShowNamePlaceholder = () => (
-  <span style={{ letterSpacing: -3 }}>__________</span>
-);
+const ShowNamePlaceholder = styled.span`
+  display: inline-block;
+  width: 120px;
+  border-bottom: 3px solid ${COLORS.cyan.light};
+  transform: translateY(3px);
+`;
 
 const HEADINGS = [
   <span>"I wonder when <ShowNamePlaceholder /> comes back..."</span>,
@@ -76,6 +79,10 @@ const LandingPageIntroWrapper = styled.div`
     rgba(109, 0, 185, 0.35),
     rgba(109, 0, 185, 0.65)
   );
+
+  @media ${BREAKPOINTS.sm} {
+    padding: ${UNITS_IN_PX[3]} 0 ${UNITS_IN_PX[4]};
+  }
 `;
 
 const Question = styled.h1`
@@ -90,6 +97,10 @@ const Question = styled.h1`
   margin-bottom: ${UNITS_IN_PX[3]};
   /* Move back a few px so that we discount the width of the open-quote */
   transform: translateX(-4px);
+
+  @media ${BREAKPOINTS.sm} {
+    font-size: 26px;
+  }
 `;
 
 export default LandingPageIntro;

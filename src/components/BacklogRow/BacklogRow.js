@@ -171,6 +171,7 @@ const EpisodeWrapper = styled.div`
 
   @media ${BREAKPOINTS.sm} {
     overflow: auto;
+    padding-left: ${HALF_UNIT_PX};
   }
 `;
 

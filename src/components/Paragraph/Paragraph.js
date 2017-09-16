@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import styled from 'emotion/react';
 
 
-import { UNITS_IN_PX } from '../../constants';
+import { BREAKPOINTS, UNITS_IN_PX } from '../../constants';
 
 
 const getBottomMargin = ({ size }) => {
@@ -24,6 +24,16 @@ const getFontSize = ({ size }) => {
   }
 }
 
+const getFontSizeMobile = ({ size }) => {
+  switch (size) {
+    case 'small': return '14px';
+    case 'medium': return '16px';
+    case 'large': return '18px';
+    case 'xlarge': return '24px';
+    default: getFontSize('medium');
+  }
+}
+
 const propTypes = {
   size: PropTypes.oneOf(['small', 'medium', 'large', 'xlarge']).isRequired,
   align: PropTypes.oneOf(['left', 'center', 'right']),
@@ -39,6 +49,10 @@ const Paragraph = styled.p`
   font-size: ${getFontSize};
   text-align: ${props => props.align};
   line-height: 1.5;
+
+  @media ${BREAKPOINTS.sm} {
+    font-size: ${getFontSizeMobile};
+  }
 `;
 
 Paragraph.propTypes = propTypes;

@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import styled from 'emotion/react';
 
-import { COLORS, UNIT, UNITS_IN_PX } from '../../constants';
+import { BREAKPOINTS, COLORS, UNIT, UNITS_IN_PX } from '../../constants';
 
 import Heading from '../Heading';
 import Paragraph from '../Paragraph';
@@ -43,6 +43,11 @@ const RegisterHeading = styled(Heading)`
   color: ${COLORS.white};
   letter-spacing: -0.5px;
   text-shadow: 0px 2px 0px rgba(0, 0, 0, 0.1);
+  line-height: 1.25;
+
+  @media ${BREAKPOINTS.sm} {
+    font-size: 36px;
+  }
 `
 
 const LandingPageSignupElem = styled.div`
