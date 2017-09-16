@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { css } from 'emotion';
 import styled from 'emotion/react';
 import PropTypes from 'prop-types';
 
@@ -12,6 +13,7 @@ class TextInput extends Component {
     changeDebounceTime: PropTypes.number.isRequired,
     placeholder: PropTypes.string,
     focusOnMount: PropTypes.bool,
+    multiline: PropTypes.bool,
   }
 
   static defaultProps = {
@@ -34,18 +36,22 @@ class TextInput extends Component {
   handleChange = debounce(this.props.onChange, this.props.changeDebounceTime);
 
   render() {
-    const { placeholder } = this.props;
+    const { multiline, placeholder } = this.props;
+
+    const input = React.createElement(
+      multiline ? Textarea : Input,
+      {
+        innerRef: elem => this.elem = elem,
+        placeholder,
+        onFocus: this.handleFocus,
+        onBlur: this.handleBlur,
+        onChange: ev => this.handleChange(ev.target.value),
+      }
+    );
 
     return (
       <Wrapper>
-        <Input
-          innerRef={elem => this.elem = elem}
-          type="text"
-          placeholder={placeholder}
-          onFocus={this.handleFocus}
-          onBlur={this.handleBlur}
-          onChange={ev => this.handleChange(ev.target.value)}
-        />
+        {input}
         <BottomBorder />
         <BottomBorderHighlight isActive={this.state.focused} />
       </Wrapper>
@@ -58,11 +64,10 @@ const Wrapper = styled.div`
   margin-bottom: ${UNITS_IN_PX[1]};
 `;
 
-const Input = styled.input`
+const inputStyles = css`
   background: transparent;
   border: none;
   outline: none;
-  height: ${UNITS_IN_PX[3]};
   padding: 0;
   font-size: 20px;
   color: ${COLORS.gray.veryDark};
@@ -71,6 +76,17 @@ const Input = styled.input`
   &::placeholder {
     color: ${COLORS.gray.light};
   }
+`;
+
+const Input = styled.input`
+  ${inputStyles};
+  height: ${UNITS_IN_PX[3]};
+`;
+
+const Textarea = styled.textarea`
+  ${inputStyles};
+  height: ${UNITS_IN_PX[8]};
+  line-height: ${UNITS_IN_PX[2]}
 `;
 
 const BottomBorder = styled.div`

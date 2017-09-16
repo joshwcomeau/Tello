@@ -9,7 +9,7 @@ import Heading from '../Heading';
 import MaxWidthWrapper from '../MaxWidthWrapper';
 
 
-const StaticLayout = ({ title, children }) => (
+const StaticLayout = ({ title, subtitle, children }) => (
   <StaticLayoutElem>
     <MaxWidthWrapper>
       <StaticHeader>
@@ -23,6 +23,8 @@ const StaticLayout = ({ title, children }) => (
         {title}
       </Heading>
 
+      {subtitle && <Subtitle>{subtitle}</Subtitle>}
+
       {children}
     </MaxWidthWrapper>
 
@@ -30,7 +32,7 @@ const StaticLayout = ({ title, children }) => (
 );
 
 const StaticLayoutElem = styled.div`
-
+  min-height: 100vh;
 `
 
 const StaticHeader = styled.div`
@@ -38,5 +40,13 @@ const StaticHeader = styled.div`
   justify-content: flex-end;
   padding: ${UNITS_IN_PX[5]} 0 ${UNITS_IN_PX[2]};
 `
+
+const Subtitle = styled.h4`
+  font-size: 18px;
+  color: ${COLORS.gray.light};
+  font-weight: 400;
+  margin-top: -${UNITS_IN_PX[1]};
+  margin-bottom: ${UNITS_IN_PX[3]};
+`;
 
 export default StaticLayout;

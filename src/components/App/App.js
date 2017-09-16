@@ -36,6 +36,7 @@ import MobileView from '../MobileView';
 import LogoutView from '../LogoutView';
 import LandingPageView from '../LandingPageView';
 import PrivacyPolicyView from '../PrivacyPolicyView';
+import ContactView from '../ContactView';
 
 
 class App extends PureComponent {
@@ -127,11 +128,8 @@ class App extends PureComponent {
     return [
       <FlashMessage key="flash" />,
 
-      <Route
-        key="privacy"
-        path="/privacy"
-        component={PrivacyPolicyView}
-      />,
+      <Route key="privacy" path="/privacy" component={PrivacyPolicyView} />,
+      <Route key="contact" path="/contact" component={ContactView} />,
 
       hasToken
         ? this.renderLoggedInRoutes()
