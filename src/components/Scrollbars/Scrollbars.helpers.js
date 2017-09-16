@@ -24,8 +24,6 @@ export const addStyles = ({ stylesheet, selector, styles }) => {
 
   const newRule = `${selector} { ${stylesString} }`;
 
-  console.log('Adding rule', newRule);
-
   stylesheet.insertRule(newRule, rulesObj.length);
 }
 
@@ -34,9 +32,9 @@ export const addStyles = ({ stylesheet, selector, styles }) => {
 export const clearStyles = (stylesheet) => {
   const rulesObj = stylesheet.cssRules || stylesheet.rules;
 
-  console.log({rulesObj}, rulesObj.length, range(rulesObj.length))
-
-  range(rulesObj.length).forEach(index => stylesheet.deleteRule(index));
+  range(rulesObj.length).forEach(() => {
+    stylesheet.deleteRule(0)
+  });
 }
 
 // Get the full selector name for a given style.

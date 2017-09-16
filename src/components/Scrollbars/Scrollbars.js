@@ -37,6 +37,10 @@ class Scrollbars extends PureComponent {
   }
 
   componentDidUpdate() {
+    // Start by clearing the styles so we get a clean slate.
+    const stylesheet = Scrollbars.styleDOMNode.sheet;
+    clearStyles(stylesheet);
+
     this.updateScrollbars();
   }
 
@@ -50,9 +54,6 @@ class Scrollbars extends PureComponent {
     const { scrollbar, scrollbarTrack, scrollbarThumb } = this.props;
 
     const stylesheet = Scrollbars.styleDOMNode.sheet;
-
-    // Start by clearing the styles so we get a clean slate.
-    clearStyles(stylesheet);
 
     Object.entries(this.props).forEach(([styleName, styles]) => {
       const selector = getSelectorForStyleName(styleName);

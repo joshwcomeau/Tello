@@ -3,12 +3,6 @@ import PropTypes from 'prop-types';
 
 
 class ScrollDisabler extends PureComponent {
-  static propTypes = {
-    // When the right-side modal is open, the nice dark-themed scrollbar I have
-    // stands out like a sore thumb. This prop allows us to apply a class to
-    // `body`, which temporarily changes the scrollbar theme.
-    applyLightScrollTheme: PropTypes.bool,
-  }
   componentDidMount() {
     this.oldOverflow = document.body.style.overflow;
     this.oldPosition = document.body.style.position;
@@ -23,10 +17,6 @@ class ScrollDisabler extends PureComponent {
     document.body.style.width = '100%';
     document.body.style.height = `calc(100% + ${this.oldScrollY}px)`;
     document.body.style.top = `-${this.oldScrollY}px`;
-
-    if (this.props.applyLightScrollTheme) {
-      document.body.classList.add('light-scroll');
-    }
   }
 
   componentWillUnmount() {
@@ -37,8 +27,6 @@ class ScrollDisabler extends PureComponent {
     document.body.style.top = this.oldTop;
 
     window.scrollTo(0, this.oldScrollY)
-
-    document.body.classList.remove('light-scroll');
   }
 
   render() {

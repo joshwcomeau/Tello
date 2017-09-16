@@ -4,7 +4,7 @@ import styled from 'emotion/react';
 import { Motion } from 'react-motion';
 import PropTypes from 'prop-types';
 
-import { COLORS, Z_INDICES, UNITS_IN_PX } from '../../constants';
+import { COLORS, MODAL_BG_COLOR, Z_INDICES, UNITS_IN_PX } from '../../constants';
 import { getSpring, getModalChildComponent } from './Modal.helpers';
 
 import Backdrop from '../Backdrop';
@@ -40,7 +40,7 @@ export class Modal extends PureComponent {
     const { side, isVisible, handleClose, children } = this.props;
 
     return (
-      <ModalWrapper isVisible={isVisible} className="light-scroll">
+      <ModalWrapper isVisible={isVisible}>
         {isVisible && <ScrollDisabler applyLightScrollTheme={side === 'right'} />}
 
         <Backdrop isVisible={isVisible} onClick={handleClose} />
@@ -83,7 +83,7 @@ const ModalElem = styled.div`
   width: 800px;
   max-width: 85%;
   padding: ${UNITS_IN_PX[3]} ${UNITS_IN_PX[4]};
-  background: ${COLORS.gray.veryLight};
+  background: ${MODAL_BG_COLOR};
   color: ${COLORS.gray.veryDark};
   will-change: transform;
 `

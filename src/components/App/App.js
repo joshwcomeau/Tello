@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 
 import { userDataRequest, hideModal } from '../../actions';
 import {
-  COLORS,
   ROW_HEIGHT,
   UNITS_IN_PX,
   HEADER_HEIGHT_PX,
@@ -27,7 +26,7 @@ import MediaQuery from '../MediaQuery';
 import NoShowsYet from '../NoShowsYet';
 import FetchEpisodes from '../FetchEpisodes';
 import Footer from '../Footer';
-import Scrollbars from '../Scrollbars';
+import LoggedInScrollbars from '../LoggedInScrollbars';
 
 import SummaryView from '../SummaryView';
 import BacklogView from '../BacklogView';
@@ -133,12 +132,9 @@ class App extends PureComponent {
       // Logged-in data component
       <FetchEpisodes key="fetch" />,
 
-      // Make our scrollbars nice and pink
-      <Scrollbars
-        scrollbarStyles={{ width: '8px' }}
-        scrollbarTrackStyles={{ background: COLORS.gray.veryDark }}
-        scrollbarThumbStyles={{ background: COLORS.purple.primary }}
-      />
+      // Style the scrollbars in webkit, depending on what the user's doing.
+      <LoggedInScrollbars key="scrollbars" />
+
     ];
   }
 

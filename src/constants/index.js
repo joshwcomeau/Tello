@@ -77,6 +77,8 @@ export const COLORS = {
   },
 };
 
+export const MODAL_BG_COLOR = COLORS.gray.veryLight;
+
 export const EPISODE_COLOR = {
   base: COLORS.blue.primary,
   highlight: COLORS.deepPurple.primary,
