@@ -2,11 +2,19 @@
 import React from 'react';
 import styled from 'emotion/react';
 
-import { COLORS, UNITS_IN_PX } from '../../constants';
+import {
+  BREAKPOINTS,
+  COLORS,
+  UNIT,
+  UNITS_IN_PX,
+  FOOTER_HEIGHT_PX,
+  MOBILE_FOOTER_HEIGHT_PX,
+} from '../../constants';
 
 import Logo from '../Logo';
 import Heading from '../Heading';
 import MaxWidthWrapper from '../MaxWidthWrapper';
+import Spacer from '../Spacer';
 
 
 const StaticLayout = ({ title, subtitle, children }) => (
@@ -26,20 +34,25 @@ const StaticLayout = ({ title, subtitle, children }) => (
       {subtitle && <Subtitle>{subtitle}</Subtitle>}
 
       {children}
-    </MaxWidthWrapper>
 
+      <Spacer size={UNIT * 5} />
+    </MaxWidthWrapper>
   </StaticLayoutElem>
 );
 
 const StaticLayoutElem = styled.div`
-  min-height: 100vh;
-`
+  min-height: calc(100vh - ${FOOTER_HEIGHT_PX});
+
+  @media ${BREAKPOINTS.sm} {
+    min-height: calc(100vh - ${MOBILE_FOOTER_HEIGHT_PX});
+  }
+`;
 
 const StaticHeader = styled.div`
   display: flex;
   justify-content: flex-end;
   padding: ${UNITS_IN_PX[5]} 0 ${UNITS_IN_PX[2]};
-`
+`;
 
 const Subtitle = styled.h4`
   font-size: 18px;

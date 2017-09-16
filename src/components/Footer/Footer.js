@@ -8,6 +8,8 @@ import {
   UNITS_IN_PX,
   HALF_UNIT_PX,
   ROW_HEIGHT,
+  FOOTER_HEIGHT_PX,
+  MOBILE_FOOTER_HEIGHT_PX,
   Z_INDICES,
 } from '../../constants';
 
@@ -93,11 +95,16 @@ const FooterElem = styled.footer`
   padding: ${UNITS_IN_PX[2]} 0;
   background: ${COLORS.gray.veryLight};
   color: ${COLORS.gray.veryDark};
+  overflow: hidden;
 
   @media ${BREAKPOINTS.sm} {
     text-align: center;
+    height: ${MOBILE_FOOTER_HEIGHT_PX};
   }
 
+  @media ${BREAKPOINTS.desktop} {
+    height: ${FOOTER_HEIGHT_PX};
+  }
 `;
 
 const FlexParent = styled.div`
@@ -128,7 +135,7 @@ const LogoWrapper = styled.div`
   @media ${BREAKPOINTS.sm} {
     transform-origin: center center;
   }
-`
+`;
 
 const FooterLinks = styled.div`
   font-size: 13px;

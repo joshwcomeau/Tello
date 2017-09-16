@@ -127,6 +127,12 @@ export const ROW_HEIGHT_PX = ROW_HEIGHT + 'px';
 export const HEADER_HEIGHT = UNIT * 10;
 export const HEADER_HEIGHT_PX = HEADER_HEIGHT + 'px';
 
+export const FOOTER_HEIGHT = UNIT * 10;
+export const FOOTER_HEIGHT_PX = FOOTER_HEIGHT + 'px';
+
+export const MOBILE_FOOTER_HEIGHT = FOOTER_HEIGHT * 2;
+export const MOBILE_FOOTER_HEIGHT_PX = MOBILE_FOOTER_HEIGHT + 'px';
+
 export const MAX_WIDTH = {
   sm: '100%',
   md: '900px',

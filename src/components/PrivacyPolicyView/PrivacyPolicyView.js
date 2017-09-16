@@ -1,13 +1,12 @@
 import React from 'react';
 import styled from 'emotion/react';
 
-import { UNIT, UNITS_IN_PX } from '../../constants';
+import { UNITS_IN_PX } from '../../constants';
 
 import StaticLayout from '../StaticLayout';
 import Heading from '../Heading';
 import Divider from '../Divider';
 import Paragraph from '../Paragraph';
-import Spacer from '../Spacer';
 
 
 const PrivacyPolicy = () => (
@@ -86,8 +85,6 @@ const PrivacyPolicy = () => (
         I dropped the standard Google Analytics snippet onto Trello, to help me understand how y'all are using the product. As stated above, it will add a small cookie (I believe this is so that it can distinguish repeat visitors). I do not submit any of the information I have about you to Google Analytics, although since signup only happens via Google account, this is somewhat of a moot point.
       </Paragraph>
     </Section>
-
-    <Spacer size={UNIT * 5} />
   </StaticLayout>
 );
 
