@@ -37,7 +37,6 @@ class Scrollbars extends PureComponent {
   }
 
   componentDidUpdate() {
-    console.log('UPDATE')
     // Start by clearing the styles so we get a clean slate.
     const stylesheet = Scrollbars.styleDOMNode.sheet;
     clearStyles(stylesheet);

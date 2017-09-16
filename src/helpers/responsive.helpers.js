@@ -21,7 +21,5 @@ export const isLargeScreen = (breakpoint) => {
     breakpoint = getBreakpointFor(window.innerWidth);
   }
 
-  console.log("Got breakpoint", breakpoint)
-
   return breakpoint === 'lg' || breakpoint === 'xl';
 }

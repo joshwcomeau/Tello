@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled from 'emotion/react';
 import MenuIcon from 'react-icons/lib/md/menu';
@@ -13,64 +13,104 @@ import LandingPageParticles from '../LandingPageParticles';
 import LandingPageIntro from '../LandingPageIntro';
 import MaxWidthWrapper from '../MaxWidthWrapper';
 import MediaQuery from '../MediaQuery';
+import ScrollIndicator from '../ScrollIndicator';
 
 
 const GRADIENT_ANGLE = '-15deg';
+const SCROLL_INDICATOR_DELAY = 2000;
 
-const LandingPageHero = ({ showMobileLoggedOutMenuModal }) => [
-  <FixedWrapper key="fixed">
-    <LandingPageParticles />
-  </FixedWrapper>,
-  <HeroElem key="hero">
-    <Header>
-      <MaxWidthWrapper>
-        <LogoWrapper>
-          <Logo
-            boxColor={COLORS.white}
-            background={`linear-gradient(
-              ${GRADIENT_ANGLE},
-              #b019fa,
-              ${COLORS.pink.primary}
-            )`}
-          />
-        </LogoWrapper>
+class LandingPageHero extends Component {
+  state = {
+    showScrollIndicator: false,
+  }
 
-        <MediaQuery>
-          {(breakpoint) => (
-            isMobile(breakpoint)
-              ? (
-                <HamburgerMenu onClick={showMobileLoggedOutMenuModal}>
-                  <MenuIcon />
-                </HamburgerMenu>
-              ) : (
-                <Actions>
-                  <GoogleButton color="blue">
-                    Login
-                  </GoogleButton>
-                </Actions>
-              )
-          )}
-        </MediaQuery>
+  componentDidMount() {
+    this.timeoutId = window.setTimeout(() => {
+      this.setState({ showScrollIndicator: true });
+    }, SCROLL_INDICATOR_DELAY);
 
-      </MaxWidthWrapper>
-    </Header>
+    window.addEventListener('scroll', this.handleScroll);
+  }
 
-    <MainContent>
-      <Tagline>
-        <ChickEmoji />
-        Introducing <Raleway>Tello</Raleway>
-      </Tagline>
-      <SubTagline>
-        A <strong>simple</strong> and <strong>delightful</strong> way
-        <br />
-        to track and manage TV shows.
-      </SubTagline>
-    </MainContent>
-  </HeroElem>,
-  <Intro key="intro">
-    <LandingPageIntro />
-  </Intro>,
-];
+  componentWillUnmount() {
+    window.clearTimeout(this.timeoutId);
+  }
+
+  handleScroll = () => {
+    if (this.state.showScrollIndicator) {
+      this.setState({ showScrollIndicator: false });
+
+      // Remove self once it fires.
+      window.removeEventListener('scroll', this.handleScroll);
+    }
+  }
+
+  render() {
+    const { showMobileLoggedOutMenuModal } = this.props;
+
+    return [
+      <FixedWrapper key="fixed">
+        <LandingPageParticles />
+      </FixedWrapper>,
+      <HeroElem key="hero">
+        <ScrollIndicatorWrapper isVisible={this.state.showScrollIndicator}>
+          <ScrollIndicator />
+          <br />
+          Scroll to Continue
+        </ScrollIndicatorWrapper>
+
+        <Header>
+          <MaxWidthWrapper>
+            <LogoWrapper>
+              <Logo
+                boxColor={COLORS.white}
+                background={`linear-gradient(
+                  ${GRADIENT_ANGLE},
+                  #b019fa,
+                  ${COLORS.pink.primary}
+                )`}
+              />
+            </LogoWrapper>
+
+            <MediaQuery>
+              {(breakpoint) => (
+                isMobile(breakpoint)
+                  ? (
+                    <HamburgerMenu onClick={showMobileLoggedOutMenuModal}>
+                      <MenuIcon />
+                    </HamburgerMenu>
+                  ) : (
+                    <Actions>
+                      <GoogleButton color="blue">
+                        Login
+                      </GoogleButton>
+                    </Actions>
+                  )
+              )}
+            </MediaQuery>
+
+          </MaxWidthWrapper>
+        </Header>
+
+        <MainContent>
+          <Tagline>
+            <ChickEmoji />
+            Introducing <Raleway>Tello</Raleway>
+          </Tagline>
+          <SubTagline>
+            A <strong>simple</strong> and <strong>delightful</strong> way
+            <br />
+            to track and manage TV shows.
+          </SubTagline>
+        </MainContent>
+      </HeroElem>,
+      <Intro key="intro">
+        <LandingPageIntro />
+      </Intro>,
+    ]
+  }
+}
+
 
 const FixedWrapper = styled.div`
   position: fixed;
@@ -103,6 +143,25 @@ const HeroElem = styled.div`
   width: 100%;
   height: 100vh;
   color: ${COLORS.white};
+`;
+
+const ScrollIndicatorWrapper = styled.div`
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  bottom: ${UNITS_IN_PX[2]};
+  left: 0;
+  right: 0;
+  font-size: 14px;
+  font-weight: bold;
+  opacity: ${props => props.isVisible ? 1 : 0};
+  transition: opacity 1000ms;
+
+  @media ${BREAKPOINTS.sm} {
+    display: none;
+  }
 `;
 
 const Header = styled.header`
