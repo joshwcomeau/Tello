@@ -32,6 +32,10 @@ class LandingPageBacklog extends PureComponent {
             Need something to watch? The Backlog displays shows with unseen episodes in rows, so you can quickly pick up where you left off.
           </Paragraph>
 
+          <Paragraph size="large">
+            Click an episode to mark it as seen.
+          </Paragraph>
+
           <SortShows />
 
           {shows.slice(0, 2).map(show => (

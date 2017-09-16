@@ -10,6 +10,7 @@ import { debounce } from '../../utils';
 class TextInput extends Component {
   static propTypes = {
     onChange: PropTypes.func,
+    type: PropTypes.oneOf(['text', 'email']),
     changeDebounceTime: PropTypes.number.isRequired,
     placeholder: PropTypes.string,
     focusOnMount: PropTypes.bool,
@@ -36,13 +37,14 @@ class TextInput extends Component {
   handleChange = debounce(this.props.onChange, this.props.changeDebounceTime);
 
   render() {
-    const { multiline, placeholder } = this.props;
+    const { multiline, type, placeholder } = this.props;
 
     const input = React.createElement(
       multiline ? Textarea : Input,
       {
         innerRef: elem => this.elem = elem,
         placeholder,
+        type,
         onFocus: this.handleFocus,
         onBlur: this.handleBlur,
         onChange: ev => this.handleChange(ev.target.value),
@@ -86,7 +88,8 @@ const Input = styled.input`
 const Textarea = styled.textarea`
   ${inputStyles};
   height: ${UNITS_IN_PX[8]};
-  line-height: ${UNITS_IN_PX[2]}
+  line-height: ${UNITS_IN_PX[2]};
+  margin-top: 8px;
 `;
 
 const BottomBorder = styled.div`

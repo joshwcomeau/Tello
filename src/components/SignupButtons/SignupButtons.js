@@ -14,7 +14,7 @@ const SignupButtons = () => {
         Sign up with Google
       </GoogleButton>
       <SmallText>
-        Sorry, only Google signup is available. Want to use a different provider, like Facebook or Twitter? <Link strong color={COLORS.white} to="/contact">Email me</Link> and let me know!
+        Sorry, only Google signup is available. Want to use a different provider, like Facebook or Twitter? <Link strong color={COLORS.white} to="/contact">Reach out</Link> and let me know!
       </SmallText>
     </SignupButtonsWrapper>
   );

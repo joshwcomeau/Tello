@@ -4,6 +4,7 @@ import styled from 'emotion/react';
 import { BREAKPOINTS, COLORS, UNIT, UNITS_IN_PX } from '../../constants';
 
 import StaticLayout from '../StaticLayout';
+import Button from '../Button';
 import Heading from '../Heading';
 import Divider from '../Divider';
 import Paragraph from '../Paragraph';
@@ -15,6 +16,100 @@ import TextInput from '../TextInput';
 
 
 class ContactView extends PureComponent {
+  state = {
+    name: '',
+    email: '',
+    message: '',
+    submitted: false,
+  }
+
+  updateField = field => val => {
+    this.setState({ [field]: val });
+  }
+
+  updateName = this.updateField('name');
+  updateEmail = this.updateField('email');
+  updateMessage = this.updateField('message');
+
+  handleSubmit = (ev) => {
+    ev.preventDefault();
+
+    if (!this.state.name || !this.state.email || !this.state.message) {
+      alert("All fields are required! Please fill them out and try again.");
+      return;
+    }
+
+    const fetchOpts = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(this.state),
+    };
+
+    fetch('https://formspree.io/joshwcomeau@gmail.com', fetchOpts)
+      .then(response => response.json())
+      .then((json) => {
+        console.log({ json });
+
+        this.setState({
+          submitted: true,
+        });
+      });
+  }
+
+  renderForm() {
+    if (this.state.submitted) {
+      return (
+        <Heading size="small" theme="vibrant">
+          Thanks! Message received.
+        </Heading>
+      )
+    }
+
+    return (
+      <form onSubmit={this.handleSubmit}>
+        <Row>
+          <Field>
+            <Label>
+              Your Name
+              <TextInput
+                placeholder="John Doe"
+                onChange={this.updateName}
+              />
+            </Label>
+          </Field>
+          <Field>
+            <Label>
+              Your Email Address
+              <TextInput
+                type="email"
+                placeholder="person@place.com"
+                onChange={this.updateEmail}
+              />
+            </Label>
+          </Field>
+        </Row>
+
+        <Row>
+          <Field>
+            <Label>
+              Your Message
+              <TextInput multiline onChange={this.updateMessage} />
+            </Label>
+          </Field>
+        </Row>
+
+
+        <Divider />
+
+        <ButtonWrapper>
+          <Button>Submit</Button>
+        </ButtonWrapper>
+      </form>
+    )
+  }
+
   render() {
     return (
       <StaticLayout
@@ -26,33 +121,7 @@ class ContactView extends PureComponent {
         </Paragraph>
 
         <Card>
-          <form>
-            <Row>
-              <Field>
-                <Label>
-                  Your Name
-                  <TextInput />
-                </Label>
-              </Field>
-              <Field>
-                <Label>
-                  Your Email Address
-                  <TextInput />
-                </Label>
-              </Field>
-            </Row>
-
-            <Row>
-              <Field>
-                <Label>
-                  Your Message
-                  <TextInput multiline />
-                </Label>
-              </Field>
-            </Row>
-          </form>
-
-          <Divider />
+          {this.renderForm()}
         </Card>
       </StaticLayout>
     )
@@ -90,5 +159,9 @@ const Label = styled.label`
   font-size: 16px;
   font-weight: bold;
 `;
+
+const ButtonWrapper = styled.div`
+  text-align: right;
+`
 
 export default ContactView;
