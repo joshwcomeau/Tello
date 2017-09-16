@@ -45,7 +45,7 @@ const Footer = () => {
           </Left>
           <Right>
             <Credit>
-              A <VibrantLink1 strong to="/about">
+              A <VibrantLink1 strong color={COLORS.deepPurple.primary} to="/about">
                 side project
               </VibrantLink1>
               {' '}
@@ -143,8 +143,8 @@ const Credit = styled.div`
 const VibrantLink1 = styled(Link)`
   background: linear-gradient(
     to top,
-    ${COLORS.blue.primary},
-    ${COLORS.deepPurple.primary}
+    ${COLORS.deepPurple.primary},
+    ${COLORS.blue.light}
   );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
