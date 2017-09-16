@@ -7,6 +7,7 @@ export const AUTH_TOKEN_KEY = 'tello';
 export const MODAL_IDS = {
   addShow: 'addShow',
   editShow: 'editShow',
+  mobileLoggedOutMenu: 'mobileLoggedOutMenu',
 };
 
 export const SORT_OPTIONS = {

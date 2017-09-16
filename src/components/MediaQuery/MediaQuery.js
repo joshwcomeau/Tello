@@ -1,13 +1,13 @@
 // Utility component that computes the current breakpoint and passes it down
 // to children.
-import { PureComponent } from 'react';
+import { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { debounce } from '../../utils';
 import { getBreakpointFor } from '../../helpers/responsive.helpers';
 
 
-class MediaQuery extends PureComponent {
+class MediaQuery extends Component {
   static propTypes = {
     children: PropTypes.func.isRequired,
   }

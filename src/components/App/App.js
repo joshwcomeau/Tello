@@ -54,17 +54,7 @@ class App extends PureComponent {
     }
   }
 
-  renderMobileRoutes() {
-    return (
-      <Switch>
-        <Route path="/mobile" component={MobileView} />
-        <Redirect from="/login" to="/mobile" />
-        <Redirect from="/" to="/mobile" />
-      </Switch>
-    );
-  }
-
-  renderDesktopRoutes() {
+  renderLoggedInResponsiveRoutes = (breakpoint) => {
     const { isFetching, noShowsYet } = this.props;
 
     if (isFetching) {
@@ -80,6 +70,16 @@ class App extends PureComponent {
         <MaxWidthWrapper>
           <NoShowsYet />
         </MaxWidthWrapper>
+      );
+    }
+
+    if (isMobile(breakpoint)) {
+      return (
+        <Switch>
+          <Route path="/mobile" component={MobileView} />
+          <Redirect from="/login" to="/mobile" />
+          <Redirect from="/" to="/mobile" />
+        </Switch>
       );
     }
 
@@ -99,33 +99,16 @@ class App extends PureComponent {
           <Redirect from="/" to="/summary" />
         </Switch>
       </MaxWidthWrapper>
-    );
+    )
   }
 
   renderLoggedInRoutes() {
-     const { hideModal } = this.props;
-
     return [
       <Header key="header" />,
 
-      <Modal
-        key="left-modal"
-        side="left"
-        handleClose={() => hideModal({ side: 'left' })}
-      />,
-      <Modal
-        key="right-modal"
-        side="right"
-        handleClose={() => hideModal({ side: 'right' })}
-      />,
-
       <Body key="body">
         <MediaQuery>
-          {(breakpoint) => (
-            isMobile(breakpoint)
-              ? this.renderMobileRoutes()
-              : this.renderDesktopRoutes()
-          )}
+          {this.renderLoggedInResponsiveRoutes}
         </MediaQuery>
       </Body>,
 
@@ -139,7 +122,7 @@ class App extends PureComponent {
   }
 
   render() {
-    const { hasToken } = this.props;
+    const { hasToken, hideModal } = this.props;
 
     return [
       <FlashMessage key="flash" />,
@@ -160,6 +143,17 @@ class App extends PureComponent {
         />,
 
       <Footer key="footer" />,
+
+      <Modal
+        key="left-modal"
+        side="left"
+        handleClose={() => hideModal({ side: 'left' })}
+      />,
+      <Modal
+        key="right-modal"
+        side="right"
+        handleClose={() => hideModal({ side: 'right' })}
+      />,
 
       <Route key="logout" path="/logout" component={LogoutView} />,
     ]

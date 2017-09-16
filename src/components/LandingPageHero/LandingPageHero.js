@@ -1,18 +1,23 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import styled from 'emotion/react';
+import MenuIcon from 'react-icons/lib/md/menu';
 
 import { BREAKPOINTS, COLORS, UNITS_IN_PX, Z_INDICES } from '../../constants';
+import { showMobileLoggedOutMenuModal } from '../../actions';
+import { isMobile } from '../../helpers/responsive.helpers';
 
 import GoogleButton from '../GoogleButton';
 import Logo from '../Logo';
 import LandingPageParticles from '../LandingPageParticles';
-import MaxWidthWrapper from '../MaxWidthWrapper';
 import LandingPageIntro from '../LandingPageIntro';
+import MaxWidthWrapper from '../MaxWidthWrapper';
+import MediaQuery from '../MediaQuery';
 
 
 const GRADIENT_ANGLE = '-15deg';
 
-const LandingPageHero = () => [
+const LandingPageHero = ({ showMobileLoggedOutMenuModal }) => [
   <FixedWrapper key="fixed">
     <LandingPageParticles />
   </FixedWrapper>,
@@ -30,11 +35,23 @@ const LandingPageHero = () => [
           />
         </LogoWrapper>
 
-        <Actions>
-          <GoogleButton color="blue">
-            Login
-          </GoogleButton>
-        </Actions>
+        <MediaQuery>
+          {(breakpoint) => (
+            isMobile(breakpoint)
+              ? (
+                <HamburgerMenu onClick={showMobileLoggedOutMenuModal}>
+                  <MenuIcon />
+                </HamburgerMenu>
+              ) : (
+                <Actions>
+                  <GoogleButton color="blue">
+                    Login
+                  </GoogleButton>
+                </Actions>
+              )
+          )}
+        </MediaQuery>
+
       </MaxWidthWrapper>
     </Header>
 
@@ -109,6 +126,22 @@ const Actions = styled.div`
   z-index: 3;
   top: ${UNITS_IN_PX[2]};
   right: ${UNITS_IN_PX[2]};
+`;
+
+const HamburgerMenu = styled.button`
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: ${UNITS_IN_PX[2]};
+  right: ${UNITS_IN_PX[2]};
+  width: ${UNITS_IN_PX[4]};
+  height: ${UNITS_IN_PX[4]};
+  line-height: ${UNITS_IN_PX[4]};
+  border: none;
+  background: rgba(255, 255, 255, 0.15);
+  color: ${COLORS.white};
+  font-size: 40px;
 `;
 
 const MainContent = styled.div`
@@ -214,4 +247,4 @@ const Raleway = styled.span`
   }
 `;
 
-export default LandingPageHero;
+export default connect(null, { showMobileLoggedOutMenuModal })(LandingPageHero);

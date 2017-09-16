@@ -4,7 +4,13 @@ import styled from 'emotion/react';
 import { Motion } from 'react-motion';
 import PropTypes from 'prop-types';
 
-import { COLORS, MODAL_BG_COLOR, Z_INDICES, UNITS_IN_PX } from '../../constants';
+import {
+  BREAKPOINTS,
+  COLORS,
+  MODAL_BG_COLOR,
+  Z_INDICES,
+  UNITS_IN_PX,
+} from '../../constants';
 import { getSpring, getModalChildComponent } from './Modal.helpers';
 
 import Backdrop from '../Backdrop';
@@ -86,6 +92,10 @@ const ModalElem = styled.div`
   background: ${MODAL_BG_COLOR};
   color: ${COLORS.gray.veryDark};
   will-change: transform;
+
+  @media ${BREAKPOINTS.sm} {
+    padding: ${UNITS_IN_PX[3]} ${UNITS_IN_PX[2]};
+  }
 `
 
 Modal.propTypes = propTypes;
