@@ -26,6 +26,30 @@ export const debounce = (callback, wait, context = this) => {
   }
 };
 
+// TODO: Modernize!
+export function throttle(fn, threshhold, scope) {
+  threshhold || (threshhold = 250);
+  var last, deferTimer;
+
+  return function () {
+    var context = scope || this;
+
+    var now = +new Date,
+        args = arguments;
+    if (last && now < last + threshhold) {
+      // hold on to it
+      clearTimeout(deferTimer);
+      deferTimer = setTimeout(function () {
+        last = now;
+        fn.apply(context, args);
+      }, threshhold);
+    } else {
+      last = now;
+      fn.apply(context, args);
+    }
+  };
+}
+
 export const stripHTMLFromString = string => {
   // Rather than try and use a regex, we'll just rely on the browser's engine.
   // NOTE: This is probably not safe to use on untrusted

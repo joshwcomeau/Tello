@@ -4,7 +4,7 @@ import styled from 'emotion/react';
 
 import { addShowsReceive, changeSorting } from '../../actions';
 import { COLORS, Z_INDICES } from '../../constants';
-import { clamp } from '../../utils';
+import { clamp, throttle } from '../../utils';
 
 import Divider from '../Divider';
 import LandingPageHero from '../LandingPageHero';
@@ -32,6 +32,10 @@ class LandingPageView extends PureComponent {
     this.props.changeSorting({ sorting: 'chrono' });
 
     window.addEventListener('scroll', this.handleScroll)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScroll);
   }
 
   calculateOpacity = (elementHeight, scrollAmount) => {
@@ -70,7 +74,7 @@ class LandingPageView extends PureComponent {
     return clamp(unclampedOpacity, 0, 1);
   }
 
-  handleScroll = () => {
+  handleScroll = throttle(() => {
     // As the main content overlaps the hero, we want to fade the hero, for a smoother
     // transition to the main content.
     // This should only start at 66% of the way there, and fade to 0 by 100%.
@@ -84,7 +88,7 @@ class LandingPageView extends PureComponent {
         heroOpacity: nextOpacity,
       });
     }
-  }
+  }, 20)
 
   render() {
     return [
