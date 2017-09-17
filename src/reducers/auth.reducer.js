@@ -18,6 +18,7 @@ const initialState = {
 
 function userReducer(state = initialState.user, action) {
   switch (action.type) {
+    case USER_DATA_FAILURE:
     case LOGOUT: {
       return {};
     }
@@ -55,6 +56,7 @@ function tokenReducer(state = initialState.token, action) {
   // As such, when Google forwards them back, the redux store is _initialized_
   // with the login token. So there is no action for adding a token.
   switch (action.type) {
+    case USER_DATA_FAILURE:
     case LOGOUT:
       return null;
 

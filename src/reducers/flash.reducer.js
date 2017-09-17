@@ -5,6 +5,7 @@ import {
   ADD_SHOWS_FAILURE,
   MARK_EPISODE_AS_SEEN,
   DELETE_SHOW_FAILURE,
+  USER_DATA_FAILURE,
   LOGOUT,
 } from '../actions';
 
@@ -74,6 +75,13 @@ export default function reducer(state = initialState, action) {
       return {
         messageType: 'error',
         message: `"${showName}" could not be deleted. Please try again later.`,
+      };
+    }
+
+    case USER_DATA_FAILURE: {
+      return {
+        messageType: 'error',
+        message: `Uh oh, looks like your login failed! Please log in again.`,
       };
     }
 
