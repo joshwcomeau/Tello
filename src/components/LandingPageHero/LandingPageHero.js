@@ -64,11 +64,13 @@ class LandingPageHero extends Component {
             <LogoWrapper>
               <Logo
                 boxColor={COLORS.white}
-                background={`linear-gradient(
+                textColor={`linear-gradient(
                   ${GRADIENT_ANGLE},
                   #b019fa,
                   ${COLORS.pink.primary}
                 )`}
+                betaBoxColor={COLORS.pink.light}
+                betaTextColor={COLORS.white}
               />
             </LogoWrapper>
 
@@ -176,7 +178,7 @@ const LogoWrapper = styled.div`
   z-index: 1;
   top: ${UNITS_IN_PX[2]};
   left: ${UNITS_IN_PX[2]};
-  transform: scale(0.75);
+  transform: scale(0.8);
   transform-origin: left top;
 `;
 

@@ -34,7 +34,9 @@ const Footer = () => {
             <LogoWrapper>
               <Logo
                 boxColor={COLORS.gray.dark}
-                background={COLORS.white}
+                textColor={COLORS.white}
+                betaBoxColor="rgba(0, 0, 0, 0.5)"
+                betaTextColor={COLORS.white}
               />
             </LogoWrapper>
             <FooterLinks>

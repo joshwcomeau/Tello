@@ -20,7 +20,18 @@ const Header = ({ isLoggedIn, user, showAddShowModal }) => (
   <HeaderElem>
     <MaxWidthWrapper style={{ height: '100%' }}>
       <LogoWrapper>
-        <Logo />
+        <Logo
+          boxColor={COLORS.gray.veryDark}
+          /*
+            NOTE: hardcoding these colours, so that it mimics the gradient it sits
+            in front of. Because the text isn't 100% of the height, we can't simply
+            use the color vars. TODO: Use some sort of color lib to determine this,
+            based on a % mix between the two colors
+          */
+          textColor="linear-gradient(#e90091, #da00e0)"
+          betaBoxColor={COLORS.pink.light}
+          betaTextColor={COLORS.white}
+        />
       </LogoWrapper>
 
       {isLoggedIn && (

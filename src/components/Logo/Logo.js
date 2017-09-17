@@ -2,11 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'emotion/react';
 
-import { ROW_HEIGHT_PX, UNITS_IN_PX, COLORS } from '../../constants';
+import { COLORS, ROW_HEIGHT_PX, UNITS_IN_PX } from '../../constants';
 
 
 const propTypes = {
-  background: PropTypes.string.isRequired,
+  boxColor: PropTypes.string.isRequired,
+  textColor: PropTypes.string.isRequired,
+  betaBoxColor: PropTypes.string.isRequired,
+  betaTextColor: PropTypes.string.isRequired,
 };
 
 const defaultProps = {
@@ -17,20 +20,28 @@ const defaultProps = {
     use the color vars. TODO: Use some sort of color lib to determine this,
     based on a % mix between the two colors
   */
-  background: 'linear-gradient(#e90091, #da00e0)',
+  textColor: 'linear-gradient(#e90091, #da00e0)',
+
+  betaBoxColor: COLORS.pink.light,
+  betaTextColor: COLORS.white,
 };
 
-const Logo = ({ boxColor, background }) => {
+const Logo = ({ boxColor, textColor, betaBoxColor, betaTextColor }) => {
   return (
     <LogoContainer background={boxColor} href="/">
-      <LogoElem background={background}>
+      <LogoElem color={textColor}>
         Tello
       </LogoElem>
+
+      <Beta background={betaBoxColor} color={betaTextColor}>
+        Beta
+      </Beta>
     </LogoContainer>
   );
 };
 
 const LogoContainer = styled.a`
+  position: relative;
   display: inline-block;
   background: ${props => props.background};
   text-decoration: none;
@@ -45,11 +56,27 @@ const LogoElem = styled.h1`
   text-align: center;
   letter-spacing: -1px;
   font-family: 'Raleway';
-  background: ${props => props.background};
+  background: ${props => props.color};
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 `;
 
+const Beta = styled.div`
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 38px;
+  height: 18px;
+  line-height: 19px;
+  padding-left: 1px;
+  text-align: center;
+  background: ${props => props.background};
+  color: ${props => props.color};
+  font-size: 11px;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-family: 'Raleway';
+`;
 
 Logo.propTypes = propTypes;
 Logo.defaultProps = defaultProps;
