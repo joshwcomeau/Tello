@@ -28,13 +28,17 @@ class Drift extends PureComponent {
     this.tick();
   }
 
+  componentWillUnmount() {
+    window.cancelAnimationFrame(this.animationFrameId);
+  }
+
   tick = () => {
     // Allow "freezing" through props, to lock an instance in place.
     if (this.props.isFrozen) {
       return;
     }
 
-    window.requestAnimationFrame(() => {
+    this.animationFrameId = window.requestAnimationFrame(() => {
       this.setState(state => ({
         x: state.x + this.driftX / 100,
         y: state.y + this.driftY / 100,
