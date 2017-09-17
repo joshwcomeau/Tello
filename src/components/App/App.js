@@ -36,9 +36,16 @@ import MobileView from '../MobileView';
 import LogoutView from '../LogoutView';
 import LandingPageView from '../LandingPageView';
 import PrivacyPolicyView from '../PrivacyPolicyView';
+import TermsOfUseView from '../TermsOfUseView';
+import AboutView from '../AboutView';
 import ContactView from '../ContactView';
 
 
+// NOTE: These routes are not well-designed.
+// I got partway through a refactor in f25bf77373d966a057aafa2baf085af9a75f9c28
+// but ultimately it was too much work, and too costly.
+// That commit should be used as an example for future projects, though.
+// Not this code.
 class App extends PureComponent {
   static propTypes = {
     hasToken: PropTypes.bool.isRequired,
@@ -95,7 +102,13 @@ class App extends PureComponent {
           <Route path="/backlog" component={BacklogView} />
           <Route path="/calendar" component={CalendarView} />
           <Route path="/settings" component={SettingsView} />
-          <Route path="/logout" component={LogoutView} />,
+          <Route path="/logout" component={LogoutView} />
+
+          <Route key="privacy" path="/privacy" component={PrivacyPolicyView} />
+          <Route key="terms" path="/terms" component={TermsOfUseView} />
+          <Route key="contact" path="/contact" component={ContactView} />
+          <Route key="about" path="/about" component={AboutView} />
+
           <Redirect from="/login" to="/summary" />
           <Redirect from="/" to="/summary" />
         </Switch>
@@ -122,23 +135,27 @@ class App extends PureComponent {
     ];
   }
 
+  renderLoggedOutRoutes() {
+    return [
+      <Route key="landing" exact path="/" component={LandingPageView} />,
+      // NOTE: Duplicated with the logged-in routes.
+      // This is a flaw of the current route structure
+      <Route key="privacy" path="/privacy" component={PrivacyPolicyView} />,
+      <Route key="terms" path="/terms" component={TermsOfUseView} />,
+      <Route key="contact" path="/contact" component={ContactView} />,
+      <Route key="about" path="/about" component={AboutView} />,
+    ]
+  }
+
   render() {
     const { hasToken, hideModal } = this.props;
 
     return [
       <FlashMessage key="flash" />,
 
-      <Route key="privacy" path="/privacy" component={PrivacyPolicyView} />,
-      <Route key="contact" path="/contact" component={ContactView} />,
-
       hasToken
         ? this.renderLoggedInRoutes()
-        : <Route
-          key="landing"
-          exact
-          path="/"
-          component={LandingPageView}
-        />,
+        : this.renderLoggedOutRoutes(),
 
       <Footer key="footer" />,
 
