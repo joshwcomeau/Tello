@@ -6,6 +6,7 @@ import {
   MARK_EPISODE_AS_SEEN,
   DELETE_SHOW_FAILURE,
   LOGOUT,
+  LOAD_UNAUTHORIZED_ROUTE,
 } from '../actions';
 
 /*
@@ -82,6 +83,13 @@ export default function reducer(state = initialState, action) {
         messageType: 'success',
         message: "You've successfully logged out! Thanks for using Tello 📺"
       }
+    }
+
+    case LOAD_UNAUTHORIZED_ROUTE: {
+      return {
+        messageType: 'alert',
+        message: "Please login before trying to access this page.",
+      };
     }
 
     default:

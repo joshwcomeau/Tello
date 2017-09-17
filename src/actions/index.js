@@ -28,6 +28,7 @@ export const HIDE_FLASH_MESSAGE = 'HIDE_FLASH_MESSAGE';
 export const CHANGE_SORTING = 'CHANGE_SORTING';
 export const UPDATE_CALENDAR_WEEK = 'UPDATE_CALENDAR_WEEK';
 export const LOGOUT = 'LOGOUT';
+export const LOAD_UNAUTHORIZED_ROUTE = 'LOAD_UNAUTHORIZED_ROUTE';
 
 
 export const addShowsRequest = ({ shows }) => ({
@@ -205,4 +206,8 @@ export const decrementWeek = ({ startDate, endDate }) => ({
 
 export const logout = () => ({
   type: LOGOUT,
+});
+
+export const loadUnauthorizedRoute = () => ({
+  type: LOAD_UNAUTHORIZED_ROUTE,
 });

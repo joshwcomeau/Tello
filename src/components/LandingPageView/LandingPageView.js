@@ -1,10 +1,13 @@
 import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import styled from 'emotion/react';
 
 import { addShowsReceive, changeSorting } from '../../actions';
 import { COLORS, Z_INDICES } from '../../constants';
 import { clamp } from '../../utils';
+import { getToken } from '../../reducers/auth.reducer';
 
 import Divider from '../Divider';
 import LandingPageHero from '../LandingPageHero';
@@ -17,21 +20,38 @@ import { SHOWS } from './LandingPageView.data';
 
 
 class LandingPageView extends PureComponent {
+  static propTypes = {
+    hasToken: PropTypes.bool.isRequired,
+    addShowsReceive: PropTypes.func.isRequired,
+    changeSorting: PropTypes.func.isRequired,
+    // From <Route> parent
+    history: PropTypes.object.isRequired,
+  }
+
   state = {
     heroOpacity: 1,
   }
 
   componentDidMount() {
-    // For the summary page, we won't actually make any API calls.
-    // Instead we'll load some stub data.
-    this.props.addShowsReceive({
-      shows: SHOWS,
-      showNotification: false,
-    });
+    const { hasToken, history, addShowsReceive, changeSorting } = this.props;
 
-    this.props.changeSorting({ sorting: 'chrono' });
+    // If the user is logged in, let's send them to the summary page.
+    // NOTE: This means that there is no way for logged-in users to see the
+    // landing page. I think this is OK though?
+    if (hasToken) {
+      history.replace('/summary');
+    } else {
+      // For the summary page, we won't actually make any API calls.
+      // Instead we'll load some stub data.
+      addShowsReceive({
+        shows: SHOWS,
+        showNotification: false,
+      });
 
-    // window.addEventListener('scroll', this.handleScroll)
+      changeSorting({ sorting: 'chrono' });
+
+      // window.addEventListener('scroll', this.handleScroll)
+    }
   }
 
   handleScroll = () => {
@@ -78,4 +98,11 @@ const MainContent = styled.div`
   z-index: ${Z_INDICES.root + 1};
 `;
 
-export default connect(null, { addShowsReceive, changeSorting })(LandingPageView);
+const mapStateToProps = state => ({
+  hasToken: !!getToken(state),
+})
+
+export default connect(
+  mapStateToProps,
+  { addShowsReceive, changeSorting }
+)(LandingPageView);

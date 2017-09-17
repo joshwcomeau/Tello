@@ -10,6 +10,7 @@ import { BREAKPOINTS, UNITS_IN_PX, UNIT } from '../../constants';
 import { ShowProps } from '../../types';
 import { sortShows } from '../../helpers/show.helpers';
 
+import LoggedInLayout from '../LoggedInLayout';
 import SummaryShow from '../SummaryShow';
 import SortShows from '../SortShows';
 import Spacer from '../Spacer';
@@ -20,7 +21,7 @@ const propTypes = {
 };
 
 const SummaryView = ({ trackedShows }) => (
-  <div id="summary">
+  <LoggedInLayout>
     <SortShows />
 
     <Grid>
@@ -29,7 +30,7 @@ const SummaryView = ({ trackedShows }) => (
       ))}
     </Grid>
     <Spacer size={UNIT * 6}/>
-  </div>
+  </LoggedInLayout>
 );
 
 

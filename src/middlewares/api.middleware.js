@@ -46,6 +46,7 @@ export default function createAPIMiddleware() {
       case USER_DATA_REQUEST: {
         getAuthUserData({ token })
           .then(json => {
+            console.log('Got', json)
             next(userDataReceive(json));
           })
           .catch(err => {
