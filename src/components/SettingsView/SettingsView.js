@@ -41,6 +41,10 @@ const Section = styled.div`
   margin-bottom: ${UNITS_IN_PX[1]};
   background: ${COLORS.white};
   color: ${COLORS.gray.veryDark};
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 `;
 
 

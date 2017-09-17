@@ -9,6 +9,7 @@ import {
   ROW_HEIGHT,
   UNITS_IN_PX,
   HEADER_HEIGHT_PX,
+  FOOTER_HEIGHT_PX,
   Z_INDICES,
 } from '../../constants';
 import { isMobile } from '../../helpers/responsive.helpers';
@@ -178,7 +179,7 @@ class App extends PureComponent {
 const Body = styled.div`
   position: relative;
   z-index: ${Z_INDICES.root};
-  min-height: calc(100vh - ${HEADER_HEIGHT_PX});
+  min-height: calc(100vh - ${HEADER_HEIGHT_PX} - ${FOOTER_HEIGHT_PX});
 `;
 
 const SpinnerWrapper = styled.div`
