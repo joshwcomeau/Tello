@@ -24,6 +24,10 @@ class LandingPageBacklog extends PureComponent {
       return null;
     }
 
+    const relevantShows = shows.filter(show => (
+      show.name === 'Stranger Things' || show.name === 'Steven Universe'
+    ));
+
     return (
       <LandingPageBacklogElem>
         <MaxWidthWrapper>
@@ -38,7 +42,7 @@ class LandingPageBacklog extends PureComponent {
 
           <SortShows />
 
-          {shows.slice(0, 2).map(show => (
+          {relevantShows.map(show => (
             show.episodes
               ? <BacklogRow demo key={show.id} show={show} />
               : null
