@@ -31,19 +31,57 @@ class LandingPageView extends PureComponent {
 
     this.props.changeSorting({ sorting: 'chrono' });
 
-    // window.addEventListener('scroll', this.handleScroll)
+    window.addEventListener('scroll', this.handleScroll)
+  }
+
+  calculateOpacity = (elementHeight, scrollAmount) => {
+    // If we've scrolled PAST the element entirely, set the opacity to 1.
+    // This is so that, when it becomes visible down the page, it isn't affected
+    // Adding 10px as a buffer
+    if (scrollAmount > elementHeight + 10) {
+      return 1;
+    }
+
+    const scrollOffset = scrollAmount / elementHeight;
+
+    // Our ideal fade is something like this:
+    // -------------------------------------------
+    //                      ^ start          ^ end
+    // (where the line represents total scroll amount, for the Hero element).
+    //
+    // The math for normalizing is `offset * n - (n-1)`
+    // Where `n` is some ratio:
+    // When n === 4, fade happens from 75% to 100% of scroll.
+    // When n === 3, fade happens from 66% to 100% of scroll.
+    //
+    // We also want this to go from 1 to 0, not 0 to 1, so we subtract the
+    // total from 1.
+    // New formula: `1 - (offset * n - (n - 1))`
+    //
+    // Because we want the fade to finish at, say, ~95% instead of 100%,
+    // we subtract a slight buffer of 0.15.
+    // New formula: `1 - (offset * n - (n - (1 - buffer)))`
+    //
+    // This line looks scary, but hopefully Future Josh will understand this
+    // comment!
+    const n = 4;
+    const unclampedOpacity = 1 - (scrollOffset * n - ((n - 1) - 0.15))
+
+    return clamp(unclampedOpacity, 0, 1);
   }
 
   handleScroll = () => {
     // As the main content overlaps the hero, we want to fade the hero, for a smoother
     // transition to the main content.
     // This should only start at 66% of the way there, and fade to 0 by 100%.
-    const scrollOffset = window.pageYOffset / window.innerHeight;
-    const newOpacity = clamp(1 - (scrollOffset * 3 - 2), 0, 1);
+    const { height } = this.elem.getBoundingClientRect();
+    const scrollAmount = window.pageYOffset;
 
-    if (this.state.heroOpacity !== newOpacity) {
+    const nextOpacity = this.calculateOpacity(height, scrollAmount);
+
+    if (this.state.heroOpacity !== nextOpacity) {
       this.setState({
-        heroOpacity: newOpacity,
+        heroOpacity: nextOpacity,
       });
     }
   }
@@ -52,6 +90,7 @@ class LandingPageView extends PureComponent {
     return [
       <HeroOpacityWrapper
         key="hero"
+        innerRef={elem => { this.elem = elem; }}
         style={{ opacity: this.state.heroOpacity}}
       >
         <LandingPageHero />
