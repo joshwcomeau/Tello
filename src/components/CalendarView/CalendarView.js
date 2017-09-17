@@ -6,24 +6,32 @@ import addWeeks from 'date-fns/add_weeks';
 
 import { UNIT } from '../../constants';
 import { getTrackedShowsArray } from '../../reducers/tracked-shows.reducer';
+import { ShowProps } from '../../types';
 
-import LoggedInLayout from '../LoggedInLayout';
 import Calendar from '../Calendar';
 import CalendarWeekPicker from '../CalendarWeekPicker';
 import Spacer from '../Spacer';
 
 
-const CalendarView = ({ trackedShows }) => (
-  <LoggedInLayout>
-    <CalendarHeader>
-      <CalendarWeekPicker maxDate={addWeeks(new Date(), 2)} />
-    </CalendarHeader>
+class CalendarView extends Component {
+  static propTypes = {
+    trackedShows: PropTypes.arrayOf(ShowProps),
+  }
 
-    <Calendar shows={trackedShows} />
+  render() {
+    return (
+      <div id="calendar">
+        <CalendarHeader>
+          <CalendarWeekPicker maxDate={addWeeks(new Date(), 2)} />
+        </CalendarHeader>
 
-    <Spacer size={UNIT * 6}/>
-  </LoggedInLayout>
-);
+        <Calendar shows={this.props.trackedShows} />
+
+        <Spacer size={UNIT * 6}/>
+      </div>
+    );
+  }
+}
 
 const CalendarHeader = styled.div`
   display: flex;

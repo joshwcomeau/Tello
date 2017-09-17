@@ -5,16 +5,15 @@ import styled from 'emotion/react';
 import { COLORS, UNIT, UNITS_IN_PX } from '../../constants';
 import { getUser } from '../../reducers/auth.reducer';
 
-import LoggedInLayout from '../LoggedInLayout';
 import Button from '../Button';
 import Heading from '../Heading';
 import Spacer from '../Spacer';
 import Paragraph from '../Paragraph';
 
 
-const SettingsView = ({ user }) => (
-  <LoggedInLayout>
-    <Spacer key="spacer" size={UNIT * 4} />
+const SettingsView = ({ user }) => {
+  return [
+    <Spacer key="spacer" size={UNIT * 4} />,
     <Section key="account">
       <Heading theme="vibrant" size="small">Account Settings</Heading>
       <Paragraph>
@@ -26,7 +25,7 @@ const SettingsView = ({ user }) => (
       <Button href="/logout" color="red" size="small">
         Log Out
       </Button>
-    </Section>
+    </Section>,
 
     <Section key="notifications">
       <Heading theme="vibrant" size="small">Notification Settings</Heading>
@@ -34,8 +33,8 @@ const SettingsView = ({ user }) => (
         Coming soon!
       </Paragraph>
     </Section>
-  </LoggedInLayout>
-);
+  ];
+};
 
 const Section = styled.div`
   padding: ${UNITS_IN_PX[1]};

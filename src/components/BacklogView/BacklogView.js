@@ -11,7 +11,6 @@ import {
 import { ShowProps } from '../../types';
 import { sortShows } from '../../helpers/show.helpers';
 
-import LoggedInLayout from '../LoggedInLayout';
 import BacklogRow from '../BacklogRow';
 import NotificationView from '../NotificationView';
 import SortShows from '../SortShows';
@@ -23,9 +22,8 @@ const propTypes = {
 };
 
 const BacklogView = ({ trackedShows, showAddShowModal }) => {
-  let content;
   if (trackedShows.length === 0) {
-    content = (
+    return (
       <NotificationView heading="All episodes seen.">
         You've seen all the episodes in your backlog. Maybe it's time to
         {' '}
@@ -35,20 +33,20 @@ const BacklogView = ({ trackedShows, showAddShowModal }) => {
         ?
       </NotificationView>
     );
-  } else {
-    content = trackedShows.map(show => (
-      show.episodes
-        ? <BacklogRow key={show.id} show={show} />
-        : null
-    ));
   }
 
   return (
-    <LoggedInLayout>
+    <div id="backlog">
       <SortShows />
 
-      {content}
-    </LoggedInLayout>
+      {trackedShows.map(show => (
+        show.episodes
+          ? <BacklogRow key={show.id} show={show} />
+          : null
+      ))}
+
+      <Spacer size={UNIT * 6}/>
+    </div>
   )
 };
 
