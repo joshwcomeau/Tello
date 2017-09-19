@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'emotion/react';
 
-import { COLORS, HEADER_HEIGHT_PX } from '../../constants';
+import { COLORS, BREAKPOINTS, HEADER_HEIGHT_PX } from '../../constants';
+import { isMobile } from '../../helpers/responsive.helpers';
 
 import NotificationView from '../NotificationView';
 
@@ -9,13 +10,19 @@ import NotificationView from '../NotificationView';
 const NoShowsYet = () => (
   <NoShowsYetElem>
     <NotificationView heading="No shows yet.">
-      Use the <MiniAddShowButton>+</MiniAddShowButton> icon to add your first show!
+      Use the <MiniAddShowButton>+</MiniAddShowButton> icon
+      {' '}
+      {isMobile() && <br />}
+      {' '}
+      to add your first show!
     </NotificationView>
   </NoShowsYetElem>
 );
 
-const NoShowsYetElem = styled.span`
-  height: calc(100% - ${HEADER_HEIGHT_PX});
+const NoShowsYetElem = styled.div`
+  @media ${BREAKPOINTS.sm} {
+    height: calc(100vh - ${HEADER_HEIGHT_PX});
+  }
 `;
 
 const MiniAddShowButton = styled.span`

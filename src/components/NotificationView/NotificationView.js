@@ -12,7 +12,7 @@ const NotificationView = ({ heading, children }) => (
       {heading}
     </Heading>
 
-    <Paragraph size="large">
+    <Paragraph align="center" size="large">
       {children}
     </Paragraph>
   </Wrapper>

@@ -53,6 +53,10 @@ const Paragraph = styled.p`
   @media ${BREAKPOINTS.sm} {
     font-size: ${getFontSizeMobile};
   }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 `;
 
 Paragraph.propTypes = propTypes;
