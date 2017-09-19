@@ -28,6 +28,7 @@ import NoShowsYet from '../NoShowsYet';
 import FetchEpisodes from '../FetchEpisodes';
 import Footer from '../Footer';
 import LoggedInScrollbars from '../LoggedInScrollbars';
+import SwipeIndicator from '../SwipeIndicator';
 
 import SummaryView from '../SummaryView';
 import BacklogView from '../BacklogView';
@@ -83,13 +84,14 @@ class App extends PureComponent {
     }
 
     if (isMobile(breakpoint)) {
-      return (
-        <Switch>
+      return [
+        <Switch key="routes">
           <Route path="/mobile" component={MobileView} />
           <Redirect from="/login" to="/mobile" />
           <Redirect from="/" to="/mobile" />
-        </Switch>
-      );
+        </Switch>,
+        <SwipeIndicator />,
+      ];
     }
 
     return (

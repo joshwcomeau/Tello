@@ -1,6 +1,6 @@
 import addWeeks from 'date-fns/add_weeks'
 
-import { MODAL_IDS } from '../constants';
+import { MODAL_IDS, SWIPE_INDICATOR_KEY } from '../constants';
 
 
 export const ADD_SHOWS_REQUEST = 'ADD_SHOWS_REQUEST';
@@ -27,6 +27,8 @@ export const EPISODES_FAILURE = 'EPISODES_FAILURE';
 export const HIDE_FLASH_MESSAGE = 'HIDE_FLASH_MESSAGE';
 export const CHANGE_SORTING = 'CHANGE_SORTING';
 export const UPDATE_CALENDAR_WEEK = 'UPDATE_CALENDAR_WEEK';
+export const SWIPE_MOBILE_VIEW = 'SWIPE_MOBILE_VIEW';
+export const TAP_SWIPE_INDICATOR = 'TAP_SWIPE_INDICATOR';
 export const LOGOUT = 'LOGOUT';
 
 
@@ -202,6 +204,27 @@ export const decrementWeek = ({ startDate, endDate }) => ({
   startDate: addWeeks(startDate, -1),
   endDate: addWeeks(endDate, -1),
 });
+
+export const swipeMobileView = (index) => {
+  // NOTE: this should live in a `local-storage.middleware`.
+  // I'm just being lazy for now.
+  window.localStorage.setItem(SWIPE_INDICATOR_KEY, true);
+
+  return {
+    type: SWIPE_MOBILE_VIEW,
+    index,
+  };
+};
+
+export const tapSwipeIndicator = () => {
+  // NOTE: this should live in a `local-storage.middleware`.
+  // I'm just being lazy for now.
+  window.localStorage.setItem(SWIPE_INDICATOR_KEY, true);
+
+  return {
+    type: TAP_SWIPE_INDICATOR,
+  };
+};
 
 export const logout = () => ({
   type: LOGOUT,

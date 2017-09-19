@@ -7,6 +7,7 @@ import modals from './modals.reducer';
 import flash from './flash.reducer';
 import trackedShows from './tracked-shows.reducer';
 import ui from './ui.reducer';
+import mobile from './mobile.reducer';
 
 
 export default combineReducers({
@@ -16,6 +17,7 @@ export default combineReducers({
   flash,
   trackedShows,
   ui,
+  mobile,
 
   router,
 });

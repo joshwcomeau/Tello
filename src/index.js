@@ -9,7 +9,7 @@ import startOfWeek from 'date-fns/start_of_week';
 import endOfWeek from 'date-fns/end_of_week';
 
 import configureStore from './store';
-import { AUTH_TOKEN_KEY } from './constants';
+import { AUTH_TOKEN_KEY, SWIPE_INDICATOR_KEY } from './constants';
 
 import registerServiceWorker from './registerServiceWorker';
 import App from './components/App';
@@ -27,6 +27,10 @@ const initialState = {
   calendar: {
     startDate: startOfWeek(new Date()),
     endDate: endOfWeek(new Date()),
+  },
+  mobile: {
+    activeViewIndex: 0,
+    hasSeenSwipeIndicator: localStorage.getItem(SWIPE_INDICATOR_KEY) || false,
   },
 }
 

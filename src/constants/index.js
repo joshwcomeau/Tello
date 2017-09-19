@@ -2,7 +2,9 @@ import { range } from '../utils';
 
 
 // TODO: Dedupe with the value in server/config/defaults.json
-export const AUTH_TOKEN_KEY = 'tello';
+// As well as in webpackDevServer.config
+export const AUTH_TOKEN_KEY = 'tello:auth-token';
+export const SWIPE_INDICATOR_KEY = 'tello:seen-swipe-indicator';
 
 export const MODAL_IDS = {
   addShow: 'addShow',

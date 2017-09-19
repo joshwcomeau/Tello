@@ -1,30 +1,27 @@
 import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import styled from 'emotion/react';
 import ReactSwipe from 'react-swipe';
 
-import {
-  ROW_HEIGHT_PX,
-  UNITS_IN_PX
-} from '../../constants';
+import { swipeMobileView } from '../../actions';
+import { ROW_HEIGHT_PX, UNITS_IN_PX } from '../../constants';
 
 import SummaryView from '../SummaryView';
 import BacklogView from '../BacklogView';
 import CalendarView from '../CalendarView';
 import SettingsView from '../SettingsView';
 import Heading from '../Heading';
+import SwipeIndicator from '../SwipeIndicator';
 
 
 class MobileView extends PureComponent {
-  state = {
-    activeViewIndex: 0,
-  }
-
-  handleSwipe = index => {
-    this.setState({ activeViewIndex: index });
+  static propTypes = {
+    activeViewIndex: PropTypes.number.isRequired,
   }
 
   render() {
-    const { activeViewIndex } = this.state;
+    const { activeViewIndex, swipeMobileView } = this.props;
 
     const views = [
       { name: 'summary', View: SummaryView },
@@ -34,7 +31,7 @@ class MobileView extends PureComponent {
     ];
 
     return (
-      <ReactSwipe swipeOptions={{ callback: this.handleSwipe }}>
+      <ReactSwipe key="views" swipeOptions={{ callback: swipeMobileView }}>
         {views.map(({ name, View }, index) => (
           <ViewWrapper key={name} isActive={index === activeViewIndex}>
             <MobileHeading>{name}</MobileHeading>
@@ -63,4 +60,8 @@ const MobileHeading = styled(Heading)`
   color: COLORS.white;
 `;
 
-export default MobileView;
+const mapStateToProps = state => ({
+  activeViewIndex: state.mobile.activeViewIndex,
+});
+
+export default connect(mapStateToProps, { swipeMobileView })(MobileView);
