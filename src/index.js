@@ -11,7 +11,7 @@ import endOfWeek from 'date-fns/end_of_week';
 import configureStore from './store';
 import { AUTH_TOKEN_KEY, LOCAL_STORAGE_REDUX_DATA_KEY } from './constants';
 
-import registerServiceWorker from './registerServiceWorker';
+// import registerServiceWorker from './registerServiceWorker';
 import App from './components/App';
 import DevTools from './components/DevTools';
 
@@ -70,4 +70,6 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
+// Disable service-worker for now, until I can work out how to disable caching
+// on a route-by-route basis.
 registerServiceWorker();
