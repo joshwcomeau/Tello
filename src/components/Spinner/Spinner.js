@@ -14,11 +14,13 @@ import {
 
 class Spinner extends PureComponent {
   static propTypes = {
-    size: PropTypes.oneOf(['sm', 'md', 'lg']),
+    size: PropTypes.oneOf(['sm', 'md', 'lg']).isRequired,
+    fadeInDuration: PropTypes.number.isRequired,
   }
 
   static defaultProps = {
     size: 'md',
+    fadeInDuration: 600,
   }
 
   state = {
@@ -49,7 +51,7 @@ class Spinner extends PureComponent {
     const sizeInPx = getSizeInPx(this.props.size);
 
     return (
-      <Wrapper>
+      <SpinnerWrapper fadeInDuration={this.props.fadeInDuration}>
         <StaggeredMotion
           defaultStyles={[
             { y: 1, x: 0.25 },
@@ -96,7 +98,7 @@ class Spinner extends PureComponent {
             </SpinnerElem>
           )}
         </StaggeredMotion>
-      </Wrapper>
+      </SpinnerWrapper>
     );
   }
 }
@@ -106,8 +108,8 @@ const fadeIn = keyframes`
   to { opacity: 1; }
 `;
 
-const Wrapper = styled.div`
-  animation: ${fadeIn} 1s ease 600ms both;
+const SpinnerWrapper = styled.div`
+  animation: ${fadeIn} 1s ease ${props => props.fadeInDuration + 'ms'} both;
 `;
 
 const SpinnerElem = styled.div`

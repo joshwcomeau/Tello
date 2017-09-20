@@ -14,6 +14,7 @@ import {
 import Button from '../Button';
 import Heading from '../Heading';
 import TextInput from '../TextInput';
+import Spinner from '../Spinner';
 import AddShowSearchResults from '../AddShowSearchResults';
 
 import { getButtonText } from './AddShow.helpers';
@@ -89,7 +90,8 @@ class AddShow extends Component {
   }
 
   render() {
-    const numOfShowsSelected = this.state.selectedShowIds.length
+    const numOfShowsSelected = this.state.selectedShowIds.length;
+    const isLoading = this.state.status === 'loading';
 
     return (
       <Wrapper>
@@ -105,6 +107,8 @@ class AddShow extends Component {
         </Header>
 
         <Flex>
+          {isLoading && <Center><Spinner fadeInDuration={100} /></Center>}
+
           <AddShowSearchResults
             status={this.state.status}
             shows={this.state.shows}
@@ -142,6 +146,12 @@ const Flex = styled.div`
   margin-bottom: ${UNITS_IN_PX[2]};
   overflow: auto;
 `;
+
+const Center = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
 
 const mapStateToProps = state => ({
   previouslyTrackedShowIds: getTrackedShowIds(state),
