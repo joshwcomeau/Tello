@@ -1,6 +1,6 @@
 import addWeeks from 'date-fns/add_weeks'
 
-import { MODAL_IDS, SWIPE_INDICATOR_KEY } from '../constants';
+import { MODAL_IDS } from '../constants';
 
 
 export const ADD_SHOWS_REQUEST = 'ADD_SHOWS_REQUEST';
@@ -206,10 +206,6 @@ export const decrementWeek = ({ startDate, endDate }) => ({
 });
 
 export const swipeMobileView = (index) => {
-  // NOTE: this should live in a `local-storage.middleware`.
-  // I'm just being lazy for now.
-  window.localStorage.setItem(SWIPE_INDICATOR_KEY, true);
-
   return {
     type: SWIPE_MOBILE_VIEW,
     index,
@@ -217,10 +213,6 @@ export const swipeMobileView = (index) => {
 };
 
 export const tapSwipeIndicator = () => {
-  // NOTE: this should live in a `local-storage.middleware`.
-  // I'm just being lazy for now.
-  window.localStorage.setItem(SWIPE_INDICATOR_KEY, true);
-
   return {
     type: TAP_SWIPE_INDICATOR,
   };

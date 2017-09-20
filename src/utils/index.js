@@ -118,3 +118,8 @@ export function setTimeoutPromise(duration) {
     window.setTimeout(resolve, duration)
   ));
 }
+
+export const generateDebouncedLocalStorageSetter = duration => debounce(
+  (...args) => { localStorage.setItem(...args) },
+  duration
+);

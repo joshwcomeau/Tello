@@ -6,7 +6,6 @@ import styled from 'emotion/react';
 import {
   COLORS,
   UNITS_IN_PX,
-  SWIPE_INDICATOR_KEY,
   Z_INDICES,
 } from '../../constants';
 import { tapSwipeIndicator } from '../../actions';
