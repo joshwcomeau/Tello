@@ -72,4 +72,4 @@ ReactDOM.render(
 
 // Disable service-worker for now, until I can work out how to disable caching
 // on a route-by-route basis.
-registerServiceWorker();
+// registerServiceWorker();

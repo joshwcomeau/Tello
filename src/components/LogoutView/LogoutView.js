@@ -5,11 +5,12 @@ import Cookies from 'cookies-js';
 
 import { logout } from '../../actions';
 import { AUTH_TOKEN_KEY } from '../../constants';
+import { deleteCookie } from '../../utils';
 
 
 class LogoutView extends PureComponent {
   componentWillMount() {
-    Cookies.expire(AUTH_TOKEN_KEY);
+    deleteCookie(AUTH_TOKEN_KEY);
 
     this.props.logout();
   }

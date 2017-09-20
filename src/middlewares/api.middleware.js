@@ -19,6 +19,7 @@ import {
 } from '../actions';
 import { AUTH_TOKEN_KEY } from '../constants';
 import { formatEpisodeResults } from '../helpers/tv-maze.helpers';
+import { deleteCookie } from '../utils';
 import {
   getAuthUserData,
   postNewlyTrackedShows,
@@ -53,7 +54,7 @@ export default function createAPIMiddleware() {
             // If there was an error, let's delete the locally-stored
             // cookie. This forces the user to attempt to login again,
             // which should hopefully fix whatever caused the error.
-            Cookies.expire(AUTH_TOKEN_KEY);
+            deleteCookie(AUTH_TOKEN_KEY);
 
             // Dispatch a failure action so an error can be shown to
             // the user.

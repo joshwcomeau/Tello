@@ -15,19 +15,6 @@ export const handleStoreUpdates = function handleStoreUpdates(store) {
   // Omit modals and flash messages, we don't want to rehydrate this.
   const { modals, flash, ...relevantState} = store.getState();
 
-  const hasUser = (
-    relevantState.auth &&
-    relevantState.auth.user &&
-    !isEmpty(relevantState.auth.user)
-  );
-
-
-  // If the user isn't already logged in, don't persist anything.
-  // This is to avoid
-  if (!hasUser) {
-    return;
-  }
-
   updateLocalStorage(
     LOCAL_STORAGE_REDUX_DATA_KEY,
     JSON.stringify(relevantState)
