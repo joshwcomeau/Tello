@@ -4,10 +4,10 @@ import { range } from '../utils';
 // The key for our auth token, stored in a cookie
 // TODO: Dedupe with the value in server/config/defaults.json
 // As well as in webpackDevServer.config
-export const AUTH_TOKEN_KEY = 'tello:auth-token';
+export const AUTH_TOKEN_KEY = 'tello-auth-token';
 
 // The key for our local-storage content
-export const LOCAL_STORAGE_REDUX_DATA_KEY = 'tello:redux-data';
+export const LOCAL_STORAGE_REDUX_DATA_KEY = 'tello-redux-data';
 
 export const MODAL_IDS = {
   addShow: 'addShow',

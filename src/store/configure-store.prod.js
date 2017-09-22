@@ -3,7 +3,7 @@ import { routerMiddleware } from 'react-router-redux';
 
 import rootReducer from '../reducers';
 import createAPIMiddleware from '../middlewares/api.middleware';
-import { handleStoreUpdates } from '../helpers/redux.helpers';
+import { handleStoreUpdates } from '../helpers/local-storage.helpers';
 
 
 export default function configureStore(history, initialState) {

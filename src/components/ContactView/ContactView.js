@@ -50,8 +50,6 @@ class ContactView extends PureComponent {
     fetch('https://formspree.io/joshwcomeau@gmail.com', fetchOpts)
       .then(response => response.json())
       .then((json) => {
-        console.log({ json });
-
         this.setState({
           submitted: true,
         });

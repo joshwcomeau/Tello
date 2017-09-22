@@ -20,3 +20,7 @@ export const handleStoreUpdates = function handleStoreUpdates(store) {
     JSON.stringify(relevantState)
   );
 }
+
+export const clearReduxData = () => {
+  window.localStorage.removeItem(LOCAL_STORAGE_REDUX_DATA_KEY);
+};

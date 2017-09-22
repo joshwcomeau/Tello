@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import styled from 'emotion/react';
 
 import { COLORS, UNIT, UNITS_IN_PX } from '../../constants';
+import { clearReduxData } from '../../helpers/local-storage.helpers';
 import { getUser } from '../../reducers/auth.reducer';
 
 import Button from '../Button';
@@ -22,7 +23,12 @@ const SettingsView = ({ user }) => {
         (<em>{user.email}</em>).
       </Paragraph>
 
-      <Button href="/logout" color="red" size="small">
+      <Button
+        href="/logout"
+        onClick={clearReduxData}
+        color="red"
+        size="small"
+      >
         Log Out
       </Button>
     </Section>,

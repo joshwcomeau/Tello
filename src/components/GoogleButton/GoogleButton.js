@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'emotion/react';
 
+import { clearReduxData } from '../../helpers/local-storage.helpers';
 import imageNormal from '../../images/google_button_normal@2x.png';
 import imagePressed from '../../images/google_button_pressed@2x.png';
 
@@ -53,6 +54,7 @@ class OfficialGoogleButton extends PureComponent {
         <GoogleImage
           onMouseDown={this.handlePress}
           onMouseUp={this.handleRelease}
+          onClick={clearReduxData}
           onMouseLeave={this.handleRelease}
           src={this.getImageSrc(this.state.buttonState)}
         />
@@ -64,7 +66,7 @@ class OfficialGoogleButton extends PureComponent {
 const GoogleButton = (props) => (
   props.official
     ? <OfficialGoogleButton />
-    : <Button external href={authHref} {...props} />
+    : <Button external onClick={clearReduxData} href={authHref} {...props} />
 );
 
 const GoogleImage = styled.img`

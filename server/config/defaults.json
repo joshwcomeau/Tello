@@ -1,7 +1,7 @@
 {
   "WEB_URL": "http://localhost:3000",
   "MONGO_URL": "mongodb://localhost:27017/tello",
-  "AUTH_TOKEN_KEY": "tello:auth-token",
+  "AUTH_TOKEN_KEY": "tello-auth-token",
   "PORT": 3005,
   "JWT_SECRET": "test"
 }

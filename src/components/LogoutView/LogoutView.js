@@ -10,9 +10,10 @@ import { deleteCookie } from '../../utils';
 
 class LogoutView extends PureComponent {
   componentWillMount() {
-    deleteCookie(AUTH_TOKEN_KEY);
-
-    this.props.logout();
+    if (Cookies.get(AUTH_TOKEN_KEY)) {
+      deleteCookie(AUTH_TOKEN_KEY);
+      this.props.logout();
+    }
   }
 
   render() {
