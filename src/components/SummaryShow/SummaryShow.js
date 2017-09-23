@@ -4,15 +4,22 @@ import { connect } from 'react-redux';
 import styled from 'emotion/react';
 
 import { toggleEpisode, showEditShowModal } from '../../actions';
-import { COLORS, HALF_UNIT_PX, UNITS_IN_PX } from '../../constants';
+import {
+  BREAKPOINT_SIZES,
+  BREAKPOINTS,
+  COLORS,
+  HALF_UNIT_PX,
+  UNITS_IN_PX,
+} from '../../constants';
 import { isMobile } from '../../helpers/responsive.helpers';
 import { truncateStringByWordCount } from '../../utils';
-import placeholderImage from '../../images/placeholder.png';
 import { ShowProps } from '../../types';
 
 import Button from '../Button';
 import EpisodeGrid from '../EpisodeGrid';
 import ShowStatus from '../ShowStatus';
+
+import { buildImageUrl } from './SummaryShow.helpers';
 
 
 export class SummaryShow extends Component {
@@ -48,11 +55,33 @@ export class SummaryShow extends Component {
     // We want to show a "manage" button on hover, unless we've explicitly
     // disabled it (which we do for demo units), or unles we're on mobile
     // (TODO: Mobile solution).
-    const showActions = !demo && !isMobile()
+    const showActions = !demo && !isMobile();
 
     return (
       <Wrapper>
-        <ImageHeader image={image || placeholderImage}>
+        <ImageHeader>
+          <Image
+            srcSet={`
+              ${buildImageUrl({
+                image,
+                width: 495,
+                height: 128,
+                size: 540,
+              })},
+              ${buildImageUrl({
+                image,
+                width: 334,
+                height: 96,
+                size: 900,
+              })}
+            `}
+            sizes={`
+              ${BREAKPOINTS.sm} 100vw,
+              ${BREAKPOINTS.md} 50vw,
+              ${BREAKPOINTS.lg} 33.3vw,
+              ${BREAKPOINTS.lgMin} 334px
+            `}
+          />
           {showActions && (
             <Actions data-selector="actions">
               <Button
@@ -101,11 +130,20 @@ const ImageHeader = styled.header`
   left: 2px;
   right: 2px;
   width: calc(100% - 4px);
-  height: ${UNITS_IN_PX[6]};
-  background-image: ${setBackgroundImage};
-  background-size: cover;
-  background-position: center center;
 `;
+
+const Image = styled.img`
+  width: 100%;
+  position: relative;
+  z-index: 1;
+  object-fit: cover;
+  height: ${UNITS_IN_PX[6]};
+
+
+  @media ${BREAKPOINTS.sm} {
+    height: ${UNITS_IN_PX[8]};
+  }
+`
 
 const ShowName = styled.h3`
   font-size: 28px;
@@ -128,7 +166,7 @@ const Summary = styled.div`
 
 const Actions = styled.div`
   position: absolute;
-  z-index: 1;
+  z-index: 2;
   bottom: 0;
   right: 0;
   opacity: 0;
