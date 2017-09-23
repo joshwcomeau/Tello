@@ -3,7 +3,6 @@ const path = require('path');
 
 const nconf = require('nconf');
 const express = require('express');
-const request = require('request');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const compression = require('compression');
@@ -15,6 +14,9 @@ const { getPublicUser } = require('./models/User.model');
 const { authenticatedRoute, jwtAuthentication } = require('./middleware');
 
 
+////////////////////////////////////
+// EXPRESS CONFIG /////////////////
+//////////////////////////////////
 const app = express();
 
 const rootDir = path.join(__dirname, '../');
@@ -34,6 +36,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(jwtAuthentication);
 
 
+////////////////////////////////////
+// ROUTES /////////////////////////
+//////////////////////////////////
 app.get(
   '/auth/google',
   passport.authenticate('google', { scope : ['profile', 'email'] })
@@ -126,6 +131,10 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(rootDir, 'build/index.html'));
 })
 
+
+////////////////////////////////////
+// GOGOGO /////////////////////////
+//////////////////////////////////
 app.listen(nconf.get('PORT'), () => {
   console.info(`==> 🌎  Listening on port ${nconf.get('PORT')}.`);
   console.info(`Running in ${process.env.NODE_ENV}`)

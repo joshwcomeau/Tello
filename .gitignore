@@ -22,6 +22,7 @@ yarn-error.log*
 
 # secrets
 server/config/private.json
+server/config/aws.json
 
 # temp built files
 stats.json

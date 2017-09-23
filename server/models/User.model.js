@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const _ = require('lodash');
 
 const { ShowSchema } = require('./Show.model');
+const { getImageFilenameForShow, uploadImage } = require('../helpers/image.helpers');
 
 const UserSchema = new mongoose.Schema({
   token: String,
@@ -13,14 +14,35 @@ const UserSchema = new mongoose.Schema({
 
 
 UserSchema.methods.addShows = function addShows(shows, cb) {
-  // The shows have an `id` field. We need to copy that to `_id` for mongo
-  const showsWithId = shows.map(show => (
-    Object.assign({}, show, { _id: show.id })
+  // For each show that has an image, upload that image, and replace the
+  // image URL with the newly-uploaded one.
+  const uploadPromises = shows.map(show => (
+    uploadImage({
+      key: getImageFilenameForShow(show),
+      url: show.image,
+    })
   ));
 
-  this.trackedShows = [...this.trackedShows, ...showsWithId];
-  this.save(cb);
-}
+  // TODO: Imgix is slow the first time you set an image. Maybe we ought
+  // to return the given TVMaze URL, just this once, so that the show
+  // you just added shows up faster?
+  Promise.all(uploadPromises)
+    .then((showImageUrls) => {
+      const formattedShows = shows.map((show, index) => (
+        Object.assign({}, show, {
+          // The shows have an `id` field. We need to copy that to `_id`
+          // for mongo
+          _id: show.id,
+          image: showImageUrls[index],
+        })
+      ));
+
+      this.trackedShows = [...this.trackedShows, ...formattedShows];
+      this.save(cb);
+    })
+    .catch(err => console.error(err));
+};
+
 
 UserSchema.methods.toggleEpisodes = function(
   { markAs, showId, episodeIds },
