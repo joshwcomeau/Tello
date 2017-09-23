@@ -66,20 +66,16 @@ export class SummaryShow extends Component {
                 image,
                 width: 495,
                 height: 128,
-                size: 540,
               })},
               ${buildImageUrl({
                 image,
                 width: 334,
                 height: 96,
-                size: 900,
               })}
             `}
             sizes={`
-              ${BREAKPOINTS.sm} 100vw,
-              ${BREAKPOINTS.md} 50vw,
-              ${BREAKPOINTS.lg} 33.3vw,
-              ${BREAKPOINTS.lgMin} 334px
+              ${BREAKPOINTS.smMin} 334px,
+              495px
             `}
           />
           {showActions && (
