@@ -25,7 +25,22 @@ const initialState = {};
 export default function trackedShowsReducer(state = initialState, action) {
   switch (action.type) {
     case USER_DATA_RECEIVE: {
-      return action.data.trackedShows;
+      const { trackedShows } = action.data;
+
+      // shallow-merge every episode received.
+      // We do a merge because the client may have persisted episode info
+      // in localStorage, and we don't want to throw that data away.
+      return Object.keys(trackedShows).reduce((nextState, showId) => {
+        const existingShowData = state[showId] || {};
+
+        return {
+          ...nextState,
+          [showId]: {
+            ...existingShowData,
+            ...trackedShows[showId],
+          },
+        };
+      }, {});
     }
 
     case ADD_SHOWS_RECEIVE: {
