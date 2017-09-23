@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'emotion/react';
+import LazyLoad from 'react-lazyload';
 
 import { toggleEpisode, showEditShowModal } from '../../actions';
 import {
@@ -60,24 +61,26 @@ export class SummaryShow extends Component {
     return (
       <Wrapper>
         <ImageHeader>
-          <Image
-            srcSet={`
-              ${buildImageUrl({
-                image,
-                width: 495,
-                height: 128,
-              })},
-              ${buildImageUrl({
-                image,
-                width: 334,
-                height: 96,
-              })}
-            `}
-            sizes={`
-              ${BREAKPOINTS.smMin} 334px,
-              495px
-            `}
-          />
+          <LazyLoad once height={UNITS_IN_PX[6]} offset={50}>
+            <Image
+              srcSet={`
+                ${buildImageUrl({
+                  image,
+                  width: 495,
+                  height: 128,
+                })},
+                ${buildImageUrl({
+                  image,
+                  width: 334,
+                  height: 96,
+                })}
+              `}
+              sizes={`
+                ${BREAKPOINTS.smMin} 334px,
+                495px
+              `}
+            />
+          </LazyLoad>
           {showActions && (
             <Actions data-selector="actions">
               <Button
