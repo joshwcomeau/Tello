@@ -1,4 +1,4 @@
-import { BREAKPOINT_SIZES, isMobileUserAgent } from '../constants';
+import { BREAKPOINT_SIZES, IS_MOBILE_USER_AGENT } from '../constants';
 
 export const getBreakpointFor = (windowWidth) => (
   Object.keys(BREAKPOINT_SIZES).find(name => (
@@ -13,7 +13,7 @@ export const isMobile = (breakpoint) => {
 
   return breakpoint === 'xs' ||
   breakpoint === 'sm' ||
-  isMobileUserAgent
+  IS_MOBILE_USER_AGENT
 };
 
 export const isLargeScreen = (breakpoint) => {

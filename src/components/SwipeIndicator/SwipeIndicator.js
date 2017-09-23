@@ -7,9 +7,9 @@ import {
   COLORS,
   UNITS_IN_PX,
   Z_INDICES,
+  IS_MOBILE_USER_AGENT,
 } from '../../constants';
 import { tapSwipeIndicator } from '../../actions';
-import { isMobile } from '../../helpers/responsive.helpers';
 import swipeImg from '../../images/swipe.png';
 
 
@@ -115,7 +115,7 @@ const HandImage = styled.img`
 `;
 
 const mapStateToProps = state => ({
-  isNeeded: isMobile() && !state.mobile.hasSeenSwipeIndicator,
+  isNeeded: IS_MOBILE_USER_AGENT && !state.mobile.hasSeenSwipeIndicator,
 });
 
 export default connect(

@@ -145,4 +145,4 @@ export const MAX_WIDTH = {
 };
 
 const mobileRegex = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i;
-export const isMobileUserAgent = mobileRegex.test(navigator.userAgent);
+export const IS_MOBILE_USER_AGENT = mobileRegex.test(navigator.userAgent);
