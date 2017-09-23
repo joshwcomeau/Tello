@@ -1,5 +1,7 @@
 import { fontFace, injectGlobal } from 'emotion/react';
 
+import { COLORS } from './constants';
+
 
 injectGlobal`
   html, body {
@@ -19,8 +21,8 @@ injectGlobal`
       "Apple Color Emoji",
       "Segoe UI Emoji",
       "Segoe UI Symbol";
-    color: #FFF;
-    background: #1f1d1d;
+    color: ${COLORS.white};
+    background: ${COLORS.gray.veryDark};
     width: 100%;
     height: 100%;
     padding: 0;
@@ -48,12 +50,12 @@ injectGlobal`
 
   ::-moz-selection { /* Code for Firefox */
     color: #FFF;
-    background: #AA00FF;
+    background: ${COLORS.pink.primary};
   }
 
   ::selection {
     color: #FFF;
-    background: #AA00FF;
+    background: ${COLORS.pink.primary};
   }
 `
 
