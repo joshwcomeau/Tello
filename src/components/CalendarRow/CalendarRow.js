@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 
 import { COLORS, UNIT, HALF_UNIT_PX } from '../../constants';
 import { isBetween } from '../../utils';
-import { ShowProps } from '../../types';
+import { ShowProps, DateProp } from '../../types';
 
 import CalendarEpisode from '../CalendarEpisode';
 import Cell from '../Cell';
@@ -19,8 +19,8 @@ class CalendarRow extends PureComponent {
   static propTypes = {
     show: ShowProps.isRequired,
     row: PropTypes.number.isRequired,
-    startDate: PropTypes.instanceOf(Date).isRequired,
-    endDate: PropTypes.instanceOf(Date).isRequired,
+    startDate: DateProp.isRequired,
+    endDate: DateProp.isRequired,
     isLastRow: PropTypes.bool.isRequired,
   }
 

@@ -9,12 +9,13 @@ import ChevronRight from 'react-icons/lib/md/chevron-right';
 
 import { incrementWeek, decrementWeek } from '../../actions';
 import { COLORS, UNITS_IN_PX } from '../../constants';
+import { DateProp } from '../../types';
 
 
 const propTypes = {
-  startDate: PropTypes.instanceOf(Date).isRequired,
-  endDate: PropTypes.instanceOf(Date).isRequired,
-  maxDate: PropTypes.instanceOf(Date).isRequired,
+  startDate: DateProp.isRequired,
+  endDate: DateProp.isRequired,
+  maxDate: DateProp.isRequired,
   incrementWeek: PropTypes.func.isRequired,
   decrementWeek: PropTypes.func.isRequired,
 }

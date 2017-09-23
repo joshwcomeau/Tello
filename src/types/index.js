@@ -28,3 +28,8 @@ export const ShowProps = PropTypes.shape({
     PropTypes.object,
   ]),
 });
+
+export const DateProp = PropTypes.oneOfType([
+  PropTypes.instanceOf(Date),
+  PropTypes.string,
+]);
