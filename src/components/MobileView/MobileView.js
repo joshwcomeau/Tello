@@ -30,7 +30,7 @@ class MobileView extends PureComponent {
       { name: 'settings', View: SettingsView },
     ];
 
-    return (
+    return [
       <ReactSwipe key="views" swipeOptions={{ callback: swipeMobileView }}>
         {views.map(({ name, View }, index) => (
           <ViewWrapper key={name} isActive={index === activeViewIndex}>
@@ -38,8 +38,9 @@ class MobileView extends PureComponent {
             <View />
           </ViewWrapper>
         ))}
-      </ReactSwipe>
-    );
+      </ReactSwipe>,
+      <SwipeIndicator key="swipe-indicator" />,
+    ];
   }
 }
 

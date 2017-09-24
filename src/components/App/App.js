@@ -28,7 +28,6 @@ import NoShowsYet from '../NoShowsYet';
 import FetchEpisodes from '../FetchEpisodes';
 import Footer from '../Footer';
 import LoggedInScrollbars from '../LoggedInScrollbars';
-import SwipeIndicator from '../SwipeIndicator';
 import Bundle from '../Bundle';
 
 import SummaryView from '../SummaryView';
@@ -95,7 +94,6 @@ class App extends PureComponent {
           <Redirect from="/login" to="/mobile" />
           <Redirect from="/" to="/mobile" />
         </Switch>,
-        <SwipeIndicator />,
       ];
     }
 
