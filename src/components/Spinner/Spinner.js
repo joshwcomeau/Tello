@@ -14,12 +14,12 @@ import {
 
 class Spinner extends PureComponent {
   static propTypes = {
-    size: PropTypes.oneOf(['sm', 'md', 'lg']).isRequired,
+    size: PropTypes.oneOf(['small', 'medium', 'large']).isRequired,
     fadeInDuration: PropTypes.number.isRequired,
   }
 
   static defaultProps = {
-    size: 'md',
+    size: 'medium',
     fadeInDuration: 600,
   }
 

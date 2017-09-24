@@ -25,11 +25,11 @@ export const getScaleValues = tick => {
 
 export const getSizeInPx = sizeString => {
   switch (sizeString) {
-    case 'sm': return 10;
-    case 'md': return 20;
-    case 'lg': return 30;
+    case 'small': return 10;
+    case 'medium': return 20;
+    case 'large': return 30;
     default:
-      return getSizeInPx('md');
+      return getSizeInPx('medium');
   }
 };
 

@@ -13,24 +13,35 @@ import { sortShows } from '../../helpers/show.helpers';
 import SummaryShow from '../SummaryShow';
 import SortShows from '../SortShows';
 import Spacer from '../Spacer';
+import SpinnerWithPadding from '../SpinnerWithPadding';
 
 
 const propTypes = {
   trackedShows: PropTypes.arrayOf(ShowProps),
 };
 
-const SummaryView = ({ trackedShows }) => (
-  <div id="summary">
-    <SortShows />
+const SummaryView = ({ trackedShows }) => {
+  // If there are no tracked shows, we know that we're in the middle of making
+  // the server request to fetch shows.
+  // We know this because the parent view, <App />, won't render this component
+  // if the server fetch is complete and there are still no shows.
+  if (trackedShows.length === 0) {
+    return <SpinnerWithPadding />;
+  }
 
-    <Grid>
-      {trackedShows.map(show => (
-        <SummaryShow key={show.id} show={show} />
-      ))}
-    </Grid>
-    <Spacer size={UNIT * 6}/>
-  </div>
-);
+  return (
+    <div id="summary">
+      <SortShows />
+
+      <Grid>
+        {trackedShows.map(show => (
+          <SummaryShow key={show.id} show={show} />
+        ))}
+      </Grid>
+      <Spacer size={UNIT * 6}/>
+    </div>
+  );
+};
 
 
 const Grid = styled.div`

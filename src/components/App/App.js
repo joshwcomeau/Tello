@@ -22,7 +22,6 @@ import MaxWidthWrapper from '../MaxWidthWrapper';
 import Modal from '../Modal';
 import DesktopNavigation from '../DesktopNavigation';
 import Spacer from '../Spacer';
-import Spinner from '../Spinner';
 import MediaQuery from '../MediaQuery';
 import NoShowsYet from '../NoShowsYet';
 import FetchEpisodes from '../FetchEpisodes';
@@ -175,12 +174,6 @@ const Body = styled.div`
   min-height: calc(100vh - ${HEADER_HEIGHT_PX} - ${FOOTER_HEIGHT_PX});
 `;
 
-const SpinnerWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: ${UNITS_IN_PX[6]} 0;
-`
 
 const mapStateToProps = state => ({
   hasToken: !!getToken(state),
