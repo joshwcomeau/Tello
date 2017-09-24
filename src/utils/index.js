@@ -121,11 +121,6 @@ export function setTimeoutPromise(duration) {
   ));
 }
 
-export const generateDebouncedLocalStorageSetter = duration => debounce(
-  (...args) => { localStorage.setItem(...args) },
-  duration
-);
-
 export const deleteCookie = (key) => {
   document.cookie = `${encodeURIComponent(key)}=; expires=Thu, 01 Jan 1970 00:00:00 GMT`;
 }
