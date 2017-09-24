@@ -4,6 +4,7 @@ import styled from 'emotion/react';
 
 import { addShowsReceive, changeSorting } from '../../actions';
 import { COLORS, Z_INDICES } from '../../constants';
+import { isMobile } from '../../helpers/responsive.helpers';
 import { clamp, throttle } from '../../utils';
 
 import Divider from '../Divider';
@@ -31,7 +32,9 @@ class LandingPageView extends PureComponent {
 
     this.props.changeSorting({ sorting: 'chrono' });
 
-    window.addEventListener('scroll', this.handleScroll)
+    if (!isMobile()) {
+      window.addEventListener('scroll', this.handleScroll);
+    }
   }
 
   componentWillUnmount() {

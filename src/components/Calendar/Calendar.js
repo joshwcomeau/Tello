@@ -13,6 +13,7 @@ import { ShowProps } from '../../types';
 import CalendarRow from '../CalendarRow';
 import CalendarHeaderCell from '../CalendarHeaderCell';
 import CalendarCornerCell from '../CalendarCornerCell';
+import Heading from '../Heading';
 import Spinner from '../Spinner';
 import StopTouchPropagation from '../StopTouchPropagation';
 
@@ -22,6 +23,20 @@ class Calendar extends PureComponent {
     shows: PropTypes.arrayOf(ShowProps),
     startDate: PropTypes.string.isRequired,
     endDate: PropTypes.string.isRequired,
+  }
+
+  renderFallback() {
+    return (
+      <FallbackWrapper>
+        <Heading>Sorry, not available. 🐼</Heading>
+        <FallbackParagraph>
+          The calendar relies on modern browser features.
+          It ought to work on latest versions of Chrome, Firefox, or Safari.
+          <br /><br />
+          Sorry for the inconvenience!
+        </FallbackParagraph>
+      </FallbackWrapper>
+    )
   }
 
   render() {
@@ -46,6 +61,12 @@ class Calendar extends PureComponent {
         isBetween({ date: episode.airstamp,  startDate, endDate })
       ));
     });
+
+    // On browsers that don't support CSS grid, return a fallback :(
+    const supportsCssGrid = CSS.supports && CSS.supports('display', 'grid');
+    if (!supportsCssGrid) {
+      return this.renderFallback();
+    }
 
     return (
       <Wrapper>
@@ -82,6 +103,20 @@ class Calendar extends PureComponent {
     );
   }
 }
+
+const FallbackWrapper = styled.div`
+  padding: ${UNITS_IN_PX[2]};
+  text-align: center;
+  color: ${COLORS.gray.veryDark};
+  background: white;
+`;
+
+const FallbackParagraph = styled.p`
+  max-width: 440px;
+  text-align: left;
+  font-size: 20px;
+  margin: auto;
+`;
 
 const Wrapper = styled.div`
   width: 100%;

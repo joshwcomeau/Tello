@@ -50,7 +50,12 @@ class LandingPageHero extends Component {
 
     return [
       <FixedWrapper key="fixed">
-        <LandingPageParticles />
+        <MediaQuery>
+          {(breakpoint) => (
+            // Render our fancy particles on desktop, but not on mobile.
+            !isMobile(breakpoint) && <LandingPageParticles />
+          )}
+        </MediaQuery>
       </FixedWrapper>,
       <HeroElem key="hero">
         <ScrollIndicatorWrapper isVisible={this.state.showScrollIndicator}>
