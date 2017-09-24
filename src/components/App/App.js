@@ -51,7 +51,6 @@ import ContactView from '../ContactView';
 class App extends PureComponent {
   static propTypes = {
     hasToken: PropTypes.bool.isRequired,
-    isFetching: PropTypes.bool.isRequired,
     noShowsYet: PropTypes.bool.isRequired,
     userDataRequest: PropTypes.func.isRequired,
   }
@@ -65,15 +64,7 @@ class App extends PureComponent {
   }
 
   renderLoggedInResponsiveRoutes = (breakpoint) => {
-    const { isFetching, noShowsYet } = this.props;
-
-    if (isFetching) {
-      return (
-        <SpinnerWrapper>
-          <Spinner size="lg" />
-        </SpinnerWrapper>
-      )
-    }
+    const { noShowsYet } = this.props;
 
     if (noShowsYet) {
       return (
@@ -193,7 +184,6 @@ const SpinnerWrapper = styled.div`
 
 const mapStateToProps = state => ({
   hasToken: !!getToken(state),
-  isFetching: getIsFetching(state),
   noShowsYet: getNoShowsYet(state),
 });
 
