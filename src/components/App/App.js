@@ -22,24 +22,27 @@ import MaxWidthWrapper from '../MaxWidthWrapper';
 import Modal from '../Modal';
 import DesktopNavigation from '../DesktopNavigation';
 import Spacer from '../Spacer';
+import SpinnerWithPadding from '../SpinnerWithPadding';
 import MediaQuery from '../MediaQuery';
 import NoShowsYet from '../NoShowsYet';
 import FetchEpisodes from '../FetchEpisodes';
 import Footer from '../Footer';
 import LoggedInScrollbars from '../LoggedInScrollbars';
 import SwipeIndicator from '../SwipeIndicator';
+import Bundle from '../Bundle';
 
 import SummaryView from '../SummaryView';
 import BacklogView from '../BacklogView';
 import CalendarView from '../CalendarView';
 import SettingsView from '../SettingsView';
-import MobileView from '../MobileView';
 import LogoutView from '../LogoutView';
 import LandingPageView from '../LandingPageView';
 import PrivacyPolicyView from '../PrivacyPolicyView';
 import TermsOfUseView from '../TermsOfUseView';
 import AboutView from '../AboutView';
 import ContactView from '../ContactView';
+
+import loadMobileView from 'bundle-loader?lazy!../MobileView';
 
 
 // NOTE: These routes are not well-designed.
@@ -76,7 +79,19 @@ class App extends PureComponent {
     if (isMobile(breakpoint)) {
       return [
         <Switch key="routes">
-          <Route path="/mobile" component={MobileView} />
+          <Route
+            path="/mobile"
+            render={() => (
+              <Bundle load={loadMobileView}>
+                {
+                  (MobileView) => MobileView
+                    ? <MobileView />
+                    : <SpinnerWithPadding />
+                }
+              </Bundle>
+            )}
+
+          />
           <Redirect from="/login" to="/mobile" />
           <Redirect from="/" to="/mobile" />
         </Switch>,
@@ -123,8 +138,7 @@ class App extends PureComponent {
       <FetchEpisodes key="fetch" />,
 
       // Style the scrollbars in webkit, depending on what the user's doing.
-      <LoggedInScrollbars key="scrollbars" />
-
+      <LoggedInScrollbars key="scrollbars" />,
     ];
   }
 

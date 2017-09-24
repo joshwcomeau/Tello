@@ -27,6 +27,7 @@ export const debounce = (callback, wait, context = this) => {
 };
 
 // TODO: Modernize!
+/* eslint-disable */
 export function throttle(fn, threshhold, scope) {
   threshhold || (threshhold = 250);
   var last, deferTimer;
@@ -49,6 +50,7 @@ export function throttle(fn, threshhold, scope) {
     }
   };
 }
+/* eslint-enable */
 
 export const stripHTMLFromString = string => {
   // Rather than try and use a regex, we'll just rely on the browser's engine.
