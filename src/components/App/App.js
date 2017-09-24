@@ -40,6 +40,7 @@ import PrivacyPolicyView from '../PrivacyPolicyView';
 import TermsOfUseView from '../TermsOfUseView';
 import AboutView from '../AboutView';
 import ContactView from '../ContactView';
+import NotFoundView from '../NotFoundView';
 
 import loadMobileView from 'bundle-loader?lazy!../MobileView';
 
@@ -93,6 +94,8 @@ class App extends PureComponent {
           />
           <Redirect from="/login" to="/mobile" />
           <Redirect from="/" to="/mobile" />
+
+          <Route component={NotFoundView} />
         </Switch>,
       ];
     }
@@ -110,13 +113,15 @@ class App extends PureComponent {
           <Route path="/settings" component={SettingsView} />
           <Route path="/logout" component={LogoutView} />
 
-          <Route key="privacy" path="/privacy" component={PrivacyPolicyView} />
-          <Route key="terms" path="/terms" component={TermsOfUseView} />
-          <Route key="contact" path="/contact" component={ContactView} />
-          <Route key="about" path="/about" component={AboutView} />
+          <Route path="/privacy" component={PrivacyPolicyView} />
+          <Route path="/terms" component={TermsOfUseView} />
+          <Route path="/contact" component={ContactView} />
+          <Route path="/about" component={AboutView} />
 
           <Redirect from="/login" to="/summary" />
-          <Redirect from="/" to="/summary" />
+          <Redirect exact from="/" to="/summary" />
+
+          <Route component={NotFoundView} />
         </Switch>
       </MaxWidthWrapper>
     )
@@ -149,6 +154,8 @@ class App extends PureComponent {
       <Route key="terms" path="/terms" component={TermsOfUseView} />,
       <Route key="contact" path="/contact" component={ContactView} />,
       <Route key="about" path="/about" component={AboutView} />,
+
+      <Route key="404" component={NotFoundView} />,
     ]
   }
 
