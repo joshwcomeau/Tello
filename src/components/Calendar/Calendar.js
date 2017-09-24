@@ -5,8 +5,15 @@ import addDays from 'date-fns/add_days';
 import PropTypes from 'prop-types';
 
 import { episodesRequest } from '../../actions';
-import { COLORS, UNIT, HALF_UNIT_PX, UNITS_IN_PX } from '../../constants';
+import {
+  BREAKPOINTS,
+  COLORS,
+  UNIT,
+  HALF_UNIT_PX,
+  UNITS_IN_PX,
+} from '../../constants';
 import { getIsFetchingAnyEpisodes } from '../../reducers/tracked-shows.reducer';
+import { isMobile } from '../../helpers/responsive.helpers';
 import { isBetween } from '../../utils';
 import { ShowProps } from '../../types';
 
@@ -28,13 +35,17 @@ class Calendar extends PureComponent {
   renderFallback() {
     return (
       <FallbackWrapper>
-        <Heading>Sorry, not available. 🐼</Heading>
-        <FallbackParagraph>
-          The calendar relies on modern browser features.
-          It ought to work on latest versions of Chrome, Firefox, or Safari.
-          <br /><br />
-          Sorry for the inconvenience!
-        </FallbackParagraph>
+        <FallbackWidthWrapper>
+          <Heading size={isMobile() ? 'small' : 'medium'}>
+            Sorry, not available. 🐼
+          </Heading>
+          <FallbackParagraph>
+            The calendar relies on modern browser features.
+            It ought to work on latest versions of Chrome, Firefox, or Safari.
+            <br /><br />
+            Sorry for the inconvenience!
+          </FallbackParagraph>
+        </FallbackWidthWrapper>
       </FallbackWrapper>
     )
   }
@@ -106,16 +117,22 @@ class Calendar extends PureComponent {
 
 const FallbackWrapper = styled.div`
   padding: ${UNITS_IN_PX[2]};
-  text-align: center;
   color: ${COLORS.gray.veryDark};
   background: white;
+  text-align: left;
+`;
+
+const FallbackWidthWrapper = styled.div`
+  max-width: 440px;
+  margin: auto;
 `;
 
 const FallbackParagraph = styled.p`
-  max-width: 440px;
-  text-align: left;
-  font-size: 20px;
-  margin: auto;
+  font-size: 16px;
+
+  @media ${BREAKPOINTS.md} {
+    font-size: 20px;
+  }
 `;
 
 const Wrapper = styled.div`

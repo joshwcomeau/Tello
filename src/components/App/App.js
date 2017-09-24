@@ -146,17 +146,21 @@ class App extends PureComponent {
   }
 
   renderLoggedOutRoutes() {
-    return [
-      <Route key="landing" exact path="/" component={LandingPageView} />,
-      // NOTE: Duplicated with the logged-in routes.
-      // This is a flaw of the current route structure
-      <Route key="privacy" path="/privacy" component={PrivacyPolicyView} />,
-      <Route key="terms" path="/terms" component={TermsOfUseView} />,
-      <Route key="contact" path="/contact" component={ContactView} />,
-      <Route key="about" path="/about" component={AboutView} />,
+    return (
+      <Switch>
+        <Route exact path="/" component={LandingPageView} />
+        {/*
+          NOTE: Duplicated with the logged-in routes.
+          This is a flaw of the current route structure
+        */}
+        <Route path="/privacy" component={PrivacyPolicyView} />
+        <Route path="/terms" component={TermsOfUseView} />
+        <Route path="/contact" component={ContactView} />
+        <Route path="/about" component={AboutView} />
 
-      <Route key="404" component={NotFoundView} />,
-    ]
+        <Route component={NotFoundView} />
+      </Switch>
+    );
   }
 
   render() {

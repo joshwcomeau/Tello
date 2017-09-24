@@ -85,13 +85,13 @@ class LandingPageCalendar extends PureComponent {
         <MaxWidthWrapper>
           <DescriptionWrapper faded={!this.state.rotateCalendar}>
             <Heading theme="vibrant">The Calendar</Heading>
-            <Paragraph align={isMobile() ? 'justify' : 'left'} size="large">
+            <Paragraph align="left" size="large">
               One of Tello's most powerful features is the Calendar view. See what you missed last week, or what's coming up this week.
               {' '}
               <Emoji name="sparkles">✨</Emoji>
             </Paragraph>
 
-            <Paragraph align={isMobile() ? 'justify' : 'left'} size="large">
+            <Paragraph align="left" size="large">
               Each row represents a show, and shows are omitted when they don't have any
               episodes this week, so it's quick to use even with lots of tracked shows.
             </Paragraph>
