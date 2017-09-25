@@ -6,7 +6,7 @@ import styled from 'emotion/react';
 import { deleteShowRequest, markSeasonAsSeen, hideModal } from '../../actions';
 import { UNITS_IN_PX, HALF_UNIT_PX } from '../../constants';
 import {
-  getTrackedShowsArrayWithSeasons,
+  getAiredTrackedShowsArrayWithSeasons,
 } from '../../reducers/tracked-shows.reducer';
 import { ShowProps } from '../../types';
 
@@ -180,7 +180,7 @@ const BorderSpacer = styled.div`
 `
 
 const mapStateToProps = (state, ownProps) => ({
-  show: getTrackedShowsArrayWithSeasons(state).find(show => (
+  show: getAiredTrackedShowsArrayWithSeasons(state).find(show => (
     show.id === ownProps.showId
   )),
 });
