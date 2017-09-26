@@ -208,23 +208,34 @@ export const getNoShowsYet = createSelector(
 export const getTrackedShowsArray = createSelector(
   getTrackedShows,
   getTrackedShowIds,
-  (shows, showIds) => showIds.map(showId => {
-    const show = shows[showId];
+  (shows, showIds) => showIds
+    .map(showId => {
+      const show = shows[showId];
 
-    // If ths show has no episodes, no further array-making is required.
-    if (!show.episodes) {
-      return show;
-    }
+      // If ths show has no episodes, no further array-making is required.
+      if (!show.episodes) {
+        return show;
+      }
 
-    // If the show has episodes, though, we need to turn the episode map
-    // into an array as well.
-    const episodes = convertEpisodeMapToArray(show);
+      // If the show has nothing BUT episodes, we want to omit this show
+      // from the results. This can happen if a show's episode request
+      // completes before the main user data request? Or something like that.
+      // Hard to tell since it isn't consistently reproducible.
+      // TODO: Find the root cause of this issue, instead of patching it here.
+      if (Object.keys(show).length === 1) {
+        return null;
+      }
 
-    return {
-      ...show,
-      episodes,
-    };
-  })
+      // If the show has episodes, though, we need to turn the episode map
+      // into an array as well.
+      const episodes = convertEpisodeMapToArray(show);
+
+      return {
+        ...show,
+        episodes,
+      };
+    })
+  .filter(show => !!show)
 );
 
 export const getAiredTrackedShowsArray = createSelector(
