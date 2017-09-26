@@ -33,3 +33,11 @@ export const DateProp = PropTypes.oneOfType([
   PropTypes.instanceOf(Date),
   PropTypes.string,
 ]);
+
+export const breakpointsProp = PropTypes.oneOf([
+  'xs',
+  'sm',
+  'md',
+  'lg',
+  'xl',
+]);

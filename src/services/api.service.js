@@ -19,7 +19,7 @@ const getAuthHeaders = token => (
 export const getAuthUserData = ({ token }) => {
   const headers = getAuthHeaders(token);
 
-  return fetch('./users/me', { headers }).then(unwrap);
+  return fetch('/users/me', { headers }).then(unwrap);
 };
 
 export const postNewlyTrackedShows = ({ token, shows }) => {

@@ -23,7 +23,7 @@ const StaticLayout = ({ title, subtitle, children }) => (
       <StaticHeader>
         <Logo
           boxColor={COLORS.gray.veryLight}
-          background={COLORS.gray.veryDark}
+          textColor={COLORS.gray.veryDark}
         />
       </StaticHeader>
 

@@ -8,9 +8,12 @@ import {
   MAX_WIDTH
 } from '../../constants';
 
+import { getPadding } from './MaxWidthWrapper.helpers';
+
 
 const propTypes = {
   noPadding: PropTypes.bool,
+  noPaddingOnMobile: PropTypes.bool,
 };
 
 const MaxWidthWrapper = styled.div`
@@ -19,8 +22,8 @@ const MaxWidthWrapper = styled.div`
   max-width: ${props => props.maxWidth || MAX_WIDTH.base};
   margin-left: auto;
   margin-right: auto;
-  padding-left: ${props => props.noPadding ? 0 : UNITS_IN_PX[2]};
-  padding-right: ${props => props.noPadding ? 0 : UNITS_IN_PX[2]};
+  padding-left: ${getPadding};
+  padding-right: ${getPadding};
 
   @media ${BREAKPOINTS.sm} {
     max-width: 100%;

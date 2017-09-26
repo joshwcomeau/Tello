@@ -5,7 +5,7 @@ import MenuIcon from 'react-icons/lib/md/menu';
 
 import { BREAKPOINTS, COLORS, UNITS_IN_PX, Z_INDICES } from '../../constants';
 import { showMobileLoggedOutMenuModal } from '../../actions';
-import { isMobile } from '../../helpers/responsive.helpers';
+import { isDesktop, isMobile } from '../../helpers/responsive.helpers';
 
 import GoogleButton from '../GoogleButton';
 import Logo from '../Logo';
@@ -53,7 +53,7 @@ class LandingPageHero extends Component {
         <MediaQuery>
           {(breakpoint) => (
             // Render our fancy particles on desktop, but not on mobile.
-            !isMobile(breakpoint) && <LandingPageParticles />
+            isDesktop(breakpoint) && <LandingPageParticles />
           )}
         </MediaQuery>
       </FixedWrapper>,

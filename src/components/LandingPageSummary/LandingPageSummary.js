@@ -143,6 +143,10 @@ const Col = styled.div`
 
 
   &:first-of-type {
+    @media (max-width: ${SPECIAL_BREAKPOINT_WIDTH}px) {
+      margin-bottom: ${UNITS_IN_PX[3]};
+    }
+
     @media (min-width: ${SPECIAL_BREAKPOINT_WIDTH + 1}px) {
       z-index: 2;
       margin-right: ${UNITS_IN_PX[8]};

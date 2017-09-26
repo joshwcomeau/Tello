@@ -12,7 +12,7 @@ import {
   HALF_UNIT_PX,
   UNITS_IN_PX,
 } from '../../constants';
-import { isMobile } from '../../helpers/responsive.helpers';
+import { isDesktop } from '../../helpers/responsive.helpers';
 import { truncateStringByWordCount } from '../../utils';
 import { ShowProps } from '../../types';
 
@@ -56,7 +56,7 @@ export class SummaryShow extends Component {
     // We want to show a "manage" button on hover, unless we've explicitly
     // disabled it (which we do for demo units), or unles we're on mobile
     // (TODO: Mobile solution).
-    const showActions = !demo && !isMobile();
+    const showActions = !demo && isDesktop();
 
     return (
       <Wrapper>

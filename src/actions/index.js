@@ -30,6 +30,7 @@ export const UPDATE_CALENDAR_WEEK = 'UPDATE_CALENDAR_WEEK';
 export const SWIPE_MOBILE_VIEW = 'SWIPE_MOBILE_VIEW';
 export const TAP_SWIPE_INDICATOR = 'TAP_SWIPE_INDICATOR';
 export const LOGOUT = 'LOGOUT';
+export const LOAD_UNAUTHORIZED_ROUTE = 'LOAD_UNAUTHORIZED_ROUTE';
 
 
 export const addShowsRequest = ({ shows }) => ({
@@ -220,4 +221,8 @@ export const tapSwipeIndicator = () => {
 
 export const logout = () => ({
   type: LOGOUT,
+});
+
+export const loadUnauthorizedRoute = () => ({
+  type: LOAD_UNAUTHORIZED_ROUTE,
 });

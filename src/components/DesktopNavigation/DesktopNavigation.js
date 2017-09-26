@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'emotion/react';
 
-import {  UNITS_IN_PX } from '../../constants';
+import { UNITS_IN_PX } from '../../constants';
 
 import NavigationHeading from '../NavigationHeading';
 

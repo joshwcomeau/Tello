@@ -11,10 +11,14 @@ export const isMobile = (breakpoint) => {
     breakpoint = getBreakpointFor(window.innerWidth);
   }
 
-  return breakpoint === 'xs' ||
-  breakpoint === 'sm' ||
-  IS_MOBILE_USER_AGENT
+  return (
+    breakpoint === 'xs' ||
+    breakpoint === 'sm' ||
+    IS_MOBILE_USER_AGENT
+  );
 };
+
+export const isDesktop = (breakpoint) => !isMobile(breakpoint);
 
 export const isLargeScreen = (breakpoint) => {
   if (!breakpoint) {

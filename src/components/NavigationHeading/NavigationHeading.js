@@ -15,8 +15,13 @@ const propTypes = {
 };
 
 const NavigationHeading = ({ value, pathname }) => {
-  const href = '/' + value;
-  const isActive = href === pathname;
+  const href = '/app/' + value;
+
+  // Our /app/summary link is also aliased to the root /app link.
+  // TODO: Find a less gross way to do this!
+  const isSummaryAlias = value === 'summary' && pathname === '/app';
+
+  const isActive = isSummaryAlias || href === pathname;
 
   return (
     <HeadingLink to={href}>

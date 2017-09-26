@@ -25,7 +25,7 @@ class Bundle extends Component {
       this.setState({
         // handle both es imports and cjs
         mod: mod.default ? mod.default : mod,
-      }, () => console.log('postload'));
+      });
     });
   }
 
