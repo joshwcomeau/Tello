@@ -59,8 +59,9 @@ const Footer = () => {
               <VibrantLink2
                 external
                 strong
-                color={COLORS.purple.dark}
                 href="https://twitter.com/joshwcomeau"
+                target="_blank"
+                color={COLORS.purple.dark}
               >
                 Josh Comeau
               </VibrantLink2>.

@@ -66,6 +66,7 @@ class App extends PureComponent {
             <AuthenticatedRoute
               path="/app"
               render={() => <AppRoutes breakpoint={breakpoint} />}
+              fallback={() => <Redirect to="/" />}
             />
 
             {/* Static routes */}
