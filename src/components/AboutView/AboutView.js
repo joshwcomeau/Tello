@@ -1,4 +1,5 @@
 import React from 'react';
+import { keyframes } from 'emotion';
 import styled from 'emotion/react';
 
 import { COLORS, UNIT, UNITS_IN_PX } from '../../constants';
@@ -18,7 +19,11 @@ const AboutView = () => (
   >
     <Section>
       <Paragraph size="large">
-        <Emoji>👋 </Emoji>Hi! I'm Josh. I built Tello.
+        <EmojiRotater>
+          <Emoji size={50}>👋</Emoji>
+        </EmojiRotater>
+        {' '}
+        Hi! I'm Josh. I built Tello.
       </Paragraph>
 
       <Paragraph size="large">
@@ -26,11 +31,12 @@ const AboutView = () => (
       </Paragraph>
 
       <Paragraph size="large">
-        I noticed that I was really bad at remembering things; I couldn't remember which episodes we had already seen. Worse, I'd totally forget about some great series once I had finished the current season; years later, maybe I'd remember to check for new seasons, but I'm sure I forgot about a ton of great shows.
+        Finding something to watch was tricky, though. Unless we binge-watch a series, it's hard to remember where we left off when we return to it.
+        Worse, sometimes I'd totally forget that a great show even existed; months after a season ends, how do you remember to check to see if there are new episodes?
       </Paragraph>
 
       <Paragraph size="large">
-        I tried some of the existing options but found that they were bloated and overcomplicated. I wanted a quick way to check what shows were available for me to watch, and nothing I found did the trick.
+        I tried some of the existing options but found that they were bloated  overcomplicated. I wanted a quick, fun way to check what shows were available for me to watch, and nothing I found did the trick.
       </Paragraph>
 
       <Paragraph size="large">
@@ -38,11 +44,11 @@ const AboutView = () => (
       </Paragraph>
 
       <Paragraph size="large">
-        This is very much a side-project. It was built mostly during a week-long vacation (as well as a few evenings/weekends). The scope is very narrow, because it had to be, but that also means it's very focused at doing 1 thing, and doing it well: letting you know what to watch right before you sit down in front of a TV.
+        This is very much a side-project. It was built mostly during a week-long vacation, and continues to be developed during evenings/weekends. As a result, the scope is very narrow. It only does 1 thing: helps you keep track of your favourite shows, so you can figure out really quickly what to watch, when you're sitting in front of a TV.
       </Paragraph>
 
       <Paragraph size="large">
-        The goal of Tello is not to become a business, or to make money. It's something I wanted to exist, and a good excuse to practice my design/dev skills. On the extremely unlikely chance that Tello becomes popular, I may need to do some monetization to cover its costs... Most likely I'd charge a small fee for membership to <em>new</em> members, but I'd like to keep it free for early adopters. But yeah, that's unlikely.
+        The goal of Tello is not to become a business, or to make money. It's something I wanted to exist, and a good excuse to practice my design/dev skills. If, by some miracle, it becomes popular, I may have to introduce some monetization, to cover its costs. Maybe I'd charge a small membership fee... but if I did, I'd keep it free for my early adopters (that's you!). Y'all would get grandfathered into a free plan. But yeah, that's unlikely.
       </Paragraph>
 
       <Paragraph size="large">
@@ -66,15 +72,33 @@ const AboutView = () => (
 );
 
 
+const wave = keyframes`
+  0% { transform: rotate(43deg); }
+  15% { transform: rotate(0deg); }
+  30% { transform: rotate(43deg); }
+  50% { transform: rotate(0deg); }
+  75% { transform: rotate(43deg); }
+  100% { transform: rotate(43deg); }
+`
+
+const EmojiRotater = styled.span`
+  display: inline-block;
+  margin-left: -14px;
+  animation: ${wave} 2s both 500ms;
+  transform-origin: center center;
+  will-change: transform;
+`
+
 const Section = styled.div`
   margin: ${UNITS_IN_PX[3]} auto;
-  max-width: 900px;
+  max-width: 800px;
 `;
 
 const Signed = styled.div`
   text-align: right;
-  font-size: 28px;
-  color: ${COLORS.purple.primary};
+  font-size: 32px;
+  font-family: 'Raleway';
+  font-weight: bold;
 
   &:before {
     content: '- ';
