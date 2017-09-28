@@ -9,20 +9,6 @@ import MaxWidthWrapper from '../MaxWidthWrapper';
 import SignupButtons from '../SignupButtons';
 
 
-const ShowNamePlaceholder = styled.span`
-  display: inline-block;
-  width: 120px;
-  border-bottom: 3px solid ${COLORS.cyan.light};
-  transform: translateY(3px);
-`;
-
-const HEADINGS = [
-  <span>"I wonder when <ShowNamePlaceholder /> comes back..."</span>,
-  <span>"I need something to watch."</span>,
-  <span>"Has the new season of <ShowNamePlaceholder /> started?"</span>,
-  <span>"What episode of <ShowNamePlaceholder /> am I at?"</span>,
-];
-
 const FADE_DELAY = 4000;
 
 class LandingPageIntro extends PureComponent {
@@ -30,9 +16,16 @@ class LandingPageIntro extends PureComponent {
     tick: 0,
   }
 
+  headings = [
+    <span>"I wonder when <ShowNamePlaceholder /> comes back..."</span>,
+    <span>"I need something to watch."</span>,
+    <span>"Has the new season of <ShowNamePlaceholder /> started?"</span>,
+    <span>"What episode of <ShowNamePlaceholder /> am I at?"</span>,
+  ]
+
   componentDidMount() {
     this.intervalId = window.setInterval(() => {
-      this.setState({ tick: (this.state.tick + 1) % HEADINGS.length });
+      this.setState({ tick: (this.state.tick + 1) % this.headings.length });
     }, FADE_DELAY);
   }
 
@@ -42,9 +35,9 @@ class LandingPageIntro extends PureComponent {
     return (
       <LandingPageIntroWrapper>
         <MaxWidthWrapper maxWidth="800px">
-          <FadeOnChange>
+          <FadeOnChange duration={240}>
             <Question tick={tick}>
-              {HEADINGS[tick]}
+              {this.headings[tick]}
             </Question>
           </FadeOnChange>
 
@@ -72,6 +65,14 @@ class LandingPageIntro extends PureComponent {
   }
 }
 
+const ShowNamePlaceholder = styled.span`
+  display: inline-block;
+  width: 120px;
+  border-bottom: 3px solid ${COLORS.white};
+  box-shadow: 2px 2px rgba(0, 0, 0, 0.1);
+  transform: translateY(3px);
+`;
+
 const LandingPageIntroWrapper = styled.div`
   position: relative;
   padding: ${UNITS_IN_PX[6]} 0 ${UNITS_IN_PX[8]};
@@ -79,6 +80,7 @@ const LandingPageIntroWrapper = styled.div`
     rgba(109, 0, 185, 0.35),
     rgba(109, 0, 185, 0.65)
   );
+  color: ${COLORS.gray.veryLight};
 
   @media ${BREAKPOINTS.sm} {
     padding: ${UNITS_IN_PX[3]} 0 ${UNITS_IN_PX[4]};
@@ -86,17 +88,12 @@ const LandingPageIntroWrapper = styled.div`
 `;
 
 const Question = styled.h1`
-  background: linear-gradient(
-    to bottom,
-    ${COLORS.white},
-    ${COLORS.cyan.light}
-  );
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
   font-size: 36px;
+  color: ${COLORS.white};
   margin-bottom: ${UNITS_IN_PX[3]};
   /* Move back a few px so that we discount the width of the open-quote */
   transform: translateX(-4px);
+  text-shadow: 1px 1px rgba(0, 0, 0, 0.4);
 
   @media ${BREAKPOINTS.sm} {
     font-size: 26px;

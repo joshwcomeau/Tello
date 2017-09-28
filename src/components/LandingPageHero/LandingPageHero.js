@@ -223,7 +223,7 @@ const Tagline = styled.h3`
   position: relative;
   font-size: 56px;
   line-height: 80px;
-  text-shadow: 2px 2px rgba(0, 0, 0, 0.1);
+  text-shadow: 1px 1px rgba(0, 0, 0, 0.4);
   margin-bottom: ${UNITS_IN_PX[1]};
 
   @media ${BREAKPOINTS.xl} {
@@ -250,6 +250,7 @@ const SubTagline = styled.h5`
   position: relative;
   font-size: 38px;
   font-weight: normal;
+  text-shadow: 1px 1px rgba(0, 0, 0, 0.3);
 
   @media ${BREAKPOINTS.xl} {
     font-size: 32px;

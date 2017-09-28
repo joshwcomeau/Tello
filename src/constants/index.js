@@ -33,6 +33,7 @@ export const COLORS = {
     dark: '#D50000',
   },
   pink: {
+    veryLight: '#ff73a3',
     light: '#FF4081',
     primary: '#ee0079',
     dark: '#C51162',
