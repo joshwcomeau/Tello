@@ -27,6 +27,7 @@ import StopTouchPropagation from '../StopTouchPropagation';
 
 class Calendar extends PureComponent {
   static PropTypes = {
+    demo: PropTypes.bool,
     shows: PropTypes.arrayOf(ShowProps),
     startDate: PropTypes.string.isRequired,
     endDate: PropTypes.string.isRequired,
@@ -51,7 +52,7 @@ class Calendar extends PureComponent {
   }
 
   render() {
-    const { shows, startDate, endDate, isFetchingEpisodes } = this.props;
+    const { demo, shows, startDate, endDate, isFetchingEpisodes } = this.props;
 
     // If we're still fetching episodes, show a spinner.
     if (isFetchingEpisodes) {
@@ -95,6 +96,7 @@ class Calendar extends PureComponent {
             {relevantShows.map((show, index) => (
               <CalendarRow
                 key={show.id}
+                demo={demo}
                 show={show}
                 row={index + 2 /* Account for zero-index + header row */}
                 startDate={startDate}

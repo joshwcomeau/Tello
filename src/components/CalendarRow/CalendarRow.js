@@ -17,6 +17,7 @@ const CALENDAR_ROW_HEIGHT = UNIT * 3.5;
 
 class CalendarRow extends PureComponent {
   static propTypes = {
+    demo: PropTypes.bool,
     show: ShowProps.isRequired,
     row: PropTypes.number.isRequired,
     startDate: DateProp.isRequired,
@@ -25,7 +26,7 @@ class CalendarRow extends PureComponent {
   }
 
   render() {
-    const { show, row, startDate, endDate, isLastRow } = this.props;
+    const { demo, show, row, startDate, endDate, isLastRow } = this.props;
 
     return [
       <ShowName
@@ -64,6 +65,8 @@ class CalendarRow extends PureComponent {
           return (
             <CalendarEpisode
               key={episode.id}
+              demo={demo}
+              show={show}
               episode={episode}
               row={row}
               col={col}

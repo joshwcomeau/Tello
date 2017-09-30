@@ -56,7 +56,7 @@ class LandingPageCalendar extends PureComponent {
               </CalendarHeader>
 
               <CalendarWrapper>
-                <Calendar shows={this.props.shows} />
+                <Calendar demo={true} shows={this.props.shows} />
                 <CalendarEdge
                   style={{
                     transform: `
