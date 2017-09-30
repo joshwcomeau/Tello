@@ -5,16 +5,12 @@ import isToday from 'date-fns/is_today';
 
 import { COLORS, HALF_UNIT_PX } from '../../constants';
 
-import Cell from '../Cell';
+import { Cell } from '../CalendarPrimitives';
 
 
-const CalendarHeaderCell = ({ blank, date, row, col }) => (
-  <HeaderCell
-    row={row}
-    col={col}
-    highlight={isToday(date)}
-  >
-    {!blank && [
+const CalendarHeaderCell = ({ date, row, col }) => (
+  <HeaderCell highlight={date && isToday(date)}>
+    {date && [
       <Weekday key="week">{format(date, 'dddd')}</Weekday>,
       <CalendarDate key="date">{format(date, 'MMM Do')}</CalendarDate>
     ]}
@@ -27,9 +23,26 @@ const getBackground = ({ highlight }) => highlight
 
 const HeaderCell = styled(Cell)`
   position: relative;
-  padding: ${HALF_UNIT_PX};
-  border-bottom: 3px solid ${COLORS.gray.primary};
+  padding-top: ${HALF_UNIT_PX};
+  padding-left: ${HALF_UNIT_PX};
+  padding-right: ${HALF_UNIT_PX};
+  border-right: none;
   background: ${getBackground};
+
+  &:first-of-type {
+    padding: 0;
+    background: ${COLORS.highlight.dark};
+
+    &:before {
+      display: none;
+    }
+  }
+
+  &:last-of-type {
+    &:before {
+      display: none;
+    }
+  }
 
   &:before {
     content: '';

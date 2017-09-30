@@ -9,16 +9,12 @@ import { COLORS, EPISODE_COLOR, HALF_UNIT_PX } from '../../constants';
 import { getEpisodeNumString } from '../../helpers/show.helpers';
 import { ShowProps, EpisodeProps } from '../../types';
 
-import Cell from '../Cell';
-
 
 class CalendarEpisode extends PureComponent {
   static propTypes = {
     demo: PropTypes.bool,
     show: ShowProps.isRequired,
     episode: EpisodeProps.isRequired,
-    row: PropTypes.number.isRequired,
-    col: PropTypes.number.isRequired,
     margin: PropTypes.number,
     height: PropTypes.number,
     toggleEpisode: PropTypes.func.isRequired,
@@ -37,14 +33,12 @@ class CalendarEpisode extends PureComponent {
   }
 
   render() {
-    const { show, episode, row, col, margin, height } = this.props;
+    const { show, episode, margin, height } = this.props;
 
     const isSeen = show.seenEpisodeIds.includes(episode.id);
 
     return (
       <EpisodeCell
-        row={row}
-        col={col}
         margin={margin}
         height={height}
         isSeen={isSeen}
@@ -77,15 +71,13 @@ const getBackground = ({ isSeen }) => (
     )`
 );
 
-const EpisodeCell = styled(Cell)`
+const EpisodeCell = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  height: calc(100% - 4px);
+  margin: 2px;
   padding: ${HALF_UNIT_PX};
-  height: ${props => props.height - 5 + 'px'};
-  margin-top: 2px;
-  margin-left: 2px;
-  margin-right: 3px;
   color: ${COLORS.white};
   background: ${getBackground};
   animation: ${slide} 600ms ease-out;
