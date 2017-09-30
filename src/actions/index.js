@@ -125,7 +125,7 @@ export const showAddShowModal = () => (
 export const showEditShowModal = ({ showId }) => (
   showModal({ id: MODAL_IDS.editShow, side: 'left', data: { showId } })
 );
-export const showMobileLoggedOutMenuModal = () => (
+export const showLoggedOutMenuModal = () => (
   showModal({ id: MODAL_IDS.mobileLoggedOutMenu, side: 'right' })
 );
 

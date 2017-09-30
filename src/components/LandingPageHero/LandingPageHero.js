@@ -4,10 +4,10 @@ import styled from 'emotion/react';
 import MenuIcon from 'react-icons/lib/md/menu';
 
 import { BREAKPOINTS, COLORS, UNITS_IN_PX, Z_INDICES } from '../../constants';
-import { showMobileLoggedOutMenuModal } from '../../actions';
+import { showLoggedOutMenuModal } from '../../actions';
 import { isDesktop, isMobile } from '../../helpers/responsive.helpers';
 
-import GoogleButton from '../GoogleButton';
+import Button from '../Button';
 import Logo from '../Logo';
 import LandingPageParticles from '../LandingPageParticles';
 import LandingPageIntro from '../LandingPageIntro';
@@ -46,7 +46,7 @@ class LandingPageHero extends Component {
   }
 
   render() {
-    const { showMobileLoggedOutMenuModal } = this.props;
+    const { showLoggedOutMenuModal } = this.props;
 
     return [
       <FixedWrapper key="fixed">
@@ -83,14 +83,17 @@ class LandingPageHero extends Component {
               {(breakpoint) => (
                 isMobile(breakpoint)
                   ? (
-                    <HamburgerMenu onClick={showMobileLoggedOutMenuModal}>
+                    <HamburgerMenu onClick={showLoggedOutMenuModal}>
                       <MenuIcon />
                     </HamburgerMenu>
                   ) : (
                     <Actions>
-                      <GoogleButton color="blue">
+                      <Button
+                        color="blue"
+                        onClick={showLoggedOutMenuModal}
+                      >
                         Login
-                      </GoogleButton>
+                      </Button>
                     </Actions>
                   )
               )}
@@ -314,4 +317,4 @@ const Raleway = styled.span`
   }
 `;
 
-export default connect(null, { showMobileLoggedOutMenuModal })(LandingPageHero);
+export default connect(null, { showLoggedOutMenuModal })(LandingPageHero);

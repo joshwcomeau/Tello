@@ -1,15 +1,18 @@
 import React from 'react';
 import styled from 'emotion/react';
 
-import GoogleButton from '../GoogleButton';
+import { COLORS } from '../../constants';
+
+import SignupButtons from '../SignupButtons';
 import Heading from '../Heading';
 
 
-const MobileLoggedOutMenu = () => {
+const LoggedOutMenu = () => {
   return (
     <Wrapper>
       <Heading size="small">Log In / Sign Up</Heading>
-      <GoogleButton official />
+      <br /><br />
+      <SignupButtons linkColor={COLORS.blue.primary} />
     </Wrapper>
   );
 };
@@ -18,4 +21,4 @@ const Wrapper = styled.div`
   text-align: center;
 `
 
-export default MobileLoggedOutMenu;
+export default LoggedOutMenu;

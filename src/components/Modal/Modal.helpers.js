@@ -4,7 +4,7 @@ import { MODAL_IDS } from '../../constants';
 
 import AddShow from '../AddShow';
 import EditShow from '../EditShow';
-import MobileLoggedOutMenu from '../MobileLoggedOutMenu';
+import LoggedOutMenu from '../LoggedOutMenu';
 
 
 export const getSpring = (side, isVisible) => {
@@ -19,7 +19,7 @@ export const getModalChildComponent = selectedModalId => {
   switch (selectedModalId) {
     case MODAL_IDS.editShow: return EditShow;
     case MODAL_IDS.addShow: return AddShow;
-    case MODAL_IDS.mobileLoggedOutMenu: return MobileLoggedOutMenu;
+    case MODAL_IDS.mobileLoggedOutMenu: return LoggedOutMenu;
     default: return null;
   }
 };
