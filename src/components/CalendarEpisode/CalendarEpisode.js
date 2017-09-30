@@ -81,7 +81,7 @@ const EpisodeCell = styled.div`
   color: ${COLORS.white};
   background: ${getBackground};
   animation: ${slide} 600ms ease-out;
-  cursor: default;
+  cursor: pointer;
 `;
 
 const Name = styled.div`
