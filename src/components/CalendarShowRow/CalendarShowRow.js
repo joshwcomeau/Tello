@@ -71,7 +71,7 @@ class CalendarShowRow extends Component {
             >
               {episode && (
                 <CalendarEpisode
-                  onEdge={console.log(index) || index === 6}
+                  onEdge={index === 6}
                   demo={demo}
                   show={show}
                   episode={episode}

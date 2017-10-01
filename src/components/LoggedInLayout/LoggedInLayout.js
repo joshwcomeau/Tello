@@ -41,8 +41,6 @@ const LoggedInLayout = ({ children, isFetching, noShowsYet }) => {
     mainContent = children;
   }
 
-  console.log({mainContent})
-
   return [
     <Header key="header" />,
 
