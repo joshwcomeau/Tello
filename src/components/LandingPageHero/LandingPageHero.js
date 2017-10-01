@@ -130,7 +130,7 @@ const FixedWrapper = styled.div`
   right: 0;
   bottom: 0;
   background: linear-gradient(
-    -15deg,
+    ${GRADIENT_ANGLE},
     ${COLORS.cyan.primary},
     ${COLORS.blue.primary} 35%,
     ${COLORS.purple.primary} 90%,

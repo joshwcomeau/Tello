@@ -7,11 +7,7 @@ import { COLORS, UNITS_IN_PX } from '../../constants';
 const Divider = () => {
   return (
     <DividerElem>
-      <Dot color={COLORS.deepPurple.light} />
-      <Dot color={COLORS.purple.primary} />
-      <Dot color={COLORS.pink.primary} />
-      <Dot color={COLORS.purple.primary} />
-      <Dot color={COLORS.deepPurple.light} />
+      <Bar />
     </DividerElem>
   );
 };
@@ -23,12 +19,11 @@ const DividerElem = styled.div`
   padding: ${UNITS_IN_PX[2]};
 `;
 
-const Dot = styled.div`
-  width: 12px;
-  height: 12px;
-  background-color: ${props => props.color};
-  margin-left: 7px;
-  margin-right: 7px;
-`;
+const Bar = styled.div`
+  width: 125px;
+  height: 1px;
+  background: rgba(255,255,255,0.25);
+
+`
 
 export default Divider;
