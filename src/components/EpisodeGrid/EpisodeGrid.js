@@ -28,19 +28,10 @@ class EpisodeGrid extends PureComponent {
     isHighlighted: false,
   }
 
-  componentDidMount() {
-
-  }
-
-  handleHoverEpisode = (ev, episode) => {
-    const wrapperBox = this.elem.getBoundingClientRect();
-    const episodeBox = ev.target.getBoundingClientRect();
-    const episodeXCenter = episodeBox.left - episodeBox.width - wrapperBox.left;
-
+  handleHoverEpisode = (episode) => {
     this.setState({
       isHighlighted: true,
       highlightedEpisode: episode,
-      episodeXCenter,
     });
   }
 
@@ -57,7 +48,6 @@ class EpisodeGrid extends PureComponent {
     const {
       isHighlighted,
       highlightedEpisode,
-      episodeXCenter,
     } = this.state;
 
     if (!highlightedEpisode) {
@@ -65,7 +55,7 @@ class EpisodeGrid extends PureComponent {
     }
 
     return (
-      <HighlightedEpisode isVisible={isHighlighted} offsetLeft={episodeXCenter}>
+      <HighlightedEpisode isVisible={isHighlighted}>
         <EpisodeName>{highlightedEpisode.name}</EpisodeName>
         <EpisodeDetails>
           {getEpisodeNumString(highlightedEpisode)}
@@ -87,10 +77,7 @@ class EpisodeGrid extends PureComponent {
     const episodesBySeason = Object.keys(seasons).map(id => seasons[id]);
 
     return (
-      <Wrapper
-        innerRef={elem => this.elem = elem}
-        onMouseLeave={this.handleLeaveEpisodeGrid}
-      >
+      <Wrapper onMouseLeave={this.handleLeaveEpisodeGrid}>
         {this.state.highlightedEpisode && this.renderHighlightedEpisode()}
 
         <Scrollable maxHeight={GRID_MAX_HEIGHT_PX}>
@@ -102,7 +89,7 @@ class EpisodeGrid extends PureComponent {
                     key={episode.id}
                     size={EPISODE_DOT_SIZE}
                     isSeen={episode.isSeen}
-                    onMouseEnter={(ev) => this.handleHoverEpisode(ev, episode)}
+                    onMouseEnter={() => this.handleHoverEpisode(episode)}
                     onClick={() => handleClickEpisode(episode)}
                   />
                 ))}
@@ -165,24 +152,6 @@ const HighlightedEpisode = styled.div`
   text-align: center;
   opacity: ${props => props.isVisible ? 1 : 0};
   transition: opacity ${HIGHLIGHT_FADE_DURATION + 'ms'};
-  box-shadow:
-    0px 2px 5px rgba(0, 0, 0, 0.15),
-    0px 10px 25px rgba(0, 0, 0, 0.2)
-  ;
-  border-radius: 4px;
-
-  &:after {
-    content: '';
-    position: absolute;
-    left: ${props => props.offsetLeft + 'px'};
-    bottom: 0;
-    width: 10px;
-    height: 10px;
-    transform: translateY(50%) rotate(45deg);
-    transform-origin: center center;
-    background: ${COLORS.white};
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.15)
-  }
 `;
 
 const EpisodeName = styled.div`
