@@ -30,7 +30,7 @@ class LandingPageView extends PureComponent {
       showNotification: false,
     });
 
-    this.props.changeSorting({ sorting: 'chrono' });
+    this.props.changeSorting({ sorting: 'dateAdded' });
 
     if (isDesktop()) {
       window.addEventListener('scroll', this.handleScroll);

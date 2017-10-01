@@ -1,7 +1,7 @@
 import { CHANGE_SORTING } from '../actions';
 
 const initialState = {
-  sorting: 'alpha',
+  sorting: 'dateAdded',
 };
 
 export default function reducer(state = initialState, action) {

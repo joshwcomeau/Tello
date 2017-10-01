@@ -14,7 +14,8 @@ const SortShows = ({ selectedOption, changeSorting }) => (
       label="Sort"
       options={{
         [SORT_OPTIONS.alpha]: 'Alphabetical',
-        [SORT_OPTIONS.chrono]: 'Chronological',
+        [SORT_OPTIONS.dateAdded]: 'Date Added',
+        [SORT_OPTIONS.episodeAirDate]: 'Episode Air Date',
       }}
       selectedOption={selectedOption}
       handleChange={value => changeSorting({ sorting: value })}

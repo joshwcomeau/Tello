@@ -17,7 +17,8 @@ export const MODAL_IDS = {
 
 export const SORT_OPTIONS = {
   alpha: 'alpha',
-  chrono: 'chrono',
+  dateAdded: 'dateAdded',
+  episodeAirDate: 'episodeAirDate',
 };
 
 export const COLORS = {
