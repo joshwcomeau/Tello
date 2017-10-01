@@ -1,5 +1,11 @@
-import { LOCAL_STORAGE_REDUX_DATA_KEY } from '../constants';
+import Cookies from 'cookies-js';
+
 import { debounce } from '../utils';
+import {
+  AUTH_TOKEN_KEY,
+  LOCAL_STORAGE_REDUX_DATA_KEY,
+  SORT_OPTIONS,
+} from '../constants';
 
 
 // TODO: Fix `handleStoreUpdates` and `clearReduxData` interop.
@@ -26,7 +32,16 @@ const updateLocalStorage = debounce(
 // available instantly :)
 export const handleStoreUpdates = function handleStoreUpdates(store) {
   // Omit modals and flash messages, we don't want to rehydrate this.
-  const { modals, flash, ...relevantState} = store.getState();
+  // We also omit the calendar, since presumably you care more about the present week,
+  // not the week you were looking at last time.
+  const { modals, flash, calendar, ...relevantState} = store.getState();
+
+  // Omit the user's auth token; this is already stored via cookie.
+  if (relevantState.auth) {
+    const {token, ...relevantAuthState} = relevantState.auth;
+
+    relevantState.auth = relevantAuthState;
+  }
 
   updateLocalStorage(
     LOCAL_STORAGE_REDUX_DATA_KEY,
@@ -37,3 +52,39 @@ export const handleStoreUpdates = function handleStoreUpdates(store) {
 export const clearReduxData = () => {
   window.localStorage.removeItem(LOCAL_STORAGE_REDUX_DATA_KEY);
 };
+
+// Get the initial state from localStorage, and do a bunch of annoying
+// data-mungy things to make sure everything initializes properly.
+export const getInitialState = (defaultState) => {
+  const initialState = JSON.parse(
+    localStorage.getItem(LOCAL_STORAGE_REDUX_DATA_KEY) || '{}'
+  );
+
+  // A note on the authentication token.
+  //
+  // This token comes from the server, sent down via cookie after successful
+  // google auth. We then use it when we instantiate Redux, so that we can do
+  // checks to see if the user is logged in (or, at least, has an auth token).
+  //
+  // Sadly, this means it's duplicated across localStorage and cookies.
+  //
+  // This final step is necessary to hydrate it from the cookie.
+  const token = Cookies.get(AUTH_TOKEN_KEY);
+  if (token) {
+    if (!initialState.auth) {
+      initialState.auth = {};
+    }
+
+    initialState.auth.token = token;
+  }
+
+  // If an outdated sort key was persisted, delete it to avoid issues.
+  const validSortOptions = Object.keys(SORT_OPTIONS);
+  const persistedSort = initialState.ui && initialState.ui.sorting;
+
+  if (persistedSort && !validSortOptions.includes(persistedSort)) {
+    delete initialState.ui;
+  }
+
+  return initialState;
+}

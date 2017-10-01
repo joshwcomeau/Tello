@@ -1,11 +1,12 @@
+import startOfWeek from 'date-fns/start_of_week';
+import endOfWeek from 'date-fns/end_of_week';
+
 import { UPDATE_CALENDAR_WEEK } from '../actions';
 
 
-// NOTE: Actual initial state comes from src/index.js, where it's set to be
-// the start and end of the current week.
 const initialState = {
-  startDate: null,
-  endDate: null,
+  startDate: startOfWeek(new Date()),
+  endDate: endOfWeek(new Date()),
 };
 
 
