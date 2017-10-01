@@ -160,6 +160,12 @@ const convertEpisodeMapToArray = ({ episodes, seenEpisodeIds }) => (
       ...episodes[episodeId],
       isSeen: seenEpisodeIds.includes(Number(episodeId)),
     }))
+    // Sort the episodes by air date.
+    // This will be used in several places, and it's more efficient
+    // to just do it once up here.
+    .sort((ep1, ep2) => (
+      compareAsc(ep1.airstamp, ep2.airstamp)
+    ))
 );
 
 const organizeEpisodesBySeason = ({ episodes, seenEpisodeIds }) => {
@@ -170,11 +176,6 @@ const organizeEpisodesBySeason = ({ episodes, seenEpisodeIds }) => {
   if (!Array.isArray(episodes)) {
     episodes = convertEpisodeMapToArray({ episodes, seenEpisodeIds });
   }
-
-  // Sort the episodes by their season/episode number.
-  episodes = episodes.slice().sort((ep1, ep2) => (
-    compareAsc(ep1.airstamp, ep2.airstamp)
-  ));
 
   return episodes.reduce((acc, episode) => {
     if (!acc[episode.season]) {
