@@ -7,7 +7,6 @@ import PropTypes from 'prop-types';
 import { userDataRequest, hideModal } from '../../actions';
 import { HEADER_HEIGHT_PX, FOOTER_HEIGHT_PX, Z_INDICES } from '../../constants';
 import { getToken } from '../../reducers/auth.reducer';
-import { getNoShowsYet } from '../../reducers/tracked-shows.reducer';
 
 import FlashMessage from '../FlashMessage';
 import Modal from '../Modal';
@@ -28,7 +27,6 @@ import NotFoundView from '../NotFoundView';
 class App extends PureComponent {
   static propTypes = {
     hasToken: PropTypes.bool.isRequired,
-    noShowsYet: PropTypes.bool.isRequired,
     userDataRequest: PropTypes.func.isRequired,
   }
 
@@ -105,7 +103,6 @@ class App extends PureComponent {
 
 const mapStateToProps = state => ({
   hasToken: !!getToken(state),
-  noShowsYet: getNoShowsYet(state),
 });
 
 const mapDispatchToProps = { userDataRequest, hideModal };

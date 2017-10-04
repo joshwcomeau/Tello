@@ -22,7 +22,7 @@ import NoShowsYet from '../NoShowsYet';
 import FetchEpisodes from '../FetchEpisodes';
 
 
-const LoggedInLayout = ({ children, isFetching, noShowsYet }) => {
+const LoggedInLayout = ({ showNavLinks, children, isFetching, noShowsYet }) => {
   let mainContent;
 
   if (isFetching) {
@@ -55,7 +55,7 @@ const LoggedInLayout = ({ children, isFetching, noShowsYet }) => {
         }
 
         {
-          isDesktop() && <DesktopNavigation />
+          isDesktop() && showNavLinks && <DesktopNavigation />
         }
 
         {mainContent}

@@ -1,8 +1,11 @@
 import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Route, Redirect, Switch } from 'react-router-dom';
 
 import { isMobile } from '../../helpers/responsive.helpers';
 import { debounce } from '../../utils';
+import { getNoShowsYet } from '../../reducers/tracked-shows.reducer';
 import { breakpointsProp } from '../../types';
 
 import Bundle from '../Bundle';
@@ -14,6 +17,7 @@ import BacklogView from '../BacklogView';
 import CalendarView from '../CalendarView';
 import SettingsView from '../SettingsView';
 import NotFoundView from '../NotFoundView';
+import NoShowsYet from '../NoShowsYet';
 
 import loadMobileView from 'bundle-loader?lazy!../MobileView';
 
@@ -21,6 +25,7 @@ import loadMobileView from 'bundle-loader?lazy!../MobileView';
 class AppRoutes extends PureComponent {
   static propTypes = {
     breakpoint: breakpointsProp.isRequired,
+    noShowsYet: PropTypes.bool.isRequired,
   }
 
   getMobileRoutes() {
@@ -56,10 +61,14 @@ class AppRoutes extends PureComponent {
   }
 
   render() {
+    const { breakpoint, noShowsYet } = this.props;
+
     return (
-      <LoggedInLayout>
+      <LoggedInLayout showNavLinks={!noShowsYet}>
         <Switch>
-          {isMobile(this.props.breakpoint)
+          {noShowsYet && <Route component={NoShowsYet} />}
+
+          {isMobile(breakpoint)
             ? this.getMobileRoutes()
             : this.getDesktopRoutes()
           }
@@ -71,4 +80,8 @@ class AppRoutes extends PureComponent {
   }
 }
 
-export default AppRoutes;
+const mapStateToProps = state => ({
+  noShowsYet: getNoShowsYet(state),
+});
+
+export default connect(mapStateToProps)(AppRoutes);
