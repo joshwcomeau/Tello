@@ -19,6 +19,7 @@ import { ShowProps } from '../../types';
 import Button from '../Button';
 import EpisodeGrid from '../EpisodeGrid';
 import ShowStatus from '../ShowStatus';
+import Spinner from '../Spinner';
 
 import { buildImageUrl } from './SummaryShow.helpers';
 
@@ -50,7 +51,7 @@ export class SummaryShow extends Component {
   render() {
     const {
       demo,
-      show: { name, image, seasons, status, summary },
+      show: { isLoading, name, image, seasons, status, summary },
     } = this.props;
 
     // We want to show a "manage" button on hover, unless we've explicitly
@@ -59,7 +60,13 @@ export class SummaryShow extends Component {
     const showActions = !demo && isDesktop();
 
     return (
-      <Wrapper>
+      <Wrapper isLoading={isLoading}>
+        {isLoading && (
+          <SpinnerFullContainer>
+            <Spinner />
+          </SpinnerFullContainer>
+        )}
+
         <ImageHeader>
           <LazyLoad once height={UNITS_IN_PX[6]} offset={50}>
             <Image
@@ -121,6 +128,19 @@ const Wrapper = styled.div`
   &:hover [data-selector="actions"] {
     opacity: 1;
   }
+`;
+
+const SpinnerFullContainer = styled.div`
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.5);
 `;
 
 const ImageHeader = styled.header`

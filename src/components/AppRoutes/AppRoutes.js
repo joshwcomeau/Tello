@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Route, Redirect, Switch } from 'react-router-dom';
+import { Route, Redirect, Switch , withRouter } from 'react-router-dom';
 
 import { isMobile } from '../../helpers/responsive.helpers';
 import { debounce } from '../../utils';
@@ -84,4 +84,6 @@ const mapStateToProps = state => ({
   noShowsYet: getNoShowsYet(state),
 });
 
-export default connect(mapStateToProps)(AppRoutes);
+export default withRouter(
+  connect(mapStateToProps)(AppRoutes)
+);
