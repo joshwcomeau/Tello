@@ -1,5 +1,5 @@
 // This is the layout used for side-pages, like the privacy policy.
-import React from 'react';
+import React, { PureComponent } from 'react';
 import styled from 'emotion/react';
 
 import {
@@ -17,28 +17,39 @@ import MaxWidthWrapper from '../MaxWidthWrapper';
 import Spacer from '../Spacer';
 
 
-const StaticLayout = ({ title, subtitle, children }) => (
-  <StaticLayoutElem>
-    <MaxWidthWrapper>
-      <StaticHeader>
-        <Logo
-          boxColor={COLORS.gray.veryLight}
-          textColor={COLORS.gray.veryDark}
-        />
-      </StaticHeader>
+class StaticLayout extends PureComponent {
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
 
-      <Heading size="medium" theme="vibrant">
-        {title}
-      </Heading>
+  render() {
+    const { title, subtitle, children } = this.props;
 
-      {subtitle && <Subtitle>{subtitle}</Subtitle>}
+    return (
+      <StaticLayoutElem>
+        <MaxWidthWrapper>
+          <StaticHeader>
+            <Logo
+              boxColor={COLORS.gray.veryLight}
+              textColor={COLORS.gray.veryDark}
+            />
+          </StaticHeader>
 
-      {children}
+          <Heading size="medium" theme="vibrant">
+            {title}
+          </Heading>
 
-      <Spacer size={UNIT * 5} />
-    </MaxWidthWrapper>
-  </StaticLayoutElem>
-);
+          {subtitle && <Subtitle>{subtitle}</Subtitle>}
+
+          {children}
+
+          <Spacer size={UNIT * 5} />
+        </MaxWidthWrapper>
+      </StaticLayoutElem>
+    );
+  }
+}
+
 
 const StaticLayoutElem = styled.div`
   min-height: calc(100vh - ${FOOTER_HEIGHT_PX});
