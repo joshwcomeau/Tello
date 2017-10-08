@@ -14,6 +14,7 @@ class FadeOnChange extends PureComponent {
   static propTypes = {
     children: PropTypes.node,
     duration: PropTypes.number,
+    changeKey: PropTypes.any,
   }
 
   static defaultProps = {
@@ -29,9 +30,16 @@ class FadeOnChange extends PureComponent {
   ))
 
   componentDidUpdate(prevProps, prevState) {
-    // Ignore state-change updates, since these updates only happen mid-fade
-    // to swap out the content being rendered.
-    if (this.state.children !== prevState.children) {
+    // Sometimes, we don't want to look at the children themselves.
+    // Children can be React elements, after all, which are regenerated on
+    // every render. If we supply a `changeKey`, use it instead.
+    // If not, use the children in state. We use state instead of props so
+    // that we ignore the update of the children being swapped out mid-fade.
+    const hasChanged = typeof this.props.changeKey !== 'undefined'
+      ? this.props.changeKey !== prevProps.changeKey
+      : this.state.children !== prevState.children;
+
+      if (!hasChanged) {
       return;
     }
 
