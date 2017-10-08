@@ -13,6 +13,10 @@ import {
   UNITS_IN_PX,
 } from '../../constants';
 import { isDesktop } from '../../helpers/responsive.helpers';
+import {
+  getHumanizedEpisodeAirDate,
+  getEpisodeNumString
+} from '../../helpers/show.helpers';
 import { truncateStringByWordCount } from '../../utils';
 import { ShowProps } from '../../types';
 
@@ -24,12 +28,27 @@ import Spinner from '../Spinner';
 import { buildImageUrl } from './SummaryShow.helpers';
 
 
+const HIGHLIGHT_FADE_DURATION = 500;
+
 export class SummaryShow extends Component {
+  state = {
+    episode: null,
+    isHighlightingEpisode: false,
+  }
+
   static propTypes = {
     show: ShowProps,
     demo: PropTypes.bool,
     toggleEpisode: PropTypes.func.isRequired,
     showEditShowModal: PropTypes.func,
+  }
+
+  handleHoverEpisode = (episode) => {
+    this.setState({ episode, isHighlightingEpisode: true });
+  }
+
+  handleLeaveEpisodeGrid = () => {
+    this.setState({ isHighlightingEpisode: false })
   }
 
   handleClickEpisode = (episode) => {
@@ -46,6 +65,32 @@ export class SummaryShow extends Component {
 
   handleClickEditButton = () => {
     this.props.showEditShowModal({ showId: this.props.show.id });
+  }
+
+  renderSummaryArea() {
+    const { isHighlightingEpisode, episode } = this.state;
+
+    // By default, we want to render the show's summary.
+    // If we hover over an episode tile, though, we want to show the
+    // episode data.
+    if (isHighlightingEpisode) {
+      return (
+        <HighlightedEpisode isVisible={isHighlightingEpisode}>
+          <EpisodeName>{episode.name}</EpisodeName>
+          <EpisodeDetails>
+            {getEpisodeNumString(episode)}
+            &nbsp;-&nbsp;
+          {getHumanizedEpisodeAirDate(episode)}
+          </EpisodeDetails>
+        </HighlightedEpisode>
+      );
+    }
+
+    return (
+      <Summary>
+        {truncateStringByWordCount(this.props.show.summary, 20)}
+      </Summary>
+    );
   }
 
   render() {
@@ -105,12 +150,12 @@ export class SummaryShow extends Component {
           <ShowName>{name}</ShowName>
           <ShowStatus status={status} />
 
-          <Summary>
-            {truncateStringByWordCount(summary, 20)}
-          </Summary>
+          {this.renderSummaryArea()}
         </Body>
 
         <EpisodeGrid
+          handleHoverEpisode={this.handleHoverEpisode}
+          handleLeaveEpisodeGrid={this.handleLeaveEpisodeGrid}
           handleClickEpisode={this.handleClickEpisode}
           seasons={seasons}
         />
@@ -192,6 +237,24 @@ const Actions = styled.div`
   padding: ${UNITS_IN_PX[1]};
   color: ${COLORS.gray.veryDark};
   transition: opacity 600ms;
+`;
+
+const HighlightedEpisode = styled.div`
+  padding: ${UNITS_IN_PX[1]};
+  color: ${COLORS.gray.veryDark};
+  text-align: center;
+  opacity: ${props => props.isVisible ? 1 : 0};
+  transition: opacity ${HIGHLIGHT_FADE_DURATION + 'ms'};
+`;
+
+const EpisodeName = styled.div`
+  font-size: 18px;
+  font-weight: bold;
+`;
+
+const EpisodeDetails = styled.div`
+  font-size: 13px;
+  color: ${COLORS.gray.primary};
 `;
 
 const mapDispatchToProps = {
