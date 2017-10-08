@@ -13,22 +13,42 @@ import {
   UNITS_IN_PX,
 } from '../../constants';
 import { isDesktop } from '../../helpers/responsive.helpers';
+import {
+  getHumanizedEpisodeAirDate,
+  getEpisodeNumString
+} from '../../helpers/show.helpers';
 import { truncateStringByWordCount } from '../../utils';
 import { ShowProps } from '../../types';
 
 import Button from '../Button';
 import EpisodeGrid from '../EpisodeGrid';
 import ShowStatus from '../ShowStatus';
+import Spinner from '../Spinner';
 
 import { buildImageUrl } from './SummaryShow.helpers';
 
 
+const HIGHLIGHT_FADE_DURATION = 500;
+
 export class SummaryShow extends Component {
+  state = {
+    episode: null,
+    isHighlightingEpisode: false,
+  }
+
   static propTypes = {
     show: ShowProps,
     demo: PropTypes.bool,
     toggleEpisode: PropTypes.func.isRequired,
     showEditShowModal: PropTypes.func,
+  }
+
+  handleHoverEpisode = (episode) => {
+    this.setState({ episode, isHighlightingEpisode: true });
+  }
+
+  handleLeaveEpisodeGrid = () => {
+    this.setState({ isHighlightingEpisode: false })
   }
 
   handleClickEpisode = (episode) => {
@@ -47,10 +67,36 @@ export class SummaryShow extends Component {
     this.props.showEditShowModal({ showId: this.props.show.id });
   }
 
+  renderSummaryArea() {
+    const { isHighlightingEpisode, episode } = this.state;
+
+    // By default, we want to render the show's summary.
+    // If we hover over an episode tile, though, we want to show the
+    // episode data.
+    if (isHighlightingEpisode) {
+      return (
+        <HighlightedEpisode isVisible={isHighlightingEpisode}>
+          <EpisodeName>{episode.name}</EpisodeName>
+          <EpisodeDetails>
+            {getEpisodeNumString(episode)}
+            &nbsp;-&nbsp;
+          {getHumanizedEpisodeAirDate(episode)}
+          </EpisodeDetails>
+        </HighlightedEpisode>
+      );
+    }
+
+    return (
+      <Summary>
+        {truncateStringByWordCount(this.props.show.summary, 20)}
+      </Summary>
+    );
+  }
+
   render() {
     const {
       demo,
-      show: { name, image, seasons, status, summary },
+      show: { isLoading, name, image, seasons, status, summary },
     } = this.props;
 
     // We want to show a "manage" button on hover, unless we've explicitly
@@ -59,7 +105,13 @@ export class SummaryShow extends Component {
     const showActions = !demo && isDesktop();
 
     return (
-      <Wrapper>
+      <Wrapper isLoading={isLoading}>
+        {isLoading && (
+          <SpinnerFullContainer>
+            <Spinner />
+          </SpinnerFullContainer>
+        )}
+
         <ImageHeader>
           <LazyLoad once height={UNITS_IN_PX[6]} offset={50}>
             <Image
@@ -98,12 +150,12 @@ export class SummaryShow extends Component {
           <ShowName>{name}</ShowName>
           <ShowStatus status={status} />
 
-          <Summary>
-            {truncateStringByWordCount(summary, 20)}
-          </Summary>
+          {this.renderSummaryArea()}
         </Body>
 
         <EpisodeGrid
+          handleHoverEpisode={this.handleHoverEpisode}
+          handleLeaveEpisodeGrid={this.handleLeaveEpisodeGrid}
           handleClickEpisode={this.handleClickEpisode}
           seasons={seasons}
         />
@@ -121,6 +173,19 @@ const Wrapper = styled.div`
   &:hover [data-selector="actions"] {
     opacity: 1;
   }
+`;
+
+const SpinnerFullContainer = styled.div`
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.5);
 `;
 
 const ImageHeader = styled.header`
@@ -172,6 +237,24 @@ const Actions = styled.div`
   padding: ${UNITS_IN_PX[1]};
   color: ${COLORS.gray.veryDark};
   transition: opacity 600ms;
+`;
+
+const HighlightedEpisode = styled.div`
+  padding: ${UNITS_IN_PX[1]};
+  color: ${COLORS.gray.veryDark};
+  text-align: center;
+  opacity: ${props => props.isVisible ? 1 : 0};
+  transition: opacity ${HIGHLIGHT_FADE_DURATION + 'ms'};
+`;
+
+const EpisodeName = styled.div`
+  font-size: 18px;
+  font-weight: bold;
+`;
+
+const EpisodeDetails = styled.div`
+  font-size: 13px;
+  color: ${COLORS.gray.primary};
 `;
 
 const mapDispatchToProps = {

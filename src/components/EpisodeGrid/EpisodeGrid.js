@@ -23,51 +23,13 @@ const GRID_MAX_HEIGHT_PX = GRID_MAX_HEIGHT + 'px';
 const HIGHLIGHT_FADE_DURATION = 500;
 
 class EpisodeGrid extends PureComponent {
-  state = {
-    highlightedEpisode: null,
-    isHighlighted: false,
-  }
-
-  handleHoverEpisode = (episode) => {
-    this.setState({
-      isHighlighted: true,
-      highlightedEpisode: episode,
-    });
-  }
-
-  handleLeaveEpisodeGrid = () => {
-    this.setState({ isHighlighted: false })
-
-    this.fadeTimeoutId = window.setTimeout(
-      this.unsetEpisode,
-      HIGHLIGHT_FADE_DURATION
-    );
-  }
-
-  renderHighlightedEpisode() {
-    const {
-      isHighlighted,
-      highlightedEpisode,
-    } = this.state;
-
-    if (!highlightedEpisode) {
-      return null;
-    }
-
-    return (
-      <HighlightedEpisode isVisible={isHighlighted}>
-        <EpisodeName>{highlightedEpisode.name}</EpisodeName>
-        <EpisodeDetails>
-          {getEpisodeNumString(highlightedEpisode)}
-          &nbsp;-&nbsp;
-          {getHumanizedEpisodeAirDate(highlightedEpisode)}
-        </EpisodeDetails>
-      </HighlightedEpisode>
-    );
-  }
-
   render() {
-    const { seasons, handleClickEpisode } = this.props;
+    const {
+      seasons,
+      handleHoverEpisode,
+      handleLeaveEpisodeGrid,
+      handleClickEpisode
+    } = this.props;
 
     if (!seasons || isEmpty(seasons)) {
       // TODO: loading
@@ -77,9 +39,7 @@ class EpisodeGrid extends PureComponent {
     const episodesBySeason = Object.keys(seasons).map(id => seasons[id]);
 
     return (
-      <Wrapper onMouseLeave={this.handleLeaveEpisodeGrid}>
-        {this.state.highlightedEpisode && this.renderHighlightedEpisode()}
-
+      <Wrapper onMouseLeave={handleLeaveEpisodeGrid}>
         <Scrollable maxHeight={GRID_MAX_HEIGHT_PX}>
           <EpisodeGridContents>
             {episodesBySeason.map((season, index) => (
@@ -89,7 +49,7 @@ class EpisodeGrid extends PureComponent {
                     key={episode.id}
                     size={EPISODE_DOT_SIZE}
                     isSeen={episode.isSeen}
-                    onMouseEnter={() => this.handleHoverEpisode(episode)}
+                    onMouseEnter={() => handleHoverEpisode(episode)}
                     onClick={() => handleClickEpisode(episode)}
                   />
                 ))}
@@ -136,32 +96,6 @@ const EpisodeOverflowGradient = styled.div`
     rgba(255,255,255,0)
   );
   pointer-events: none;
-`;
-
-const HighlightedEpisode = styled.div`
-  position: absolute;
-  z-index: 3;
-  top: 0;
-  left: ${UNITS_IN_PX[1]};
-  right: ${UNITS_IN_PX[1]};
-  margin: auto;
-  padding: ${UNITS_IN_PX[1]};
-  transform: translateY(-100%);
-  background-color: ${COLORS.white};
-  color: ${COLORS.gray.veryDark};
-  text-align: center;
-  opacity: ${props => props.isVisible ? 1 : 0};
-  transition: opacity ${HIGHLIGHT_FADE_DURATION + 'ms'};
-`;
-
-const EpisodeName = styled.div`
-  font-size: 18px;
-  font-weight: bold;
-`;
-
-const EpisodeDetails = styled.div`
-  font-size: 13px;
-  color: ${COLORS.gray.primary};
 `;
 
 export default EpisodeGrid;

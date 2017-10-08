@@ -20,7 +20,7 @@ const AboutView = () => (
     <Section>
       <Paragraph size="large">
         <EmojiRotater>
-          <Emoji size={50}>👋</Emoji>
+          <Emoji size={40}>👋</Emoji>
         </EmojiRotater>
         {' '}
         Hi! I'm Josh. I built Tello.
@@ -72,21 +72,10 @@ const AboutView = () => (
 );
 
 
-const wave = keyframes`
-  0% { transform: rotate(43deg); }
-  15% { transform: rotate(0deg); }
-  30% { transform: rotate(43deg); }
-  50% { transform: rotate(0deg); }
-  75% { transform: rotate(43deg); }
-  100% { transform: rotate(43deg); }
-`
 
 const EmojiRotater = styled.span`
   display: inline-block;
   margin-left: -14px;
-  animation: ${wave} 2s both 500ms;
-  transform-origin: center center;
-  will-change: transform;
 `
 
 const Section = styled.div`

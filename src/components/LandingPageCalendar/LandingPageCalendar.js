@@ -65,9 +65,7 @@ class LandingPageCalendar extends PureComponent {
                     `,
                   }}
                 />
-                <Glow
-                  style={{ opacity: 1 - (opacity * 0.5) }}
-                />
+                <Glow />
               </CalendarWrapper>
 
               <Disclaimer style={{ opacity }}>
@@ -129,7 +127,7 @@ const DescriptionWrapper = styled.div`
     right: 0;
     margin-right: 65%;
     opacity: ${props => props.faded ? 0.2 : 1};
-    transition: opacity 700ms;
+    transition: opacity 400ms;
   }
 
   @media ${BREAKPOINTS.xlMin} {

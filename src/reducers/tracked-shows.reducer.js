@@ -4,8 +4,9 @@ import isFuture from 'date-fns/is_future';
 import compareAsc from 'date-fns/compare_asc';
 
 import {
-  EPISODES_RECEIVE,
+  ADD_SHOWS_REQUEST,
   ADD_SHOWS_RECEIVE,
+  EPISODES_RECEIVE,
   REMOVE_SHOW,
   TOGGLE_EPISODE,
   MARK_EPISODE_AS_SEEN,
@@ -43,7 +44,32 @@ export default function trackedShowsReducer(state = initialState, action) {
       }, {});
     }
 
+    case ADD_SHOWS_REQUEST: {
+      // We want to immediately add these shows to the homepage, but make
+      // it clear they're still loading.
+      const showsWithLoading = action.shows.map(show => ({
+        ...show,
+        isLoading: true,
+        // We also need to make sure the data is formatted as it will be when
+        // returned by the server.
+        // This is kinda gross, but I think it's necessary.
+        createdAt: (new Date('05 October 2011 14:48 UTC')).toISOString(),
+        seenEpisodeIds: [],
+      }));
+
+      // Convert the state shape so that it's map-like, instead of an array.
+      const newShowsMap = convertArrayToMap(showsWithLoading);
+
+      return {
+        ...state,
+        ...newShowsMap,
+      };
+    }
+
     case ADD_SHOWS_RECEIVE: {
+      // TODO: We need to avoid overwriting all the episodes here.
+      // Maybe it makes sense to keep the existing data, and just remove `loading`?
+
       // Convert the state shape so that it's map-like, instead of an array.
       const newShowsMap = convertArrayToMap(action.shows);
 
