@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'emotion/react';
@@ -6,7 +6,6 @@ import LazyLoad from 'react-lazyload';
 
 import { toggleEpisode, showEditShowModal } from '../../actions';
 import {
-  BREAKPOINT_SIZES,
   BREAKPOINTS,
   COLORS,
   HALF_UNIT_PX,
@@ -22,6 +21,7 @@ import { ShowProps } from '../../types';
 
 import Button from '../Button';
 import EpisodeGrid from '../EpisodeGrid';
+import FadeOnChange from '../FadeOnChange';
 import ShowStatus from '../ShowStatus';
 import Spinner from '../Spinner';
 
@@ -30,7 +30,7 @@ import { buildImageUrl } from './SummaryShow.helpers';
 
 const HIGHLIGHT_FADE_DURATION = 500;
 
-export class SummaryShow extends Component {
+export class SummaryShow extends PureComponent {
   state = {
     episode: null,
     isHighlightingEpisode: false,
@@ -47,7 +47,7 @@ export class SummaryShow extends Component {
     this.setState({ episode, isHighlightingEpisode: true });
   }
 
-  handleLeaveEpisodeGrid = () => {
+  handleLeaveSummary = () => {
     this.setState({ isHighlightingEpisode: false })
   }
 
@@ -70,27 +70,21 @@ export class SummaryShow extends Component {
   renderSummaryArea() {
     const { isHighlightingEpisode, episode } = this.state;
 
-    // By default, we want to render the show's summary.
-    // If we hover over an episode tile, though, we want to show the
-    // episode data.
-    if (isHighlightingEpisode) {
-      return (
+    return isHighlightingEpisode
+      ? (
         <HighlightedEpisode isVisible={isHighlightingEpisode}>
           <EpisodeName>{episode.name}</EpisodeName>
           <EpisodeDetails>
             {getEpisodeNumString(episode)}
             &nbsp;-&nbsp;
-          {getHumanizedEpisodeAirDate(episode)}
+                {getHumanizedEpisodeAirDate(episode)}
           </EpisodeDetails>
         </HighlightedEpisode>
+      ) : (
+        <Summary>
+          {truncateStringByWordCount(this.props.show.summary, 20)}
+        </Summary>
       );
-    }
-
-    return (
-      <Summary>
-        {truncateStringByWordCount(this.props.show.summary, 20)}
-      </Summary>
-    );
   }
 
   render() {
@@ -105,7 +99,10 @@ export class SummaryShow extends Component {
     const showActions = !demo && isDesktop();
 
     return (
-      <Wrapper isLoading={isLoading}>
+      <Wrapper
+        onMouseLeave={this.handleLeaveSummary}
+        isLoading={isLoading}
+      >
         {isLoading && (
           <SpinnerFullContainer>
             <Spinner />
@@ -150,12 +147,13 @@ export class SummaryShow extends Component {
           <ShowName>{name}</ShowName>
           <ShowStatus status={status} />
 
-          {this.renderSummaryArea()}
+          <SummaryArea>
+            {this.renderSummaryArea()}
+          </SummaryArea>
         </Body>
 
         <EpisodeGrid
           handleHoverEpisode={this.handleHoverEpisode}
-          handleLeaveEpisodeGrid={this.handleLeaveEpisodeGrid}
           handleClickEpisode={this.handleClickEpisode}
           seasons={seasons}
         />
@@ -169,6 +167,11 @@ const setBackgroundImage = ({ image }) => `url(${image})`;
 const Wrapper = styled.div`
   position: relative;
   background: ${COLORS.white};
+  /*
+    This property is needed to avoid having wrappers with long, no-wrap text
+    affect the layout of the grid. -shrugs-
+  */
+  min-width: 0;
 
   &:hover [data-selector="actions"] {
     opacity: 1;
@@ -223,6 +226,11 @@ const Body = styled.div`
   color: ${COLORS.gray.veryDark};
 `;
 
+const SummaryArea = styled.div`
+  height: 60px;
+  overflow: hidden;
+`;
+
 const Summary = styled.div`
   margin-top: ${HALF_UNIT_PX};
   font-size: 14px;
@@ -240,7 +248,7 @@ const Actions = styled.div`
 `;
 
 const HighlightedEpisode = styled.div`
-  padding: ${UNITS_IN_PX[1]};
+  padding: ${UNITS_IN_PX[1]} 0;
   color: ${COLORS.gray.veryDark};
   text-align: center;
   opacity: ${props => props.isVisible ? 1 : 0};
@@ -250,6 +258,10 @@ const HighlightedEpisode = styled.div`
 const EpisodeName = styled.div`
   font-size: 18px;
   font-weight: bold;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
 const EpisodeDetails = styled.div`

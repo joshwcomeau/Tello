@@ -1,11 +1,7 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import styled from 'emotion/react';
 
-import { COLORS, UNIT, UNITS_IN_PX } from '../../constants';
-import {
-  getHumanizedEpisodeAirDate,
-  getEpisodeNumString
-} from '../../helpers/show.helpers';
+import { UNIT, UNITS_IN_PX } from '../../constants';
 import { isEmpty } from '../../utils';
 
 import Clearfix from '../Clearfix';
@@ -20,48 +16,38 @@ const MAX_EPISODE_ROWS = 10;
 const GRID_MAX_HEIGHT = UNIT * 2 + MAX_EPISODE_ROWS * EPISODE_ROW_HEIGHT;
 const GRID_MAX_HEIGHT_PX = GRID_MAX_HEIGHT + 'px';
 
-const HIGHLIGHT_FADE_DURATION = 500;
 
-class EpisodeGrid extends PureComponent {
-  render() {
-    const {
-      seasons,
-      handleHoverEpisode,
-      handleLeaveEpisodeGrid,
-      handleClickEpisode
-    } = this.props;
-
-    if (!seasons || isEmpty(seasons)) {
-      // TODO: loading
-      return null;
-    }
-
-    const episodesBySeason = Object.keys(seasons).map(id => seasons[id]);
-
-    return (
-      <Wrapper onMouseLeave={handleLeaveEpisodeGrid}>
-        <Scrollable maxHeight={GRID_MAX_HEIGHT_PX}>
-          <EpisodeGridContents>
-            {episodesBySeason.map((season, index) => (
-              <Season key={index}>
-                {season.map(episode => (
-                  <EpisodeDot
-                    key={episode.id}
-                    size={EPISODE_DOT_SIZE}
-                    isSeen={episode.isSeen}
-                    onMouseEnter={() => handleHoverEpisode(episode)}
-                    onClick={() => handleClickEpisode(episode)}
-                  />
-                ))}
-              </Season>
-            ))}
-
-          </EpisodeGridContents>
-        </Scrollable>
-        <EpisodeOverflowGradient />
-      </Wrapper>
-    );
+const EpisodeGrid = ({ seasons, handleHoverEpisode, handleClickEpisode }) => {
+  if (!seasons || isEmpty(seasons)) {
+    // TODO: loading
+    return null;
   }
+
+  const episodesBySeason = Object.keys(seasons).map(id => seasons[id]);
+
+  return (
+    <Wrapper>
+      <Scrollable maxHeight={GRID_MAX_HEIGHT_PX}>
+        <EpisodeGridContents>
+          {episodesBySeason.map((season, index) => (
+            <Season key={index}>
+              {season.map(episode => (
+                <EpisodeDot
+                  key={episode.id}
+                  size={EPISODE_DOT_SIZE}
+                  isSeen={episode.isSeen}
+                  onMouseEnter={() => handleHoverEpisode(episode)}
+                  onClick={() => handleClickEpisode(episode)}
+                />
+              ))}
+            </Season>
+          ))}
+
+        </EpisodeGridContents>
+      </Scrollable>
+      <EpisodeOverflowGradient />
+    </Wrapper>
+  );
 }
 
 
