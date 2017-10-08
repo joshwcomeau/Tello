@@ -1,7 +1,6 @@
 import { createSelector } from 'reselect';
 import update from 'immutability-helper';
 import isFuture from 'date-fns/is_future';
-import compareAsc from 'date-fns/compare_asc';
 
 import {
   ADD_SHOWS_REQUEST,
@@ -16,6 +15,7 @@ import {
   DELETE_SHOW_RECEIVE,
   LOGOUT,
 } from '../actions';
+import { sortEpisodesComparator } from '../helpers/show.helpers';
 import { convertArrayToMap, toggleInArray, mergeUnique } from '../utils';
 import { getIsFetching } from './auth.reducer';
 
@@ -186,12 +186,10 @@ const convertEpisodeMapToArray = ({ episodes, seenEpisodeIds }) => (
       ...episodes[episodeId],
       isSeen: seenEpisodeIds.includes(Number(episodeId)),
     }))
-    // Sort the episodes by air date.
+    // Sort the episodes.
     // This will be used in several places, and it's more efficient
     // to just do it once up here.
-    .sort((ep1, ep2) => (
-      compareAsc(ep1.airstamp, ep2.airstamp)
-    ))
+    .sort(sortEpisodesComparator)
 );
 
 const organizeEpisodesBySeason = ({ episodes, seenEpisodeIds }) => {

@@ -1,3 +1,4 @@
+import compareAsc from 'date-fns/compare_asc';
 import format from 'date-fns/format';
 
 import { SORT_OPTIONS } from '../constants';
@@ -43,6 +44,27 @@ export const sortShows = ({ shows, sorting }) => (
     }
   })
 );
+
+const getSortableEpisodeString = ({ season, number }) => {
+  return season * 1000 + number;
+}
+export const sortEpisodesComparator = (ep1, ep2) => {
+  // Most shows can simply be sorted by air date, but some Netflix shows
+  // are all released at exactly the same time. In those cases, sort by
+  // episode number.
+  if (ep1.airstamp === ep2.airstamp) {
+    const ep1String = getSortableEpisodeString(ep1);
+    const ep2String = getSortableEpisodeString(ep2);
+
+    if (ep1String === ep2String) {
+      return 0;
+    }
+
+    return ep1String > ep2String ? 1 : -1;
+  }
+
+  return compareAsc(ep1.airstamp, ep2.airstamp)
+}
 
 export const getHumanizedEpisodeAirDate = ({ airstamp }) => (
   format(airstamp, 'MMM Do, YYYY')
