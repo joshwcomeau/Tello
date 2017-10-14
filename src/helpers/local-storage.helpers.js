@@ -8,28 +8,33 @@ import {
 } from '../constants';
 
 
-// TODO: Fix `handleStoreUpdates` and `clearReduxData` interop.
-// There's a rather nasty bug with this implementation.
-// The updating is debounced, but the deletion is synchronous and instant.
-// This means that if the state changes, and then you delete the state,
-// a second or two later, the debounce will be up, and the deleted state
-// will resurrect in localStorage.
-// The solution is to roll our own debounce, so that we have access to the
-// timeoutId, and can clear it when the `clearReduxData` method is fired.
+// NOTE: I ran into an annoying bug. Bear with the explanation.
+// We debounce all LocalStorage updates, to avoid spamming the synchronous
+// storage call. Our "Remove" method, used when logging in, is not debounced.
+// This led to the issue of removing all data, only for it to be restored a
+// few hundred ms later, when the debounce for the 'update' completes.
+// By storing a variable for the timeout ID at the module level, we can store
+// the timeout ID when debounce fires, and clear it when we want to remove
+// all data.
+let timeoutId = null;
 
-// When our page first loads, a bunch of redux actions are dispatched rapidly
-// (each show needs to request and then receive their episodes, so the minimum
-// number of actions is 2n, where `n` is the number of shows).
-// We don't need to update localStorage _that_ often, so let's debounce it.
+/**
+ * updateLocalStorage
+ * Persist the arguments to localStorage, debouncing to avoid making too many
+ * calls.
+ */
 const updateLocalStorage = debounce(
   (...args) => localStorage.setItem(...args),
-  2500
+  2500,
+  timeoutId
 );
 
 
-// Whenever the store updates, store relevant parts in localStorage.
-// This way, we can initialize the store on page refresh, and have the data
-// available instantly :)
+/**
+ * handleStoreUpdates
+ * Whenever the Redux store updates, we pluck out the state we care about and
+ * persist it to localStorage.
+ */
 export const handleStoreUpdates = function handleStoreUpdates(store) {
   // Omit modals and flash messages, we don't want to rehydrate this.
   // We also omit the calendar, since presumably you care more about the present week,
@@ -49,12 +54,25 @@ export const handleStoreUpdates = function handleStoreUpdates(store) {
   );
 }
 
+/**
+ * clearReduxData
+ * Deletes the localStorage entry created by `handleStoreUpdates`, and clears
+ * the debounce timeout so that any queued updates are cancelled.
+ * Useful when logging out, to avoid having the user's personal show information
+ * leak to the logged-out homepage (and vice-versa).
+ */
 export const clearReduxData = () => {
+  window.clearTimeout(timeoutId);
+
   window.localStorage.removeItem(LOCAL_STORAGE_REDUX_DATA_KEY);
 };
 
-// Get the initial state from localStorage, and do a bunch of annoying
-// data-mungy things to make sure everything initializes properly.
+/**
+ * getInitialState
+ * Builds the initial Redux state, using data in localStorage, as well as the
+ * auth token from the cookie. Handles validating and resetting the state as
+ * needed.
+ */
 export const getInitialState = (defaultState) => {
   const initialState = JSON.parse(
     localStorage.getItem(LOCAL_STORAGE_REDUX_DATA_KEY) || '{}'

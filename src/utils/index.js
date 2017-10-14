@@ -13,18 +13,15 @@ export const clamp = (val, min = 0, max = 1) => (
   Math.max(min, Math.min(max, val))
 )
 
-export const debounce = (callback, wait, context = this) => {
-  let timeout = null
-  let callbackArgs = null
+export const debounce = (callback, wait, timeoutId = null) => (
+  (...args) => {
+    window.clearTimeout(timeoutId);
 
-  const later = () => callback.apply(context, callbackArgs)
-
-  return function() {
-    callbackArgs = arguments
-    clearTimeout(timeout)
-    timeout = setTimeout(later, wait)
+    timeoutId = setTimeout(() => {
+      callback.apply(null, args);
+    }, wait);
   }
-};
+);
 
 // TODO: Modernize!
 /* eslint-disable */

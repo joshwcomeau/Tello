@@ -15,8 +15,8 @@ const authHref = `${hrefPrefix}/auth/google`;
 
 
 const GoogleButton = () => (
-  <a href={authHref}>
-    <GoogleImage onClick={clearReduxData} src={imageNormal} />
+  <a onClick={clearReduxData} href={authHref}>
+    <GoogleImage src={imageNormal} />
   </a>
 );
 
