@@ -101,7 +101,7 @@ const SwipeIndicatorWrapper = styled.div`
   right: 0;
   bottom: 0;
   padding: ${UNITS_IN_PX[1]};
-  height: 60%;
+  height: 75%;
   font-size: 22px;
   color: ${COLORS.gray.light};
   background: rgba(0, 0, 0, 0.75);
