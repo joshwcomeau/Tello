@@ -1,5 +1,7 @@
-![Tello](https://github.com/joshwcomeau/Tello/blob/master/readme-logo.png)
-### A simple and delightful way to track and manage TV shows.
+<img src="https://github.com/joshwcomeau/Tello/blob/master/readme-logo.png" width="240" />
+<h3>A simple and delightful way to track and manage TV shows.</h3>
+
+----
 
 ![Product screenshots](https://github.com/joshwcomeau/Tello/blob/master/readme-screenshots.jpg)
 
