@@ -5,7 +5,7 @@ import { Motion, spring } from 'react-motion';
 import addWeeks from 'date-fns/add_weeks';
 
 import { BREAKPOINTS, COLORS, UNITS_IN_PX } from '../../constants';
-import { isLargeScreen, isMobile } from '../../helpers/responsive.helpers';
+import { isLargeScreen } from '../../helpers/responsive.helpers';
 import { getTrackedShowsArray } from '../../reducers/tracked-shows.reducer';
 
 import Emoji from '../Emoji';
@@ -86,7 +86,13 @@ class LandingPageCalendar extends PureComponent {
             <Paragraph align="left" size="large">
               One of Tello's most powerful features is the Calendar view. See what you missed last week, or what's coming up this week.
               {' '}
+              {/*
+                ESLint doesn't like my Emoji wrapper :/
+                I'm following the a11y rules, but it can't tell.
+              */}
+              {/* eslint-disable jsx-a11y/accessible-emoji */}
               <Emoji name="sparkles">✨</Emoji>
+              {/* eslint-enable jsx-a11y/accessible-emoji */}
             </Paragraph>
 
             <Paragraph align="left" size="large">

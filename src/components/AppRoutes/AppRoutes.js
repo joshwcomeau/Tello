@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { Route, Redirect, Switch , withRouter } from 'react-router-dom';
 
 import { isMobile } from '../../helpers/responsive.helpers';
-import { debounce } from '../../utils';
 import { getNoShowsYet } from '../../reducers/tracked-shows.reducer';
 import { breakpointsProp } from '../../types';
 
@@ -16,7 +15,6 @@ import SummaryView from '../SummaryView';
 import BacklogView from '../BacklogView';
 import CalendarView from '../CalendarView';
 import SettingsView from '../SettingsView';
-import NotFoundView from '../NotFoundView';
 import NoShowsYet from '../NoShowsYet';
 
 import loadMobileView from 'bundle-loader?lazy!../MobileView';

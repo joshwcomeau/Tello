@@ -1,11 +1,9 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { Route, Redirect, Switch, withRouter } from 'react-router-dom';
-import styled from 'emotion/react';
 import PropTypes from 'prop-types';
 
 import { userDataRequest, hideModal } from '../../actions';
-import { HEADER_HEIGHT_PX, FOOTER_HEIGHT_PX, Z_INDICES } from '../../constants';
 import { getToken } from '../../reducers/auth.reducer';
 
 import FlashMessage from '../FlashMessage';

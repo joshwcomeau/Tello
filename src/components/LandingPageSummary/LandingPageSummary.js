@@ -5,7 +5,6 @@ import styled from 'emotion/react';
 import { Motion, spring } from 'react-motion';
 
 import { BREAKPOINTS, COLORS, UNITS_IN_PX } from '../../constants';
-import { isMobile } from '../../helpers/responsive.helpers';
 import {
   getAiredTrackedShowsArrayWithSeasons,
 } from '../../reducers/tracked-shows.reducer'

@@ -5,7 +5,6 @@ import { ConnectedRouter } from 'react-router-redux'
 
 import createHistory from 'history/createBrowserHistory'
 
-import { AUTH_TOKEN_KEY, LOCAL_STORAGE_REDUX_DATA_KEY } from './constants';
 import { getInitialState } from './helpers/local-storage.helpers';
 import configureStore from './store';
 // import registerServiceWorker from './registerServiceWorker';

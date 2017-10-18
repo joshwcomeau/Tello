@@ -6,21 +6,18 @@ import PropTypes from 'prop-types';
 
 import { episodesRequest } from '../../actions';
 import {
-  BREAKPOINTS,
   COLORS,
   UNIT,
   HALF_UNIT_PX,
   UNITS_IN_PX,
 } from '../../constants';
 import { getIsFetchingAnyEpisodes } from '../../reducers/tracked-shows.reducer';
-import { isMobile } from '../../helpers/responsive.helpers';
 import { isBetween } from '../../utils';
 import { ShowProps } from '../../types';
 
 import CalendarHeaderCell from '../CalendarHeaderCell';
 import CalendarShowRow from '../CalendarShowRow';
 import { Row } from '../CalendarPrimitives';
-import Heading from '../Heading';
 import Spinner from '../Spinner';
 import StopTouchPropagation from '../StopTouchPropagation';
 
@@ -93,26 +90,6 @@ class Calendar extends PureComponent {
   }
 }
 
-
-const FallbackWrapper = styled.div`
-  padding: ${UNITS_IN_PX[2]};
-  color: ${COLORS.gray.veryDark};
-  background: white;
-  text-align: left;
-`;
-
-const FallbackWidthWrapper = styled.div`
-  max-width: 440px;
-  margin: auto;
-`;
-
-const FallbackParagraph = styled.p`
-  font-size: 16px;
-
-  @media ${BREAKPOINTS.md} {
-    font-size: 20px;
-  }
-`;
 
 const Wrapper = styled.div`
   width: 100%;

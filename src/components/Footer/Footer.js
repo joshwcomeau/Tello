@@ -7,7 +7,6 @@ import {
   UNIT,
   UNITS_IN_PX,
   HALF_UNIT_PX,
-  ROW_HEIGHT,
   FOOTER_HEIGHT_PX,
   MOBILE_FOOTER_HEIGHT_PX,
   Z_INDICES,
@@ -83,7 +82,13 @@ const Footer = () => {
               {' '}
               for their amazing API
               {' '}
+              {/*
+                ESLint doesn't like my Emoji wrapper :/
+                I'm following the a11y rules, but it can't tell.
+              */}
+              {/* eslint-disable jsx-a11y/accessible-emoji */}
               <Emoji name="heart" size={18}>💖</Emoji>.
+              {/* eslint-enable jsx-a11y/accessible-emoji */}
             </Acknowledgements>
           </SecondCol>
         </FlexParent>

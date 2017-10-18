@@ -2,11 +2,9 @@ import React from 'react';
 import styled from 'emotion/react';
 
 import {
-  BREAKPOINTS,
   ROW_HEIGHT,
   UNITS_IN_PX,
   HEADER_HEIGHT_PX,
-  FOOTER_HEIGHT_PX,
   Z_INDICES,
 } from '../../constants';
 import { isDesktop } from '../../helpers/responsive.helpers';
@@ -16,7 +14,6 @@ import Header from '../Header';
 import MaxWidthWrapper from '../MaxWidthWrapper';
 import Spacer from '../Spacer';
 import LoggedInScrollbars from '../LoggedInScrollbars';
-import MediaQuery from '../MediaQuery';
 import Spinner from '../Spinner';
 import NoShowsYet from '../NoShowsYet';
 import FetchEpisodes from '../FetchEpisodes';

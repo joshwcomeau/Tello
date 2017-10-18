@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Route, Redirect } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 
-import { loadUnauthorizedRoute } from '../../actions';
 import { getToken } from '../../reducers/auth.reducer';
 
 

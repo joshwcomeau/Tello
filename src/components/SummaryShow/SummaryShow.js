@@ -21,7 +21,6 @@ import { ShowProps } from '../../types';
 
 import Button from '../Button';
 import EpisodeGrid from '../EpisodeGrid';
-import FadeOnChange from '../FadeOnChange';
 import ShowStatus from '../ShowStatus';
 import Spinner from '../Spinner';
 
@@ -90,7 +89,7 @@ export class SummaryShow extends PureComponent {
   render() {
     const {
       demo,
-      show: { isLoading, name, image, seasons, status, summary },
+      show: { isLoading, name, image, seasons, status },
     } = this.props;
 
     // We want to show a "manage" button on hover, unless we've explicitly
@@ -162,7 +161,6 @@ export class SummaryShow extends PureComponent {
   }
 }
 
-const setBackgroundImage = ({ image }) => `url(${image})`;
 
 const Wrapper = styled.div`
   position: relative;

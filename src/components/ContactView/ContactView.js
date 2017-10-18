@@ -1,18 +1,14 @@
 import React, { PureComponent } from 'react';
 import styled from 'emotion/react';
 
-import { BREAKPOINTS, COLORS, UNIT, UNITS_IN_PX } from '../../constants';
+import { BREAKPOINTS, COLORS, UNITS_IN_PX } from '../../constants';
 
 import StaticLayout from '../StaticLayout';
 import Button from '../Button';
 import Heading from '../Heading';
 import Divider from '../Divider';
 import Paragraph from '../Paragraph';
-import Spacer from '../Spacer';
 import TextInput from '../TextInput';
-
-
-
 
 
 class ContactView extends PureComponent {

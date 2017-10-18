@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import styled from 'emotion/react';
-import differenceInDays from 'date-fns/difference_in_days';
 import addDays from 'date-fns/add_days';
 import isToday from 'date-fns/is_today';
 import isSameDay from 'date-fns/is_same_day';
@@ -44,7 +43,7 @@ class CalendarShowRow extends Component {
   }
 
   render() {
-    const { demo, show, row, startDate, endDate, isLastRow } = this.props;
+    const { demo, show, startDate, endDate, isLastRow } = this.props;
 
     const relevantEpisodes = show.episodes
       .filter(episode => (

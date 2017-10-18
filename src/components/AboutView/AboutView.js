@@ -1,13 +1,10 @@
 import React from 'react';
-import { keyframes } from 'emotion';
 import styled from 'emotion/react';
 
-import { COLORS, UNIT, UNITS_IN_PX } from '../../constants';
+import { UNIT, UNITS_IN_PX } from '../../constants';
 
 import StaticLayout from '../StaticLayout';
 import Emoji from '../Emoji';
-import Heading from '../Heading';
-import Divider from '../Divider';
 import Spacer from '../Spacer';
 import Link from '../Link';
 import Paragraph from '../Paragraph';
@@ -20,7 +17,14 @@ const AboutView = () => (
     <Section>
       <Paragraph size="large">
         <EmojiRotater>
-          <Emoji size={40}>👋</Emoji>
+          {/*
+                ESLint doesn't like my Emoji wrapper :/
+                I'm following the a11y rules, but it can't tell.
+              */}
+          {/* eslint-disable jsx-a11y/accessible-emoji */}
+          <Emoji size={40}>👋</Emoji>.
+          {/* eslint-enable jsx-a11y/accessible-emoji */}
+
         </EmojiRotater>
         {' '}
         Hi! I'm Josh. I built Tello.
@@ -40,7 +44,16 @@ const AboutView = () => (
       </Paragraph>
 
       <Paragraph size="large">
-        As a software developer and semi-competent designer, I realized that this was a problem I could solve, and Tello was built! <Emoji>✨</Emoji>
+        As a software developer and semi-competent designer, I realized that this was a problem I could solve, and Tello was built!
+        {' '}
+        {/*
+                ESLint doesn't like my Emoji wrapper :/
+                I'm following the a11y rules, but it can't tell.
+              */}
+        {/* eslint-disable jsx-a11y/accessible-emoji */}
+        <Emoji>✨</Emoji>
+        {/* eslint-enable jsx-a11y/accessible-emoji */}
+
       </Paragraph>
 
       <Paragraph size="large">

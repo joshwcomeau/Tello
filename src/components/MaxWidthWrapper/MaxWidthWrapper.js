@@ -1,12 +1,7 @@
 import PropTypes from 'prop-types';
 import styled from 'emotion/react';
 
-import {
-  BREAKPOINTS,
-  BREAKPOINT_SIZES,
-  UNITS_IN_PX,
-  MAX_WIDTH
-} from '../../constants';
+import { BREAKPOINTS, BREAKPOINT_SIZES, MAX_WIDTH } from '../../constants';
 
 import { getPadding } from './MaxWidthWrapper.helpers';
 

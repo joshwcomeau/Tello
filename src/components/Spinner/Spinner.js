@@ -7,7 +7,6 @@ import { range } from '../../utils';
 
 import {
   getBackgroundForNode,
-  getScaleValues,
   getSizeInPx,
   getTransformOrigin,
 } from './Spinner.helpers';

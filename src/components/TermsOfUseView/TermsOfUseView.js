@@ -5,7 +5,6 @@ import { UNITS_IN_PX } from '../../constants';
 
 import StaticLayout from '../StaticLayout';
 import Heading from '../Heading';
-import Divider from '../Divider';
 import Paragraph from '../Paragraph';
 
 

@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import styled from 'emotion/react';
 
 import { clearReduxData } from '../../helpers/local-storage.helpers';
