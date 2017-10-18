@@ -1,12 +1,11 @@
 <img src="https://github.com/joshwcomeau/Tello/blob/master/readme-logo.png" width="240" />
 <h3>A simple and delightful way to track and manage TV shows.</h3>
 
-----
-
 ![Product screenshots](https://github.com/joshwcomeau/Tello/blob/master/readme-screenshots.jpg)
 
 **It's live! Check it out: https://tello.tv**
 
+----
 
 ### Motivation and Purpose
 I created Tello because I was sick of hunting for TV shows. I wanted a tool that would show me which of my favourite shows had new episodes.
@@ -26,17 +25,17 @@ It's a single-page app, and the back-end is really just a thin layer around the 
 
 I experimented quite a bit with different React patterns in this project, and some of them are pretty neat! Off the top of my head:
 
-- Using React Router 4, I have responsive routes; changing the viewport changes the available routes, and redirects the user! See:
-  - A [<MediaQuery>](https://github.com/joshwcomeau/Tello/blob/master/src/components/MediaQuery/MediaQuery.js) helper, using function-as-children, and
+- Because of React Router 4's dynamic routes, you can do neat things, like make responsive routes. This means that routes update when the window size changes. See:
+  - A [MediaQuery](https://github.com/joshwcomeau/Tello/blob/master/src/components/MediaQuery/MediaQuery.js) helper, using function-as-children, and
   - The [React Router 4 routes](https://github.com/joshwcomeau/Tello/blob/master/src/components/AppRoutes/AppRoutes.js) that use the prop to render routes accordingly.
 - The [logged-out homepage](https://tello.tv) has floating, self-drawing particles. This is a combination of:
-  - [<Particle>](https://github.com/joshwcomeau/Tello/blob/master/src/components/Particle/Particle.js) (for the SVG drawing), and
-  - [<Drift>](https://github.com/joshwcomeau/Tello/blob/master/src/components/Drift/Drift.js) (for the floating).
-- Dead-simple [<Hover>](https://github.com/joshwcomeau/Tello/blob/master/src/components/Hover/Hover.js) component using children-as-function (Credit: React Router docs)
+  - [Particle](https://github.com/joshwcomeau/Tello/blob/master/src/components/Particle/Particle.js) (for the SVG drawing), and
+  - [Drift](https://github.com/joshwcomeau/Tello/blob/master/src/components/Drift/Drift.js) (for the floating).
+- Dead-simple [Hover](https://github.com/joshwcomeau/Tello/blob/master/src/components/Hover/Hover.js) component using children-as-function (Credit: React Router docs)
 - Couple scroll-related components:
-  - [<ScrollDisabler>](https://github.com/joshwcomeau/Tello/blob/master/src/components/ScrollDisabler/ScrollDisabler.js) is a behavioral component which removes the ability to scroll. Useful for when modals are open, to prevent background scrolling.
-  - [<Scrollbars>](https://github.com/joshwcomeau/Tello/blob/master/src/components/Scrollbars/Scrollbars.js) styles the main body scrollbars. This is how Tello has the neon pink scrollbars on Webkit browsers!
-- [<AuthenticatedRoute>](https://github.com/joshwcomeau/Tello/blob/master/src/components/AuthenticatedRoute/AuthenticatedRoute.js) abstracts away auth concerns, rendering a fallback if the user isn't authenticated.
+  - [ScrollDisabler](https://github.com/joshwcomeau/Tello/blob/master/src/components/ScrollDisabler/ScrollDisabler.js) is a behavioral component which removes the ability to scroll. Useful for when modals are open, to prevent background scrolling.
+  - [Scrollbars](https://github.com/joshwcomeau/Tello/blob/master/src/components/Scrollbars/Scrollbars.js) styles the main body scrollbars. This is how Tello has the neon pink scrollbars on Webkit browsers!
+- [AuthenticatedRoute](https://github.com/joshwcomeau/Tello/blob/master/src/components/AuthenticatedRoute/AuthenticatedRoute.js) abstracts away auth concerns, rendering a fallback if the user isn't authenticated.
 
 **Interested in hearing more about any of these patterns?** I'd love to discuss / write a blog post about them, just **[let me know](https://twitter.com/joshwcomeau)** :)
 
