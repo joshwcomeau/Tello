@@ -6,7 +6,6 @@ import {
   ADD_SHOWS_REQUEST,
   ADD_SHOWS_RECEIVE,
   EPISODES_RECEIVE,
-  REMOVE_SHOW,
   TOGGLE_EPISODE,
   MARK_EPISODE_AS_SEEN,
   MARK_EPISODE_AS_UNSEEN,
@@ -108,11 +107,6 @@ export default function trackedShowsReducer(state = initialState, action) {
         ...state,
         [showId]: show,
       };
-    }
-
-    case REMOVE_SHOW: {
-      // TODO
-      return state;
     }
 
     case TOGGLE_EPISODE: {
@@ -273,7 +267,7 @@ export const getTrackedShowsArray = createSelector(
         episodes,
       };
     })
-  .filter(show => !!show)
+    .filter(show => !!show)
 );
 
 export const getAiredTrackedShowsArray = createSelector(
