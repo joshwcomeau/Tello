@@ -50,10 +50,9 @@ export default function trackedShowsReducer(state = initialState, action) {
       const showsWithLoading = action.shows.map(show => ({
         ...show,
         isLoading: true,
-        // We also need to make sure the data is formatted as it will be when
-        // returned by the server.
-        // This is kinda gross, but I think it's necessary.
-        createdAt: (new Date('05 October 2011 14:48 UTC')).toISOString(),
+        // The server will return a precise createdAt date. For now, we'll
+        // just use the current time. That ought to be close enough :)
+        createdAt: (new Date()).toISOString(),
         seenEpisodeIds: [],
       }));
 
@@ -67,11 +66,25 @@ export default function trackedShowsReducer(state = initialState, action) {
     }
 
     case ADD_SHOWS_RECEIVE: {
-      // TODO: We need to avoid overwriting all the episodes here.
-      // Maybe it makes sense to keep the existing data, and just remove `loading`?
+      const newShowsMap = action.shows.reduce((showMap, serverShow) => {
+        // You'll notice we're totally ignoring the show data the server sent.
+        // This is because we already have what we need; the server adds a
+        // fancy imgur image and exact createdAt, but we don't need those
+        // things. Better to keep what we already have, to avoid the image
+        // changing, or the show moving on the page.
+        // Just toggle the `isLoading` bool.
+        const showId = serverShow.id;
 
-      // Convert the state shape so that it's map-like, instead of an array.
-      const newShowsMap = convertArrayToMap(action.shows);
+        const show = state[showId];
+
+        return {
+          ...showMap,
+          [showId]: {
+            ...show,
+            isLoading: false,
+          },
+        };
+      }, {});
 
       return {
         ...state,
