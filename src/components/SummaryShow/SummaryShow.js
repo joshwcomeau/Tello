@@ -36,7 +36,7 @@ export class SummaryShow extends PureComponent {
   }
 
   static propTypes = {
-    show: ShowProps,
+    show: ShowProps.isRequired,
     demo: PropTypes.bool,
     toggleEpisode: PropTypes.func.isRequired,
     showEditShowModal: PropTypes.func,
@@ -89,8 +89,14 @@ export class SummaryShow extends PureComponent {
   render() {
     const {
       demo,
-      show: { isLoading, name, image, seasons, status },
+      show,
     } = this.props;
+
+    if (!show) {
+      return null
+    }
+
+    const { isLoading, name, image, seasons, status } = show;
 
     // We want to show a "manage" button on hover, unless we've explicitly
     // disabled it (which we do for demo units), or unles we're on mobile
