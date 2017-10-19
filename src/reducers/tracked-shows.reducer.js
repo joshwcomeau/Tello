@@ -66,20 +66,10 @@ export default function trackedShowsReducer(state = initialState, action) {
 
     case ADD_SHOWS_RECEIVE: {
       const newShowsMap = action.shows.reduce((showMap, serverShow) => {
-        // You'll notice we're totally ignoring the show data the server sent.
-        // This is because we already have what we need; the server adds a
-        // fancy imgur image and exact createdAt, but we don't need those
-        // things. Better to keep what we already have, to avoid the image
-        // changing, or the show moving on the page.
-        // Just toggle the `isLoading` bool.
-        const showId = serverShow.id;
-
-        const show = state[showId];
-
         return {
           ...showMap,
-          [showId]: {
-            ...show,
+          [serverShow.id]: {
+            ...serverShow,
             isLoading: false,
           },
         };
