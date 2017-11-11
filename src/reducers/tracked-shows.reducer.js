@@ -261,7 +261,9 @@ export const getAiredTrackedShowsArray = createSelector(
     shows.map(show => ({
       ...show,
       episodes: show.episodes
-        ? show.episodes.filter(episode => !isFuture(episode.airstamp))
+        ? show.episodes.filter(
+            episode => episode.airstamp && !isFuture(episode.airstamp)
+          )
         : undefined,
     }))
 );
