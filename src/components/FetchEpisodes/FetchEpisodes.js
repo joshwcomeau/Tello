@@ -22,8 +22,6 @@ class FetchEpisodes extends PureComponent {
       // Don't fetch shows that we've already fetched!
       const requiresFetching = !FetchEpisodes.showIds[show.id];
 
-      console.log(show.name, 'requires fetching', requiresFetching);
-
       if (requiresFetching) {
         FetchEpisodes.showIds[show.id] = true;
 
