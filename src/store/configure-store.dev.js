@@ -1,11 +1,10 @@
 import { createStore, applyMiddleware, compose } from 'redux';
-import { routerMiddleware } from 'react-router-redux'
+import { routerMiddleware } from 'react-router-redux';
 
 import rootReducer from '../reducers';
 import createAPIMiddleware from '../middlewares/api.middleware';
 import { handleStoreUpdates } from '../helpers/local-storage.helpers';
 import DevTools from '../components/DevTools';
-
 
 export default function configureStore(history, initialState) {
   const store = createStore(

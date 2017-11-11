@@ -4,7 +4,6 @@ import styled from 'emotion/react';
 
 import { COLORS, UNITS_IN_PX } from '../../constants';
 
-
 const propTypes = {
   highlighted: PropTypes.bool.isRequired,
   checked: PropTypes.bool.isRequired,
@@ -26,17 +25,13 @@ const Checkbox = ({ highlighted, checked, disabled, handleClick }) => {
 
 Checkbox.propTypes = propTypes;
 
-
 const SIZE = 14;
 const BORDER_WIDTH = 2;
 const CELL_PADDING = 0;
-const DOT_SIZE = SIZE - (BORDER_WIDTH * 2) - (CELL_PADDING * 2);
+const DOT_SIZE = SIZE - BORDER_WIDTH * 2 - CELL_PADDING * 2;
 
-const getColor = ({ colored }) => (
-  colored
-    ? COLORS.blue.primary
-    : COLORS.gray.dark
-);
+const getColor = ({ colored }) =>
+  colored ? COLORS.blue.primary : COLORS.gray.dark;
 
 const Wrapper = styled.div`
   position: relative;
@@ -63,7 +58,7 @@ const CheckboxDot = styled.div`
   bottom: 0;
   margin: auto;
   background-color: ${getColor};
-  transform: scale(${props => props.visible ? 1 : 0});
+  transform: scale(${props => (props.visible ? 1 : 0)});
   transition: transform 250ms;
 `;
 

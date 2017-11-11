@@ -5,7 +5,6 @@ import { Route } from 'react-router-dom';
 
 import { getToken } from '../../reducers/auth.reducer';
 
-
 const propTypes = {
   authenticated: PropTypes.bool.isRequired,
   fallback: PropTypes.oneOfType([
@@ -14,11 +13,8 @@ const propTypes = {
   ]),
 };
 
-const AuthenticatedRoute = ({ authenticated, fallback, ...delegatedProps }) => (
-  authenticated
-    ? <Route {...delegatedProps} />
-    : fallback()
-);
+const AuthenticatedRoute = ({ authenticated, fallback, ...delegatedProps }) =>
+  authenticated ? <Route {...delegatedProps} /> : fallback();
 
 const mapStateToProps = state => ({
   authenticated: !!getToken(state),

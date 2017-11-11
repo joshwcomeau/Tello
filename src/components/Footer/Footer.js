@@ -17,7 +17,6 @@ import Link from '../Link';
 import Logo from '../Logo';
 import MaxWidthWrapper from '../MaxWidthWrapper';
 
-
 const footerNavigationLinks = [
   { to: '/privacy', children: 'Privacy Policy' },
   { to: '/terms', children: 'Terms of Use' },
@@ -43,18 +42,21 @@ const Footer = () => {
                 <Link key="link" color={COLORS.gray.primary} {...link} />,
                 index !== footerNavigationLinks.length - 1 && (
                   <LinkDot key="dot" />
-                )
+                ),
               ])}
             </FooterLinks>
           </FirstCol>
           <SecondCol>
             <Credit>
-              A <VibrantLink1 strong color={COLORS.deepPurple.primary} to="/about">
+              A{' '}
+              <VibrantLink1
+                strong
+                color={COLORS.deepPurple.primary}
+                to="/about"
+              >
                 side project
-              </VibrantLink1>
-              {' '}
-              by
-              {' '}
+              </VibrantLink1>{' '}
+              by{' '}
               <VibrantLink2
                 external
                 strong
@@ -65,12 +67,9 @@ const Footer = () => {
                 Josh Comeau
               </VibrantLink2>.
             </Credit>
-            <Copyright>
-              © 2017-present. All rights reserved.
-            </Copyright>
+            <Copyright>© 2017-present. All rights reserved.</Copyright>
             <Acknowledgements>
-              Thanks to
-              {' '}
+              Thanks to{' '}
               <Link
                 external
                 strong
@@ -78,16 +77,16 @@ const Footer = () => {
                 href="https://www.tvmaze.com/"
               >
                 TV Maze
-              </Link>
-              {' '}
-              for their amazing API
-              {' '}
+              </Link>{' '}
+              for their amazing API{' '}
               {/*
                 ESLint doesn't like my Emoji wrapper :/
                 I'm following the a11y rules, but it can't tell.
               */}
               {/* eslint-disable jsx-a11y/accessible-emoji */}
-              <Emoji name="heart" size={18}>💖</Emoji>.
+              <Emoji name="heart" size={18}>
+                💖
+              </Emoji>.
               {/* eslint-enable jsx-a11y/accessible-emoji */}
             </Acknowledgements>
           </SecondCol>
@@ -122,17 +121,15 @@ const FlexParent = styled.div`
   @media ${BREAKPOINTS.sm} {
     flex-direction: column;
   }
-`
-const FirstCol = styled.div`
-
 `;
+const FirstCol = styled.div``;
 
 const SecondCol = styled.div`
   text-align: right;
 
   @media ${BREAKPOINTS.sm} {
     text-align: center;
-    margin-top: ${UNITS_IN_PX[3]}
+    margin-top: ${UNITS_IN_PX[3]};
   }
 `;
 
@@ -160,7 +157,7 @@ const LinkDot = styled.span`
 
   &:after {
     content: '•';
-    color: ${COLORS.gray.primary}
+    color: ${COLORS.gray.primary};
   }
 `;
 
@@ -190,7 +187,6 @@ const VibrantLink2 = styled(Link)`
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 `;
-
 
 const Copyright = styled.div`
   font-size: 15px;

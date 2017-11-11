@@ -1,9 +1,8 @@
 import styled from 'emotion/react';
 
-
 const Clearfix = styled.div`
   &:after {
-    content: "";
+    content: '';
     display: table;
     clear: both;
   }

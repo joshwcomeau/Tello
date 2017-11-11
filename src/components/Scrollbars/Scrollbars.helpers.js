@@ -1,6 +1,5 @@
 import { range } from '../../utils';
 
-
 // NOTE: This function has a side effect of inserting a <style> tag into
 // the <head> of the current HTML page.
 export const createAndInsertStylesheet = () => {
@@ -11,7 +10,7 @@ export const createAndInsertStylesheet = () => {
   head.appendChild(styleDOMNode);
 
   return styleDOMNode;
-}
+};
 
 // NOTE: this function is all side-effects, updating the <style> tag
 // this component created.
@@ -25,27 +24,28 @@ export const addStyles = ({ stylesheet, selector, styles }) => {
   const newRule = `${selector} { ${stylesString} }`;
 
   stylesheet.insertRule(newRule, rulesObj.length);
-}
+};
 
 // NOTE: this function is all side-effects, updating the <style> tag
 // this component created.
-export const clearStyles = (stylesheet) => {
+export const clearStyles = stylesheet => {
   const rulesObj = stylesheet.cssRules || stylesheet.rules;
 
   range(rulesObj.length).forEach(() => {
-    stylesheet.deleteRule(0)
+    stylesheet.deleteRule(0);
   });
-}
+};
 
 // Get the full selector name for a given style.
-export const getSelectorForStyleName = (styleName) => {
+export const getSelectorForStyleName = styleName => {
   switch (styleName) {
-    case 'scrollbarStyles': return 'body::-webkit-scrollbar';
-    case 'scrollbarTrackStyles': return 'body::-webkit-scrollbar-track';
-    case 'scrollbarThumbStyles': return 'body::-webkit-scrollbar-thumb';
+    case 'scrollbarStyles':
+      return 'body::-webkit-scrollbar';
+    case 'scrollbarTrackStyles':
+      return 'body::-webkit-scrollbar-track';
+    case 'scrollbarThumbStyles':
+      return 'body::-webkit-scrollbar-thumb';
     default:
-      throw new Error(
-        `Unrecognized rule ID "${styleName}" for Scrollbars.`
-      );
+      throw new Error(`Unrecognized rule ID "${styleName}" for Scrollbars.`);
   }
-}
+};

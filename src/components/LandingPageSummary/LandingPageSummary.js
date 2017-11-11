@@ -5,9 +5,7 @@ import styled from 'emotion/react';
 import { Motion, spring } from 'react-motion';
 
 import { BREAKPOINTS, COLORS, UNITS_IN_PX } from '../../constants';
-import {
-  getAiredTrackedShowsArrayWithSeasons,
-} from '../../reducers/tracked-shows.reducer'
+import { getAiredTrackedShowsArrayWithSeasons } from '../../reducers/tracked-shows.reducer';
 import { ShowProps } from '../../types';
 
 import Heading from '../Heading';
@@ -15,9 +13,7 @@ import MaxWidthWrapper from '../MaxWidthWrapper';
 import Paragraph from '../Paragraph';
 import SummaryShow from '../SummaryShow';
 
-
 const SHOW_3D_WIDTH = '8px';
-
 
 // NOTE: defining a custom breakpoint here, because the existing ones don't
 // handle this edge-case well.
@@ -25,18 +21,18 @@ const SPECIAL_BREAKPOINT_WIDTH = 700;
 
 class LandingPageSummary extends PureComponent {
   static propTypes = {
-    shows: PropTypes.arrayOf(ShowProps)
-  }
+    shows: PropTypes.arrayOf(ShowProps),
+  };
 
   state = {
     rotateCard: window.innerWidth > SPECIAL_BREAKPOINT_WIDTH,
-  }
+  };
 
-  updateCardRotation = (newValue) => () => {
+  updateCardRotation = newValue => () => {
     if (window.innerWidth > SPECIAL_BREAKPOINT_WIDTH) {
       this.setState({ rotateCard: newValue });
     }
-  }
+  };
 
   renderSummaryDemo() {
     const { shows } = this.props;
@@ -62,36 +58,29 @@ class LandingPageSummary extends PureComponent {
               transform: `perspective(600px) rotateY(${rotation}deg)`,
             }}
           >
-            <ShowPlaceholder
-              left
-              style={{ opacity: placeholderOpacity }}
-            />
+            <ShowPlaceholder left style={{ opacity: placeholderOpacity }} />
 
             <ShowWrapper
               onMouseEnter={this.updateCardRotation(false)}
               onMouseLeave={this.updateCardRotation(true)}
             >
-              <SummaryShow
-                demo
-                show={show}
-              />
+              <SummaryShow demo show={show} />
               <ShowEdge
-                style={{ transform: `
+                style={{
+                  transform: `
                   perspective(600px)
                   rotateY(${rotation + 90}deg)
-                `}}
+                `,
+                }}
               />
             </ShowWrapper>
 
-            <ShowPlaceholder
-              right
-              style={{ opacity: placeholderOpacity }}
-            />
+            <ShowPlaceholder right style={{ opacity: placeholderOpacity }} />
             <Glow />
           </ShowDemo>
         )}
       </Motion>
-    )
+    );
   }
 
   render() {
@@ -102,17 +91,18 @@ class LandingPageSummary extends PureComponent {
             <Col colWidth={2}>
               <Heading theme="vibrant">Bird's Eye View</Heading>
               <Paragraph size="large">
-                Your home screen in Tello is an overview of the shows you're tracking. An at-a-glance summary of how many episodes are left for your favourite shows.
+                Your home screen in Tello is an overview of the shows you're
+                tracking. An at-a-glance summary of how many episodes are left
+                for your favourite shows.
               </Paragraph>
 
               <Paragraph size="large">
-                Each square at the bottom of the cards represent an episode, and its colour indicates whether or not it's been viewed.
+                Each square at the bottom of the cards represent an episode, and
+                its colour indicates whether or not it's been viewed.
               </Paragraph>
             </Col>
 
-            <Col colWidth={1}>
-              {this.renderSummaryDemo()}
-            </Col>
+            <Col colWidth={1}>{this.renderSummaryDemo()}</Col>
           </Row>
         </MaxWidthWrapper>
       </LandingPageSummaryElem>
@@ -139,7 +129,6 @@ const Col = styled.div`
   position: relative;
   z-index: 1;
   flex: ${props => props.colWidth};
-
 
   &:first-of-type {
     @media (max-width: ${SPECIAL_BREAKPOINT_WIDTH}px) {
@@ -185,8 +174,9 @@ const ShowPlaceholder = styled.div`
   left: 0;
   right: 0;
   bottom: -2px;
-  background: rgba(255, 255,255, 0.1);
-  transform: ${props => props.left ? 'translateX(-106%)' : 'translateX(106%)'};
+  background: rgba(255, 255, 255, 0.1);
+  transform: ${props =>
+    props.left ? 'translateX(-106%)' : 'translateX(106%)'};
 
   &:after {
     content: '';
@@ -195,12 +185,12 @@ const ShowPlaceholder = styled.div`
     left: 0;
     right: 0;
     bottom: 0;
-    background: ${props => props.left
-      ? 'linear-gradient(to left, rgba(31, 29, 29, 0), rgba(31, 29, 29, 1) 70%)'
-      : 'linear-gradient(to right, rgba(31, 29, 29, 0), rgba(31, 29, 29, 1) 70%)'
-    }
+    background: ${props =>
+      props.left
+        ? 'linear-gradient(to left, rgba(31, 29, 29, 0), rgba(31, 29, 29, 1) 70%)'
+        : 'linear-gradient(to right, rgba(31, 29, 29, 0), rgba(31, 29, 29, 1) 70%)'};
   }
-`
+`;
 
 const Glow = styled.div`
   position: absolute;

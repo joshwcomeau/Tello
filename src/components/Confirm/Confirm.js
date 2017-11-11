@@ -11,7 +11,6 @@ import Backdrop from '../Backdrop';
 import Heading from '../Heading';
 import ScrollDisabler from '../ScrollDisabler';
 
-
 const propTypes = {
   title: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
@@ -52,19 +51,14 @@ export const Confirm = ({
           </Header>
 
           <Actions>
-            <CancelButton onClick={handleDismiss}>
-              Cancel
-            </CancelButton>
-            <ConfirmButton onClick={handleConfirm}>
-              Confirm
-            </ConfirmButton>
+            <CancelButton onClick={handleDismiss}>Cancel</CancelButton>
+            <ConfirmButton onClick={handleConfirm}>Confirm</ConfirmButton>
           </Actions>
         </ConfirmElem>
       )}
     </Motion>
   </ConfirmWrapper>
 );
-
 
 // TODO: There's a lot of shared styles/logic between this and Modal.js
 // Does it make sense to extract a primitive to tackle this?
@@ -78,7 +72,7 @@ const ConfirmWrapper = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  pointer-events: ${props => props.isVisible ? 'auto' : 'none'};
+  pointer-events: ${props => (props.isVisible ? 'auto' : 'none')};
 `;
 
 const ConfirmElem = styled.div`

@@ -2,7 +2,6 @@ import styled from 'emotion/react';
 
 import { COLORS, UNIT } from '../../constants';
 
-
 const ROW_HEIGHT_PX = UNIT * 3.5 + 'px';
 
 export const Row = styled.div`

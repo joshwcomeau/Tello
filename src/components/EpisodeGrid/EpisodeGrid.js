@@ -8,14 +8,12 @@ import Clearfix from '../Clearfix';
 import EpisodeDot from '../EpisodeDot';
 import Scrollable from '../Scrollable';
 
-
 const EPISODE_DOT_SIZE = 10;
 const EPISODE_MARGIN = 1;
 const EPISODE_ROW_HEIGHT = EPISODE_DOT_SIZE + EPISODE_MARGIN * 2;
 const MAX_EPISODE_ROWS = 10;
 const GRID_MAX_HEIGHT = UNIT * 2 + MAX_EPISODE_ROWS * EPISODE_ROW_HEIGHT;
 const GRID_MAX_HEIGHT_PX = GRID_MAX_HEIGHT + 'px';
-
 
 const EpisodeGrid = ({ seasons, handleHoverEpisode, handleClickEpisode }) => {
   if (!seasons || isEmpty(seasons)) {
@@ -42,14 +40,12 @@ const EpisodeGrid = ({ seasons, handleHoverEpisode, handleClickEpisode }) => {
               ))}
             </Season>
           ))}
-
         </EpisodeGridContents>
       </Scrollable>
       <EpisodeOverflowGradient />
     </Wrapper>
   );
-}
-
+};
 
 const Wrapper = styled.div`
   position: relative;
@@ -78,8 +74,8 @@ const EpisodeOverflowGradient = styled.div`
   height: ${UNITS_IN_PX[1]};
   background: linear-gradient(
     to top,
-    rgba(255,255,255,1),
-    rgba(255,255,255,0)
+    rgba(255, 255, 255, 1),
+    rgba(255, 255, 255, 0)
   );
   pointer-events: none;
 `;

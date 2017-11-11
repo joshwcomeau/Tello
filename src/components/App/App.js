@@ -21,12 +21,11 @@ import AboutView from '../AboutView';
 import ContactView from '../ContactView';
 import NotFoundView from '../NotFoundView';
 
-
 class App extends PureComponent {
   static propTypes = {
     hasToken: PropTypes.bool.isRequired,
     userDataRequest: PropTypes.func.isRequired,
-  }
+  };
 
   componentDidMount() {
     const { hasToken, userDataRequest } = this.props;
@@ -41,7 +40,7 @@ class App extends PureComponent {
 
     return (
       <MediaQuery>
-        {(breakpoint) => [
+        {breakpoint => [
           // Render our fancy particles on desktop, but not on mobile.
           <FlashMessage key="flash" />,
 
@@ -105,6 +104,4 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = { userDataRequest, hideModal };
 
-export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(App)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

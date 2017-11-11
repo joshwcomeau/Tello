@@ -28,8 +28,6 @@ import {
   deleteShow,
 } from '../services/api.service';
 
-
-
 export default function createAPIMiddleware() {
   return store => next => action => {
     // Fetch the user's token from the cookie. If no cookie is found, they
@@ -50,7 +48,7 @@ export default function createAPIMiddleware() {
             next(userDataReceive(json));
           })
           .catch(err => {
-            console.error("CAUGHT ERROR IN USER DATA", err)
+            console.error('CAUGHT ERROR IN USER DATA', err);
             // If there was an error, let's delete the locally-stored
             // cookie. This forces the user to attempt to login again,
             // which should hopefully fix whatever caused the error.
@@ -69,11 +67,11 @@ export default function createAPIMiddleware() {
         // the client). Only worry if the server bows up.
         postNewlyTrackedShows({ token, shows: action.shows })
           .then(response => next(addShowsReceive(response)))
-          .catch((response) => {
+          .catch(response => {
             console.error('Could not persist new tracked shows', response);
 
             next(addShowsFailure(response));
-          })
+          });
 
         break;
       }
@@ -146,9 +144,7 @@ export default function createAPIMiddleware() {
 
         deleteShow({ token, showId })
           .then(() => next(deleteShowReceive({ showId, showName })))
-          .catch((error) => (
-            next(deleteShowFailure({ showId, showName, error }))
-          ));
+          .catch(error => next(deleteShowFailure({ showId, showName, error })));
 
         break;
       }
@@ -161,5 +157,5 @@ export default function createAPIMiddleware() {
     // Regardless of what happens in the above `switch`, we always want to pass
     // the initial action along, for any optimistic/loading UI states.
     next(action);
-  }
+  };
 }

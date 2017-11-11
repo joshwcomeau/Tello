@@ -8,9 +8,7 @@ import Paragraph from '../Paragraph';
 
 const NotificationView = ({ heading, children }) => (
   <Wrapper>
-    <Heading theme="vibrant">
-      {heading}
-    </Heading>
+    <Heading theme="vibrant">{heading}</Heading>
 
     <Paragraph align="center" size="large">
       {children}
@@ -22,7 +20,5 @@ const Wrapper = styled.div`
   padding-top: ${ROW_HEIGHT_PX};
   text-align: center;
 `;
-
-
 
 export default NotificationView;

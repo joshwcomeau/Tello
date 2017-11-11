@@ -6,23 +6,22 @@ import { COLORS, MODAL_BG_COLOR } from '../../constants';
 
 import Scrollbars from '../Scrollbars';
 
-
 class LoggedInScrollbars extends PureComponent {
   static propTypes = {
     isRightModalOpen: PropTypes.bool.isRequired,
-  }
+  };
 
   state = {
     light: false,
-  }
+  };
 
   // Create these objects once, so that re-renders don't create new objects,
   // and throw off the Scrollbars' PureComponent logic.
-  scrollbarStyles = { width: '8px' }
-  scrollbarTrackStylesDark = { background: COLORS.gray.veryDark }
-  scrollbarTrackStylesLight = { background: MODAL_BG_COLOR }
-  scrollbarThumbStylesDark = { background: COLORS.purple.primary }
-  scrollbarThumbStylesLight = { background: MODAL_BG_COLOR }
+  scrollbarStyles = { width: '8px' };
+  scrollbarTrackStylesDark = { background: COLORS.gray.veryDark };
+  scrollbarTrackStylesLight = { background: MODAL_BG_COLOR };
+  scrollbarThumbStylesDark = { background: COLORS.purple.primary };
+  scrollbarThumbStylesLight = { background: MODAL_BG_COLOR };
 
   componentDidUpdate(prevProps) {
     // If we just opened the modal, update the state immediately.
@@ -36,7 +35,7 @@ class LoggedInScrollbars extends PureComponent {
     // but it's closing...
     if (prevProps.isRightModalOpen && !this.props.isRightModalOpen) {
       window.setTimeout(() => {
-        this.setState({ light: false })
+        this.setState({ light: false });
       }, 900);
     }
   }

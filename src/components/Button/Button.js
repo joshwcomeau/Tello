@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 
 import { ROW_HEIGHT_PX, UNITS_IN_PX, COLORS } from '../../constants';
 
-
 const buttonColors = {
   red: {
     background: COLORS.red.primary,
@@ -74,15 +73,15 @@ const propTypes = {
   size: PropTypes.oneOf(Object.keys(buttonSizes)).isRequired,
   href: PropTypes.string,
   external: PropTypes.bool,
-}
+};
 
 const defaultProps = {
   color: 'blue',
   size: 'medium',
 };
 
-const Button = (props) => {
-  const {href, external, ...delegatedProps} = props;
+const Button = props => {
+  const { href, external, ...delegatedProps } = props;
 
   // If no href is given, it's a <button>.
   if (!href) {
@@ -92,9 +91,11 @@ const Button = (props) => {
   // If we have an href, we want to make a link that looks like a button.
   if (href) {
     // Unless the `external` flag is provided, use a Link for fast SPA routing
-    return external
-      ? <AnchorButtonElem href={href} {...delegatedProps} />
-      : <LinkButtonElem to={href} {...delegatedProps} />;
+    return external ? (
+      <AnchorButtonElem href={href} {...delegatedProps} />
+    ) : (
+      <LinkButtonElem to={href} {...delegatedProps} />
+    );
   }
 };
 
@@ -136,7 +137,7 @@ const AnchorButtonElem = styled.a`
   ${buttonStyles};
 `;
 const LinkButtonElem = styled(Link)`
-${buttonStyles};
+  ${buttonStyles};
 `;
 
 Button.propTypes = propTypes;

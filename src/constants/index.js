@@ -1,6 +1,5 @@
 import { range } from '../utils';
 
-
 // The key for our auth token, stored in a cookie
 // TODO: Dedupe with the value in server/config/defaults.json
 // As well as in webpackDevServer.config
@@ -64,7 +63,7 @@ export const COLORS = {
   },
   green: {
     primary: '#00C853',
-    dark: '#008e3b'
+    dark: '#008e3b',
   },
   lime: {
     primary: '#C6FF00',

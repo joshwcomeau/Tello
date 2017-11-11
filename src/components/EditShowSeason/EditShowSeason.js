@@ -7,35 +7,30 @@ import Clearfix from '../Clearfix';
 import EpisodeDot from '../EpisodeDot';
 import Button from '../Button';
 
-
 const EditShowSeason = ({ episodes, seasonNum, handleToggleAll }) => {
   const hasSeenEveryEpisode = episodes.every(episode => episode.isSeen);
 
   return (
-      <Wrapper>
-        <Info>
-          <SeasonTitle>Season {seasonNum}</SeasonTitle>
-          <span>
-            {episodes.map(episode => (
-              <EpisodeDot
-                key={episode.id}
-                size={6}
-                isSeen={episode.isSeen}
-              />
-            ))}
-          </span>
-        </Info>
+    <Wrapper>
+      <Info>
+        <SeasonTitle>Season {seasonNum}</SeasonTitle>
+        <span>
+          {episodes.map(episode => (
+            <EpisodeDot key={episode.id} size={6} isSeen={episode.isSeen} />
+          ))}
+        </span>
+      </Info>
 
-        <Actions>
-          <Button
-            size="small"
-            onClick={handleToggleAll}
-            disabled={hasSeenEveryEpisode}
-          >
-            {hasSeenEveryEpisode ? 'Season Completed' : 'Mark all as seen'}
-          </Button>
-        </Actions>
-      </Wrapper>
+      <Actions>
+        <Button
+          size="small"
+          onClick={handleToggleAll}
+          disabled={hasSeenEveryEpisode}
+        >
+          {hasSeenEveryEpisode ? 'Season Completed' : 'Mark all as seen'}
+        </Button>
+      </Actions>
+    </Wrapper>
   );
 };
 

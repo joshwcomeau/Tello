@@ -5,14 +5,11 @@ import { COLORS, UNITS_IN_PX } from '../../constants';
 
 import Paragraph from '../Paragraph';
 
-
 const NotFoundView = () => {
   return (
     <NotFoundWrapper>
       <LargeHeading>404</LargeHeading>
-      <Paragraph size="xlarge">
-        Oh no! There's nothing here.
-      </Paragraph>
+      <Paragraph size="xlarge">Oh no! There's nothing here.</Paragraph>
     </NotFoundWrapper>
   );
 };
@@ -38,7 +35,6 @@ const LargeHeading = styled.h1`
   );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-
-`
+`;
 
 export default NotFoundView;

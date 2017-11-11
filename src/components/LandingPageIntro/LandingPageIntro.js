@@ -8,20 +8,25 @@ import FadeOnChange from '../FadeOnChange';
 import MaxWidthWrapper from '../MaxWidthWrapper';
 import SignupButtons from '../SignupButtons';
 
-
 const FADE_DELAY = 4000;
 
 class LandingPageIntro extends PureComponent {
   state = {
     tick: 0,
-  }
+  };
 
   headings = [
-    <span>"I wonder when <ShowNamePlaceholder /> comes back..."</span>,
+    <span>
+      "I wonder when <ShowNamePlaceholder /> comes back..."
+    </span>,
     <span>"I need something to watch."</span>,
-    <span>"Has the new season of <ShowNamePlaceholder /> started?"</span>,
-    <span>"What episode of <ShowNamePlaceholder /> am I at?"</span>,
-  ]
+    <span>
+      "Has the new season of <ShowNamePlaceholder /> started?"
+    </span>,
+    <span>
+      "What episode of <ShowNamePlaceholder /> am I at?"
+    </span>,
+  ];
 
   componentDidMount() {
     this.intervalId = window.setInterval(() => {
@@ -36,21 +41,22 @@ class LandingPageIntro extends PureComponent {
       <LandingPageIntroWrapper>
         <MaxWidthWrapper maxWidth="800px">
           <FadeOnChange duration={240}>
-            <Question tick={tick}>
-              {this.headings[tick]}
-            </Question>
+            <Question tick={tick}>{this.headings[tick]}</Question>
           </FadeOnChange>
 
           <Paragraph size="xlarge">
-            Watching television is a leisure activity, but <em>finding</em> something to watch can be very un-leisurely.
+            Watching television is a leisure activity, but <em>finding</em>{' '}
+            something to watch can be very un-leisurely.
           </Paragraph>
 
           <Paragraph size="xlarge">
-            Tello is a fun, easy way to track your favourite TV shows, so you always have something to watch.
+            Tello is a fun, easy way to track your favourite TV shows, so you
+            always have something to watch.
           </Paragraph>
 
           <Paragraph size="xlarge">
-            Unlike other TV tracking services, Tello doesn't aspire to be a social network. Tello does 1 thing, and it does it very well.
+            Unlike other TV tracking services, Tello doesn't aspire to be a
+            social network. Tello does 1 thing, and it does it very well.
           </Paragraph>
 
           <br />
@@ -61,7 +67,7 @@ class LandingPageIntro extends PureComponent {
           <SignupButtons />
         </MaxWidthWrapper>
       </LandingPageIntroWrapper>
-    )
+    );
   }
 }
 
@@ -76,10 +82,7 @@ const ShowNamePlaceholder = styled.span`
 const LandingPageIntroWrapper = styled.div`
   position: relative;
   padding: ${UNITS_IN_PX[6]} 0 ${UNITS_IN_PX[8]};
-  background: linear-gradient(
-    rgba(109, 0, 185, 0.35),
-    rgba(109, 0, 185, 0.65)
-  );
+  background: linear-gradient(rgba(109, 0, 185, 0.35), rgba(109, 0, 185, 0.65));
   color: ${COLORS.gray.veryLight};
 
   @media ${BREAKPOINTS.sm} {

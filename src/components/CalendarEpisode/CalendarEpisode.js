@@ -1,14 +1,13 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { keyframes } from 'emotion'
+import { keyframes } from 'emotion';
 import styled from 'emotion/react';
 
 import { toggleEpisode } from '../../actions';
 import { COLORS, EPISODE_COLOR, HALF_UNIT_PX } from '../../constants';
 import { getEpisodeNumString } from '../../helpers/show.helpers';
 import { ShowProps, EpisodeProps } from '../../types';
-
 
 class CalendarEpisode extends PureComponent {
   static propTypes = {
@@ -18,7 +17,7 @@ class CalendarEpisode extends PureComponent {
     margin: PropTypes.number,
     height: PropTypes.number,
     toggleEpisode: PropTypes.func.isRequired,
-  }
+  };
 
   handleClick = () => {
     const { demo, show, episode, toggleEpisode } = this.props;
@@ -30,7 +29,7 @@ class CalendarEpisode extends PureComponent {
       episodeId: episode.id,
       episodeName: episode.name,
     });
-  }
+  };
 
   render() {
     const { show, episode, margin, height } = this.props;
@@ -51,7 +50,6 @@ class CalendarEpisode extends PureComponent {
   }
 }
 
-
 const slide = keyframes`
   from {
     opacity: 0;
@@ -62,14 +60,13 @@ const slide = keyframes`
   }
 `;
 
-const getBackground = ({ isSeen }) => (
+const getBackground = ({ isSeen }) =>
   isSeen
     ? COLORS.gray.dark
     : `linear-gradient(
       ${EPISODE_COLOR.base},
       ${EPISODE_COLOR.highlight}
-    )`
-);
+    )`;
 
 const EpisodeCell = styled.div`
   display: flex;
@@ -97,6 +94,5 @@ const NumString = styled.div`
   font-size: 11px;
   opacity: 0.75;
 `;
-
 
 export default connect(null, { toggleEpisode })(CalendarEpisode);

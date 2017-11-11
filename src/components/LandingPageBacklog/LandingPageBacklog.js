@@ -3,9 +3,7 @@ import { connect } from 'react-redux';
 import styled from 'emotion/react';
 
 import { BREAKPOINTS, UNITS_IN_PX, ROW_HEIGHT_PX } from '../../constants';
-import {
-  getTrackedShowsWithUnseenEpisodesArray,
-} from '../../reducers/tracked-shows.reducer';
+import { getTrackedShowsWithUnseenEpisodesArray } from '../../reducers/tracked-shows.reducer';
 import { sortShows } from '../../helpers/show.helpers';
 
 import Heading from '../Heading';
@@ -13,8 +11,6 @@ import MaxWidthWrapper from '../MaxWidthWrapper';
 import Paragraph from '../Paragraph';
 import BacklogRow from '../BacklogRow';
 import SortShows from '../SortShows';
-
-
 
 class LandingPageBacklog extends PureComponent {
   render() {
@@ -24,16 +20,17 @@ class LandingPageBacklog extends PureComponent {
       return null;
     }
 
-    const relevantShows = shows.filter(show => (
-      show.name === 'Stranger Things' || show.name === 'Steven Universe'
-    ));
+    const relevantShows = shows.filter(
+      show => show.name === 'Stranger Things' || show.name === 'Steven Universe'
+    );
 
     return (
       <LandingPageBacklogElem>
         <MaxWidthWrapper>
           <Heading theme="vibrant">Unseen Episodes</Heading>
           <Paragraph size="large">
-            Need something to watch? The Backlog displays shows with unseen episodes in rows, so you can quickly pick up where you left off.
+            Need something to watch? The Backlog displays shows with unseen
+            episodes in rows, so you can quickly pick up where you left off.
           </Paragraph>
 
           <Paragraph size="large">
@@ -42,11 +39,12 @@ class LandingPageBacklog extends PureComponent {
 
           <SortShows />
 
-          {relevantShows.map(show => (
-            show.episodes
-              ? <BacklogRow demo key={show.id} show={show} />
-              : null
-          ))}
+          {relevantShows.map(
+            show =>
+              show.episodes ? (
+                <BacklogRow demo key={show.id} show={show} />
+              ) : null
+          )}
 
           <FakeBacklogItem />
         </MaxWidthWrapper>
@@ -63,10 +61,7 @@ const LandingPageBacklogElem = styled.div`
 const FakeBacklogItem = styled.div`
   position: relative;
   height: ${ROW_HEIGHT_PX};
-  background: linear-gradient(
-    rgba(255, 255, 255, 0.3),
-    rgba(255, 255, 255, 0)
-  );
+  background: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0));
   /* hide :after shadow */
   overflow: hidden;
 
@@ -78,7 +73,7 @@ const FakeBacklogItem = styled.div`
       left: 0;
       width: ${UNITS_IN_PX[15]};
       height: ${ROW_HEIGHT_PX};
-      box-shadow: 0px 1px 6px rgba(0,0,0,0.4);
+      box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.4);
     }
   }
 `;

@@ -5,7 +5,6 @@ import { BREAKPOINTS, BREAKPOINT_SIZES, MAX_WIDTH } from '../../constants';
 
 import { getPadding } from './MaxWidthWrapper.helpers';
 
-
 const propTypes = {
   noPadding: PropTypes.bool,
   noPaddingOnMobile: PropTypes.bool,
@@ -31,4 +30,4 @@ const MaxWidthWrapper = styled.div`
 
 MaxWidthWrapper.propTypes = propTypes;
 
-export default MaxWidthWrapper
+export default MaxWidthWrapper;

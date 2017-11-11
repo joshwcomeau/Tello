@@ -6,7 +6,6 @@ import { ShowProps } from '../../types';
 
 import AddShowSearchResult from '../AddShowSearchResult';
 
-
 const propTypes = {
   status: PropTypes.oneOf(['idle', 'loading', 'done']),
   shows: PropTypes.arrayOf(ShowProps),
@@ -18,7 +17,7 @@ const AddShowSearchResults = ({
   status,
   shows,
   previouslyTrackedShowIds,
-  onToggleShow
+  onToggleShow,
 }) => {
   return (
     <Wrapper>
@@ -38,6 +37,6 @@ AddShowSearchResults.propTypes = propTypes;
 
 const Wrapper = styled.div`
   position: relative;
-`
+`;
 
 export default AddShowSearchResults;

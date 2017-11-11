@@ -16,7 +16,6 @@ import { getSpring, getModalChildComponent } from './Modal.helpers';
 import Backdrop from '../Backdrop';
 import ScrollDisabler from '../ScrollDisabler';
 
-
 const propTypes = {
   side: PropTypes.oneOf(['left', 'right']),
   isVisible: PropTypes.bool.isRequired,
@@ -33,21 +32,23 @@ export class Modal extends PureComponent {
     window.removeEventListener('keyup', this.handleKeyup);
   }
 
-  handleKeyup = (ev) => {
+  handleKeyup = ev => {
     const { isVisible, handleClose } = this.props;
     const isEscapeKey = ev.keyCode === 27;
 
     if (isVisible && isEscapeKey) {
       handleClose();
     }
-  }
+  };
 
   render() {
     const { side, isVisible, handleClose, children } = this.props;
 
     return (
       <ModalWrapper isVisible={isVisible}>
-        {isVisible && <ScrollDisabler applyLightScrollTheme={side === 'right'} />}
+        {isVisible && (
+          <ScrollDisabler applyLightScrollTheme={side === 'right'} />
+        )}
 
         <Backdrop isVisible={isVisible} onClick={handleClose} />
 
@@ -65,7 +66,7 @@ export class Modal extends PureComponent {
           )}
         </Motion>
       </ModalWrapper>
-    )
+    );
   }
 }
 
@@ -76,15 +77,15 @@ const ModalWrapper = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  pointer-events: ${props => props.isVisible ? 'auto' : 'none'};
+  pointer-events: ${props => (props.isVisible ? 'auto' : 'none')};
 `;
 
 const ModalElem = styled.div`
   position: absolute;
   z-index: ${Z_INDICES.alert + 1};
   top: 0;
-  right: ${props => props.side === 'right' ? 0 : 'auto'};
-  left: ${props => props.side === 'left' ? 0 : 'auto'};
+  right: ${props => (props.side === 'right' ? 0 : 'auto')};
+  left: ${props => (props.side === 'left' ? 0 : 'auto')};
   bottom: 0;
   width: 800px;
   max-width: 85%;
@@ -96,7 +97,7 @@ const ModalElem = styled.div`
   @media ${BREAKPOINTS.sm} {
     padding: ${UNITS_IN_PX[3]} ${UNITS_IN_PX[2]};
   }
-`
+`;
 
 Modal.propTypes = propTypes;
 

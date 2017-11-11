@@ -5,12 +5,7 @@ import addDays from 'date-fns/add_days';
 import PropTypes from 'prop-types';
 
 import { episodesRequest } from '../../actions';
-import {
-  COLORS,
-  UNIT,
-  HALF_UNIT_PX,
-  UNITS_IN_PX,
-} from '../../constants';
+import { COLORS, UNIT, HALF_UNIT_PX, UNITS_IN_PX } from '../../constants';
 import { getIsFetchingAnyEpisodes } from '../../reducers/tracked-shows.reducer';
 import { isBetween } from '../../utils';
 import { ShowProps } from '../../types';
@@ -21,14 +16,13 @@ import { Row } from '../CalendarPrimitives';
 import Spinner from '../Spinner';
 import StopTouchPropagation from '../StopTouchPropagation';
 
-
 class Calendar extends PureComponent {
   static PropTypes = {
     demo: PropTypes.bool,
     shows: PropTypes.arrayOf(ShowProps),
     startDate: PropTypes.string.isRequired,
     endDate: PropTypes.string.isRequired,
-  }
+  };
 
   render() {
     const { demo, shows, startDate, endDate, isFetchingEpisodes } = this.props;
@@ -39,7 +33,7 @@ class Calendar extends PureComponent {
         <SpinnerWrapper>
           <Spinner />
         </SpinnerWrapper>
-      )
+      );
     }
 
     // Filter out any shows that don't have episodes yet.
@@ -48,9 +42,9 @@ class Calendar extends PureComponent {
         return false;
       }
 
-      return show.episodes.some(episode => (
-        isBetween({ date: episode.airstamp,  startDate, endDate })
-      ));
+      return show.episodes.some(episode =>
+        isBetween({ date: episode.airstamp, startDate, endDate })
+      );
     });
 
     return (
@@ -82,14 +76,12 @@ class Calendar extends PureComponent {
                 Sorry, no new shows airing this week!
               </NoShowsThisWeek>
             )}
-
           </CalendarContainer>
         </StopTouchPropagation>
       </Wrapper>
     );
   }
 }
-
 
 const Wrapper = styled.div`
   width: 100%;
@@ -114,7 +106,7 @@ const NoShowsThisWeek = styled.div`
   text-align: center;
   color: ${COLORS.gray.dark};
   font-size: 22px;
-`
+`;
 
 const mapStateToProps = state => ({
   startDate: state.calendar.startDate,

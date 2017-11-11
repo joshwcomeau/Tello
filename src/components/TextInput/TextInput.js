@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 import { COLORS, UNITS_IN_PX } from '../../constants';
 import { debounce } from '../../utils';
 
-
 class TextInput extends Component {
   static propTypes = {
     onChange: PropTypes.func,
@@ -15,16 +14,18 @@ class TextInput extends Component {
     placeholder: PropTypes.string,
     focusOnMount: PropTypes.bool,
     multiline: PropTypes.bool,
-  }
+  };
 
   static defaultProps = {
-    onChange: function() { /* no-op */ },
+    onChange: function() {
+      /* no-op */
+    },
     changeDebounceTime: 0,
-  }
+  };
 
   state = {
     focused: false,
-  }
+  };
 
   componentDidMount() {
     if (this.props.focusOnMount) {
@@ -39,17 +40,14 @@ class TextInput extends Component {
   render() {
     const { multiline, type, placeholder } = this.props;
 
-    const input = React.createElement(
-      multiline ? Textarea : Input,
-      {
-        innerRef: elem => this.elem = elem,
-        placeholder,
-        type,
-        onFocus: this.handleFocus,
-        onBlur: this.handleBlur,
-        onChange: ev => this.handleChange(ev.target.value),
-      }
-    );
+    const input = React.createElement(multiline ? Textarea : Input, {
+      innerRef: elem => (this.elem = elem),
+      placeholder,
+      type,
+      onFocus: this.handleFocus,
+      onBlur: this.handleBlur,
+      onChange: ev => this.handleChange(ev.target.value),
+    });
 
     return (
       <Wrapper>
@@ -110,7 +108,7 @@ const BottomBorderHighlight = styled.div`
   bottom: 0;
   height: 4px;
   background-color: ${COLORS.purple.primary};
-  transform: ${props => props.isActive ? 'scaleX(1)' : 'scaleX(0)'};
+  transform: ${props => (props.isActive ? 'scaleX(1)' : 'scaleX(0)')};
   transform-origin: left bottom;
   transition: transform 400ms;
 `;

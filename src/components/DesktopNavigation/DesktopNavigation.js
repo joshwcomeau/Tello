@@ -5,7 +5,6 @@ import { UNITS_IN_PX } from '../../constants';
 
 import NavigationHeading from '../NavigationHeading';
 
-
 const DesktopNavigation = () => (
   <Wrapper>
     {['summary', 'backlog', 'calendar', 'settings'].map(heading => (

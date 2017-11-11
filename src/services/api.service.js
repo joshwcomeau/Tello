@@ -9,12 +9,11 @@ const unwrap = response => {
   return response.json();
 };
 
-const getAuthHeaders = token => (
+const getAuthHeaders = token =>
   new Headers({
-    'Content-type' :  'application/json',
-    'Authorization': `Bearer ${token}`,
-  })
-);
+    'Content-type': 'application/json',
+    Authorization: `Bearer ${token}`,
+  });
 
 export const getAuthUserData = ({ token }) => {
   const headers = getAuthHeaders(token);
@@ -47,8 +46,7 @@ export const patchEpisodes = ({ token, showId, episodeIds, markAs }) => {
     headers,
   };
 
-  return fetch(`/shows/${showId}/episodes`, options)
-    .then(unwrap);
+  return fetch(`/shows/${showId}/episodes`, options).then(unwrap);
 };
 
 export const deleteShow = ({ token, showId }) => {
@@ -56,6 +54,5 @@ export const deleteShow = ({ token, showId }) => {
 
   const options = { method: 'DELETE', headers };
 
-  return fetch(`/shows/${showId}`, options)
-    .then(unwrap);
-}
+  return fetch(`/shows/${showId}`, options).then(unwrap);
+};

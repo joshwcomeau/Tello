@@ -4,20 +4,15 @@ import PropTypes from 'prop-types';
 import { keyframes } from 'emotion';
 import styled from 'emotion/react';
 
-import {
-  ROW_HEIGHT,
-  ROW_HEIGHT_PX,
-  COLORS
-} from '../../constants';
+import { ROW_HEIGHT, ROW_HEIGHT_PX, COLORS } from '../../constants';
 import { getNoShowsYet } from '../../reducers/tracked-shows.reducer';
-
 
 const propTypes = {
   glowing: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired,
 };
 
-export const AddShowButton = (props) => (
+export const AddShowButton = props => (
   <ButtonElem {...props}>
     {props.glowing && <Glow />}
     <Plus>+</Plus>

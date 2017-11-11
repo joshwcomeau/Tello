@@ -15,14 +15,13 @@ import MaxWidthWrapper from '../MaxWidthWrapper';
 import MediaQuery from '../MediaQuery';
 import ScrollIndicator from '../ScrollIndicator';
 
-
 const GRADIENT_ANGLE = '-15deg';
 const SCROLL_INDICATOR_DELAY = 2000;
 
 class LandingPageHero extends Component {
   state = {
     showScrollIndicator: false,
-  }
+  };
 
   componentDidMount() {
     this.timeoutId = window.setTimeout(() => {
@@ -43,7 +42,7 @@ class LandingPageHero extends Component {
       // Remove self once it fires.
       window.removeEventListener('scroll', this.handleScroll);
     }
-  }
+  };
 
   render() {
     const { showLoggedOutMenuModal } = this.props;
@@ -51,10 +50,10 @@ class LandingPageHero extends Component {
     return [
       <FixedWrapper key="fixed">
         <MediaQuery>
-          {(breakpoint) => (
+          {breakpoint =>
             // Render our fancy particles on desktop, but not on mobile.
             isDesktop(breakpoint) && <LandingPageParticles />
-          )}
+          }
         </MediaQuery>
       </FixedWrapper>,
       <HeroElem key="hero">
@@ -80,25 +79,20 @@ class LandingPageHero extends Component {
             </LogoWrapper>
 
             <MediaQuery>
-              {(breakpoint) => (
-                isMobile(breakpoint)
-                  ? (
-                    <HamburgerMenu onClick={showLoggedOutMenuModal}>
-                      <MenuIcon />
-                    </HamburgerMenu>
-                  ) : (
-                    <Actions>
-                      <Button
-                        color="blue"
-                        onClick={showLoggedOutMenuModal}
-                      >
-                        Login
-                      </Button>
-                    </Actions>
-                  )
-              )}
+              {breakpoint =>
+                isMobile(breakpoint) ? (
+                  <HamburgerMenu onClick={showLoggedOutMenuModal}>
+                    <MenuIcon />
+                  </HamburgerMenu>
+                ) : (
+                  <Actions>
+                    <Button color="blue" onClick={showLoggedOutMenuModal}>
+                      Login
+                    </Button>
+                  </Actions>
+                )
+              }
             </MediaQuery>
-
           </MaxWidthWrapper>
         </Header>
 
@@ -117,10 +111,9 @@ class LandingPageHero extends Component {
       <Intro key="intro">
         <LandingPageIntro />
       </Intro>,
-    ]
+    ];
   }
 }
-
 
 const FixedWrapper = styled.div`
   position: fixed;
@@ -141,7 +134,7 @@ const FixedWrapper = styled.div`
 const Intro = styled.div`
   position: relative;
   z-index: 2;
-`
+`;
 
 const HeroElem = styled.div`
   position: relative;
@@ -166,7 +159,7 @@ const ScrollIndicatorWrapper = styled.div`
   right: 0;
   font-size: 14px;
   font-weight: bold;
-  opacity: ${props => props.isVisible ? 1 : 0};
+  opacity: ${props => (props.isVisible ? 1 : 0)};
   transition: opacity 1000ms;
 
   @media ${BREAKPOINTS.sm} {
@@ -269,7 +262,7 @@ const SubTagline = styled.h5`
   @media ${BREAKPOINTS.xs} {
     font-size: 18px;
   }
-`
+`;
 
 const ChickEmoji = styled.div`
   position: absolute;
@@ -284,11 +277,11 @@ const ChickEmoji = styled.div`
   transform: translateY(-125%);
 
   &:after {
-    content: '🐣'
+    content: '🐣';
   }
 
   &:hover:after {
-    content: '🐥'
+    content: '🐥';
   }
 `;
 

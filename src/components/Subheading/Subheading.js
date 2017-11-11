@@ -4,7 +4,6 @@ import { css } from 'emotion';
 import PropTypes from 'prop-types';
 import { COLORS } from '../../constants';
 
-
 const propTypes = {
   size: PropTypes.oneOf(['small', 'medium', 'large']).isRequired,
   children: PropTypes.node,
@@ -14,13 +13,8 @@ const defaultProps = {
   size: 'medium',
 };
 
-const Subheading = ({ size, children, ...delegated }) => (
-  React.createElement(
-    headingComponentMap[size],
-    delegated,
-    children
-  )
-);
+const Subheading = ({ size, children, ...delegated }) =>
+  React.createElement(headingComponentMap[size], delegated, children);
 
 Subheading.propTypes = propTypes;
 Subheading.defaultProps = defaultProps;
@@ -29,7 +23,7 @@ const subheadingCSS = css`
   display: block;
   font-weight: bold;
   text-transform: uppercase;
-  WebkitFontSmoothing: antialiased;
+  webkitfontsmoothing: antialiased;
   color: ${COLORS.gray.primary};
 `;
 
@@ -58,6 +52,5 @@ const headingComponentMap = {
   medium: SubheadingMedium,
   small: SubheadingSmall,
 };
-
 
 export default Subheading;

@@ -1,7 +1,6 @@
 import { UNITS_IN_PX } from '../../constants';
 import { isMobile } from '../../helpers/responsive.helpers';
 
-
 export const getPadding = ({ noPadding, noPaddingOnMobile }) => {
   if (noPadding) {
     return 0;

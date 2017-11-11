@@ -15,4 +15,4 @@ export const getColorForStatus = ({ status }) => {
     default:
       return COLORS.gray.primary;
   }
-}
+};

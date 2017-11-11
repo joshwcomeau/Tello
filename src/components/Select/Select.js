@@ -4,14 +4,13 @@ import PropTypes from 'prop-types';
 
 import { COLORS, UNITS_IN_PX } from '../../constants';
 
-
 class Select extends PureComponent {
   static propTypes = {
     label: PropTypes.string,
     options: PropTypes.object,
     selectedOption: PropTypes.string,
     handleChange: PropTypes.func.isRequired,
-  }
+  };
 
   render() {
     const { label, options, selectedOption, handleChange } = this.props;
@@ -25,9 +24,7 @@ class Select extends PureComponent {
 
     return (
       <SelectWrapper>
-        <Label>
-          {label}:
-        </Label>
+        <Label>{label}:</Label>
 
         <SelectElem
           value={selectedOption}

@@ -3,7 +3,6 @@ import format from 'date-fns/format';
 
 import { SORT_OPTIONS } from '../constants';
 
-
 const getNewestEpisodeAirDate = ({ episodes }) => {
   // If the show hasn't yet populated its episode list, or if the
   // show is pre-release and has no episodes, return the lowest possible
@@ -17,7 +16,7 @@ const getNewestEpisodeAirDate = ({ episodes }) => {
   return episodes[episodes.length - 1].airstamp;
 };
 
-export const sortShows = ({ shows, sorting }) => (
+export const sortShows = ({ shows, sorting }) =>
   shows.sort((show1, show2) => {
     switch (sorting) {
       case SORT_OPTIONS.alpha:
@@ -27,9 +26,7 @@ export const sortShows = ({ shows, sorting }) => (
         return show1.createdAt > show2.createdAt ? -1 : 1;
 
       case SORT_OPTIONS.episodeAirDate:
-        return (
-          getNewestEpisodeAirDate(show1) < getNewestEpisodeAirDate(show2)
-        );
+        return getNewestEpisodeAirDate(show1) < getNewestEpisodeAirDate(show2);
 
       default: {
         // It's possible the user has an outdated sort key stored in
@@ -42,12 +39,11 @@ export const sortShows = ({ shows, sorting }) => (
         return sortShows({ shows, sorting: SORT_OPTIONS.dateAdded });
       }
     }
-  })
-);
+  });
 
 const getSortableEpisodeString = ({ season, number }) => {
   return season * 1000 + number;
-}
+};
 export const sortEpisodesComparator = (ep1, ep2) => {
   // Most shows can simply be sorted by air date, but some Netflix shows
   // are all released at exactly the same time. In those cases, sort by
@@ -63,13 +59,11 @@ export const sortEpisodesComparator = (ep1, ep2) => {
     return ep1String > ep2String ? 1 : -1;
   }
 
-  return compareAsc(ep1.airstamp, ep2.airstamp)
-}
+  return compareAsc(ep1.airstamp, ep2.airstamp);
+};
 
-export const getHumanizedEpisodeAirDate = ({ airstamp }) => (
-  format(airstamp, 'MMM Do, YYYY')
-);
+export const getHumanizedEpisodeAirDate = ({ airstamp }) =>
+  format(airstamp, 'MMM Do, YYYY');
 
-export const getEpisodeNumString = ({ season, number }) => (
-  `S${String(season).padStart(2, '0')}E${String(number).padStart(2, '0')}`
-);
+export const getEpisodeNumString = ({ season, number }) =>
+  `S${String(season).padStart(2, '0')}E${String(number).padStart(2, '0')}`;

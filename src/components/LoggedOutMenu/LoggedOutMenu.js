@@ -6,12 +6,12 @@ import { COLORS } from '../../constants';
 import SignupButtons from '../SignupButtons';
 import Heading from '../Heading';
 
-
 const LoggedOutMenu = () => {
   return (
     <Wrapper>
       <Heading size="small">Log In / Sign Up</Heading>
-      <br /><br />
+      <br />
+      <br />
       <SignupButtons linkColor={COLORS.blue.primary} />
     </Wrapper>
   );
@@ -19,6 +19,6 @@ const LoggedOutMenu = () => {
 
 const Wrapper = styled.div`
   text-align: center;
-`
+`;
 
 export default LoggedOutMenu;

@@ -12,11 +12,10 @@ import {
 import { tapSwipeIndicator } from '../../actions';
 import swipeImg from '../../images/swipe.png';
 
-
 class SwipeIndicator extends PureComponent {
   state = {
     isVisible: false,
-  }
+  };
 
   componentDidMount() {
     if (this.props.isNeeded) {
@@ -44,7 +43,7 @@ class SwipeIndicator extends PureComponent {
     this.setState({
       isVisible: true,
     });
-  }
+  };
 
   render() {
     const { tapSwipeIndicator } = this.props;
@@ -55,16 +54,13 @@ class SwipeIndicator extends PureComponent {
     }
 
     return (
-      <SwipeIndicatorWrapper
-        onTouchStart={tapSwipeIndicator}
-      >
+      <SwipeIndicatorWrapper onTouchStart={tapSwipeIndicator}>
         <HandImage src={swipeImg} />
         Swipe to navigate
       </SwipeIndicatorWrapper>
     );
   }
 }
-
 
 const fadeIn = keyframes`
   from { opacity: 0; }
@@ -118,7 +114,4 @@ const mapStateToProps = state => ({
   isNeeded: IS_MOBILE_USER_AGENT && !state.mobile.hasSeenSwipeIndicator,
 });
 
-export default connect(
-  mapStateToProps,
-  { tapSwipeIndicator }
-)(SwipeIndicator);
+export default connect(mapStateToProps, { tapSwipeIndicator })(SwipeIndicator);

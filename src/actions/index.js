@@ -1,7 +1,6 @@
-import addWeeks from 'date-fns/add_weeks'
+import addWeeks from 'date-fns/add_weeks';
 
 import { MODAL_IDS } from '../constants';
-
 
 export const ADD_SHOWS_REQUEST = 'ADD_SHOWS_REQUEST';
 export const ADD_SHOWS_RECEIVE = 'ADD_SHOWS_RECEIVE';
@@ -30,7 +29,6 @@ export const SWIPE_MOBILE_VIEW = 'SWIPE_MOBILE_VIEW';
 export const TAP_SWIPE_INDICATOR = 'TAP_SWIPE_INDICATOR';
 export const LOGOUT = 'LOGOUT';
 export const LOAD_UNAUTHORIZED_ROUTE = 'LOAD_UNAUTHORIZED_ROUTE';
-
 
 export const addShowsRequest = ({ shows }) => ({
   type: ADD_SHOWS_REQUEST,
@@ -66,14 +64,14 @@ export const toggleEpisode = ({
   showId,
   showName,
   episodeId,
-  episodeName
+  episodeName,
 }) => ({
   type: TOGGLE_EPISODE,
   demo,
   showId,
   showName,
   episodeId,
-  episodeName
+  episodeName,
 });
 
 export const markEpisodeAsSeen = ({
@@ -81,7 +79,7 @@ export const markEpisodeAsSeen = ({
   showId,
   showName,
   episodeId,
-  episodeName
+  episodeName,
 }) => ({
   type: MARK_EPISODE_AS_SEEN,
   demo,
@@ -96,7 +94,7 @@ export const markEpisodeAsUnseen = ({
   showId,
   showName,
   episodeId,
-  episodeName
+  episodeName,
 }) => ({
   type: MARK_EPISODE_AS_UNSEEN,
   demo,
@@ -106,11 +104,7 @@ export const markEpisodeAsUnseen = ({
   episodeName,
 });
 
-export const markSeasonAsSeen = ({
-  showId,
-  showName,
-  episodeIds,
-}) => ({
+export const markSeasonAsSeen = ({ showId, showName, episodeIds }) => ({
   type: MARK_SEASON_AS_SEEN,
   showId,
   showName,
@@ -118,26 +112,23 @@ export const markSeasonAsSeen = ({
 });
 
 // Convenience wrappers around `showModal`
-export const showAddShowModal = () => (
-  showModal({ id: MODAL_IDS.addShow, side: 'right', data: {} })
-);
-export const showEditShowModal = ({ showId }) => (
-  showModal({ id: MODAL_IDS.editShow, side: 'left', data: { showId } })
-);
-export const showLoggedOutMenuModal = () => (
-  showModal({ id: MODAL_IDS.mobileLoggedOutMenu, side: 'right' })
-);
+export const showAddShowModal = () =>
+  showModal({ id: MODAL_IDS.addShow, side: 'right', data: {} });
+export const showEditShowModal = ({ showId }) =>
+  showModal({ id: MODAL_IDS.editShow, side: 'left', data: { showId } });
+export const showLoggedOutMenuModal = () =>
+  showModal({ id: MODAL_IDS.mobileLoggedOutMenu, side: 'right' });
 
 export const userDataRequest = () => ({
   type: USER_DATA_REQUEST,
 });
 
-export const userDataReceive = (data) => ({
+export const userDataReceive = data => ({
   type: USER_DATA_RECEIVE,
   data,
 });
 
-export const userDataFailure = (error) => ({
+export const userDataFailure = error => ({
   type: USER_DATA_FAILURE,
   error,
 });
@@ -160,7 +151,6 @@ export const deleteShowFailure = ({ showId, showName, error }) => ({
   showName,
   error,
 });
-
 
 export const episodesRequest = ({ showId }) => ({
   type: EPISODES_REQUEST,
@@ -205,7 +195,7 @@ export const decrementWeek = ({ startDate, endDate }) => ({
   endDate: addWeeks(endDate, -1),
 });
 
-export const swipeMobileView = (index) => {
+export const swipeMobileView = index => {
   return {
     type: SWIPE_MOBILE_VIEW,
     index,

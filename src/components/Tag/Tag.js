@@ -4,12 +4,7 @@ import styled from 'emotion/react';
 import { COLORS } from '../../constants';
 import getDomainColor from '../../helpers/domain-colors.helpers';
 
-
-const Tag = ({ domain }) => (
-  <TagElem domain={domain}>
-    {domain}
-  </TagElem>
-);
+const Tag = ({ domain }) => <TagElem domain={domain}>{domain}</TagElem>;
 
 const TagElem = styled.span`
   display: inline-block;

@@ -1,6 +1,5 @@
 import { PureComponent } from 'react';
 
-
 class ScrollDisabler extends PureComponent {
   componentDidMount() {
     this.oldOverflow = document.body.style.overflow;
@@ -25,7 +24,7 @@ class ScrollDisabler extends PureComponent {
     document.body.style.height = this.oldHeight;
     document.body.style.top = this.oldTop;
 
-    window.scrollTo(0, this.oldScrollY)
+    window.scrollTo(0, this.oldScrollY);
   }
 
   render() {

@@ -10,47 +10,46 @@ import Divider from '../Divider';
 import Paragraph from '../Paragraph';
 import TextInput from '../TextInput';
 
-
 class ContactView extends PureComponent {
   state = {
     name: '',
     email: '',
     message: '',
     submitted: false,
-  }
+  };
 
   updateField = field => val => {
     this.setState({ [field]: val });
-  }
+  };
 
   updateName = this.updateField('name');
   updateEmail = this.updateField('email');
   updateMessage = this.updateField('message');
 
-  handleSubmit = (ev) => {
+  handleSubmit = ev => {
     ev.preventDefault();
 
     if (!this.state.name || !this.state.email || !this.state.message) {
-      alert("All fields are required! Please fill them out and try again.");
+      alert('All fields are required! Please fill them out and try again.');
       return;
     }
 
     const fetchOpts = {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify(this.state),
     };
 
     fetch('https://formspree.io/joshwcomeau@gmail.com', fetchOpts)
       .then(response => response.json())
-      .then((json) => {
+      .then(json => {
         this.setState({
           submitted: true,
         });
       });
-  }
+  };
 
   renderForm() {
     if (this.state.submitted) {
@@ -58,7 +57,7 @@ class ContactView extends PureComponent {
         <Heading size="small" theme="vibrant">
           Thanks! Message received.
         </Heading>
-      )
+      );
     }
 
     return (
@@ -67,10 +66,7 @@ class ContactView extends PureComponent {
           <Field>
             <Label>
               Your Name
-              <TextInput
-                placeholder="John Doe"
-                onChange={this.updateName}
-              />
+              <TextInput placeholder="John Doe" onChange={this.updateName} />
             </Label>
           </Field>
           <Field>
@@ -94,31 +90,26 @@ class ContactView extends PureComponent {
           </Field>
         </Row>
 
-
         <Divider />
 
         <ButtonWrapper>
           <Button>Submit</Button>
         </ButtonWrapper>
       </form>
-    )
+    );
   }
 
   render() {
     return (
-      <StaticLayout
-        title="Contact Tello"
-      >
+      <StaticLayout title="Contact Tello">
         <Paragraph size="large">
-          I'd love to hear from you! Fill out the form below and I'll do my
-          best to get back to you ASAP.
+          I'd love to hear from you! Fill out the form below and I'll do my best
+          to get back to you ASAP.
         </Paragraph>
 
-        <Card>
-          {this.renderForm()}
-        </Card>
+        <Card>{this.renderForm()}</Card>
       </StaticLayout>
-    )
+    );
   }
 }
 
@@ -156,6 +147,6 @@ const Label = styled.label`
 
 const ButtonWrapper = styled.div`
   text-align: right;
-`
+`;
 
 export default ContactView;

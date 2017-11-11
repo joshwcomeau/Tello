@@ -1,7 +1,6 @@
 import styled from 'emotion/react';
 import PropTypes from 'prop-types';
 
-
 const propTypes = {
   isVisible: PropTypes.bool.isRequired,
 };
@@ -14,7 +13,7 @@ const Backdrop = styled.div`
   right: 0;
   bottom: 0;
   background: rgba(0, 0, 0, 0.5);
-  opacity: ${props => props.isVisible ? 1 : 0};
+  opacity: ${props => (props.isVisible ? 1 : 0)};
   transition: opacity 750ms;
 `;
 

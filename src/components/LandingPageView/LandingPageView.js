@@ -16,11 +16,10 @@ import LandingPageSignup from '../LandingPageSignup';
 
 import { SHOWS } from './LandingPageView.data';
 
-
 class LandingPageView extends PureComponent {
   state = {
     heroOpacity: 1,
-  }
+  };
 
   componentDidMount() {
     // For the summary page, we won't actually make any API calls.
@@ -72,10 +71,10 @@ class LandingPageView extends PureComponent {
     // This line looks scary, but hopefully Future Josh will understand this
     // comment!
     const n = 4;
-    const unclampedOpacity = 1 - (scrollOffset * n - ((n - 1) - 0.15))
+    const unclampedOpacity = 1 - (scrollOffset * n - (n - 1 - 0.15));
 
     return clamp(unclampedOpacity, 0, 1);
-  }
+  };
 
   handleScroll = throttle(() => {
     // As the main content overlaps the hero, we want to fade the hero, for a smoother
@@ -91,14 +90,16 @@ class LandingPageView extends PureComponent {
         heroOpacity: nextOpacity,
       });
     }
-  }, 20)
+  }, 20);
 
   render() {
     return [
       <HeroOpacityWrapper
         key="hero"
-        innerRef={elem => { this.elem = elem; }}
-        style={{ opacity: this.state.heroOpacity}}
+        innerRef={elem => {
+          this.elem = elem;
+        }}
+        style={{ opacity: this.state.heroOpacity }}
       >
         <LandingPageHero />
       </HeroOpacityWrapper>,
@@ -124,4 +125,6 @@ const MainContent = styled.div`
   z-index: ${Z_INDICES.root + 1};
 `;
 
-export default connect(null, { addShowsReceive, changeSorting })(LandingPageView);
+export default connect(null, { addShowsReceive, changeSorting })(
+  LandingPageView
+);

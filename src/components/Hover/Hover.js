@@ -3,11 +3,11 @@ import React, { PureComponent } from 'react';
 class Hover extends PureComponent {
   state = {
     isHovering: false,
-  }
+  };
 
   updateHover = val => () => {
-    this.setState({ isHovering: val })
-  }
+    this.setState({ isHovering: val });
+  };
 
   render() {
     return (

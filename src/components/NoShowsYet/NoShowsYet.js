@@ -6,15 +6,11 @@ import { isMobile } from '../../helpers/responsive.helpers';
 
 import NotificationView from '../NotificationView';
 
-
 const NoShowsYet = () => (
   <NoShowsYetElem>
     <NotificationView heading="No shows yet.">
-      Use the <MiniAddShowButton>+</MiniAddShowButton> icon
-      {' '}
-      {isMobile() && <br />}
-      {' '}
-      to add your first show!
+      Use the <MiniAddShowButton>+</MiniAddShowButton> icon{' '}
+      {isMobile() && <br />} to add your first show!
     </NotificationView>
   </NoShowsYetElem>
 );
@@ -38,6 +34,6 @@ const MiniAddShowButton = styled.span`
   background: ${COLORS.deepPurple.primary};
   font-family: 'Raleway';
   cursor: default;
-`
+`;
 
 export default NoShowsYet;

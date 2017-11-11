@@ -11,34 +11,28 @@ import Heading from '../Heading';
 import Spacer from '../Spacer';
 import Paragraph from '../Paragraph';
 
-
 const SettingsView = ({ user }) => {
   return [
     <Spacer key="spacer" size={UNIT * 4} />,
     <Section key="account">
-      <Heading theme="vibrant" size="small">Account Settings</Heading>
+      <Heading theme="vibrant" size="small">
+        Account Settings
+      </Heading>
       <Paragraph>
-        Logged in as <strong>{user.name}</strong>
-        {' '}
-        (<em>{user.email}</em>).
+        Logged in as <strong>{user.name}</strong> (<em>{user.email}</em>).
       </Paragraph>
 
-      <Button
-        href="/logout"
-        onClick={clearReduxData}
-        color="red"
-        size="small"
-      >
+      <Button href="/logout" onClick={clearReduxData} color="red" size="small">
         Log Out
       </Button>
     </Section>,
 
     <Section key="notifications">
-      <Heading theme="vibrant" size="small">Notification Settings</Heading>
-      <Paragraph>
-        Coming soon!
-      </Paragraph>
-    </Section>
+      <Heading theme="vibrant" size="small">
+        Notification Settings
+      </Heading>
+      <Paragraph>Coming soon!</Paragraph>
+    </Section>,
   ];
 };
 
@@ -52,7 +46,6 @@ const Section = styled.div`
     margin-bottom: 0;
   }
 `;
-
 
 const mapStateToProps = state => ({
   user: getUser(state),

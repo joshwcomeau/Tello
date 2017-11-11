@@ -5,20 +5,19 @@ import { random } from '../../utils';
 
 import { getTransformString } from './Drift.helpers';
 
-
 class Drift extends PureComponent {
   static propTypes = {
     initialX: PropTypes.number.isRequired,
     initialY: PropTypes.number.isRequired,
     initialRotation: PropTypes.number.isRequired,
     isFrozen: PropTypes.bool,
-  }
+  };
 
   state = {
     x: this.props.initialX,
     y: this.props.initialY,
     rotation: this.props.initialRotation,
-  }
+  };
 
   driftX = random(-10, 10);
   driftY = random(-10, 10);
@@ -39,13 +38,16 @@ class Drift extends PureComponent {
     }
 
     this.animationFrameId = window.requestAnimationFrame(() => {
-      this.setState(state => ({
-        x: state.x + this.driftX / 100,
-        y: state.y + this.driftY / 100,
-        rotation: state.rotation + this.rotate / 10,
-      }), this.tick);
+      this.setState(
+        state => ({
+          x: state.x + this.driftX / 100,
+          y: state.y + this.driftY / 100,
+          rotation: state.rotation + this.rotate / 10,
+        }),
+        this.tick
+      );
     });
-  }
+  };
 
   render() {
     const { x, y, rotation } = this.state;

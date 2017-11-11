@@ -4,11 +4,8 @@ import styled from 'emotion/react';
 
 import { COLORS } from '../../constants';
 
-
 const ScrollIndicator = () => {
-  return (
-    <ScrollIndicatorElem />
-  );
+  return <ScrollIndicatorElem />;
 };
 
 const scrollAnimation = keyframes`

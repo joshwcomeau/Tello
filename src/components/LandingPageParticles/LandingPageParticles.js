@@ -85,5 +85,4 @@ const ParticlesWrapper = styled.div`
   overflow: hidden;
 `;
 
-
 export default LandingPageParticles;

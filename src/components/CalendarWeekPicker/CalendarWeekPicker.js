@@ -11,14 +11,13 @@ import { incrementWeek, decrementWeek } from '../../actions';
 import { COLORS, UNITS_IN_PX } from '../../constants';
 import { DateProp } from '../../types';
 
-
 const propTypes = {
   startDate: DateProp.isRequired,
   endDate: DateProp.isRequired,
   maxDate: DateProp.isRequired,
   incrementWeek: PropTypes.func.isRequired,
   decrementWeek: PropTypes.func.isRequired,
-}
+};
 
 const CalendarWeekPicker = ({
   startDate,
@@ -33,11 +32,8 @@ const CalendarWeekPicker = ({
     </ToggleButton>
 
     <span>
-      <Prefix>Week of</Prefix>
-      {' '}
-      <CurrentWeek>
-        {format(startDate, 'MMMM Do')}
-      </CurrentWeek>
+      <Prefix>Week of</Prefix>{' '}
+      <CurrentWeek>{format(startDate, 'MMMM Do')}</CurrentWeek>
     </span>
 
     <ToggleButton
@@ -68,14 +64,14 @@ const ToggleButton = styled.button`
   border: transparent;
   font-size: 25px;
   color: ${COLORS.deepPurple.light};
-  background: rgba(255,255,255,0.06);
+  background: rgba(255, 255, 255, 0.06);
   cursor: pointer;
 
   &:hover {
     background: linear-gradient(
       to top,
-      rgba(255,255,255,0.06),
-      rgba(255,255,255,0.12)
+      rgba(255, 255, 255, 0.06),
+      rgba(255, 255, 255, 0.12)
     );
   }
 
@@ -83,7 +79,7 @@ const ToggleButton = styled.button`
     opacity: 0;
     cursor: default;
   }
-`
+`;
 
 const Prefix = styled.span`
   display: inline-block;

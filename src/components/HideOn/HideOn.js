@@ -15,6 +15,6 @@ const HideOn = ({ mobile, desktop, children }) => {
   }
 
   return children;
-}
+};
 
 export default HideOn;

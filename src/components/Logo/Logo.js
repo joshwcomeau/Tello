@@ -4,7 +4,6 @@ import styled from 'emotion/react';
 
 import { COLORS, ROW_HEIGHT_PX, UNITS_IN_PX } from '../../constants';
 
-
 const propTypes = {
   boxColor: PropTypes.string.isRequired,
   textColor: PropTypes.string.isRequired,
@@ -29,9 +28,7 @@ const defaultProps = {
 const Logo = ({ boxColor, textColor, betaBoxColor, betaTextColor }) => {
   return (
     <LogoContainer background={boxColor} href="/">
-      <LogoElem color={textColor}>
-        Tello
-      </LogoElem>
+      <LogoElem color={textColor}>Tello</LogoElem>
 
       <Beta background={betaBoxColor} color={betaTextColor}>
         Beta

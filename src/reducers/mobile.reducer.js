@@ -5,7 +5,6 @@ const initialState = {
   activeViewIndex: 0,
 };
 
-
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case SWIPE_MOBILE_VIEW:

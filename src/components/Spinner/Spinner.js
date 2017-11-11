@@ -11,17 +11,16 @@ import {
   getTransformOrigin,
 } from './Spinner.helpers';
 
-
 class Spinner extends PureComponent {
   static propTypes = {
     size: PropTypes.oneOf(['small', 'medium', 'large']).isRequired,
     fadeInDuration: PropTypes.number.isRequired,
-  }
+  };
 
   static defaultProps = {
     size: 'medium',
     fadeInDuration: 600,
-  }
+  };
 
   render() {
     const sizeInPx = getSizeInPx(this.props.size);

@@ -2,7 +2,6 @@ import { fontFace, injectGlobal } from 'emotion/react';
 
 import { COLORS } from './constants';
 
-
 injectGlobal`
   html, body {
     font-family:
@@ -57,7 +56,7 @@ injectGlobal`
     color: #FFF;
     background: ${COLORS.pink.primary};
   }
-`
+`;
 
 fontFace`
   font-family: 'Raleway';

@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Route, Redirect, Switch , withRouter } from 'react-router-dom';
+import { Route, Redirect, Switch, withRouter } from 'react-router-dom';
 
 import { isMobile } from '../../helpers/responsive.helpers';
 import { getNoShowsYet } from '../../reducers/tracked-shows.reducer';
@@ -19,12 +19,11 @@ import NoShowsYet from '../NoShowsYet';
 
 import loadMobileView from 'bundle-loader?lazy!../MobileView';
 
-
 class AppRoutes extends PureComponent {
   static propTypes = {
     breakpoint: breakpointsProp.isRequired,
     noShowsYet: PropTypes.bool.isRequired,
-  }
+  };
 
   getMobileRoutes() {
     return [
@@ -33,10 +32,8 @@ class AppRoutes extends PureComponent {
         path="/app/mobile"
         render={() => (
           <Bundle load={loadMobileView}>
-            {
-              (MobileView) => MobileView
-                ? <MobileView />
-                : <SpinnerWithPadding />
+            {MobileView =>
+              MobileView ? <MobileView /> : <SpinnerWithPadding />
             }
           </Bundle>
         )}
@@ -68,13 +65,10 @@ class AppRoutes extends PureComponent {
 
           {isMobile(breakpoint)
             ? this.getMobileRoutes()
-            : this.getDesktopRoutes()
-          }
+            : this.getDesktopRoutes()}
         </Switch>
-
       </LoggedInLayout>
     );
-
   }
 }
 
@@ -82,6 +76,4 @@ const mapStateToProps = state => ({
   noShowsYet: getNoShowsYet(state),
 });
 
-export default withRouter(
-  connect(mapStateToProps)(AppRoutes)
-);
+export default withRouter(connect(mapStateToProps)(AppRoutes));

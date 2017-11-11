@@ -15,7 +15,6 @@ import AddShowButton from '../AddShowButton';
 import Logo from '../Logo';
 import MaxWidthWrapper from '../MaxWidthWrapper';
 
-
 const Header = ({ isLoggedIn, user, showAddShowModal }) => (
   <HeaderElem>
     <MaxWidthWrapper style={{ height: '100%' }}>

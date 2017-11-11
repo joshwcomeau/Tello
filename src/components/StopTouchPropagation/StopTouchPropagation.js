@@ -17,13 +17,8 @@ class StopTouchPropagation extends PureComponent {
     this.elem.addEventListener('touchmove', ev => ev.stopPropagation());
   }
 
-
   render() {
-    return (
-      <div ref={elem => this.elem = elem}>
-        {this.props.children}
-      </div>
-    );
+    return <div ref={elem => (this.elem = elem)}>{this.props.children}</div>;
   }
 }
 

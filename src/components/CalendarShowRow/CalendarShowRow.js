@@ -12,7 +12,6 @@ import { ShowProps, DateProp } from '../../types';
 import CalendarEpisode from '../CalendarEpisode';
 import { Row, Cell } from '../CalendarPrimitives';
 
-
 const CALENDAR_ROW_HEIGHT = UNIT * 3.5;
 
 class CalendarShowRow extends Component {
@@ -22,7 +21,7 @@ class CalendarShowRow extends Component {
     startDate: DateProp.isRequired,
     endDate: DateProp.isRequired,
     isLastRow: PropTypes.bool.isRequired,
-  }
+  };
 
   shouldComponentUpdate(nextProps) {
     // There are only two times when a show's row changes:
@@ -31,13 +30,11 @@ class CalendarShowRow extends Component {
     //
     // Using shouldComponentUpdate here because this component's render method
     // is pretty heavy; involves filtering through large lists.
-    const receivedData = (
-      nextProps.show.episodes.length !== this.props.show.episodes.length
-    );
+    const receivedData =
+      nextProps.show.episodes.length !== this.props.show.episodes.length;
 
-    const toggledEpisode = (
-      nextProps.show.seenEpisodeIds !== this.props.show.seenEpisodeIds
-    );
+    const toggledEpisode =
+      nextProps.show.seenEpisodeIds !== this.props.show.seenEpisodeIds;
 
     return receivedData || toggledEpisode;
   }
@@ -45,22 +42,19 @@ class CalendarShowRow extends Component {
   render() {
     const { demo, show, startDate, endDate, isLastRow } = this.props;
 
-    const relevantEpisodes = show.episodes
-      .filter(episode => (
-        isBetween({ date: episode.airstamp,  startDate, endDate })
-      ));
+    const relevantEpisodes = show.episodes.filter(episode =>
+      isBetween({ date: episode.airstamp, startDate, endDate })
+    );
 
     return (
       <Row>
-        <ShowName isLastRow={isLastRow}>
-          {show.name}
-        </ShowName>
+        <ShowName isLastRow={isLastRow}>{show.name}</ShowName>
         {range(7).map(index => {
           const date = addDays(startDate, index);
 
-          const episode = relevantEpisodes.find(episode => (
+          const episode = relevantEpisodes.find(episode =>
             isSameDay(episode.airstamp, date)
-          ));
+          );
 
           return (
             <CalendarCell
@@ -88,12 +82,9 @@ class CalendarShowRow extends Component {
 }
 
 const CalendarCell = styled(Cell)`
-  background-color: ${props => props.highlight
-    ? COLORS.highlight.dark
-    : 'transparent'
-  };
+  background-color: ${props =>
+    props.highlight ? COLORS.highlight.dark : 'transparent'};
 `;
-
 
 const ShowName = styled(CalendarCell)`
   font-weight: bold;

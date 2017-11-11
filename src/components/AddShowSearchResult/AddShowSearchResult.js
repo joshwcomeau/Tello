@@ -9,7 +9,6 @@ import Checkbox from '../Checkbox';
 import Subheading from '../Subheading';
 import ShowStatus from '../ShowStatus';
 
-
 const propTypes = {
   show: ShowProps,
   isAlreadyAdded: PropTypes.bool,
@@ -20,23 +19,19 @@ class AddShowSearchResult extends Component {
   state = {
     isHovering: false,
     isSelected: false,
-  }
+  };
 
-  handleMouseEnter = () => this.setState({ isHovering: true })
-  handleMouseLeave = () => this.setState({ isHovering: false })
+  handleMouseEnter = () => this.setState({ isHovering: true });
+  handleMouseLeave = () => this.setState({ isHovering: false });
   handleClick = () => {
     this.setState({ isSelected: !this.state.isSelected });
 
     this.props.onToggleShow(this.props.show.id);
-  }
+  };
 
   render() {
     const { isHovering, isSelected } = this.state;
-    const {
-      show: { name, status, region },
-      isAlreadyAdded,
-    } = this.props;
-
+    const { show: { name, status, region }, isAlreadyAdded } = this.props;
 
     return (
       <Wrapper
@@ -61,9 +56,7 @@ class AddShowSearchResult extends Component {
           )}
         </MainContent>
 
-        <ShowStatus status={status}>
-          {status}
-        </ShowStatus>
+        <ShowStatus status={status}>{status}</ShowStatus>
       </Wrapper>
     );
   }
@@ -74,7 +67,7 @@ const Wrapper = styled.div`
   align-items: center;
   cursor: default;
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-  opacity: ${props => props.deEmphasize ? 0.5 : 1};
+  opacity: ${props => (props.deEmphasize ? 0.5 : 1)};
   user-select: none;
   padding-right: ${HALF_UNIT_PX};
 `;

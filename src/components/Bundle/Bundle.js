@@ -4,7 +4,7 @@ class Bundle extends PureComponent {
   state = {
     // short for "module" but that's a keyword in js, so "mod"
     mod: null,
-  }
+  };
 
   componentDidMount() {
     this.load(this.props);
@@ -21,7 +21,7 @@ class Bundle extends PureComponent {
       mod: null,
     });
 
-    props.load((mod) => {
+    props.load(mod => {
       this.setState({
         // handle both es imports and cjs
         mod: mod.default ? mod.default : mod,
@@ -30,9 +30,7 @@ class Bundle extends PureComponent {
   }
 
   render() {
-    return this.state.mod
-      ? this.props.children(this.state.mod)
-      : null;
+    return this.state.mod ? this.props.children(this.state.mod) : null;
   }
 }
 

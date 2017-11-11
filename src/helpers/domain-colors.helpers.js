@@ -1,6 +1,5 @@
 import { COLORS } from '../constants';
 
-
 const domainColors = {
   reality: COLORS.purple.primary,
   animation: COLORS.deepOrange.primary,
@@ -9,9 +8,7 @@ const domainColors = {
   default: COLORS.gray.dark,
 };
 
-const getDomainColor = (domain = 'default') => (
-  domainColors[domain.toLowerCase().replace(/\s/, '')] ||
-  domainColors.default
-);
+const getDomainColor = (domain = 'default') =>
+  domainColors[domain.toLowerCase().replace(/\s/, '')] || domainColors.default;
 
 export default getDomainColor;

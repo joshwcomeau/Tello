@@ -4,15 +4,9 @@ import { css } from 'emotion';
 import PropTypes from 'prop-types';
 import { COLORS, UNITS_IN_PX } from '../../constants';
 
-
 const propTypes = {
   size: PropTypes.oneOf(['small', 'medium', 'large']).isRequired,
-  theme: PropTypes.oneOf([
-    'light',
-    'dark',
-    'vibrant',
-    'vibrantAlt',
-  ]).isRequired,
+  theme: PropTypes.oneOf(['light', 'dark', 'vibrant', 'vibrantAlt']).isRequired,
   children: PropTypes.node,
 };
 
@@ -21,13 +15,8 @@ const defaultProps = {
   theme: 'dark',
 };
 
-const Heading = ({ size, children, ...delegated }) => (
-  React.createElement(
-    headingComponentMap[size],
-    delegated,
-    children
-  )
-);
+const Heading = ({ size, children, ...delegated }) =>
+  React.createElement(headingComponentMap[size], delegated, children);
 
 Heading.propTypes = propTypes;
 Heading.defaultProps = defaultProps;
@@ -88,6 +77,5 @@ const headingComponentMap = {
   medium: HeadingMedium,
   small: HeadingSmall,
 };
-
 
 export default Heading;

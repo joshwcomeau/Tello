@@ -14,7 +14,6 @@ import {
 } from '../../helpers/show.helpers';
 import { EpisodeProps } from '../../types';
 
-
 // NOTE: Needs to be a class component because it's passed to FlipMove.
 // FlipMove doesn't support SFCs.
 class BacklogEpisode extends Component {
@@ -22,28 +21,17 @@ class BacklogEpisode extends Component {
     height: PropTypes.number.isRequired,
     showType: PropTypes.string.isRequired,
     episode: EpisodeProps,
-  }
+  };
 
   render() {
-    const {
-      height,
-      episode,
-      handleClick,
-    } = this.props;
+    const { height, episode, handleClick } = this.props;
 
     return (
-      <Episode
-        height={height}
-        onClick={handleClick}
-      >
+      <Episode height={height} onClick={handleClick}>
         <EpisodeHeader>
-          <EpisodeAirDate>
-            {getHumanizedEpisodeAirDate(episode)}
-          </EpisodeAirDate>
+          <EpisodeAirDate>{getHumanizedEpisodeAirDate(episode)}</EpisodeAirDate>
 
-          <EpisodeNum>
-            {getEpisodeNumString(episode)}
-          </EpisodeNum>
+          <EpisodeNum>{getEpisodeNumString(episode)}</EpisodeNum>
         </EpisodeHeader>
 
         <EpisodeName>{episode.name}</EpisodeName>

@@ -3,7 +3,6 @@ import styled from 'emotion/react';
 
 import { UNITS_IN_PX } from '../../constants';
 
-
 const Divider = () => {
   return (
     <DividerElem>
@@ -22,8 +21,7 @@ const DividerElem = styled.div`
 const Bar = styled.div`
   width: 125px;
   height: 1px;
-  background: rgba(255,255,255,0.25);
-
-`
+  background: rgba(255, 255, 255, 0.25);
+`;
 
 export default Divider;

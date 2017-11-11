@@ -4,30 +4,25 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
-import {
-  requestAnimationFramePromise,
-  setTimeoutPromise,
-} from '../../utils';
-
+import { requestAnimationFramePromise, setTimeoutPromise } from '../../utils';
 
 class FadeOnChange extends PureComponent {
   static propTypes = {
     children: PropTypes.node,
     duration: PropTypes.number,
     changeKey: PropTypes.any,
-  }
+  };
 
   static defaultProps = {
     duration: 500,
-  }
+  };
 
   state = {
     children: this.props.children,
-  }
+  };
 
-  setStatePromise = newState => new Promise(resolve => (
-    this.setState(newState, resolve)
-  ))
+  setStatePromise = newState =>
+    new Promise(resolve => this.setState(newState, resolve));
 
   componentDidUpdate(prevProps, prevState) {
     // Sometimes, we don't want to look at the children themselves.
@@ -35,11 +30,12 @@ class FadeOnChange extends PureComponent {
     // every render. If we supply a `changeKey`, use it instead.
     // If not, use the children in state. We use state instead of props so
     // that we ignore the update of the children being swapped out mid-fade.
-    const hasChanged = typeof this.props.changeKey !== 'undefined'
-      ? this.props.changeKey !== prevProps.changeKey
-      : this.state.children !== prevState.children;
+    const hasChanged =
+      typeof this.props.changeKey !== 'undefined'
+        ? this.props.changeKey !== prevProps.changeKey
+        : this.state.children !== prevState.children;
 
-      if (!hasChanged) {
+    if (!hasChanged) {
       return;
     }
 
@@ -52,10 +48,14 @@ class FadeOnChange extends PureComponent {
     // This sequence of events is required to ensure that the swap happens at
     // the right time, and the animation works.
     requestAnimationFramePromise()
-      .then(() => { this.childElem.style.opacity = 0; })
+      .then(() => {
+        this.childElem.style.opacity = 0;
+      })
       .then(() => setTimeoutPromise(this.props.duration))
       .then(() => this.setStatePromise({ children: this.props.children }))
-      .then(() => { this.childElem.style.opacity = 1; })
+      .then(() => {
+        this.childElem.style.opacity = 1;
+      })
       .catch(() => {
         // Swallow errors. The most likely error here is that the component
         // unmounted during the delay between fades. This isn't a big deal.
@@ -74,7 +74,9 @@ class FadeOnChange extends PureComponent {
     return (
       <div
         style={{ transition }}
-        ref={(elem) => { this.childElem = elem; }}
+        ref={elem => {
+          this.childElem = elem;
+        }}
       >
         {this.state.children}
       </div>

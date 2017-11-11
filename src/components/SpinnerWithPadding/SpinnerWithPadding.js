@@ -6,7 +6,6 @@ import { UNITS_IN_PX } from '../../constants';
 
 import Spinner from '../Spinner';
 
-
 const propTypes = {
   paddingUnits: PropTypes.number.isRequired,
   size: PropTypes.oneOf(['small', 'medium', 'large']).isRequired,
@@ -30,8 +29,7 @@ const SpinnerWrapper = styled.div`
   align-items: center;
   padding-top: ${props => UNITS_IN_PX[props.paddingUnits]};
   padding-bottom: ${props => UNITS_IN_PX[props.paddingUnits]};
-`
-
+`;
 
 SpinnerWithPadding.propTypes = propTypes;
 SpinnerWithPadding.defaultProps = defaultProps;

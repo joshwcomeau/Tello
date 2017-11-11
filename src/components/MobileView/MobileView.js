@@ -14,11 +14,10 @@ import SettingsView from '../SettingsView';
 import Heading from '../Heading';
 import SwipeIndicator from '../SwipeIndicator';
 
-
 class MobileView extends PureComponent {
   static propTypes = {
     activeViewIndex: PropTypes.number.isRequired,
-  }
+  };
 
   render() {
     const { activeViewIndex, swipeMobileView } = this.props;
@@ -52,7 +51,7 @@ const ViewWrapper = styled.div`
   bottom: 0;
   overflow: auto;
   padding: ${ROW_HEIGHT_PX} ${UNITS_IN_PX[1]};
-  height: ${props => props.isActive ? 'auto' : '100vh'};
+  height: ${props => (props.isActive ? 'auto' : '100vh')};
 `;
 
 const MobileHeading = styled(Heading)`

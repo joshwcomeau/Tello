@@ -7,19 +7,19 @@ import { COLORS, HALF_UNIT_PX } from '../../constants';
 
 import { Cell } from '../CalendarPrimitives';
 
-
 const CalendarHeaderCell = ({ date, row, col }) => (
   <HeaderCell highlight={date && isToday(date)}>
     {date && [
       <Weekday key="week">{format(date, 'dddd')}</Weekday>,
-      <CalendarDate key="date">{format(date, 'MMM Do')}</CalendarDate>
+      <CalendarDate key="date">{format(date, 'MMM Do')}</CalendarDate>,
     ]}
   </HeaderCell>
 );
 
-const getBackground = ({ highlight }) => highlight
-  ? `linear-gradient(to top, ${COLORS.highlight.dark}, rgba(0,0,0,0))`
-  : 'transparent'
+const getBackground = ({ highlight }) =>
+  highlight
+    ? `linear-gradient(to top, ${COLORS.highlight.dark}, rgba(0,0,0,0))`
+    : 'transparent';
 
 const HeaderCell = styled(Cell)`
   position: relative;
@@ -47,15 +47,11 @@ const HeaderCell = styled(Cell)`
   &:before {
     content: '';
     position: absolute;
-    width: ${props => props.col === 8 ? 0 : '1px'};
+    width: ${props => (props.col === 8 ? 0 : '1px')};
     top: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(
-      to top,
-      ${COLORS.gray.light},
-      ${COLORS.white}
-    );
+    background: linear-gradient(to top, ${COLORS.gray.light}, ${COLORS.white});
   }
 `;
 

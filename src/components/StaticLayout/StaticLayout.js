@@ -16,7 +16,6 @@ import Heading from '../Heading';
 import MaxWidthWrapper from '../MaxWidthWrapper';
 import Spacer from '../Spacer';
 
-
 class StaticLayout extends PureComponent {
   componentDidMount() {
     window.scrollTo(0, 0);
@@ -49,7 +48,6 @@ class StaticLayout extends PureComponent {
     );
   }
 }
-
 
 const StaticLayoutElem = styled.div`
   min-height: calc(100vh - ${FOOTER_HEIGHT_PX});

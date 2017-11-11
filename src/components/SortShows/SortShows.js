@@ -7,7 +7,6 @@ import { UNITS_IN_PX, SORT_OPTIONS } from '../../constants';
 
 import Select from '../Select';
 
-
 const SortShows = ({ selectedOption, changeSorting }) => (
   <Header>
     <Select

@@ -18,9 +18,7 @@ import { sortEpisodesComparator } from '../helpers/show.helpers';
 import { convertArrayToMap, toggleInArray, mergeUnique } from '../utils';
 import { getIsFetching } from './auth.reducer';
 
-
 const initialState = {};
-
 
 export default function trackedShowsReducer(state = initialState, action) {
   switch (action.type) {
@@ -51,7 +49,7 @@ export default function trackedShowsReducer(state = initialState, action) {
         isLoading: true,
         // The server will return a precise createdAt date. For now, we'll
         // just use the current time. That ought to be close enough :)
-        createdAt: (new Date()).toISOString(),
+        createdAt: new Date().toISOString(),
         seenEpisodeIds: [],
       }));
 
@@ -90,7 +88,7 @@ export default function trackedShowsReducer(state = initialState, action) {
       // Add these episodes to the show
       const show = {
         ...state[showId],
-        episodes: episodeMap
+        episodes: episodeMap,
       };
 
       return {
@@ -129,9 +127,9 @@ export default function trackedShowsReducer(state = initialState, action) {
       const { showId, episodeId } = action;
       const show = state[showId];
 
-      const nextSeenEpisodeIds = show.seenEpisodeIds.filter(seenId => (
-        seenId !== episodeId
-      ));
+      const nextSeenEpisodeIds = show.seenEpisodeIds.filter(
+        seenId => seenId !== episodeId
+      );
 
       return update(state, {
         [showId]: {
@@ -149,7 +147,7 @@ export default function trackedShowsReducer(state = initialState, action) {
       return update(state, {
         [showId]: {
           seenEpisodeIds: { $set: nextSeenEpisodeIds },
-        }
+        },
       });
     }
 
@@ -174,10 +172,8 @@ export default function trackedShowsReducer(state = initialState, action) {
   }
 }
 
-
-
 // Helpers
-const convertEpisodeMapToArray = ({ episodes, seenEpisodeIds }) => (
+const convertEpisodeMapToArray = ({ episodes, seenEpisodeIds }) =>
   Object.keys(episodes)
     .map(episodeId => ({
       ...episodes[episodeId],
@@ -186,8 +182,7 @@ const convertEpisodeMapToArray = ({ episodes, seenEpisodeIds }) => (
     // Sort the episodes.
     // This will be used in several places, and it's more efficient
     // to just do it once up here.
-    .sort(sortEpisodesComparator)
-);
+    .sort(sortEpisodesComparator);
 
 const organizeEpisodesBySeason = ({ episodes, seenEpisodeIds }) => {
   if (!episodes) {
@@ -216,9 +211,8 @@ const organizeEpisodesBySeason = ({ episodes, seenEpisodeIds }) => {
 // data munging.
 export const getTrackedShows = state => state.trackedShows;
 
-export const getTrackedShowIds = createSelector(
-  getTrackedShows,
-  (shows) => Object.keys(shows).map(Number)
+export const getTrackedShowIds = createSelector(getTrackedShows, shows =>
+  Object.keys(shows).map(Number)
 );
 
 export const getNoShowsYet = createSelector(
@@ -230,82 +224,85 @@ export const getNoShowsYet = createSelector(
 export const getTrackedShowsArray = createSelector(
   getTrackedShows,
   getTrackedShowIds,
-  (shows, showIds) => showIds
-    .map(showId => {
-      const show = shows[showId];
+  (shows, showIds) =>
+    showIds
+      .map(showId => {
+        const show = shows[showId];
 
-      // If ths show has no episodes, no further array-making is required.
-      if (!show.episodes) {
-        return show;
-      }
+        // If ths show has no episodes, no further array-making is required.
+        if (!show.episodes) {
+          return show;
+        }
 
-      // If the show has nothing BUT episodes, we want to omit this show
-      // from the results. This can happen if a show's episode request
-      // completes before the main user data request? Or something like that.
-      // Hard to tell since it isn't consistently reproducible.
-      // TODO: Find the root cause of this issue, instead of patching it here.
-      if (Object.keys(show).length === 1) {
-        return null;
-      }
+        // If the show has nothing BUT episodes, we want to omit this show
+        // from the results. This can happen if a show's episode request
+        // completes before the main user data request? Or something like that.
+        // Hard to tell since it isn't consistently reproducible.
+        // TODO: Find the root cause of this issue, instead of patching it here.
+        if (Object.keys(show).length === 1) {
+          return null;
+        }
 
-      // If the show has episodes, though, we need to turn the episode map
-      // into an array as well.
-      const episodes = convertEpisodeMapToArray(show);
+        // If the show has episodes, though, we need to turn the episode map
+        // into an array as well.
+        const episodes = convertEpisodeMapToArray(show);
 
-      return {
-        ...show,
-        episodes,
-      };
-    })
-    .filter(show => !!show)
+        return {
+          ...show,
+          episodes,
+        };
+      })
+      .filter(show => !!show)
 );
 
 export const getAiredTrackedShowsArray = createSelector(
   getTrackedShowsArray,
-  (shows) => shows.map(show => ({
-    ...show,
-    episodes: show.episodes
-      ? show.episodes.filter(episode => !isFuture(episode.airstamp))
-      : undefined,
-  }))
+  shows =>
+    shows.map(show => ({
+      ...show,
+      episodes: show.episodes
+        ? show.episodes.filter(episode => !isFuture(episode.airstamp))
+        : undefined,
+    }))
 );
 
 export const getTrackedShowsWithUnseenEpisodesArray = createSelector(
   getAiredTrackedShowsArray,
-  (shows) => shows.filter(show => {
-    // If we don't yet have the episode data, we need to include this show.
-    if (!show.episodes) {
-      return true;
-    }
+  shows =>
+    shows.filter(show => {
+      // If we don't yet have the episode data, we need to include this show.
+      if (!show.episodes) {
+        return true;
+      }
 
-    const numOfUnseenEpisodes = show.episodes.reduce((sum, episode) => (
-      sum + (episode.isSeen ? 0 : 1)
-    ), 0);
+      const numOfUnseenEpisodes = show.episodes.reduce(
+        (sum, episode) => sum + (episode.isSeen ? 0 : 1),
+        0
+      );
 
-    return numOfUnseenEpisodes > 0;
-  })
+      return numOfUnseenEpisodes > 0;
+    })
 );
-
 
 export const getTrackedShowsArrayWithSeasons = createSelector(
   getTrackedShowsArray,
-  (shows) => shows.map(show => ({
-    ...show,
-    seasons: organizeEpisodesBySeason(show),
-  }))
+  shows =>
+    shows.map(show => ({
+      ...show,
+      seasons: organizeEpisodesBySeason(show),
+    }))
 );
 
 export const getAiredTrackedShowsArrayWithSeasons = createSelector(
   getAiredTrackedShowsArray,
-  (shows) => shows.map(show => ({
-    ...show,
-    seasons: organizeEpisodesBySeason(show),
-  }))
+  shows =>
+    shows.map(show => ({
+      ...show,
+      seasons: organizeEpisodesBySeason(show),
+    }))
 );
 
 export const getIsFetchingAnyEpisodes = createSelector(
   getTrackedShowsArray,
-  (shows) => shows.some(show => (
-    !Array.isArray(show.episodes)
-  ))
+  shows => shows.some(show => !Array.isArray(show.episodes))
 );

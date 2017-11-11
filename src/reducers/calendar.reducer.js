@@ -3,12 +3,10 @@ import endOfWeek from 'date-fns/end_of_week';
 
 import { UPDATE_CALENDAR_WEEK } from '../actions';
 
-
 const initialState = {
   startDate: startOfWeek(new Date()),
   endDate: endOfWeek(new Date()),
 };
-
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {

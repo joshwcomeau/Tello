@@ -8,7 +8,7 @@ import { UNITS_IN_PX } from '../../constants';
 import { getTrackedShowIds } from '../../reducers/tracked-shows.reducer';
 import {
   getSearchEndpoint,
-  formatShowResults
+  formatShowResults,
 } from '../../helpers/tv-maze.helpers';
 
 import Button from '../Button';
@@ -19,20 +19,19 @@ import AddShowSearchResults from '../AddShowSearchResults';
 
 import { getButtonText } from './AddShow.helpers';
 
-
 class AddShow extends Component {
   static propTypes = {
     previouslyTrackedShowIds: PropTypes.arrayOf(PropTypes.number),
     addShowsRequest: PropTypes.func.isRequired,
-  }
+  };
 
   state = {
     status: 'idle',
     shows: [],
     selectedShowIds: [],
-  }
+  };
 
-  handleSearch = (query) => {
+  handleSearch = query => {
     this.setState({
       status: 'loading',
       shows: [],
@@ -54,28 +53,28 @@ class AddShow extends Component {
         });
       })
       .catch(console.error);
-  }
+  };
 
-  handleToggleShow = (id) => {
+  handleToggleShow = id => {
     const { selectedShowIds } = this.state;
 
     let nextShowIds;
 
     if (selectedShowIds.includes(id)) {
-      nextShowIds = selectedShowIds.filter(selectedId => selectedId !== id)
+      nextShowIds = selectedShowIds.filter(selectedId => selectedId !== id);
     } else {
       nextShowIds = [...selectedShowIds, id];
     }
 
     this.setState({ selectedShowIds: nextShowIds });
-  }
+  };
 
   handleFinishButton = () => {
     const { selectedShowIds, shows } = this.state;
 
-    const selectedShows = selectedShowIds.map(id => (
+    const selectedShows = selectedShowIds.map(id =>
       shows.find(show => show.id === id)
-    ));
+    );
 
     // Dispatch the action which will persist this selection to the server.
     this.props.addShowsRequest({ shows: selectedShows });
@@ -87,7 +86,7 @@ class AddShow extends Component {
       shows: [],
       selectedShowIds: [],
     });
-  }
+  };
 
   render() {
     const numOfShowsSelected = this.state.selectedShowIds.length;
@@ -107,7 +106,11 @@ class AddShow extends Component {
         </Header>
 
         <Flex>
-          {isLoading && <Center><Spinner fadeInDuration={100} /></Center>}
+          {isLoading && (
+            <Center>
+              <Spinner fadeInDuration={100} />
+            </Center>
+          )}
 
           <AddShowSearchResults
             status={this.state.status}
@@ -151,7 +154,7 @@ const Center = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`
+`;
 
 const mapStateToProps = state => ({
   previouslyTrackedShowIds: getTrackedShowIds(state),

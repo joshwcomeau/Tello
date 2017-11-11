@@ -5,7 +5,6 @@ import rootReducer from '../reducers';
 import createAPIMiddleware from '../middlewares/api.middleware';
 import { handleStoreUpdates } from '../helpers/local-storage.helpers';
 
-
 export default function configureStore(history, initialState) {
   const store = createStore(
     rootReducer,

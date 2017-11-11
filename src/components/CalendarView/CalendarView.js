@@ -12,11 +12,10 @@ import Calendar from '../Calendar';
 import CalendarWeekPicker from '../CalendarWeekPicker';
 import Spacer from '../Spacer';
 
-
 class CalendarView extends Component {
   static propTypes = {
     trackedShows: PropTypes.arrayOf(ShowProps),
-  }
+  };
 
   render() {
     return (
@@ -27,7 +26,7 @@ class CalendarView extends Component {
 
         <Calendar shows={this.props.trackedShows} />
 
-        <Spacer size={UNIT * 6}/>
+        <Spacer size={UNIT * 6} />
       </div>
     );
   }

@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 import { random, sample } from '../../utils';
 
-
 // All shapes should be a single <path> element, which will be inserted into
 // a 200x200 SVG.
 const PATHS = {
@@ -27,29 +26,29 @@ class Particle extends PureComponent {
     rotation: PropTypes.number,
     drawDelay: PropTypes.number,
     drawSpeed: PropTypes.number,
-  }
+  };
 
   static defaultProps = {
     color: 'rgba(255, 255, 255, 0.2)',
     size: 50,
-  }
+  };
 
   // Choose a random shape and rotation if not provided via props.
   // Can't happen in `defaultProps` since we want each instance to have its own
   // randomized shape.
-  shape = this.props.shape || sample(Object.keys(PATHS))
+  shape = this.props.shape || sample(Object.keys(PATHS));
 
   drawDelay = typeof this.props.drawDelay === 'number'
     ? this.props.drawDelay
-    : random(500, 5000)
+    : random(500, 5000);
 
   drawSpeed = typeof this.props.drawSpeed === 'number'
     ? this.props.drawSpeed
-    : random(1000, 4000)
+    : random(1000, 4000);
 
   undrawDelay = typeof this.props.undrawDelay === 'number'
     ? this.props.undrawDelay
-    : random(2000, 7000)
+    : random(2000, 7000);
 
   componentDidMount() {
     const pathLength = this.pathElem.getTotalLength();
@@ -87,9 +86,9 @@ class Particle extends PureComponent {
       // After the undraw is completed, wait another 'drawDelay'.
       // Then, re-invoke this method, so that the cycle restarts.
       const drawAfter = this.drawSpeed + this.drawDelay;
-      this.drawTimeoutId = window.setTimeout(this.drawCycle, drawAfter)
+      this.drawTimeoutId = window.setTimeout(this.drawCycle, drawAfter);
     }, undrawAfter);
-  }
+  };
 
   render() {
     const { size, color } = this.props;
@@ -107,7 +106,7 @@ class Particle extends PureComponent {
         }}
       >
         <path
-          ref={elem => this.pathElem = elem}
+          ref={elem => (this.pathElem = elem)}
           d={path}
           fill="none"
           stroke={color}
@@ -117,6 +116,5 @@ class Particle extends PureComponent {
     );
   }
 }
-
 
 export default Particle;

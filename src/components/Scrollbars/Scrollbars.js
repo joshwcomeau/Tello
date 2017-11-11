@@ -9,7 +9,6 @@ import {
   getSelectorForStyleName,
 } from './Scrollbars.helpers';
 
-
 class Scrollbars extends PureComponent {
   static instanceCount = 0;
   static styleDOMNode = createAndInsertStylesheet();
@@ -18,7 +17,7 @@ class Scrollbars extends PureComponent {
     scrollbarStyles: PropTypes.object,
     scrollbarTrackStyles: PropTypes.object,
     scrollbarThumbStyles: PropTypes.object,
-  }
+  };
 
   componentDidMount() {
     Scrollbars.instanceCount++;
@@ -29,8 +28,8 @@ class Scrollbars extends PureComponent {
       warning(
         Scrollbars.instanceCount <= 1,
         'Warning: Multiple instances of Scrollbars detected. ' +
-        'You likely only want one at a time, typically tied to a route.'
-      )
+          'You likely only want one at a time, typically tied to a route.'
+      );
     }
 
     this.updateScrollbars();

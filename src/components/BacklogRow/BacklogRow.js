@@ -12,7 +12,7 @@ import {
   HALF_UNIT_PX,
   UNITS_IN_PX,
   ROW_HEIGHT,
-  ROW_HEIGHT_PX
+  ROW_HEIGHT_PX,
 } from '../../constants';
 import { markEpisodeAsSeen } from '../../actions';
 import { ShowProps } from '../../types';
@@ -22,24 +22,23 @@ import Heading from '../Heading';
 import StopTouchPropagation from '../StopTouchPropagation';
 import Tag from '../Tag';
 
-
 const TOGGLE_ANIMATION_DURATION = 300;
 
 class BacklogRow extends Component {
   static propTypes = {
     demo: PropTypes.bool,
     show: ShowProps,
-  }
+  };
 
   state = {
     isToggling: false,
-  }
+  };
 
   componentWillUnmount() {
-    window.clearTimeout(this.markEpisodeAsSeenTimeoutId)
+    window.clearTimeout(this.markEpisodeAsSeenTimeoutId);
   }
 
-  handleEpisodeClick = (episode) => {
+  handleEpisodeClick = episode => {
     const { demo, show, markEpisodeAsSeen } = this.props;
 
     // Episodes take some time to disappear, and bad things happen if the user
@@ -61,14 +60,12 @@ class BacklogRow extends Component {
       // than the animation duration, before unsetting the `isToggling` state
       this.markEpisodeAsSeenTimeoutId = window.setTimeout(() => {
         this.setState({ isToggling: false });
-      }, TOGGLE_ANIMATION_DURATION + 35)
+      }, TOGGLE_ANIMATION_DURATION + 35);
     });
-  }
+  };
 
   renderEpisodes() {
-    const {
-      show: { type, episodes },
-    } = this.props;
+    const { show: { type, episodes } } = this.props;
 
     const unseenEpisodes = episodes
       .filter(episode => !episode.isSeen)
@@ -120,7 +117,7 @@ class BacklogRow extends Component {
 const Wrapper = styled.div`
   color: ${COLORS.black};
   background: ${COLORS.white};
-  box-shadow: 1px 0px 3px rgba(0,0,0,0.9);
+  box-shadow: 1px 0px 3px rgba(0, 0, 0, 0.9);
   margin-bottom: ${UNITS_IN_PX[1]};
 `;
 
@@ -140,7 +137,7 @@ const ShowDetails = styled.div`
   z-index: 2;
   padding: ${HALF_UNIT_PX};
   width: ${UNITS_IN_PX[15]};
-  box-shadow: 0px 1px 6px rgba(0,0,0,0.4);
+  box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.4);
 
   @media ${BREAKPOINTS.sm} {
     width: 100%;
@@ -157,7 +154,7 @@ const TagWrapper = styled.div`
     left: auto;
     bottom: auto;
   }
-`
+`;
 
 const EpisodeWrapper = styled.div`
   position: relative;

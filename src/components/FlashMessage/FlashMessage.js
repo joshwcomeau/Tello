@@ -14,7 +14,6 @@ import { COLORS, UNIT, UNITS_IN_PX, HALF_UNIT_PX } from '../../constants';
 
 import { getColorForMessageType } from './FlashMessage.helpers';
 
-
 class FlashMessage extends Component {
   static propTypes = {
     duration: PropTypes.number.isRequired,
@@ -23,11 +22,11 @@ class FlashMessage extends Component {
     action: PropTypes.object,
     actionLabel: PropTypes.string,
     dispatch: PropTypes.func.isRequired,
-  }
+  };
 
   static defaultProps = {
     duration: 7000,
-  }
+  };
 
   componentDidUpdate(prevProps) {
     const { message, duration, dispatch } = this.props;
@@ -43,9 +42,10 @@ class FlashMessage extends Component {
       // Reset the current timeout, so that it resets the timer.
       window.clearTimeout(this.messageTimerId);
 
-      this.messageTimerId = window.setTimeout(() => (
-        dispatch(hideFlashMessage())
-      ), duration);
+      this.messageTimerId = window.setTimeout(
+        () => dispatch(hideFlashMessage()),
+        duration
+      );
     }
   }
 
@@ -64,7 +64,7 @@ class FlashMessage extends Component {
     window.clearTimeout(this.messageTimerId);
 
     dispatch(action);
-  }
+  };
 
   handleCloseClick = () => {
     const { dispatch } = this.props;
@@ -73,16 +73,10 @@ class FlashMessage extends Component {
 
     // Cancel the hide-message timeout as well
     window.clearTimeout(this.messageTimerId);
-  }
+  };
 
   render() {
-    const {
-      duration,
-      message,
-      messageType,
-      action,
-      actionLabel,
-    } = this.props;
+    const { duration, message, messageType, action, actionLabel } = this.props;
 
     return (
       <FlashMessageElem
@@ -93,9 +87,7 @@ class FlashMessage extends Component {
         <span>
           <span dangerouslySetInnerHTML={{ __html: message }} />
           {action && (
-            <Action onClick={this.handleActionClick}>
-              {actionLabel}
-            </Action>
+            <Action onClick={this.handleActionClick}>{actionLabel}</Action>
           )}
         </span>
 
@@ -119,9 +111,10 @@ const FlashMessageElem = styled.div`
   justify-content: center;
   align-items: center;
   min-height: ${FLASH_HEIGHT};
-  background: #FFF;
+  background: #fff;
   color: ${getColorForMessageType};
-  transform: ${props => props.isVisible ? `translateY(0)` : `translateY(-100%)`};
+  transform: ${props =>
+    props.isVisible ? `translateY(0)` : `translateY(-100%)`};
   transition: 850ms;
   font-size: 15px;
   box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
@@ -163,6 +156,5 @@ const mapStateToProps = state => ({
   action: getAction(state),
   actionLabel: getActionLabel(state),
 });
-
 
 export default connect(mapStateToProps)(FlashMessage);

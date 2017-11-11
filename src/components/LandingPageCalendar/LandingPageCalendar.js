@@ -15,19 +15,18 @@ import Paragraph from '../Paragraph';
 import Calendar from '../Calendar';
 import CalendarWeekPicker from '../CalendarWeekPicker';
 
-
 const CALENDAR_3D_WIDTH = '15px';
 
 class LandingPageCalendar extends PureComponent {
   state = {
     rotateCalendar: isLargeScreen(),
-  }
+  };
 
   updateCalendarRotation = val => () => {
     if (isLargeScreen()) {
-      this.setState({ rotateCalendar: val })
+      this.setState({ rotateCalendar: val });
     }
-  }
+  };
 
   renderCalendarDemo() {
     const { rotateCalendar } = this.state;
@@ -84,8 +83,8 @@ class LandingPageCalendar extends PureComponent {
           <DescriptionWrapper faded={!this.state.rotateCalendar}>
             <Heading theme="vibrant">The Calendar</Heading>
             <Paragraph align="left" size="large">
-              One of Tello's most powerful features is the Calendar view. See what you missed last week, or what's coming up this week.
-              {' '}
+              One of Tello's most powerful features is the Calendar view. See
+              what you missed last week, or what's coming up this week.{' '}
               {/*
                 ESLint doesn't like my Emoji wrapper :/
                 I'm following the a11y rules, but it can't tell.
@@ -96,15 +95,16 @@ class LandingPageCalendar extends PureComponent {
             </Paragraph>
 
             <Paragraph align="left" size="large">
-              Each row represents a show, and shows are omitted when they don't have any
-              episodes this week, so it's quick to use even with lots of tracked shows.
+              Each row represents a show, and shows are omitted when they don't
+              have any episodes this week, so it's quick to use even with lots
+              of tracked shows.
             </Paragraph>
           </DescriptionWrapper>
 
           {this.renderCalendarDemo()}
         </MaxWidthWrapper>
       </LandingPageCalendarElem>
-    )
+    );
   }
 }
 
@@ -132,14 +132,13 @@ const DescriptionWrapper = styled.div`
     top: 0;
     right: 0;
     margin-right: 65%;
-    opacity: ${props => props.faded ? 0.2 : 1};
+    opacity: ${props => (props.faded ? 0.2 : 1)};
     transition: opacity 400ms;
   }
 
   @media ${BREAKPOINTS.xlMin} {
     margin-right: 60%;
   }
-
 `;
 
 const CalendarTransform = styled.div`
@@ -149,7 +148,7 @@ const CalendarTransform = styled.div`
 
 const CalendarWrapper = styled.div`
   position: relative;
-`
+`;
 
 const CalendarEdge = styled.div`
   position: absolute;
@@ -190,10 +189,6 @@ const Glow = styled.div`
   opacity: 0.75;
   z-index: -1;
 `;
-
-
-
-
 
 const mapStateToProps = state => ({
   shows: getTrackedShowsArray(state),

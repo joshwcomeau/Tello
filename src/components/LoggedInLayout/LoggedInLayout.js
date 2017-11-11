@@ -18,7 +18,6 @@ import Spinner from '../Spinner';
 import NoShowsYet from '../NoShowsYet';
 import FetchEpisodes from '../FetchEpisodes';
 
-
 const LoggedInLayout = ({ showNavLinks, children, isFetching, noShowsYet }) => {
   let mainContent;
 
@@ -43,17 +42,13 @@ const LoggedInLayout = ({ showNavLinks, children, isFetching, noShowsYet }) => {
 
     <MaxWidthWrapper key="wrapper" noPaddingOnMobile>
       <Body>
-        {
-          // Add a spacer on desktop.
-          // The mobile view adds its own spacer, so it's not needed there.
-          // (Can't be consolidated because we want this space to be swipable,
-          // so it HAS to be a child of the MobileView swipe container.)
-          isDesktop() && <Spacer size={ROW_HEIGHT} />
-        }
+        {// Add a spacer on desktop.
+        // The mobile view adds its own spacer, so it's not needed there.
+        // (Can't be consolidated because we want this space to be swipable,
+        // so it HAS to be a child of the MobileView swipe container.)
+        isDesktop() && <Spacer size={ROW_HEIGHT} />}
 
-        {
-          isDesktop() && showNavLinks && <DesktopNavigation />
-        }
+        {isDesktop() && showNavLinks && <DesktopNavigation />}
 
         {mainContent}
       </Body>
@@ -63,7 +58,7 @@ const LoggedInLayout = ({ showNavLinks, children, isFetching, noShowsYet }) => {
     <FetchEpisodes key="fetch" />,
 
     // Style the scrollbars in webkit
-    <LoggedInScrollbars key="scrollbars" />
+    <LoggedInScrollbars key="scrollbars" />,
   ];
 };
 

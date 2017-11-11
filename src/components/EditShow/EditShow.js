@@ -5,9 +5,7 @@ import styled from 'emotion/react';
 
 import { deleteShowRequest, markSeasonAsSeen, hideModal } from '../../actions';
 import { UNITS_IN_PX, HALF_UNIT_PX } from '../../constants';
-import {
-  getAiredTrackedShowsArrayWithSeasons,
-} from '../../reducers/tracked-shows.reducer';
+import { getAiredTrackedShowsArrayWithSeasons } from '../../reducers/tracked-shows.reducer';
 import { ShowProps } from '../../types';
 
 import Button from '../Button';
@@ -16,18 +14,17 @@ import Heading from '../Heading';
 import Paragraph from '../Paragraph';
 import { confirm } from '../Confirm';
 
-
 class EditShow extends PureComponent {
   static propTypes = {
     show: ShowProps,
     markSeasonAsSeen: PropTypes.func.isRequired,
     deleteShowRequest: PropTypes.func.isRequired,
     hideModal: PropTypes.func.isRequired,
-  }
+  };
 
   state = {
     attemptingDeletion: false,
-  }
+  };
 
   componentDidUpdate() {
     const { show, hideModal } = this.props;
@@ -38,16 +35,15 @@ class EditShow extends PureComponent {
   }
 
   handleDeleteClick = () => {
-    const {
-      deleteShowRequest,
-      show: { id, name },
-    } = this.props;
+    const { deleteShowRequest, show: { id, name } } = this.props;
 
     const confirmProps = {
       title: 'Are you sure?',
       children: (
         <span>
-          Deleting "{name}" means that you'll <strong>permanently lose</strong> the data about which episodes you've seen, even if you re-add the show.
+          Deleting "{name}" means that you'll <strong>permanently lose</strong>{' '}
+          the data about which episodes you've seen, even if you re-add the
+          show.
         </span>
       ),
     };
@@ -58,11 +54,14 @@ class EditShow extends PureComponent {
 
         return result;
       })
-      .then(result => new Promise((resolve) => {
-        window.setTimeout(() => resolve(result), 500)
-      }))
+      .then(
+        result =>
+          new Promise(resolve => {
+            window.setTimeout(() => resolve(result), 500);
+          })
+      )
       .then(result => deleteShowRequest({ showId: id, showName: name }));
-  }
+  };
 
   renderDeleteSection() {
     const { attemptingDeletion } = this.state;
@@ -70,12 +69,11 @@ class EditShow extends PureComponent {
 
     return (
       <DeleteSection>
-        <Heading size="small">
-          Delete Show
-        </Heading>
+        <Heading size="small">Delete Show</Heading>
 
         <Paragraph>
-          Deleting this show will remove it from your list of tracked shows. You can re-add it again later, but your progress will be lost forever.
+          Deleting this show will remove it from your list of tracked shows. You
+          can re-add it again later, but your progress will be lost forever.
         </Paragraph>
 
         <Button
@@ -90,10 +88,7 @@ class EditShow extends PureComponent {
   }
 
   renderBulkToggleSection() {
-    const {
-      show: { id, name, seasons },
-      markSeasonAsSeen,
-    } = this.props;
+    const { show: { id, name, seasons }, markSeasonAsSeen } = this.props;
 
     const episodesBySeason = Object.keys(seasons).map(id => seasons[id]);
 
@@ -105,28 +100,26 @@ class EditShow extends PureComponent {
 
     return (
       <BulkToggleSection>
-        <Heading size="small">
-          Bulk Toggle Episodes
-        </Heading>
+        <Heading size="small">Bulk Toggle Episodes</Heading>
 
-        <Paragraph>
-          Quickly mark all episodes in a season as watched.
-        </Paragraph>
+        <Paragraph>Quickly mark all episodes in a season as watched.</Paragraph>
 
         <SeasonList>
-          {episodesBySeason.map((episodes, index) => ([
+          {episodesBySeason.map((episodes, index) => [
             <EditShowSeason
               key={index}
               episodes={episodes}
               seasonNum={index + 1}
-              handleToggleAll={() => markSeasonAsSeen({
-                showId: id,
-                showName: name,
-                episodeIds: episodes.map(({ id }) => id),
-              })}
+              handleToggleAll={() =>
+                markSeasonAsSeen({
+                  showId: id,
+                  showName: name,
+                  episodeIds: episodes.map(({ id }) => id),
+                })
+              }
             />,
-            <BorderSpacer key="spacer" />
-          ]))}
+            <BorderSpacer key="spacer" />,
+          ])}
         </SeasonList>
       </BulkToggleSection>
     );
@@ -177,12 +170,12 @@ const BorderSpacer = styled.div`
   background: rgba(0, 0, 0, 0.1);
   margin-top: ${HALF_UNIT_PX};
   margin-bottom: ${HALF_UNIT_PX};
-`
+`;
 
 const mapStateToProps = (state, ownProps) => ({
-  show: getAiredTrackedShowsArrayWithSeasons(state).find(show => (
-    show.id === ownProps.showId
-  )),
+  show: getAiredTrackedShowsArrayWithSeasons(state).find(
+    show => show.id === ownProps.showId
+  ),
 });
 
 const mapDispatchToProps = { deleteShowRequest, markSeasonAsSeen, hideModal };

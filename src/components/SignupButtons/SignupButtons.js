@@ -6,14 +6,18 @@ import { COLORS, UNITS_IN_PX } from '../../constants';
 import GoogleButton from '../GoogleButton';
 import Link from '../Link';
 
-
 const SignupButtons = ({ linkColor = COLORS.white }) => {
   return (
     <SignupButtonsWrapper>
       <GoogleButton />
 
       <SmallText>
-        Sorry, only Google signup is available. Want to use a different provider, like Facebook or Twitter? <Link strong color={linkColor} to="/contact">Reach out</Link> and let me know!
+        Sorry, only Google signup is available. Want to use a different
+        provider, like Facebook or Twitter?{' '}
+        <Link strong color={linkColor} to="/contact">
+          Reach out
+        </Link>{' '}
+        and let me know!
       </SmallText>
     </SignupButtonsWrapper>
   );

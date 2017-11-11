@@ -3,9 +3,7 @@ import { connect } from 'react-redux';
 import styled from 'emotion/react';
 import PropTypes from 'prop-types';
 
-import {
-  getAiredTrackedShowsArrayWithSeasons
-} from '../../reducers/tracked-shows.reducer';
+import { getAiredTrackedShowsArrayWithSeasons } from '../../reducers/tracked-shows.reducer';
 import { BREAKPOINTS, UNITS_IN_PX, UNIT } from '../../constants';
 import { ShowProps } from '../../types';
 import { sortShows } from '../../helpers/show.helpers';
@@ -14,7 +12,6 @@ import SummaryShow from '../SummaryShow';
 import SortShows from '../SortShows';
 import Spacer from '../Spacer';
 import SpinnerWithPadding from '../SpinnerWithPadding';
-
 
 const propTypes = {
   trackedShows: PropTypes.arrayOf(ShowProps),
@@ -34,15 +31,12 @@ const SummaryView = ({ trackedShows }) => {
       <SortShows />
 
       <Grid>
-        {trackedShows.map(show => (
-          <SummaryShow key={show.id} show={show} />
-        ))}
+        {trackedShows.map(show => <SummaryShow key={show.id} show={show} />)}
       </Grid>
-      <Spacer size={UNIT * 6}/>
+      <Spacer size={UNIT * 6} />
     </div>
   );
 };
-
 
 const Grid = styled.div`
   display: grid;
@@ -56,7 +50,7 @@ const Grid = styled.div`
   @media ${BREAKPOINTS.sm} {
     grid-template-columns: 1fr;
   }
-`
+`;
 
 const mapStateToProps = state => ({
   trackedShows: sortShows({

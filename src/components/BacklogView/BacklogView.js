@@ -5,9 +5,7 @@ import styled from 'emotion/react';
 
 import { showAddShowModal } from '../../actions';
 import { COLORS, UNIT } from '../../constants';
-import {
-  getTrackedShowsWithUnseenEpisodesArray,
-} from '../../reducers/tracked-shows.reducer';
+import { getTrackedShowsWithUnseenEpisodesArray } from '../../reducers/tracked-shows.reducer';
 import { ShowProps } from '../../types';
 import { sortShows } from '../../helpers/show.helpers';
 
@@ -15,7 +13,6 @@ import BacklogRow from '../BacklogRow';
 import NotificationView from '../NotificationView';
 import SortShows from '../SortShows';
 import Spacer from '../Spacer';
-
 
 const propTypes = {
   trackedShows: PropTypes.arrayOf(ShowProps),
@@ -25,8 +22,7 @@ const BacklogView = ({ trackedShows, showAddShowModal }) => {
   if (trackedShows.length === 0) {
     return (
       <NotificationView heading="All episodes seen.">
-        You've seen all the episodes in your backlog. Maybe it's time to
-        {' '}
+        You've seen all the episodes in your backlog. Maybe it's time to{' '}
         <AddNewShowLink onClick={showAddShowModal}>
           add a new show
         </AddNewShowLink>
@@ -39,15 +35,14 @@ const BacklogView = ({ trackedShows, showAddShowModal }) => {
     <div id="backlog">
       <SortShows />
 
-      {trackedShows.map(show => (
-        show.episodes
-          ? <BacklogRow key={show.id} show={show} />
-          : null
-      ))}
+      {trackedShows.map(
+        show =>
+          show.episodes ? <BacklogRow key={show.id} show={show} /> : null
+      )}
 
-      <Spacer size={UNIT * 6}/>
+      <Spacer size={UNIT * 6} />
     </div>
-  )
+  );
 };
 
 const AddNewShowLink = styled.a`

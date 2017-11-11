@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { episodesRequest } from '../../actions';
 import { getTrackedShowsArray } from '../../reducers/tracked-shows.reducer';
 
-
 class FetchEpisodes extends PureComponent {
   static showIds = {};
 
@@ -23,7 +22,7 @@ class FetchEpisodes extends PureComponent {
       // Don't fetch shows that we've already fetched!
       const requiresFetching = !FetchEpisodes.showIds[show.id];
 
-      console.log(show.name, 'requires fetching', requiresFetching)
+      console.log(show.name, 'requires fetching', requiresFetching);
 
       if (requiresFetching) {
         FetchEpisodes.showIds[show.id] = true;

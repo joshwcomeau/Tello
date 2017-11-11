@@ -14,7 +14,7 @@ import {
 import { isDesktop } from '../../helpers/responsive.helpers';
 import {
   getHumanizedEpisodeAirDate,
-  getEpisodeNumString
+  getEpisodeNumString,
 } from '../../helpers/show.helpers';
 import { truncateStringByWordCount } from '../../utils';
 import { ShowProps } from '../../types';
@@ -26,31 +26,30 @@ import Spinner from '../Spinner';
 
 import { buildImageUrl } from './SummaryShow.helpers';
 
-
 const HIGHLIGHT_FADE_DURATION = 500;
 
 export class SummaryShow extends PureComponent {
   state = {
     episode: null,
     isHighlightingEpisode: false,
-  }
+  };
 
   static propTypes = {
     show: ShowProps.isRequired,
     demo: PropTypes.bool,
     toggleEpisode: PropTypes.func.isRequired,
     showEditShowModal: PropTypes.func,
-  }
+  };
 
-  handleHoverEpisode = (episode) => {
+  handleHoverEpisode = episode => {
     this.setState({ episode, isHighlightingEpisode: true });
-  }
+  };
 
   handleLeaveSummary = () => {
-    this.setState({ isHighlightingEpisode: false })
-  }
+    this.setState({ isHighlightingEpisode: false });
+  };
 
-  handleClickEpisode = (episode) => {
+  handleClickEpisode = episode => {
     const { show, toggleEpisode, demo } = this.props;
 
     toggleEpisode({
@@ -60,40 +59,36 @@ export class SummaryShow extends PureComponent {
       episodeId: episode.id,
       episodeName: episode.name,
     });
-  }
+  };
 
   handleClickEditButton = () => {
     this.props.showEditShowModal({ showId: this.props.show.id });
-  }
+  };
 
   renderSummaryArea() {
     const { isHighlightingEpisode, episode } = this.state;
 
-    return isHighlightingEpisode
-      ? (
-        <HighlightedEpisode isVisible={isHighlightingEpisode}>
-          <EpisodeName>{episode.name}</EpisodeName>
-          <EpisodeDetails>
-            {getEpisodeNumString(episode)}
-            &nbsp;-&nbsp;
-                {getHumanizedEpisodeAirDate(episode)}
-          </EpisodeDetails>
-        </HighlightedEpisode>
-      ) : (
-        <Summary>
-          {truncateStringByWordCount(this.props.show.summary, 20)}
-        </Summary>
-      );
+    return isHighlightingEpisode ? (
+      <HighlightedEpisode isVisible={isHighlightingEpisode}>
+        <EpisodeName>{episode.name}</EpisodeName>
+        <EpisodeDetails>
+          {getEpisodeNumString(episode)}
+          &nbsp;-&nbsp;
+          {getHumanizedEpisodeAirDate(episode)}
+        </EpisodeDetails>
+      </HighlightedEpisode>
+    ) : (
+      <Summary>
+        {truncateStringByWordCount(this.props.show.summary, 20)}
+      </Summary>
+    );
   }
 
   render() {
-    const {
-      demo,
-      show,
-    } = this.props;
+    const { demo, show } = this.props;
 
     if (!show) {
-      return null
+      return null;
     }
 
     const { isLoading, name, image, seasons, status } = show;
@@ -104,10 +99,7 @@ export class SummaryShow extends PureComponent {
     const showActions = !demo && isDesktop();
 
     return (
-      <Wrapper
-        onMouseLeave={this.handleLeaveSummary}
-        isLoading={isLoading}
-      >
+      <Wrapper onMouseLeave={this.handleLeaveSummary} isLoading={isLoading}>
         {isLoading && (
           <SpinnerFullContainer>
             <Spinner />
@@ -152,9 +144,7 @@ export class SummaryShow extends PureComponent {
           <ShowName>{name}</ShowName>
           <ShowStatus status={status} />
 
-          <SummaryArea>
-            {this.renderSummaryArea()}
-          </SummaryArea>
+          <SummaryArea>{this.renderSummaryArea()}</SummaryArea>
         </Body>
 
         <EpisodeGrid
@@ -167,7 +157,6 @@ export class SummaryShow extends PureComponent {
   }
 }
 
-
 const Wrapper = styled.div`
   position: relative;
   background: ${COLORS.white};
@@ -177,7 +166,7 @@ const Wrapper = styled.div`
   */
   min-width: 0;
 
-  &:hover [data-selector="actions"] {
+  &:hover [data-selector='actions'] {
     opacity: 1;
   }
 `;
@@ -210,11 +199,10 @@ const Image = styled.img`
   object-fit: cover;
   height: ${UNITS_IN_PX[6]};
 
-
   @media ${BREAKPOINTS.sm} {
     height: ${UNITS_IN_PX[8]};
   }
-`
+`;
 
 const ShowName = styled.h3`
   font-size: 28px;
@@ -255,7 +243,7 @@ const HighlightedEpisode = styled.div`
   padding: ${UNITS_IN_PX[1]} 0;
   color: ${COLORS.gray.veryDark};
   text-align: center;
-  opacity: ${props => props.isVisible ? 1 : 0};
+  opacity: ${props => (props.isVisible ? 1 : 0)};
   transition: opacity ${HIGHLIGHT_FADE_DURATION + 'ms'};
 `;
 

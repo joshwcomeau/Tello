@@ -36,9 +36,10 @@ export default function reducer(state = initialState, action) {
 
     case ADD_SHOWS_RECEIVE: {
       const numOfShows = action.shows.length;
-      const message = numOfShows === 1
-        ? `Started tracking "${action.shows[0].name}".`
-        : `Started tracking ${numOfShows} new shows.`;
+      const message =
+        numOfShows === 1
+          ? `Started tracking "${action.shows[0].name}".`
+          : `Started tracking ${numOfShows} new shows.`;
 
       return {
         messageType: 'success',
@@ -49,7 +50,8 @@ export default function reducer(state = initialState, action) {
     case ADD_SHOWS_FAILURE: {
       return {
         messageType: 'error',
-        message: 'Sorry, new shows could not be created. Please try again later',
+        message:
+          'Sorry, new shows could not be created. Please try again later',
       };
     }
 
@@ -58,13 +60,15 @@ export default function reducer(state = initialState, action) {
 
       return {
         messageType: 'success',
-        message: `"${episodeName}" of <strong>${showName}</strong> has been marked as seen. `,
+        message: `"${episodeName}" of <strong>${
+          showName
+        }</strong> has been marked as seen. `,
         action: markEpisodeAsUnseen({
           demo,
           showId,
           showName,
           episodeId,
-          episodeName
+          episodeName,
         }),
         actionLabel: 'Undo',
       };
@@ -89,14 +93,14 @@ export default function reducer(state = initialState, action) {
     case LOGOUT: {
       return {
         messageType: 'success',
-        message: "You've successfully logged out! Thanks for using Tello 📺"
-      }
+        message: "You've successfully logged out! Thanks for using Tello 📺",
+      };
     }
 
     case LOAD_UNAUTHORIZED_ROUTE: {
       return {
         messageType: 'alert',
-        message: "Please login before trying to access this page.",
+        message: 'Please login before trying to access this page.',
       };
     }
 
@@ -104,7 +108,6 @@ export default function reducer(state = initialState, action) {
       return state;
   }
 }
-
 
 // Selectors
 export const getMessage = state => state.flash && state.flash.message;

@@ -6,15 +6,14 @@ import PropTypes from 'prop-types';
 import { debounce } from '../../utils';
 import { getBreakpointFor } from '../../helpers/responsive.helpers';
 
-
 class MediaQuery extends Component {
   static propTypes = {
     children: PropTypes.func.isRequired,
-  }
+  };
 
   state = {
     breakpoint: getBreakpointFor(window.innerWidth),
-  }
+  };
 
   componentDidMount() {
     window.addEventListener('resize', this.handleResize);
@@ -26,7 +25,7 @@ class MediaQuery extends Component {
 
   handleResize = debounce(() => {
     this.setState({ breakpoint: getBreakpointFor(window.innerWidth) });
-  }, 250)
+  }, 250);
 
   render() {
     return this.props.children(this.state.breakpoint);

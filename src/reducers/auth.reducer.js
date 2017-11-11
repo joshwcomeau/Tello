@@ -8,13 +8,11 @@ import {
 } from '../actions';
 import { isEmpty } from '../utils';
 
-
 const initialState = {
   token: null,
   isFetching: false,
   user: {},
 };
-
 
 function userReducer(state = initialState.user, action) {
   switch (action.type) {
@@ -70,7 +68,6 @@ export default combineReducers({
   isFetching: isFetchingReducer,
   user: userReducer,
 });
-
 
 // Selectors
 export const getToken = state => state.auth.token;

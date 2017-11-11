@@ -1,8 +1,4 @@
-import {
-  SHOW_MODAL,
-  HIDE_MODAL,
-} from '../actions';
-
+import { SHOW_MODAL, HIDE_MODAL } from '../actions';
 
 const initialState = {
   left: null,
