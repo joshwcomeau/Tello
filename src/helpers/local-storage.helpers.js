@@ -18,7 +18,7 @@ const updateLocalStorage = debounce(
     value !== null
       ? localStorage.setItem(LOCAL_STORAGE_REDUX_DATA_KEY, value)
       : localStorage.removeItem(LOCAL_STORAGE_REDUX_DATA_KEY),
-  2500
+  500
 );
 
 /**

@@ -46,6 +46,7 @@ export default function trackedShowsReducer(state = initialState, action) {
       // it clear they're still loading.
       const showsWithLoading = action.shows.map(show => ({
         ...show,
+        image: null,
         isLoading: true,
         // The server will return a precise createdAt date. For now, we'll
         // just use the current time. That ought to be close enough :)
@@ -67,6 +68,7 @@ export default function trackedShowsReducer(state = initialState, action) {
         return {
           ...showMap,
           [serverShow.id]: {
+            ...state[serverShow.id],
             ...serverShow,
             isLoading: false,
           },
