@@ -23,7 +23,17 @@ export const addStyles = ({ stylesheet, selector, styles }) => {
 
   const newRule = `${selector} { ${stylesString} }`;
 
-  stylesheet.insertRule(newRule, rulesObj.length);
+  console.log('inserting', newRule);
+
+  // For some reason, Firefox Quantum doesn't like the style strings I'm
+  // generating. At some point I should figure this out properly, but for now
+  // I'll just let Firefox Quantum have default scrollbars
+  try {
+    stylesheet.insertRule(newRule, rulesObj.length);
+  } catch (e) {
+    // Intentionally ignoring, since all this means is no scrollbar styling
+    // support. I can live with that.
+  }
 };
 
 // NOTE: this function is all side-effects, updating the <style> tag
