@@ -23,22 +23,6 @@ class CalendarShowRow extends Component {
     isLastRow: PropTypes.bool.isRequired,
   };
 
-  shouldComponentUpdate(nextProps) {
-    // There are only two times when a show's row changes:
-    // - The initial fetch from the server that populates the episodes
-    // - When the user toggles an episode as seen/unseen.
-    //
-    // Using shouldComponentUpdate here because this component's render method
-    // is pretty heavy; involves filtering through large lists.
-    const receivedData =
-      nextProps.show.episodes.length !== this.props.show.episodes.length;
-
-    const toggledEpisode =
-      nextProps.show.seenEpisodeIds !== this.props.show.seenEpisodeIds;
-
-    return receivedData || toggledEpisode;
-  }
-
   render() {
     const { demo, show, startDate, endDate, isLastRow } = this.props;
 
