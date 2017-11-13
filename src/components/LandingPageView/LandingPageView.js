@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import styled from 'emotion/react';
+import styled from 'react-emotion';
 
 import { addShowsReceive, changeSorting } from '../../actions';
 import { COLORS, Z_INDICES } from '../../constants';

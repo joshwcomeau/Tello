@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import styled from 'emotion/react';
+import styled from 'react-emotion';
 
 const propTypes = {
   size: PropTypes.number.isRequired,

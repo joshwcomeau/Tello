@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import styled from 'emotion/react';
+import styled from 'react-emotion';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 

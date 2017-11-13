@@ -1,6 +1,6 @@
 // This is the layout used for side-pages, like the privacy policy.
 import React, { PureComponent } from 'react';
-import styled from 'emotion/react';
+import styled from 'react-emotion';
 
 import {
   BREAKPOINTS,

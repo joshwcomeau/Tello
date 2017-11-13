@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import styled from 'emotion/react';
+import styled from 'react-emotion';
 
 import { showAddShowModal } from '../../actions';
 import { COLORS, UNIT } from '../../constants';

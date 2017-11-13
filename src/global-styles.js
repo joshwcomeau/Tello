@@ -1,4 +1,4 @@
-import { fontFace, injectGlobal } from 'emotion/react';
+import { fontFace, injectGlobal } from 'react-emotion';
 
 import { COLORS } from './constants';
 

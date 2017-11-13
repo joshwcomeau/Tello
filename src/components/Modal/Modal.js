@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import styled from 'emotion/react';
+import styled from 'react-emotion';
 import { Motion } from 'react-motion';
 import PropTypes from 'prop-types';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { confirmable } from 'react-confirm';
 import { css } from 'emotion';
-import styled from 'emotion/react';
+import styled from 'react-emotion';
 import { Motion, spring } from 'react-motion';
 import PropTypes from 'prop-types';
 

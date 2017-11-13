@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import styled from 'emotion/react';
+import styled from 'react-emotion';
 import addDays from 'date-fns/add_days';
 import PropTypes from 'prop-types';
 

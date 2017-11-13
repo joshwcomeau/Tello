@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import styled from 'emotion/react';
+import styled from 'react-emotion';
 
 import { changeSorting } from '../../actions';
 import { UNITS_IN_PX, SORT_OPTIONS } from '../../constants';

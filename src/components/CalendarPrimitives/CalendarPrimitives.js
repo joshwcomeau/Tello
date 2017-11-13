@@ -1,4 +1,4 @@
-import styled from 'emotion/react';
+import styled from 'react-emotion';
 
 import { COLORS, UNIT } from '../../constants';
 

@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import styled from 'emotion/react';
+import styled from 'react-emotion';
 import { Motion, spring } from 'react-motion';
 
 import { BREAKPOINTS, COLORS, UNITS_IN_PX } from '../../constants';

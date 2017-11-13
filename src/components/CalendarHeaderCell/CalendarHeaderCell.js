@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'emotion/react';
+import styled from 'react-emotion';
 import format from 'date-fns/format';
 import isToday from 'date-fns/is_today';
 

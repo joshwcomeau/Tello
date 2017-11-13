@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import styled from 'emotion/react';
+import styled from 'react-emotion';
 import MenuIcon from 'react-icons/lib/md/menu';
 
 import { BREAKPOINTS, COLORS, UNITS_IN_PX, Z_INDICES } from '../../constants';

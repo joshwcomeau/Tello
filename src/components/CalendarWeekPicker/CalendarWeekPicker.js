@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import styled from 'emotion/react';
+import styled from 'react-emotion';
 import format from 'date-fns/format';
 import isAfter from 'date-fns/is_after';
 import PropTypes from 'prop-types';

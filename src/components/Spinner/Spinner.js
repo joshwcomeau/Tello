@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { keyframes } from 'emotion';
-import styled from 'emotion/react';
+import styled from 'react-emotion';
 
 import { range } from '../../utils';
 

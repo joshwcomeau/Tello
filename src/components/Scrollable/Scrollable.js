@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'emotion/react';
+import styled from 'react-emotion';
 
 const Scrollable = ({ children, maxHeight }) => (
   <ScrollableParent maxHeight={maxHeight}>

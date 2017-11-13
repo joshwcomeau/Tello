@@ -1,6 +1,6 @@
 import React from 'react';
 import { keyframes } from 'emotion';
-import styled from 'emotion/react';
+import styled from 'react-emotion';
 
 import { COLORS } from '../../constants';
 

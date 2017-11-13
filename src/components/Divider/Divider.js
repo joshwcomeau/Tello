@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'emotion/react';
+import styled from 'react-emotion';
 
 import { UNITS_IN_PX } from '../../constants';
 

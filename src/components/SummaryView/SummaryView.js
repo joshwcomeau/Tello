@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import styled from 'emotion/react';
+import styled from 'react-emotion';
 import PropTypes from 'prop-types';
 
 import { getAiredTrackedShowsArrayWithSeasons } from '../../reducers/tracked-shows.reducer';

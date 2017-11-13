@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import styled from 'emotion/react';
+import styled from 'react-emotion';
 import PropTypes from 'prop-types';
 
 import { UNITS_IN_PX, HALF_UNIT_PX } from '../../constants';

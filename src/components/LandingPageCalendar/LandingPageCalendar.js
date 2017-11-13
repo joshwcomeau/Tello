@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import styled from 'emotion/react';
+import styled from 'react-emotion';
 import { Motion, spring } from 'react-motion';
 import addWeeks from 'date-fns/add_weeks';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { css } from 'emotion';
-import styled from 'emotion/react';
+import styled from 'react-emotion';
 import { Link } from 'react-router-dom';
 
 import { ROW_HEIGHT_PX, UNITS_IN_PX, COLORS } from '../../constants';

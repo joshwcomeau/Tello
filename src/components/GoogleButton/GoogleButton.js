@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'emotion/react';
+import styled from 'react-emotion';
 
 import { clearReduxData } from '../../helpers/local-storage.helpers';
 import imageNormal from '../../images/google_button_normal@2x.png';

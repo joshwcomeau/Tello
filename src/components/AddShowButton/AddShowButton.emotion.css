@@ -1,14 +1,2 @@
-.css-ButtonElem-187qmh7 { font-size: 96px;
-  width: var(--css-ButtonElem-187qmh7-0);
-  height: var(--css-ButtonElem-187qmh7-1);
-  line-height: var(--css-ButtonElem-187qmh7-2);
-  border: none;
-  color: var(--css-ButtonElem-187qmh7-3);
-  background: var(--css-ButtonElem-187qmh7-4);
-  font-family: 'Raleway';
-  -webkit-transition: background 300ms;
-  transition: background 300ms;
-  outline: none;
-  cursor: pointer;
-  overflow: hidden; }
-.css-ButtonElem-187qmh7:hover { background: var(--css-ButtonElem-187qmh7-5); }
+@-webkit-keyframes css-glowAnimation-a3bhqc{from{opacity:0;}to{opacity:0.5;}}@keyframes css-glowAnimation-a3bhqc{from{opacity:0;}to{opacity:0.5;}}
+.css-16k69br{display:inline-block;position:relative;z-index:2;}

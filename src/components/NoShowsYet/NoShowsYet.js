@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'emotion/react';
+import styled from 'react-emotion';
 
 import { COLORS, BREAKPOINTS, HEADER_HEIGHT_PX } from '../../constants';
 import { isMobile } from '../../helpers/responsive.helpers';

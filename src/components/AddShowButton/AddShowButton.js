@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { keyframes } from 'emotion';
-import styled from 'emotion/react';
+import styled from 'react-emotion';
 
 import { ROW_HEIGHT, ROW_HEIGHT_PX, COLORS } from '../../constants';
 import { getNoShowsYet } from '../../reducers/tracked-shows.reducer';

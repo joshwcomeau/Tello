@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import styled from 'emotion/react';
+import styled from 'react-emotion';
 
 import { random } from '../../utils';
 

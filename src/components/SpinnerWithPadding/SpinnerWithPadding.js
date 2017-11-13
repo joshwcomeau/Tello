@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'emotion/react';
+import styled from 'react-emotion';
 
 import { UNITS_IN_PX } from '../../constants';
 

@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { keyframes } from 'emotion';
-import styled from 'emotion/react';
+import styled from 'react-emotion';
 
 import { toggleEpisode } from '../../actions';
 import { COLORS, EPISODE_COLOR, HALF_UNIT_PX } from '../../constants';

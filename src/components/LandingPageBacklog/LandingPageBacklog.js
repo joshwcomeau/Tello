@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import styled from 'emotion/react';
+import styled from 'react-emotion';
 
 import { BREAKPOINTS, UNITS_IN_PX, ROW_HEIGHT_PX } from '../../constants';
 import { getTrackedShowsWithUnseenEpisodesArray } from '../../reducers/tracked-shows.reducer';

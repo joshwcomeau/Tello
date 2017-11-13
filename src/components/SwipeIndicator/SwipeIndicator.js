@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { keyframes } from 'emotion';
-import styled from 'emotion/react';
+import styled from 'react-emotion';
 
 import {
   COLORS,

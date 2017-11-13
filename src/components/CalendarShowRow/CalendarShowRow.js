@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import styled from 'emotion/react';
+import styled from 'react-emotion';
 import addDays from 'date-fns/add_days';
 import isToday from 'date-fns/is_today';
 import isSameDay from 'date-fns/is_same_day';

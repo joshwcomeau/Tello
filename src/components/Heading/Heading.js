@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'emotion/react';
+import styled from 'react-emotion';
 import { css } from 'emotion';
 import PropTypes from 'prop-types';
 import { COLORS, UNITS_IN_PX } from '../../constants';

@@ -1,8 +1,9 @@
 {
-  "presets": [
-    "react-app"
-  ],
-  "plugins": [
-    "emotion/babel"
-  ]
+  "env": {
+    "production": {
+      "plugins": [["emotion", { extractStatic: true }]]
+    }
+  },
+  "presets": ["react-app"],
+  "plugins": ["emotion"]
 }

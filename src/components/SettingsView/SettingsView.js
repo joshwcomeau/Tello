@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import styled from 'emotion/react';
+import styled from 'react-emotion';
 
 import { COLORS, UNIT, UNITS_IN_PX } from '../../constants';
 import { clearReduxData } from '../../helpers/local-storage.helpers';

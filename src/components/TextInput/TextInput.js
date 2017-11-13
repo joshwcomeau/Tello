@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { css } from 'emotion';
-import styled from 'emotion/react';
+import styled from 'react-emotion';
 import PropTypes from 'prop-types';
 
 import { COLORS, UNITS_IN_PX } from '../../constants';
