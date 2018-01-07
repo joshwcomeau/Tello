@@ -45,6 +45,7 @@ const restartApplication = remote => {
 plan.target('production', {
   host:       nconf.get('SERVER_HOST'),
   username:   nconf.get('SERVER_USER'),
+  privateKey: privateKey,
   agent:      process.env.SSH_AUTH_SOCK,
 });
 
