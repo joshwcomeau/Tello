@@ -4,7 +4,6 @@ import styled from 'react-emotion';
 import { UNIT, UNITS_IN_PX } from '../../constants';
 import { isEmpty } from '../../utils';
 
-import Clearfix from '../Clearfix';
 import EpisodeDot from '../EpisodeDot';
 import Scrollable from '../Scrollable';
 
@@ -57,11 +56,17 @@ const EpisodeGridContents = styled.div`
   padding: ${UNITS_IN_PX[1]};
 `;
 
-const Season = styled(Clearfix)`
+const Season = styled.div`
   margin-bottom: ${EPISODE_DOT_SIZE + 'px'};
 
   &:last-of-type {
     margin-bottom: 0;
+  }
+
+  &:after {
+    content: '';
+    display: table;
+    clear: both;
   }
 `;
 
