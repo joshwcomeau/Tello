@@ -34,10 +34,6 @@ export default function createAPIMiddleware() {
     // must be logged out, and shouldn't be interacting with our API.
     const token = Cookies.get(AUTH_TOKEN_KEY);
 
-    if (!token) {
-      return;
-    }
-
     // We may want to show some of the UI components on splash pages, as demo
     // units. In those cases we don't want to make any network requests.
     // We need to "fake" it here instead
