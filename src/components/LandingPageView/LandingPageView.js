@@ -19,6 +19,7 @@ import { SHOWS } from './LandingPageView.data';
 class LandingPageView extends PureComponent {
   state = {
     heroOpacity: 1,
+    showParticles: true,
   };
 
   componentDidMount() {
@@ -85,14 +86,23 @@ class LandingPageView extends PureComponent {
 
     const nextOpacity = this.calculateOpacity(height, scrollAmount);
 
+    // If we've totally scrolled the hero out of frame, we can stop
+    // rendering the (surprisingly expensive) drifting particles.
+    // We also want them to stay hidden; no need to resurrect if the
+    // user scrolls back up
+    const showParticles = scrollAmount < height && this.state.showParticles;
+
     if (this.state.heroOpacity !== nextOpacity) {
       this.setState({
         heroOpacity: nextOpacity,
+        showParticles,
       });
     }
   }, 20);
 
   render() {
+    const {showParticles} = this.state;
+
     return [
       <HeroOpacityWrapper
         key="hero"
@@ -101,7 +111,7 @@ class LandingPageView extends PureComponent {
         }}
         style={{ opacity: this.state.heroOpacity }}
       >
-        <LandingPageHero />
+        <LandingPageHero showParticles={showParticles} />
       </HeroOpacityWrapper>,
       <MainContent key="content">
         <LandingPageSummary />

@@ -45,14 +45,14 @@ class LandingPageHero extends Component {
   };
 
   render() {
-    const { showLoggedOutMenuModal } = this.props;
+    const { showLoggedOutMenuModal, showParticles } = this.props;
 
     return [
       <FixedWrapper key="fixed">
         <MediaQuery>
           {breakpoint =>
             // Render our fancy particles on desktop, but not on mobile.
-            isDesktop(breakpoint) && <LandingPageParticles />
+            isDesktop(breakpoint) && showParticles && <LandingPageParticles />
           }
         </MediaQuery>
       </FixedWrapper>,
