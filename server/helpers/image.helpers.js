@@ -33,7 +33,7 @@ module.exports.uploadImage = ({ key, url }) => (
         Bucket: BUCKET_NAME,
         Body: body,
       }, (...args) => {
-        resolve(`https://tello.imgix.net/${key}`)
+        resolve(`https://s3.amazonaws.com/tellotv/${key}`)
       });
     });
   })
